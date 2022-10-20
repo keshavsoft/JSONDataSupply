@@ -1,0 +1,363 @@
+{
+    "TableRowObject": {
+        "RowClass": "",
+        "DisplayText": [],
+        "TableKType": "",
+        "TableKJsonFileName": "",
+        "DataAttributes": {
+            "TableKType": "",
+            "TableKJsonFileName": ""
+        }
+    },
+    "TableDataObject": {
+        "CellObjectDefault": {
+            "CellValue": "LoopItemCellItems",
+            "CellClass": "",
+            "ControlClass": "",
+            "ControlType": "",
+            "CellButtonClick": "",
+            "BorderWidths": {},
+            "Span": {
+                "Row": "",
+                "Col": ""
+            },
+            "Font": {
+                "Size": ""
+            }
+        },
+        "BorderWidthsTop": {
+            "Top": 1
+        },
+        "BorderWidths1Top2Bottom": {
+            "Top": 1,
+            "Bottom": 2
+        }
+    },
+    "TableInfo": {
+        "TableInfoServerSide": {
+            "TransformToUi": true
+        },
+        "SearchControl": [],
+        "TableBody": {
+            "FooterType": {
+                "ShowTotals": false,
+                "Search": {
+                    "ShowTotals": true
+                }
+            }
+        },
+        "TableRowOptions": {
+            "PrintToPrinter": {
+                "Double": false,
+                "Barcode": false
+            },
+            "DropDown": "",
+            "KData": [
+                {
+                    "DisplayName": "Edit",
+                    "OnClickFunc": ""
+                },
+                {
+                    "DisplayName": "Delete",
+                    "OnClickFunc": ""
+                },
+                {
+                    "DisplayName": "InvGrid",
+                    "OnClickFunc": ""
+                },
+                {
+                    "DisplayName": "Design",
+                    "OnClickFunc": ""
+                },
+                {
+                    "DisplayName": "Show",
+                    "OnClickFunc": ""
+                },
+                {
+                    "DisplayName": "Update",
+                    "OnClickFunc": ""
+                }
+            ],
+            "Onclick": "TestingClick",
+            "Copy": {
+                "KTF": false
+            },
+            "ShowinTable": {
+                "KTF": false
+            },
+            "Delete": {
+                "Simple": false
+            },
+            "Edit": {
+                "RowEdit": false,
+                "RowEditWithUi": false,
+                "RowEditForJSON": false,
+                "JSON": false
+            },
+            "CreateNew": {
+                "RowCreateNew": false,
+                "NewWindow": {
+                    "ApiToServer": {
+                        "KTF": false
+                    }
+                }
+            },
+            "Show": {
+                "Rowshow": false,
+                "RowDetails": false,
+                "KeyAsTree": false
+            },
+            "DefaultFocus": {
+                "DataAttribute": ""
+            },
+            "InvGrid": {
+                "RowInvGrid": false
+            },
+            "BarcodePrint": {
+                "SVJP": false,
+                "SKML": false
+            },
+            "BillSave": {
+                "Edit": false
+            },
+            "PopUp": {
+                "Rowshow": false
+            },
+            "Design": false
+        },
+        "kPK": "pk",
+        "kDetails": "",
+        "kUserName": "",
+        "TableId": "KTableId",
+        "ShowFooter": false,
+        "BackGroundColor": "#ffffff",
+        "ParentClass": "col-12",
+        "HeadRowSearch": false,
+        "PopUp": "",
+        "DisplayName": "",
+        "ParentClasses": {
+            "Parent1Class": "col-md-8",
+            "Parent2Class": "col-md-4",
+            "Parent3Class": "col-md-12"
+        },
+        "SearchRowArray": {
+            "Label": {
+                "KTF": false,
+                "DisplayObject": {
+                    "DisplayText": "KeshavSoft",
+                    "ColClass": "md-6 col-sm-12 col-12"
+                }
+            },
+            "Search": {
+                "KTF": false,
+                "DisplayObject": {
+                    "DisplayText": "Search",
+                    "ColClass": "md-4 col-sm-8 col-12"
+                }
+            },
+            "SearchWithEnter": {
+                "KTF": false,
+                "DisplayObject": {
+                    "DisplayText": "SearchWithEnter",
+                    "ColClass": "md-2 col-sm-4 col-12"
+                }
+            },
+            "Button": {
+                "PrintToPrinter": {
+                    "Double": false,
+                    "Preview": {
+                        "KTF": false,
+                        "DisplayObject": {
+                            "ColClass": "md-1"
+                        }
+                    }
+                },
+                "Footer": {
+                    "WithApi": {
+                        "KTF": false,
+                        "DisplayObject": {
+                            "ColClass": "md-1",
+                            "SvgPlus": false,
+                            "SvgPlusLarge": false,
+                            "Table": false
+                        }
+                    }
+                },
+                "Scrollable": {
+                    "KTF": false,
+                    "DisplayObject": {
+                        "ColClass": "md-1"
+                    }
+                },
+                "NewWindow": {
+                    "KTF": false,
+                    "DisplayObject": {
+                        "ColClass": "md-1",
+                        "SvgPlus": false,
+                        "SvgPlusLarge": false,
+                        "NewWindow": false,
+                        "Table": false
+                    }
+                }
+            },
+            "CreativeTim": {
+                "SearchWithEnter": {
+                    "KTF": false,
+                    "DisplayObject": {
+                        "DisplayText": "SearchWithEnter",
+                        "ColClass": "md-2 col-sm-4 col-12"
+                    }
+                }
+            }
+        },
+        "Vertical": {
+            "Footer": {
+                "Update": false,
+                "SaveType": {
+                    "Post": false,
+                    "Show": false,
+                    "Save": false,
+                    "LedgerShow": false
+                }
+            },
+            "VerticalCreate": {
+                "save": false,
+                "saveNew": false,
+                "saveNewReturnData": false,
+                "Edit": false,
+                "Update": false,
+                "UpdateNew": false,
+                "saveFromKeyAsTree": false,
+                "ForSubTable": false,
+                "Save": {
+                    "Transactions": false,
+                    "Head": false
+                },
+                "Show": {
+                    "Masters": false,
+                    "Transactions": false,
+                    "Reports": false
+                }
+            }
+        },
+        "DataAttributes": {
+            "JsonConfig": "",
+            "ItemConfig": "",
+            "PK": "",
+            "KeyAsTree": "",
+            "InsertKey": ""
+        },
+        "BreadCrump": [
+            {
+                "DisplayText": "home"
+            }
+        ],
+        "FooterType": {
+            "ShowBalance": false,
+            "CreateNew": false,
+            "CreateNewRow": {
+                "Style": "",
+                "Show": false
+            },
+            "SaveType": {
+                "Save": false
+            },
+            "ShowTotals": false
+        },
+        "DataAttributesFromTableInfo": true,
+        "DataAttributesFromTableDataRow": false
+    },
+    "TableColumn": {
+        "Head": {
+            "Bs5UpArrow": false,
+            "Bs5DownArrow": false
+        },
+        "ServerSide": {},
+        "Footer": {
+            "Show": {
+                "Balance": {
+                    "ShowTF": false,
+                    "Columns": ""
+                }
+            }
+        },
+        "HtmlAttributes": {
+            "KTF": false,
+            "list": ""
+        },
+        "KDataAttributes": {
+            "onkeypress": false,
+            "EnterOnClient": false,
+            "ClientEval": "",
+            "CustomDataList": false
+        },
+        "EnterToServer": false,
+        "IsSelect": false,
+        "SaveOnEnter": false,
+        "DisplayName": "DisplayName",
+        "DataAttribute": "DataAttribute",
+        "CreateNew": true,
+        "Insert": true,
+        "isDate": false,
+        "isDropdown": false,
+        "isToggle": false,
+        "ShowInTable": false,
+        "LocalStoageRefKey": "",
+        "TextAlign": "left",
+        "ShowTotal": false,
+        "ShowBalanceTF": false,
+        "DefaultValue": "",
+        "ViewType": 0,
+        "Buttons": {
+            "MssqlSave": false
+        },
+        "Widths": {
+            "px": 0
+        },
+        "ParentClasses": {
+            "Parent1Class": "col-md-8",
+            "Parent2Class": "col-md-4",
+            "Parent3Class": "col-md-12",
+            "InputClass": "form-control"
+        },
+        "DisplayType": {
+            "IsIndianFormat": false,
+            "IsInput": false
+        },
+        "KDataset": {
+            "HTMLControlType": "",
+            "Min": "",
+            "Max": "",
+            "Step": "",
+            "SaveCheck": {
+                "ClientSide": false,
+                "Validate": false,
+                "Type": "",
+                "Masters": {
+                    "CheckKey": "",
+                    "CheckColumnName": ""
+                }
+            }
+        },
+        "KDatasetStuff": {
+            "Validate": false,
+            "Type": "",
+            "DataListReverse": false,
+            "LocalStorage": {
+                "PullKey": "",
+                "FilterKeys": "",
+                "ReturnKeys": "",
+                "TargetColumnDataAttribute": "",
+                "TargetKey": ""
+            }
+        }
+    },
+    "GlobalRowObject": {
+        "HTMLControlType": "",
+        "KData": {
+            "TableColumns": [],
+            "TableData": [],
+            "TableInfo": {}
+        }
+    }
+}

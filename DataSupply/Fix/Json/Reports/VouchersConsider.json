@@ -1,0 +1,20 @@
+{
+    "pk": 0,
+    "ItemName": "",
+    "ColumnNameToPick": "",
+    "JoinTables": [],
+    "Columns": [],
+    "JoinTablesColumns": [],
+    "FolderName": "",
+    "FileName": "",
+    "ColumnName": "",
+    "Active": false,
+    "ReportConfig": {
+        "GroupBy": {
+            "KTF": false,
+            "ColumnName": "",
+            "ColumnsDataFreezed": [],
+            "ColumnsToGroupByAsFloat": []
+        }
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "Table": {
+        "Row": {
+            "Delete": {
+                "ReturnData": {
+                    "DataType": "TableShow",
+                    "KTF": true
+                }
+            }
+        },
+        "Footer": {
+            "Save": {
+                "ReturnData": {
+                    "DataType": "TableShow",
+                    "KTF": true
+                }
+            }
+        }
+    },
+    "Vertical": {
+        "Footer": {
+            "Save": {
+                "ReturnData": {
+                    "DataType": "VerticalShow",
+                    "KTF": true
+                }
+            }
+        }
+    },
+    "SubTable": {
+        "Footer": {
+            "Save": {
+                "ReturnData": {
+                    "DataType": "VerticalShow",
+                    "KTF": true
+                }
+            }
+        },
+        "Row": {
+            "Delete": {
+                "ReturnData": {
+                    "DataType": "VerticalShow",
+                    "KTF": true
+                }
+            }
+        }
+    }
+}
