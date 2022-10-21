@@ -8,7 +8,7 @@ let StartFunc = async ({ inDataPK, inFolderName, inFileNameWithExtension }) => {
         inFileNameWithExtension,
         inUserPK: LocalDataPK
     });
-    console.log("LocalJsonFileData:", LocalJsonFileData);
+   
     let LocalConfigData = await CommonFromConfig.FromFolderAndFile({
         inFolderName, inFileNameWithExtension,
         inUserPK: LocalDataPK
@@ -37,6 +37,8 @@ let LocalMockFunc = async () => {
         inFolderName: "Masters",
         inFileNameWithExtension: "Products.json"
     });
+    
+     console.log("LocalData:", LocalData);
 };
 
 // LocalMockFunc().then(P => {
