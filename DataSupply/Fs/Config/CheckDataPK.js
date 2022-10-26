@@ -12,7 +12,7 @@ let ForExistence = ({ inDataPK }) => {
             LocalReturnData.KTF = true;
         };
     } catch (error) {
-        LocalReturnData.KReason = "Data folder not found!";
+        LocalReturnData.KReason = `${inDataPK} : Data folder not found!`;
     };
 
     return LocalReturnData;

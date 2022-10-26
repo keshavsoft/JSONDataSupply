@@ -36,10 +36,18 @@ let ForUserAndPasswordReturnFirmDetails = async ({ inUserName, inPassWord }) => 
                 }
             );
 
-            if (LocalReturnData.kPK > 0) {
-                LocalReturnData.RedirectPage = await CommonFirmDetailsJson.RedirectPage({ inDataPk: LocalReturnData.kPK });
-            }
+            if (LocalReturnData.kPK === 0) {
+                LocalReturnData.KReason = `${inUserName} : UserName not found in UserData.json!`;
+                return await LocalReturnData;
+            };
+            let LocalFromCommonFirmDetailsJson = await CommonFirmDetailsJson.RedirectPageKTF({ inDataPk: LocalReturnData.kPK });
+            
+            if (LocalFromCommonFirmDetailsJson.KTF === false) {
+                LocalReturnData.KReason = LocalFromCommonFirmDetailsJson.KReason;
+                return await LocalReturnData;
+            };
 
+            LocalReturnData.RedirectPage = LocalFromCommonFirmDetailsJson.RedirectPage;
             LocalReturnData.KTF = true;
         };
     } else {
