@@ -9,7 +9,7 @@ let AsAsync = async () => {
     let LocalFilePath;
 
     LocalDataFromCommonCreate = await CommonCheck.ForExistence();
-    console.log("1111111111 : ", LocalDataFromCommonCreate);
+    
     if (LocalDataFromCommonCreate.KTF) {
         LocalFilePath = LocalDataFromCommonCreate.FilePath
 

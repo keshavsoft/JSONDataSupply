@@ -16,11 +16,14 @@ let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
     LocalReturnData.kPK = LocalDataPK;
     LocalReturnData.KTF = true;
 
+    //console.log("LocalFindConnectedDatas : ", LocalFindConnectedDatas);
+
     return await LocalReturnData;
 };
 
 let LocalMockFuncStartFunc = async () => {
     console.log("ssssssss : ", await StartFunc({ inUserName: "ABS", inPassword: "ABS", inFirmName: "ABS IMPEX-CHENNAI" }));
+
 };
 
 
