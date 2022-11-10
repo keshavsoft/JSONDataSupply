@@ -8,10 +8,9 @@ let StartFunc = ({ inDataPk, inFolderName }) => {
     let GlobalDataPath = `../../../../../../${DataPath.Path}`;
 
     let fileList = [];
-    //  console.log("dir : ", dir);
     let LocalPath = path.resolve(__dirname, `${GlobalDataPath}/${inDataPk}/Data/${inFolderName}`);
     let LocalFromCheck = CommonCheck.ForExistence({ inFolderName, inDataPk });
-
+    console.log("LocalFromCheck ; ", LocalFromCheck);
     if (LocalFromCheck.KTF) {
         fs.readdirSync(LocalFromCheck.DirPath).forEach((file) => {
             const fullPath = path.join(LocalPath, file);
@@ -19,7 +18,6 @@ let StartFunc = ({ inDataPk, inFolderName }) => {
             // (otherwise this will include files from other dirs, which I don't want)
             if (fs.lstatSync(fullPath).isDirectory() === false) {
                 if (path.extname(fullPath) === ".json") {
-                    //fileList.push(fullPath);
                     fileList.push(path.basename(fullPath));
                 };
             };
@@ -29,4 +27,31 @@ let StartFunc = ({ inDataPk, inFolderName }) => {
     return fileList;
 };
 
-module.exports = { StartFunc };
+let ReturnAsArrayOfFileNameOnly = ({ inDataPk, inFolderName }) => {
+    let DataPath = require("../../../../../Kprivate/DataPath.json");
+    let GlobalDataPath = `../../../../../../${DataPath.Path}`;
+
+    let fileList = [];
+    let LocalPath = path.resolve(__dirname, `${GlobalDataPath}/${inDataPk}/Data/${inFolderName}`);
+    let LocalFromCheck = CommonCheck.ForExistence({ inFolderName, inDataPk });
+    console.log("LocalFromCheck ; ", LocalFromCheck);
+    if (LocalFromCheck.KTF) {
+        fs.readdirSync(LocalFromCheck.DirPath).forEach((file) => {
+            const fullPath = path.join(LocalPath, file);
+            // use lstat so this does not follow dir symlinks
+            // (otherwise this will include files from other dirs, which I don't want)
+            if (fs.lstatSync(fullPath).isDirectory() === false) {
+                if (path.extname(fullPath) === ".json") {
+                    fileList.push(path.parse(fullPath).name);
+                };
+            };
+        });
+    };
+
+    return fileList;
+};
+
+module.exports = {
+    StartFunc,
+    ReturnAsArrayOfFileNameOnly
+};
