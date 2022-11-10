@@ -1,14 +1,6 @@
 const nodemailer = require("nodemailer");
 let path = require("path");
 
-var transportLive = nodemailer.createTransport({
-    service: 'hotmail',
-    auth: {
-        user: "nknnkumar@live.com",
-        pass: "aecwajbiacwtbozl"
-    }
-});
-
 var mailOptions = {
     from: "nknnkumar@live.com",
     to: "",
@@ -18,13 +10,16 @@ var mailOptions = {
 
 exports.SendEmail = ({ inUserName, inJWToken, inToEmail }) => {
     return new Promise((resolve, reject) => {
-        const LocalCurrentPath = path.resolve(__dirname, '../');
-        //const pathParts = LocalCurrentPath.split(path.sep);
+        var transportLive = nodemailer.createTransport({
+            service: 'hotmail',
+            auth: {
+                user: "nknnkumar@live.com",
+                pass: process.env.KS_EMAIL_PASS
+            }
+        });
+
         const LocalRootPath = path.resolve("./");
         const pathParts = LocalRootPath.split(path.sep);
-
-        //console.log("pathParts:", pathParts, path.resolve("./"));
-        //  console.log("pathParts:", pathParts, LocalRootPath);
 
         mailOptions.to = inToEmail;
         //mailOptions.text = inJWToken;
