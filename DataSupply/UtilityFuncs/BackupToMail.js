@@ -29,15 +29,13 @@ exports.SendEmail = ({ inUserName, inJWToken, inToEmail }) => {
         mailOptions.to = inToEmail;
         //mailOptions.text = inJWToken;
         //mailOptions.text = `http://localhost:4148/JsonDemo/Html/pages/EmailValidation.html?UserName=${inUserName}&FromEmail=${inToEmail}&KToken=${inJWToken}`;
-        if (process.env.NODE_ENV === "development") {
-            mailOptions.text = `http://localhost:4121/JSONUserUi/Html/pages/EmailValidation.html?UserName=${inUserName}&FromEmail=${inToEmail}&KToken=${inJWToken}`;
+        if (process.env.NODE_ENV !== "production") {
+            mailOptions.text = `http://localhost:4119/JSONUserUi/Html/pages/EmailValidation.html?UserName=${inUserName}&FromEmail=${inToEmail}&KToken=${inJWToken}`;
         } else {
             mailOptions.text = `http://${pathParts[pathParts.length - 1]}/JSONUserUi/Html/pages/EmailValidation.html?UserName=${inUserName}&FromEmail=${inToEmail}&KToken=${inJWToken}`;
         };
 
         transportLive.sendMail(mailOptions, function (error, response) {
-            console.log("error:", error);
-
             if (error) {
                 reject({ KError: error });
             } else {

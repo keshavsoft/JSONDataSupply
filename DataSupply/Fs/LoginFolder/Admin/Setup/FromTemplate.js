@@ -56,7 +56,7 @@ let StartFunc = async ({ inUserPK }) => {
 
             if (LocalReturnFromCreateFolder.KTF) {
                 LocalFromTemplate = await FillFromTemplateData.StartFunc({ inDestinationDir: LocalFolderPath });
-
+                console.log("aaaaaaaaaaa : ", LocalFromTemplate);
                 if (LocalFromTemplate.KTF) {
                     LocalReturnData.KTF = true;
                 };

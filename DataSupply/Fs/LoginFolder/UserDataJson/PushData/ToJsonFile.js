@@ -23,7 +23,6 @@ let StartFunc = async ({ inOriginalData, inDataToUpdate }) => {
     return await LocalReturnData;
 };
 
-
 let LocalCheckBeforeInsert = ({ inOriginalData, inDataToUpdate }) => {
     let LocalReturnObject = { KTF: true };
     //debug("inserted length : ", JSON.stringify(inDataToUpdate).length, inOriginalData.length, JSON.stringify(inDataToUpdate).length - inOriginalData.length);
