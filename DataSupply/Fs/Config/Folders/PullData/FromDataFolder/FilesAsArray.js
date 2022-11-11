@@ -1,6 +1,4 @@
 const fs = require("fs");
-//const CommonAbsolutePath = require("../../../DataPath");
-//let CommonInForUiFolder = require("../../../InForUiFolder/FromBs5Json/PullData/RerturnElementsOnly");
 let CommonCheck = require("../../Check/InDataFolder/Check");
 
 let StartFunc = ({ inDataPK, inFolderName }) => {
@@ -24,9 +22,11 @@ let StartFunc = ({ inDataPK, inFolderName }) => {
 
 let LocalMockFunc = () => {
     let LocalData = StartFunc({
-        inFolderName: "Transactions",
-        inDataPK: 1024
+        inFolderName: "Loans",
+        inDataPK: 2051
     });
+
+    console.log("folder data: LocalData : ", LocalData);
 };
 
 //LocalMockFunc();

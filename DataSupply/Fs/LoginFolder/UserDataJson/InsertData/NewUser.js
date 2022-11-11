@@ -2,6 +2,7 @@ let CommonPullData = require("../../../../../DataSupply/Fs/LoginFolder/UserDataJ
 let CommonPushData = require("../../../../../DataSupply/Fs/LoginFolder/UserDataJson/PushData/ToJsonFile");
 let CommonEmail = require("../../../../../common/Jwt/Email");
 let CommonUtilityFuncs = require("../../../../UtilityFuncs/BackupToMail");
+let CommonUpdate = require("../Update");
 
 let StartFunc = async ({ inUserName, inPassword }) => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
@@ -82,17 +83,17 @@ let WithEmail = async ({ inUserName, inPassword, inEmail }) => {
 
     if (LocalReturnData.KTF) {
         LocalFromEmail = await CommonEmail.CreateToken({ inUserName, inEmail })
-        
+
         if (LocalFromEmail !== "") {
             let LocalFromUtilityFuncs = await CommonUtilityFuncs.SendEmail({
                 inUserName,
                 inJWToken: LocalFromEmail,
                 inToEmail: inEmail
             });
-            
+            console.log("LocalFromUtilityFuncs : ", LocalFromUtilityFuncs);
             if (LocalFromUtilityFuncs.KTF) {
                 //fs.writeFileSync(LocalFilePath, JSON.stringify(LocalUserDataJson));
-                CommonUpdate.EmailSent({ inUserPk: LocalNewPk });
+                CommonUpdate.EmailSent({ inUserPk: LocalReturnData.kPK });
             };
         };
     };

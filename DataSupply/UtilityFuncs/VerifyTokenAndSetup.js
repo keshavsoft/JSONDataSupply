@@ -1,14 +1,10 @@
 let CommonJWt = require("../../common/Jwt/Email");
 let CommonCheck = require("../Fs/LoginFolder/UserDataJson/Find/UserName");
-//let CommonFromTemplate = require("../Fs/Users/Admin/Setup/FromTemplate");
-//let CommonUpdate = require("../Fs/Users/Admin/Update");
-//let CommonSetupFromTemplate = require("../Fs/Users/Admin/Setup/FromTemplate");
-
 let CommonFromTemplate = require("../Fs/LoginFolder/Admin/Setup/FromTemplate");
 let CommonUpdate = require("../Fs/LoginFolder/Admin/Update");
+let CommonBasic = require("../Fs/LoginFolder/Admin/Setup/Basic");
 
 let StartFunc = async ({ inUserName, inEmail, inJWToken }) => {
-    console.log("vvvvvvvvvvvvvvvvv");
     let LocalReturnData = { KTF: false };
     let LocalFromVerifyToken;
     let LocalFromCommonCheck;
@@ -18,11 +14,10 @@ let StartFunc = async ({ inUserName, inEmail, inJWToken }) => {
     LocalFromVerifyToken = await CommonJWt.VerifyToken({ inUserName, inEmail, inKToken: inJWToken });
     if (LocalFromVerifyToken) {
         LocalFromCommonCheck = await CommonCheck.StartFunc({ inUserName });
-        console.log("LocalFromCommonCheck : ", LocalFromCommonCheck);
 
         if (LocalFromCommonCheck.KTF) {
             //LocalFromCommonUserFuncs = await CommonUserFuncs.Basic({ inUserPK: LocalFromCommonCheck.kPK });
-            LocalFromCommonUserFuncs = await CommonFromTemplate.StartFunc({ inUserPK: LocalFromCommonCheck.kPK });
+            LocalFromCommonUserFuncs = await CommonBasic.StartFunc({ inUserPK: LocalFromCommonCheck.kPK });
             console.log("LocalFromCommonUserFuncs : ", LocalFromCommonUserFuncs);
 
             if (LocalFromCommonUserFuncs.KTF) {

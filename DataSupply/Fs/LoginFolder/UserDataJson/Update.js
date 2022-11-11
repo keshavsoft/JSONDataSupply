@@ -4,28 +4,46 @@ let CommonPullData = require("./PullData/FromFile");
 let CommonPushData = require("./PushData/ToJsonFile");
 
 let EmailSent = async ({ inUserPk }) => {
-    let LocalFromCommonPullData = CommonPullData.StartFunc();
+    let LocalFromCommonPullData = await CommonPullData.StartFunc();
 
     if (LocalFromCommonPullData.KTF) {
-        let LocalNewData = JSON.parse(JSON.stringify(LocalUserDataJson.JsonData));
+        let LocalNewData = JSON.parse(JSON.stringify(LocalFromCommonPullData.JsonData));
 
-        if (inUserPk in LocalNewData) {
-            LocalNewData[inUserPk].SentEmailForVerification = {
+        if (inUserPk in LocalNewData.data) {
+            LocalNewData.data[inUserPk].SentEmailForVerification = {
                 Sent: true,
                 KDT: new Date()
             };
 
-            let LocalFromCommonPullData = CommonPushData.StartFunc({
+            let LocalFromCommonPushData = await CommonPushData.StartFunc({
                 inDataToUpdate: LocalNewData,
-                inOriginalData: LocalUserDataJson.JsonData
+                inOriginalData: LocalFromCommonPullData.JsonData
             });
-
-            console.log("LocalFromCommonPullData : ", LocalFromCommonPullData);
         };
     };
 };
 
-let SetupDone = ({ inUserPk }) => {
+let SetupDone = async ({ inUserPk }) => {
+    let LocalFromCommonPullData = await CommonPullData.StartFunc();
+
+    if (LocalFromCommonPullData.KTF) {
+        let LocalNewData = JSON.parse(JSON.stringify(LocalFromCommonPullData.JsonData));
+
+        if (inUserPk in LocalNewData.data) {
+            LocalNewData.data[inUserPk].SetupDone = {
+                Sent: true,
+                KDT: new Date()
+            };
+
+            let LocalFromCommonPushData = await CommonPushData.StartFunc({
+                inDataToUpdate: LocalNewData,
+                inOriginalData: LocalFromCommonPullData.JsonData
+            });
+        };
+    };
+};
+
+let SetupDone_11nov2022 = ({ inUserPk }) => {
     let LocalReturnObject = { KTF: false };
 
     let LocalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp();
