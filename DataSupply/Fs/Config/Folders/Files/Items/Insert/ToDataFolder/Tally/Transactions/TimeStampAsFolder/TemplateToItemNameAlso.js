@@ -44,7 +44,7 @@ let LocalToConigFolderFunc = async ({ inFirstRow, inToName, inJsonConfig, inUser
 let LocalToDataFolderFunc = async ({ inItemData, inToName, inJsonConfig, inUserPK, inGuid }) => {
     let LocalReturnData = { KTF: false, KResult: [] };
     let LocalFromTransform = await LocalArrayToObject({ inItemData, inGuid });
-    
+
     if (LocalFromTransform.KTF) {
         CommonForSubTableColumns.StartFunc({ inData: LocalFromTransform.KData });
     };
@@ -69,6 +69,8 @@ let LocalToDataFolderFunc = async ({ inItemData, inToName, inJsonConfig, inUserP
             };
         };
     };
+
+    return await LocalReturnData;
 };
 
 let BulkInsert = async ({ inJsonConfig, inToName, inItemData, inUserPK, inGuid }) => {
@@ -82,7 +84,7 @@ let BulkInsert = async ({ inJsonConfig, inToName, inItemData, inUserPK, inGuid }
             inUserPK
         });
 
-        LocalFromInsert = LocalToDataFolderFunc({ inItemData, inToName, inJsonConfig, inUserPK, inGuid });
+        LocalFromInsert = await LocalToDataFolderFunc({ inItemData, inToName, inJsonConfig, inUserPK, inGuid });
 
         if (LocalFromInsert.KTF) {
             LocalReturnData.KTF = true;

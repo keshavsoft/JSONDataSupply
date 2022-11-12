@@ -12,11 +12,20 @@ let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
     let LocalFromPullData = await CommonPullData.AsAsync();
     let LocalUserKeyNeeded = _.findKey(LocalFromPullData, { "UserName": LocalUserName, "PassWord": LocalPassword });
 
+    if (LocalUserKeyNeeded === undefined) {
+        LocalReturnData.KReason = `${inUserName} and password not found!`;
+        return await LocalReturnData;
+    };
+
     let LocalDataPK = _.findKey(LocalFromPullData[LocalUserKeyNeeded].ConnectedDatas, { "FirmName": LocalFirmName });
+    
+    if (LocalDataPK === undefined) {
+        LocalReturnData.KReason = `${inFirmName} not found!`;
+        return await LocalReturnData;
+    };
+
     LocalReturnData.kPK = LocalDataPK;
     LocalReturnData.KTF = true;
-
-    //console.log("LocalFindConnectedDatas : ", LocalFindConnectedDatas);
 
     return await LocalReturnData;
 };

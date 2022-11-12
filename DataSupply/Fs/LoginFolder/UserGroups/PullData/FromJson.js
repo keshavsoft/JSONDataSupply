@@ -9,7 +9,7 @@ let AsAsync = async () => {
     let LocalFilePath;
 
     LocalDataFromCommonCreate = await CommonCheck.ForExistence();
-    
+
     if (LocalDataFromCommonCreate.KTF) {
         LocalFilePath = LocalDataFromCommonCreate.FilePath
 
@@ -18,7 +18,7 @@ let AsAsync = async () => {
 
         Object.freeze(LocalReturnData);
     };
-
+    
     return await LocalReturnData;
 };
 

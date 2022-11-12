@@ -68,7 +68,9 @@ let LocalToDataFolderFunc = async ({ inItemData, inToName, inJsonConfig, inUserP
         };
     };
 
+    return await LocalReturnData;
 };
+
 class ClassInsertNewColumns {
     static StartFunc = ({ inData }) => {
         let LocalReturnData = { KTF: false, KResult: [], KData: {} };
@@ -91,7 +93,7 @@ let BulkInsert = async ({ inJsonConfig, inToName, inItemData, inUserPK, inGuid }
             inUserPK
         });
 
-        LocalFromInsert = LocalToDataFolderFunc({ inItemData, inToName, inJsonConfig, inUserPK, inGuid });
+        LocalFromInsert = await LocalToDataFolderFunc({ inItemData, inToName, inJsonConfig, inUserPK, inGuid });
 
         if (LocalFromInsert.KTF) {
             LocalReturnData.KTF = true;
