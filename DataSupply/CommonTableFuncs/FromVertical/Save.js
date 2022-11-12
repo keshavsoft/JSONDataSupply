@@ -1,5 +1,3 @@
-//let CommonTableFuncs = require("../../../../../../../../../CommonTableFuncs/Save");
-//let CommonDataSupplyReturnDataFuncs = require("../../../../../ConfigFromDisplayJson/CommonFuns/ReturnDataFuncs");
 let CommonTableFuncs = require("../Save");
 let CommonDataSupplyReturnDataFuncs = require("../../Fs/Config/Folders/Files/ConfigFromDisplayJson/CommonFuns/ReturnDataFuncs");
 

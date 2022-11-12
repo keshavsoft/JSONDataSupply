@@ -19,105 +19,9 @@ let Save = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData }) => {
     if (inUserPK > 0) {
         LocalUserData = await CommonFilesPullData.AsJsonAsync({ inJsonConfig, inUserPK });
         LocalConfigData = await CommonDisplayPullData.AsJsonAsync({ inJsonConfig, inItemConfig, inDataPK: inUserPK });
-
-        LocalConfigDataColumns = LocalConfigData.TableColumns;
-        LocalUserDataWithItemName = LocalUserData[inItemConfig.inItemName];
-
-        CommonDefaultValue.CalculateDefaultValue({
-            inColumns: LocalConfigDataColumns,
-            inData: LocalUserDataWithItemName, inPostData
-        });
-
-        LocalObject = InsertDefaultValueBeforeSaveConsiderInsert({ inDisplayColumns: LocalConfigDataColumns, inPostData });
-
-        LocalObject = CommonSaveFuncs.LocalTransformObjectBeforeSaving({ inDisplayColumns: LocalConfigDataColumns, inObjectToInsert: LocalObject });
-        LocalObject = CommonSaveFuncs.InsertUserInfoWithDateStamp({ inObjectToInsert: LocalObject, inUserPK });
-
-        LocalFromServerSideCheck = CommonCheckBeforeSave.ServerSideCheck({
-            inItemConfig, inUserData: LocalUserData,
-            inConfigData: LocalConfigData, inObjectToInsert: LocalObject, inUserPK
-        });
-
-        if (LocalFromServerSideCheck.KTF) {
-            LocalFromSaveOnly = await SaveOnly({ inJsonConfig, inOriginalData: LocalUserData, inItemName: inItemConfig.inItemName, inPostData: LocalObject, inUserPK });
-
-            if (LocalFromSaveOnly.KTF) {
-                LocalReturnObject.KTF = true;
-                LocalReturnObject.kPK = LocalFromSaveOnly.kPK;
-            }
-        };
     };
 
     return await LocalReturnObject;
-};
-
-let CheckOnly = ({ inJsonConfig, inItemConfig, inUserPK, inPostData }) => {
-    return new Promise((resolve, reject) => {
-        let LocalUserData;
-        let LocalUserDataWithItemName;
-        let LocalConfigData;
-        let LocalConfigDataColumns;
-        let LocalObject = {};
-        let LocalFromServerSideCheck;
-
-        if (inUserPK > 0) {
-            LocalUserData = CommonFilesPullData.AsJsonAsync({ inJsonConfig, inUserPK });
-            LocalConfigData = CommonDisplayPullData.AsJsonAsync({ inJsonConfig, inItemConfig, inUserPK });
-            LocalConfigDataColumns = LocalConfigData.TableColumns;
-            LocalUserDataWithItemName = LocalUserData[inItemConfig.inItemName];
-
-            CommonDefaultValue.CalculateDefaultValue({ inColumns: LocalConfigDataColumns, inData: LocalUserDataWithItemName, inPostData });
-
-            LocalObject = InsertDefaultValueBeforeSaveConsiderInsert({ inDisplayColumns: LocalConfigDataColumns, inPostData });
-
-            LocalObject = CommonSaveFuncs.LocalTransformObjectBeforeSaving({ inDisplayColumns: LocalConfigDataColumns, inObjectToInsert: LocalObject });
-            LocalObject = CommonSaveFuncs.InsertUserInfoWithDateStamp({ inObjectToInsert: LocalObject, inUserPK });
-
-            LocalFromServerSideCheck = CommonCheckBeforeSave.ServerSideCheck({
-                inItemConfig, inUserData: LocalUserData,
-                inConfigData: LocalConfigData, inObjectToInsert: LocalObject, inUserPK
-            });
-
-            if (LocalFromServerSideCheck.KTF) {
-                LocalFromServerSideCheck.ObjectToInsert = LocalObject;
-                resolve(LocalFromServerSideCheck);
-            } else {
-                reject(LocalFromServerSideCheck);
-            };
-        };
-    });
-};
-
-let PrepareObjectBeforeSave = ({ inJsonConfig, inItemConfig, inUserPK, inPostData = {} }) => {
-    return new Promise((resolve, reject) => {
-        let LocalUserData;
-        let LocalUserDataWithItemName;
-        let LocalConfigData;
-        let LocalConfigDataColumns;
-        let LocalObject = {};
-        let LocalFromServerSideCheck;
-
-        if (inUserPK > 0) {
-            LocalUserData = CommonFilesPullData.AsJsonAsync({ inJsonConfig, inUserPK });
-            LocalConfigData = CommonDisplayPullData.AsJsonAsync({ inJsonConfig, inItemConfig, inUserPK });
-            LocalConfigDataColumns = LocalConfigData.TableColumns;
-            LocalUserDataWithItemName = LocalUserData[inItemConfig.inItemName];
-
-            CommonDefaultValue.CalculateDefaultValue({ inColumns: LocalConfigDataColumns, inData: LocalUserDataWithItemName, inPostData });
-
-            LocalObject = InsertDefaultValueBeforeSaveConsiderInsert({ inDisplayColumns: LocalConfigDataColumns, inPostData });
-
-            LocalObject = CommonSaveFuncs.LocalTransformObjectBeforeSaving({ inDisplayColumns: LocalConfigDataColumns, inObjectToInsert: LocalObject });
-            LocalObject = CommonSaveFuncs.InsertUserInfoWithDateStamp({ inObjectToInsert: LocalObject, inUserPK });
-            LocalFromServerSideCheck = CommonCheckBeforeSave.ServerSideCheck({ inItemConfig, inUserData: LocalUserData, inConfigData: LocalConfigData, inObjectToInsert: LocalObject, inUserPK });
-
-            if (LocalFromServerSideCheck.KTF) {
-                resolve(LocalObject);
-            } else {
-                reject(LocalFromServerSideCheck);
-            };
-        };
-    });
 };
 
 let SaveOnly = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
@@ -224,7 +128,6 @@ let SaveWithOutScreenName = async ({ inJsonConfig, inItemConfig, inUserPK, inPos
 module.exports = {
     Save,
     PrepareObjectBeforeSave,
-    SaveOnly, CheckOnly,
     SaveAsync,
     SaveWithOutScreenName
 };

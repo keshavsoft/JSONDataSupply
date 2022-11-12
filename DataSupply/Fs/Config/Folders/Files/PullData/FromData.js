@@ -16,7 +16,7 @@ let AsJsonAsync = async ({ inJsonConfig, inUserPK }) => {
             inFolderName: LocalFolderName,
             inFileNameWithExtension: LocalFileNameWithExtension, inUserPK
         });
-
+        
         if (LocalDataFromCommonCreate.KTF) {
             LocalFilePath = LocalDataFromCommonCreate.FilePath
 
@@ -58,7 +58,6 @@ let FullJsonData = async ({ inJsonConfig, inUserPK }) => {
 };
 
 let AsJsonAsyncFromFolderAndFile = async ({ inFolderName, inFileNameWithExtension, inUserPK }) => {
-    console.log("aaaaaaaaaaa : ", inFolderName, inFileNameWithExtension, inUserPK);
     if (inUserPK > 0) {
         let LocalReturnData;
         let LocalDataFromCommonCreate;

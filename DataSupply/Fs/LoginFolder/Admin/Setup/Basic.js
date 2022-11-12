@@ -1,49 +1,10 @@
 const fs = require("fs-extra");
 let CommonAbsolutePath = require("../../../DataPath");
-let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
 let CommonCreateFolders = require("../CreateFolders/Basic");
-
-class FillFromTemplateData {
-    static StartFunc = async ({ inDestinationDir }) => {
-        let LocalReturnData = { KTF: false, DirCreate: "" };
-        let LocalFromCommonFromCheck = CommonFromCheck.ForExistence();
-
-        if (LocalFromCommonFromCheck.KTF === false) {
-            LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
-            return LocalReturnData;
-        };
-
-        try {
-            fs.copySync(LocalFromCommonFromCheck.CreateFolderDirPath, inDestinationDir);
-
-            LocalReturnData.KTF = true;
-        } catch (err) {
-            console.error(err)
-        };
-
-        return await LocalReturnData;
-    }
-};
-
-let LocalCreateFolder = async ({ inFolderPath }) => {
-    let LocalReturnData = { KTF: false, KReason: "" };
-
-    try {
-        fs.mkdirSync(inFolderPath, {
-            recursive: true
-        });
-
-        LocalReturnData.KTF = true;
-    } catch (error) {
-        console.log("eeeeeeee : ", error);
-    };
-
-    return await LocalReturnData;
-};
+let CommonCheck = require("../../Check/ForFolder");
 
 let StartFunc = async ({ inUserPK }) => {
     let LocalReturnData = { KTF: false, KReason: "" };
-    let LocalFromTemplate;
     let LocalReturnFromCreateFolder;
 
     let GlobalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp({});
