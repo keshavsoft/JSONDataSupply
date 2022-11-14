@@ -13,7 +13,7 @@ let ForExistence = () => {
         return LocalReturnData;
     };
 
-    LocalReturnData.CreateFolderDirPath = `${LocalFromCommonFromTemplateData.TemplateDataDirPath}\\${LocalDataPathName}`
+    LocalReturnData.CreateFolderDirPath = `${LocalFromCommonFromTemplateData.TemplateDataDirPath}/${LocalDataPathName}`
 
     try {
         if (fs.statSync(LocalReturnData.CreateFolderDirPath).isDirectory()) {

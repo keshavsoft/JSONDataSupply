@@ -2,7 +2,6 @@ let fs = require("fs");
 let CommonCheckForFile = require("../Check");
 
 let StartFunc = async ({ inOriginalData, inDataToUpdate }) => {
-    console.log("inOriginalData, inDataToUpdate  ", inOriginalData, inDataToUpdate);
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
     let LocalFromCheck = await CommonCheckForFile.ForExistence();
 

@@ -16,7 +16,6 @@ let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
         };
 
         let LocalFromCommonUserDataJson = await CommonUserDataJson.StartFunc({ inUserName, inPassWord });
-        console.log('LocalFromCommonUserDataJson- : ', LocalFromCommonUserDataJson);
 
         if (LocalFromCommonUserDataJson.KTF === false) {
             LocalReturnData.KReason = LocalFromCommonUserDataJson.KReason;
@@ -37,19 +36,17 @@ let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
             FirmName: inFirmName
         };
 
-        console.log('LocalOriginalData- : ', LocalOriginalData, LocalAlterdData);
         let LocalFromPush = await CommonPushData.StartFunc({
             inOriginalData: LocalOriginalData,
             inDataToUpdate: LocalAlterdData
         });
 
-        console.log('LocalFromPust- : ', LocalFromPush);
+        console.log('LocalFromPush : error : ', LocalFromPush);
 
     } catch (error) {
         console.log('DataSupply : error : ', error);
         LocalReturnData.KReason = error;
         return await LocalReturnData;
-
     };
 
     return await LocalReturnData;

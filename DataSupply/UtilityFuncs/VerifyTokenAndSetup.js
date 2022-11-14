@@ -3,6 +3,7 @@ let CommonCheck = require("../Fs/LoginFolder/UserDataJson/Find/UserName");
 let CommonFromTemplate = require("../Fs/LoginFolder/Admin/Setup/FromTemplate");
 let CommonUpdate = require("../Fs/LoginFolder/Admin/Update");
 let CommonBasic = require("../Fs/LoginFolder/Admin/Setup/Basic");
+let CommonBasicFromTemplates = require("../Fs/LoginFolder/Admin/Setup/BasicFromTemplates");
 
 let StartFunc = async ({ inUserName, inEmail, inJWToken }) => {
     let LocalReturnData = { KTF: false };
@@ -14,11 +15,9 @@ let StartFunc = async ({ inUserName, inEmail, inJWToken }) => {
     LocalFromVerifyToken = await CommonJWt.VerifyToken({ inUserName, inEmail, inKToken: inJWToken });
     if (LocalFromVerifyToken) {
         LocalFromCommonCheck = await CommonCheck.StartFunc({ inUserName });
-
+        
         if (LocalFromCommonCheck.KTF) {
-            //LocalFromCommonUserFuncs = await CommonUserFuncs.Basic({ inUserPK: LocalFromCommonCheck.kPK });
-            LocalFromCommonUserFuncs = await CommonBasic.StartFunc({ inUserPK: LocalFromCommonCheck.kPK });
-            console.log("LocalFromCommonUserFuncs : ", LocalFromCommonUserFuncs);
+            LocalFromCommonUserFuncs = await CommonBasicFromTemplates.StartFunc({ inUserPK: LocalFromCommonCheck.kPK });
 
             if (LocalFromCommonUserFuncs.KTF) {
                 LocalFromUpdate = CommonUpdate.SetupDone({ inUserPk: LocalFromCommonCheck.kPK });
