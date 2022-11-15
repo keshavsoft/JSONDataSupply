@@ -15,7 +15,7 @@ let StartFunc = async ({ inUserName, inEmail, inJWToken }) => {
     LocalFromVerifyToken = await CommonJWt.VerifyToken({ inUserName, inEmail, inKToken: inJWToken });
     if (LocalFromVerifyToken) {
         LocalFromCommonCheck = await CommonCheck.StartFunc({ inUserName });
-        
+
         if (LocalFromCommonCheck.KTF) {
             LocalFromCommonUserFuncs = await CommonBasicFromTemplates.StartFunc({ inUserPK: LocalFromCommonCheck.kPK });
 
@@ -24,9 +24,11 @@ let StartFunc = async ({ inUserName, inEmail, inJWToken }) => {
 
                 LocalReturnData.KTF = true;
             } else {
-                if (LocalFromCommonUserFuncs.SetupDone) {
-                    LocalReturnData.SetupDone = true;
-                };
+                LocalReturnData.SetupDone = true;
+
+                // if (LocalFromCommonUserFuncs.SetupDone) {
+
+                // };
             };
         };
     };

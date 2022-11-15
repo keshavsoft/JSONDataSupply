@@ -9,11 +9,10 @@ let StartFunc = async ({ inUserName }) => {
                 ([key, value]) => {
                     if (value.UserName === inUserName) {
                         LocalReturnData.kPK = parseInt(key);
-                    }
+                        LocalReturnData.KTF = true;
+                    };
                 }
             );
-
-            LocalReturnData.KTF = true;
         };
     } else {
         LocalReturnData.KReason = "Json file not found";
@@ -21,5 +20,13 @@ let StartFunc = async ({ inUserName }) => {
 
     return await LocalReturnData;
 };
+
+let LocalMockFuncForLogin = () => {
+    StartFunc({ inUserName: "K111" }).then(p => {
+        console.log("sssss : ", p);
+    });
+};
+
+//LocalMockFunc();
 
 module.exports = { StartFunc };

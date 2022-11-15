@@ -10,6 +10,10 @@ var mailOptions = {
 
 exports.SendEmail = ({ inUserName, inJWToken, inToEmail }) => {
     return new Promise((resolve, reject) => {
+        if (("KS_EMAIL_PUBLIC" in process.env) === false) {
+            reject({ KSClientError: true, KError: "Email pass not found!" });
+        };
+
         let LocalPublicPath = process.env.KS_EMAIL_PUBLIC;
 
         var transportLive = nodemailer.createTransport({
