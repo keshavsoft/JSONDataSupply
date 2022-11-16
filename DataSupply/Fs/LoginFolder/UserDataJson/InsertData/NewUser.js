@@ -115,10 +115,10 @@ let WithEmail = async ({ inUserName, inPassword, inEmail }) => {
 
 let WithUerNameAndEmailOnly = async ({ inUserName, inEmail }) => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
-
+    console.log("WithUerNameAndEmailOnly--------------", inUserName, inEmail);
     try {
         let LocalFromCommonFind = await CommonFind.StartFunc({ inUserName });
-        
+
         if (LocalFromCommonFind.KTF) {
             LocalReturnData.KReason = `UserName : ${inUserName} already present!`;
             return await LocalReturnData;
@@ -152,7 +152,7 @@ let WithUerNameAndEmailOnly = async ({ inUserName, inEmail }) => {
                             inOriginalData: LocalFromfileData.JsonData,
                             inDataToUpdate: LocalToBeInsertedData
                         });
-                        
+
                         if (LocalFromUpdate.KTF) {
                             LocalReturnData.KTF = true;
                             LocalReturnData.kPK = maxNum + 1;
