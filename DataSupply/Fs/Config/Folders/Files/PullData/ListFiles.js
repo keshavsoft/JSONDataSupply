@@ -33,7 +33,8 @@ let StartFunc = ({ inDataPk, inFolderName }) => {
 
 let ReturnAsArrayOfFileNameOnly = ({ inDataPk, inFolderName }) => {
     let DataPath = require("../../../../../Kprivate/DataPath.json");
-    let GlobalDataPath = `../../../../../../${DataPath.Path}`;
+    //let GlobalDataPath = `../../../../../../${DataPath.Path}`;
+    let GlobalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp({});
 
     let fileList = [];
     let LocalPath = path.resolve(__dirname, `${GlobalDataPath}/${inDataPk}/Data/${inFolderName}`);
