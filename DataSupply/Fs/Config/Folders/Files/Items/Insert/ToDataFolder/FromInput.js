@@ -26,7 +26,15 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
         inDataToUpdate: LocalUpdatedData,
         inOriginalData: LocalPullData
     });
-    console.log("LocalFromCommonPushData : ", LocalFromCommonPushData);
+
+    if (LocalFromCommonPushData.KTF === false) {
+        LocalReturnData.KReason = LocalFromCommonPushData.KReason;
+
+        return await LocalReturnData;
+    };
+
+    LocalReturnData.KTF = true;
+
     return await LocalReturnData;
 };
 
