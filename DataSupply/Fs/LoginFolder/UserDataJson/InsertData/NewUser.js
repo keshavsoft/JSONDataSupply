@@ -182,7 +182,14 @@ let WithUerNameAndEmailOnly = async ({ inUserName, inEmail }) => {
     } catch (error) {
         if ("KSClientError" in error) {
             LocalReturnData.KSClientError = error.KSClientError;
-            LocalReturnData.KError = error.KError;
+            LocalReturnData.KError = "";
+
+            if (LocalReturnData.KTF) {
+                LocalReturnData.KError = "User created. "
+            };
+
+            LocalReturnData.KError += error.KError;
+
             return await LocalReturnData;
         } else {
             LocalReturnData.KReason = error;
