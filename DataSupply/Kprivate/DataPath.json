@@ -6,6 +6,7 @@
     },
     "DataPath": {
         "WinPath": "KData\\JSON",
-        "UbuntuPath": "KData/JSON"
+        "UbuntuPath": "KData/JSON",
+        "darwinPath": "KData/JSON"
     }
 }
