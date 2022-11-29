@@ -83,11 +83,11 @@ let SingleColumnAndMultipleColumnsReturn = ({ inDataToSort, inGroupByColumn, inC
         (rv[x[inGroupByColumn]] = rv[x[inGroupByColumn]] || []).push(x);
         return rv;
     }, {});
-   
-   // let KSFilterAccountName = "VASAVI AGENCIES";
+
+    // let KSFilterAccountName = "VASAVI AGENCIES";
 
     //console.log("inGroupByColumn : ", inGroupByColumn, "VASAVI AGENCIES", LocalMiddleObject[KSFilterAccountName]);
- 
+
     LocalReturnArray = LocalFuncsForLoops.SingleColumnAndMultipleColumnsReturn.StartFunc({
         inColumnsToGroupByAsFloat,
         inObject: LocalMiddleObject,
@@ -102,13 +102,55 @@ let SingleColumnAndMultipleDataRetruned = ({ inDataToSort, inGroupByColumn, inCo
     try {
         var result = [];
         let LocalLoopInsideObject;
-
+        //console.log(" inColumnsDataFreezed : ", inColumnsDataFreezed);
         let jVarLocalGroupBy = _.groupBy(inDataToSort, inGroupByColumn);
-        //console.log("jVarLocalGroupBy : ", jVarLocalGroupBy);
+
         Object.entries(jVarLocalGroupBy).forEach(
             ([Loopkey, LoopValue]) => {
                 LocalLoopInsideObject = {};
                 LocalLoopInsideObject[inGroupByColumn] = Loopkey;
+               // console.log(" LoopValuessssssssss : ", LoopValue);
+
+                inColumnsDataFreezed.forEach(element => {
+                 //   console.log(" LoopValue : ", element, LoopValue[element]);
+
+                    LocalLoopInsideObject[element] = LoopValue[0][element];
+                });
+             //   console.log(" LocalLoopInsideObject : ", LocalLoopInsideObject);
+
+                inColumnsToGroupByAsFloat.map(element => {
+                    LocalLoopInsideObject[element] = _.sumBy(LoopValue, (o) => {
+                        if (typeof o[element] === "number") {
+                            return o[element];
+                        } else {
+                            return parseFloat(o[element]);
+                        };
+                    });
+                });
+
+                result.push(LocalLoopInsideObject);
+            }
+        );
+   //     console.log("result : ", result[0]);
+        return result;
+    } catch (error) {
+        console.log("error : ", error);
+    };
+};
+
+let SingleColumnAndMultipleDataRetruned_Keshav_28Nov2022 = ({ inDataToSort, inGroupByColumn, inColumnsDataFreezed = [], inColumnsToGroupByAsInt = [], inColumnsToGroupByAsFloat = [] }) => {
+    try {
+        var result = [];
+        let LocalLoopInsideObject;
+        console.log(" inColumnsDataFreezed : ", inColumnsDataFreezed);
+        let jVarLocalGroupBy = _.groupBy(inDataToSort, inGroupByColumn);
+
+        Object.entries(jVarLocalGroupBy).forEach(
+            ([Loopkey, LoopValue]) => {
+                LocalLoopInsideObject = {};
+                LocalLoopInsideObject[inGroupByColumn] = Loopkey;
+
+                console.log(" LoopValue : ", LoopValue);
 
                 inColumnsToGroupByAsFloat.map(element => {
                     LocalLoopInsideObject[element] = _.sumBy(LoopValue, (o) => {

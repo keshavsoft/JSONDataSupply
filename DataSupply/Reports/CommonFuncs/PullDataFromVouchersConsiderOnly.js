@@ -558,6 +558,7 @@ let FromVouchersConsiderOnly = async ({ inLedgerAutoJsonWithItemName, inUserPK }
     let LocalGroupByAsFloat;
 
     if ("ReportConfig" in inLedgerAutoJsonWithItemName) {
+        //console.log("sssssssssss : ", inLedgerAutoJsonWithItemName.ReportConfig.GroupBy);
         LocalGroupByColumn = inLedgerAutoJsonWithItemName.ReportConfig.GroupBy.ColumnName;
         LocalGroupByKTF = inLedgerAutoJsonWithItemName.ReportConfig.GroupBy.KTF;
         LocalGroupByAsFloat = inLedgerAutoJsonWithItemName.ReportConfig.GroupBy.GroupByAsFloat;
