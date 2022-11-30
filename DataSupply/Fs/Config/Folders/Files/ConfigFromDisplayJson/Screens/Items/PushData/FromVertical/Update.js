@@ -24,6 +24,12 @@ let StartFunc = async ({ inJsonConfig, inItemConfig, inDataPK, inPostData, inRow
                 inPostData
             });
 
+            if (ReturnData.KTF === false) {
+                LocalReturnData.KReason = ReturnData.KReason;
+
+                return await LocalReturnData;
+            };
+
             LocalReturnData.KTF = true;
             
             if (ReturnData !== undefined) {

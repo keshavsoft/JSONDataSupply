@@ -8,7 +8,7 @@ let LocalForVerticalSave = {
     ChangeAttributes: ({ inDataFromServer, inPK }) => {
         try {
             let LocalHtmlControlTypeTables = _.filter(inDataFromServer, { HTMLControlType: "SubTable" });
-            
+
             _.forEach(LocalHtmlControlTypeTables, (LoopItem) => {
                 if ("FooterType" in LoopItem.KData.TableInfo) {
                     LoopItem.KData.TableInfo.FooterType.CreateNewRow.Style = "";
@@ -169,6 +169,12 @@ exports.VerticalUpdate = async ({ inJsonConfig, inItemConfig, inPK, inUserPK, in
     if (LocalData.KTF) {
         if (LocalData.JsonData !== undefined) {
             if (LocalData.JsonData.hasOwnProperty("Vertical")) {
+                if ((LocalVerticalSubKey in LocalData.JsonData.Vertical.Footer) === false) {
+                    LocalReturnData.KReason = `Update not found in Vertical`;
+
+                    return await LocalReturnData;
+                };
+
                 if (LocalData.JsonData.Vertical.Footer[LocalVerticalSubKey].ReturnData.KTF) {
                     switch (LocalData.JsonData.Vertical.Footer[LocalVerticalSubKey].ReturnData.DataType) {
                         case "Vertical":
