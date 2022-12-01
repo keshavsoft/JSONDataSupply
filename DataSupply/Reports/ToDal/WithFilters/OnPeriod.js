@@ -14,11 +14,9 @@ let LocalFilterData = async ({ inLedgerName, inDataPK, inFilterObject }) => {
         inLedgerAutoJsonWithItemName: inLedgerName,
         inUserPK: inDataPK
     });
-    
-    //console.log("inFilterObject : ", inFilterObject);
 
     let LocalFilteredData = _.filter(LocalFullData, inFilterObject);
-    //console.log('LocalFilteredData : ,', LocalFilteredData);
+    
     return await LocalFilteredData;
 };
 
@@ -30,10 +28,6 @@ let StartFunc = async ({ inLedgerName, inDataPK, inFilterObject }) => {
 
         LocalReturnData.DataFromServer.KData.TableColumns = LocalLedgerAutoJsonWithItemName.TableColumns;
         LocalReturnData.DataFromServer.KData.TableInfo = LocalLedgerAutoJsonWithItemName.TableInfo
-        // LocalReturnData.DataFromServer.KData.TableData = await GlobalReportsPullDataOnly.FromItemNameWithOutFilters({
-        //     inLedgerAutoJsonWithItemName: LocalLedgerAutoJsonWithItemName,
-        //     inUserPK: inDataPK
-        // });
         LocalReturnData.DataFromServer.KData.TableData = await LocalFilterData({
             inLedgerName: LocalLedgerAutoJsonWithItemName,
             inDataPK,
