@@ -4,8 +4,43 @@ let CommonSaveFuncs = require("../../SaveFuncs");
 let CommonDisplayPullData = require("../../Fs/DefultFileNames/Display/PullData");
 let CommonFromData = require("../../Fs/Config/Folders/Files/PullData/FromData");
 
+let CommonFilesPullData = require("../../Fs/Config/Folders/Files/PullData/FromData");
+let CommonFilesPushData = require("../../Fs/Config/Folders/Files/PushData/ToData");
+
 //let CommonReturnDataFuncs = require("../../../CommonData/ReturnDataFuncs");
 //require("../../")
+
+let WithOutScreen = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData, inRowPK }) => {
+    let LocalReturnObject = { KTF: false, kPK: 0 };
+    let LocalUserData;
+    let LocalUserDataWithItemName;
+    let LocalUpdatedData;
+
+    if (inUserPK > 0) {
+        LocalUserData = await CommonFilesPullData.AsJsonAsync({ inJsonConfig, inUserPK });
+
+        LocalUpdatedData = JSON.parse(JSON.stringify(LocalUserData));
+        LocalUserDataWithItemName = LocalUpdatedData[inItemConfig.inItemName];
+
+        LocalUpdateRow({
+            inOriginalData: LocalUserDataWithItemName[inRowPK],
+            inPostData
+        });
+
+        let PromiseData = await CommonFilesPushData.AsAsync({
+            inJsonConfig,
+            inUserPK, inOriginalData: LocalUserData,
+            inDataToUpdate: LocalUpdatedData
+        });
+
+        if (PromiseData.KTF === true) {
+            LocalReturnObject.KTF = true;
+        };
+    };
+
+    return await LocalReturnObject;
+};
+
 let OnlyKeys = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData, inPK }) => {
     let LocalUserData;
     let LocalUserDataWithItemName;
@@ -98,5 +133,21 @@ let WithTransformBeforeSave = async ({ inJsonConfig, inItemConfig, inUserPK, inP
     };
 
 };
+
+let LocalMockFuncForOnlyKeys = async () => {
+    await WithOutScreen({
+        inJsonConfig: {
+            inFolderName: "Loans",
+            inJsonFileName: "6.json"
+        }, inItemConfig: {
+            inItemName: "PageInfo"
+
+        }, inUserPK: 2051,
+        inPostData: "aaaaaaaaaaa",
+        inPK: "BranchId"
+    });
+};
+
+LocalMockFuncForOnlyKeys().then();
 
 module.exports = { OnlyKeys, WithTransformBeforeSave };
