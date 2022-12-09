@@ -1,6 +1,9 @@
 const fs = require("fs-extra");
 let CommonAbsolutePath = require("../../../DataPath");
 let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
+let CommonFromBasic = require("./Basic");
+//let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
+let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
 
 class FillFromTemplateData {
     static StartFunc = async ({ inDestinationDir }) => {
@@ -52,11 +55,12 @@ let StartFunc = async ({ inUserPK }) => {
         if (fs.existsSync(LocalFolderPath)) {
             LocalReturnData.KReason = "Data is already present on the server";
         } else {
-            LocalReturnFromCreateFolder = await LocalCreateFolder({ inFolderPath: LocalFolderPath });
-
+            //LocalReturnFromCreateFolder = await CommonFromBasic.StartFunc({ inFolderPath: LocalFolderPath });
+            LocalReturnFromCreateFolder = await CommonFromBasic.StartFunc({ inUserPK });
+            console.log("LocalReturnFromCreateFolder : ", LocalReturnFromCreateFolder);
             if (LocalReturnFromCreateFolder.KTF) {
                 LocalFromTemplate = await FillFromTemplateData.StartFunc({ inDestinationDir: LocalFolderPath });
-                
+
                 if (LocalFromTemplate.KTF) {
                     LocalReturnData.KTF = true;
                 };
@@ -68,5 +72,12 @@ let StartFunc = async ({ inUserPK }) => {
 
     return await LocalReturnData;
 };
+
+let LocalMockFuncForStartFunc = async () => {
+    let LocalFromStartFunc = await StartFunc({ inUserPK: 18 });
+    console.log(" : ", LocalFromStartFunc);
+};
+
+LocalMockFuncForStartFunc().then();
 
 module.exports = { StartFunc };

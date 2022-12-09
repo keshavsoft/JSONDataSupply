@@ -20,19 +20,19 @@ exports.ReturnAbsolutePathOfPresentApp = () => {
     let LocalReturnPath;
     let CommonDataPath = require("../Kprivate/DataPath.json");
 
-switch (LocalPlatform) {
-    case "darwin":
-        LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataPath.darwinPath}`);
-        
-    break;
-    case "linux":
-        LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataPath.UbuntuPath}`);
-        break;
+    switch (LocalPlatform) {
+        case "darwin":
+            LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataPath.darwinPath}`);
 
-    default:
-        LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataPath.WinPath}`);
-        break;
-}
+            break;
+        case "linux":
+            LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataPath.UbuntuPath}`);
+            break;
+
+        default:
+            LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataPath.WinPath}`);
+            break;
+    }
 
     // if (LocalPlatform === "linux") {
     //     LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataPath.UbuntuPath}`);
