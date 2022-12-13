@@ -15,7 +15,7 @@ let AsJsonAsync = async ({ inJsonConfig, inUserPK }) => {
             inFolderName: LocalFolderName,
             inFileNameOnly: path.parse(LocalFileNameWithExtension).name, inUserPK
         });
-        
+
         if (LocalDataFromCommonCreate.KTF) {
             LocalFilePath = LocalDataFromCommonCreate.FilePath
             LocalDataFromJSON = await fs.readFileSync(LocalFilePath);
@@ -34,7 +34,7 @@ let FromFolderAndFile = async ({ inFolderName, inFileNameWithExtension, inUserPK
         let LocalFolderName = inFolderName;
         let LocalFileNameWithExtension = inFileNameWithExtension;
         let LocalFilePath;
-
+        //console.log("LocalFileNameWithExtension : ", LocalFileNameWithExtension);
         LocalDataFromCommonCreate = await CommonCheck.InConfig({
             inFolderName: LocalFolderName,
             inFileNameOnly: path.parse(LocalFileNameWithExtension).name, inUserPK

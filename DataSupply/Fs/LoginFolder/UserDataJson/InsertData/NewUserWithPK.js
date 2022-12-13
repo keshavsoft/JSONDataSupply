@@ -10,22 +10,26 @@ let WithDataPk = async ({ inDataPk, inUserName, inPassword }) => {
         if ("JsonData" in LocalFromfileData) {
             let LocalToBeInsertedData = JSON.parse(JSON.stringify(LocalFromfileData.JsonData));
             if ("data" in LocalToBeInsertedData) {
-                if ((inDataPk in LocalToBeInsertedData.data) === false) {
-                    LocalToBeInsertedData.data[inDataPk] = {
-                        UserName: inUserName,
-                        PassWord: inPassword
-                    };
-                    if (Object.keys(LocalToBeInsertedData.data).length > Object.keys(LocalFromfileData.JsonData.data).length) {
-                        let LocalFromUpdate = await CommonPushData.StartFunc({
-                            inOriginalData: LocalFromfileData.JsonData,
-                            inDataToUpdate: LocalToBeInsertedData
-                        });
+                if (inDataPk in LocalToBeInsertedData.data) {
+                    LocalReturnData.KReason = `Data with PK : ${inDataPk} is already found on the server!`;
+                    return await LocalReturnData;
+                };
 
-                        if (LocalFromUpdate.KTF) {
-                            LocalReturnData.KTF = true;
-                        };
-                    }
-                }
+                LocalToBeInsertedData.data[inDataPk] = {
+                    UserName: inUserName,
+                    PassWord: inPassword
+                };
+                
+                if (Object.keys(LocalToBeInsertedData.data).length > Object.keys(LocalFromfileData.JsonData.data).length) {
+                    let LocalFromUpdate = await CommonPushData.StartFunc({
+                        inOriginalData: LocalFromfileData.JsonData,
+                        inDataToUpdate: LocalToBeInsertedData
+                    });
+
+                    if (LocalFromUpdate.KTF) {
+                        LocalReturnData.KTF = true;
+                    };
+                };
             };
         }
     };

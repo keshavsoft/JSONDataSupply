@@ -3,7 +3,7 @@ let CommonAbsolutePath = require("../../../DataPath");
 let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
 let CommonFromBasic = require("./Basic");
 //let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
-let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
+//let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
 
 class FillFromTemplateData {
     static StartFunc = async ({ inDestinationDir }) => {
@@ -73,11 +73,11 @@ let StartFunc = async ({ inUserPK }) => {
     return await LocalReturnData;
 };
 
-let LocalMockFuncForStartFunc = async () => {
-    let LocalFromStartFunc = await StartFunc({ inUserPK: 18 });
-    console.log(" : ", LocalFromStartFunc);
-};
+// let LocalMockFuncForStartFunc = async () => {
+//     let LocalFromStartFunc = await StartFunc({ inUserPK: 18 });
+//     console.log(" : ", LocalFromStartFunc);
+// };
 
-LocalMockFuncForStartFunc().then();
+// LocalMockFuncForStartFunc().then();
 
 module.exports = { StartFunc };
