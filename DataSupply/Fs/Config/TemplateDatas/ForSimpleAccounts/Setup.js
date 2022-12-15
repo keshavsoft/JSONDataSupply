@@ -31,8 +31,8 @@ let StartFunc = () => {
     return LocalReturnData;
 };
 
-let FromForExistence = StartFunc();
+// let FromForExistence = StartFunc();
 
-console.log("FromForExistence : ", FromForExistence);
+// console.log("FromForExistence : ", FromForExistence);
 
 module.exports = { StartFunc };
