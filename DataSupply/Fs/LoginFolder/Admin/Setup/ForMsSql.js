@@ -4,6 +4,8 @@ let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check")
 let CommonFromBasic = require("./Basic");
 //let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
 //let CommonFromCheck = require("../../../Config/TemplateData/CreateFolder/Check");
+//let CommonFromTemplateDatas = require("../../../Config/TemplateDatas/ForSimpleAccounts/Setup");
+let CommonFromTemplateDatas = require("../../../Config/JSONFolder/DataPkAsFolder/SetUp/FromTemplateDatas/ForSimpleAccounts/ConfigOnly");
 
 class FillFromTemplateData {
     static StartFunc = async ({ inDestinationDir }) => {
@@ -27,22 +29,6 @@ class FillFromTemplateData {
     }
 };
 
-let LocalCreateFolder = async ({ inFolderPath }) => {
-    let LocalReturnData = { KTF: false, KReason: "" };
-
-    try {
-        fs.mkdirSync(inFolderPath, {
-            recursive: true
-        });
-
-        LocalReturnData.KTF = true;
-    } catch (error) {
-        console.log("eeeeeeee : ", error);
-    };
-
-    return await LocalReturnData;
-};
-
 let StartFunc = async ({ inUserPK }) => {
     let LocalReturnData = { KTF: false, KReason: "" };
     let LocalFromTemplate;
@@ -55,11 +41,12 @@ let StartFunc = async ({ inUserPK }) => {
         if (fs.existsSync(LocalFolderPath)) {
             LocalReturnData.KReason = "Data is already present on the server";
         } else {
-            //LocalReturnFromCreateFolder = await CommonFromBasic.StartFunc({ inFolderPath: LocalFolderPath });
             LocalReturnFromCreateFolder = await CommonFromBasic.StartFunc({ inUserPK });
-            console.log("LocalReturnFromCreateFolder : ", LocalReturnFromCreateFolder);
+
             if (LocalReturnFromCreateFolder.KTF) {
-                LocalFromTemplate = await FillFromTemplateData.StartFunc({ inDestinationDir: LocalFolderPath });
+                //   LocalFromTemplate = await FillFromTemplateData.StartFunc({ inDestinationDir: LocalFolderPath });
+                LocalFromTemplate = CommonFromTemplateDatas.StartFunc({ inDataPK: inUserPK });
+                console.log("LocalFromTemplate :  ", LocalFromTemplate);
 
                 if (LocalFromTemplate.KTF) {
                     LocalReturnData.KTF = true;
