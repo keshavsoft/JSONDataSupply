@@ -1,6 +1,7 @@
 let CommonFromAdminOnly = require("./AdminOnly");
 let CommonFromConfigOnly = require("./ConfigOnly");
 let CommonFromFirmDetailsJsonFile = require("./FirmDetailsJsonFile");
+let CommonFromReportsOnly = require("./ReportsOnly");
 
 let CommonCreateFolders = require("../../CreateFolders/Basic");
 
@@ -21,8 +22,9 @@ let StartFunc = async ({ inDataPK }) => {
     let LocalFromCommonFromAdminOnly = await CommonFromAdminOnly.StartFunc({ inDataPK });
     let LocalFromCommonFromConfigOnly = await CommonFromConfigOnly.StartFunc({ inDataPK });
     let LocalFromCommonFromFirmDetailsJsonFile = await CommonFromFirmDetailsJsonFile.StartFunc({ inDataPK });
+    let LocalFromCommonFromReportsOnly = await CommonFromReportsOnly.StartFunc({ inDataPK });
 
-    console.log("LocalFromCommonFromAdminOnly : ", LocalFromCommonFromFirmDetailsJsonFile, LocalFromCommonFromAdminOnly, LocalFromCommonFromConfigOnly);
+    console.log("LocalFromCommonFromAdminOnly : ", LocalFromCommonFromReportsOnly);
 
     return await LocalReturnData;
 
@@ -34,9 +36,7 @@ let StartFunc = async ({ inDataPK }) => {
 };
 
 // StartFunc({ inDataPK: 1016 }).then(p => {
-
 //     console.log("FromStartFunc : ", p);
-
 // });
 
 module.exports = { StartFunc };

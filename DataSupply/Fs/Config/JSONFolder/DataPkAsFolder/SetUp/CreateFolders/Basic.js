@@ -18,6 +18,7 @@ let StartFunc = async ({ inDataPK }) => {
         fs.mkdirSync(`${LocalReturnData.DataPKPath}/Data`, { recursive: true });
         fs.mkdirSync(`${LocalReturnData.DataPKPath}/Config`, { recursive: true });
         fs.mkdirSync(`${LocalReturnData.DataPKPath}/Admin`, { recursive: true });
+        fs.mkdirSync(`${LocalReturnData.DataPKPath}/Reports`, { recursive: true });
 
         LocalReturnData.KTF = true;
     } catch (error) {
