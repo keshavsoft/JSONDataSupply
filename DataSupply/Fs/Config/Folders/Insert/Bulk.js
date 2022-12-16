@@ -105,6 +105,7 @@ let InsertToDataOnly = async ({ inToName, inBody, inUserPK }) => {
     let LocalReturnData = await LocalCommonFuncs.CreateDataFolder({ inToName, inUserPK });
 
     if ((LocalReturnData.KTF || LocalReturnData.DataFolder)) {
+        console.log("inBody ----------: ", inBody[Object.keys(inBody)[0]]);
         Object.entries(inBody).forEach(
             ([key, value]) => {
                 CommonFile.InsertToDataOnly({
