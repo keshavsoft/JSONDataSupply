@@ -8,6 +8,8 @@ let ForExistence = ({ inDataPK }) => {
 
     if (LocalFromCommonCheck.KTF === false) {
         LocalReturnData.KReason = LocalFromCommonCheck.KReason;
+
+        return LocalReturnData;
     };
 
     LocalReturnData.JSONFolderPath = LocalFromCommonCheck.JSONFolderPath;

@@ -4,10 +4,10 @@ let CommonAbsolutePath = require("../../../../DataPath");
 let ForExistence = ({ inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
-    let LocalDataPathName = "Config";
+    let LocalFolderName = "Admin";
 
     let GlobalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp({});
-    LocalReturnData.DirPath = `${GlobalDataPath}/${LocalinDataPK}/${LocalDataPathName}`
+    LocalReturnData.DirPath = `${GlobalDataPath}/${LocalinDataPK}/${LocalFolderName}`
 
     try {
         if (fs.statSync(LocalReturnData.DirPath).isDirectory()) {
@@ -37,9 +37,9 @@ let FolderIsEmpty = ({ inDataPK }) => {
         LocalReturnData.KReason = LocalFromCommonCheck.KReason;
     };
 
-    LocalReturnData.ConfigPath = LocalFromCommonCheck.DirPath;
+    LocalReturnData.AdminPath = LocalFromCommonCheck.DirPath;
 
-    let LocalFoldersArray = LocalReturnFolders({ inDataPath: LocalReturnData.ConfigPath });
+    let LocalFoldersArray = LocalReturnFolders({ inDataPath: LocalReturnData.AdminPath });
 
     if (LocalFoldersArray.length === 0) {
         LocalReturnData.KTF = true;
