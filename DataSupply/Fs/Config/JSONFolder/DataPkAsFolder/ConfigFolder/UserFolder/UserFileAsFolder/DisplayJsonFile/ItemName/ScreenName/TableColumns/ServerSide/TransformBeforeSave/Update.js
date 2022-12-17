@@ -53,20 +53,20 @@ let UpdateKeys = async ({ inJsonConfig, inItemConfig, inTableColumnName, inObjec
 };
 
 
-UpdateKeys({
-    inJsonConfig: {
-        inFolderName: "Masters",
-        inJsonFileName: "Customers.json"
-    },
-    inItemConfig: {
-        inItemName: "CustomersName",
-        inScreenName: "Create"
-    },
-    inObjectToUpdate: {},
-    inDataPK: 16
-}).then(p => {
-    console.log("pppp : ", p);
-});
+// UpdateKeys({
+//     inJsonConfig: {
+//         inFolderName: "Masters",
+//         inJsonFileName: "Customers.json"
+//     },
+//     inItemConfig: {
+//         inItemName: "CustomersName",
+//         inScreenName: "Create"
+//     },
+//     inObjectToUpdate: {},
+//     inDataPK: 16
+// }).then(p => {
+//     console.log("pppp : ", p);
+// });
 
 
 module.exports = {
