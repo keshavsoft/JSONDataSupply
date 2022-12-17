@@ -1,12 +1,16 @@
 let fs = require("fs");
 let CommonFromCheck = require("../Check");
 
-let ForExistence = ({ inDataPK }) => {
+let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
+    let LocalinFolderName = inFolderName;
+    let LocalinFileNameOnly = inFileNameOnly;
+    let LocalFileName = "Display.json";
+
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
-    let LocalFileName = "FirmDetails.json";
 
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
+        inFolderName: LocalinFolderName,
         inDataPK: LocalinDataPK
     });
 
@@ -15,14 +19,14 @@ let ForExistence = ({ inDataPK }) => {
         return LocalReturnData;
     };
 
-    LocalReturnData.DataPKPath = LocalFromCommonFromCheck.DataPKPath;
-    LocalReturnData.FirmDetailsPath = `${LocalReturnData.DataPKPath}/${LocalFileName}`;
+    LocalReturnData.FolderPath = LocalFromCommonFromCheck.FolderPath;
+    LocalReturnData.UserJsonFilePath = `${LocalFromCommonFromCheck.FolderPath}/${LocalinFileNameOnly}.json`;
 
     try {
-        if (fs.statSync(`${LocalReturnData.DataPKPath}/${LocalFileName}`)) {
+        if (fs.statSync(LocalReturnData.UserJsonFilePath)) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = `${LocalFileName} : File not found!`;
+            LocalReturnData.KReason = "File not found!";
         }
     } catch (error) {
         LocalReturnData.KReason = error;

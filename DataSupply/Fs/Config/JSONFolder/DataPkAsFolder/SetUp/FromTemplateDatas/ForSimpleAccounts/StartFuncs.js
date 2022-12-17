@@ -8,7 +8,7 @@ let CommonCreateFolders = require("../../CreateFolders/Basic");
 //let fs = require("fs-extra");
 
 let StartFunc = async ({ inDataPK }) => {
-    let LocalReturnData = { KTF: false, DirPath: "", KResult: [] };
+    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
     let LocalFromCommonFromCheck = await CommonCreateFolders.StartFunc({ inDataPK });
     LocalReturnData.ConfigPath = `${LocalFromCommonFromCheck.DataPKPath}/Config`;
@@ -24,11 +24,7 @@ let StartFunc = async ({ inDataPK }) => {
     let LocalFromCommonFromFirmDetailsJsonFile = await CommonFromFirmDetailsJsonFile.StartFunc({ inDataPK });
     let LocalFromCommonFromReportsOnly = await CommonFromReportsOnly.StartFunc({ inDataPK });
 
-    //console.log("LocalFromCommonFromAdminOnly : ", LocalFromCommonFromReportsOnly);
-    LocalReturnData.KResult.push(LocalFromCommonFromAdminOnly);
-    LocalReturnData.KResult.push(LocalFromCommonFromConfigOnly);
-    LocalReturnData.KResult.push(LocalFromCommonFromFirmDetailsJsonFile);
-    LocalReturnData.KResult.push(LocalFromCommonFromReportsOnly);
+    console.log("LocalFromCommonFromAdminOnly : ", LocalFromCommonFromReportsOnly);
 
     return await LocalReturnData;
 

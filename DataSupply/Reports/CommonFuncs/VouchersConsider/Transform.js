@@ -7,7 +7,7 @@ let CommonFuns = {
             let LocalReturnData;
             let LocalValueFromTransform;
             let LocalColumnsSorted = _.sortBy(inColumns, "pk");;
-            //    console.log("ssssssssssssss : ", inColumns[0], LocalColumnsSorted[0]);
+            //console.log("ssssssssssssss : ", inColumns[0], LocalColumnsSorted[0], inData[0], typeof inData);
             LocalReturnData = inData.map(LoopItem => {
                 localLoopObject = {};
 
@@ -265,11 +265,37 @@ let CommonFuns = {
 
                 LocalGroupData = LocalColumnDataNeeded.reduce((a, b) => a + b, 0);
 
+                // try {
+                //     if (typeof LocalFromEval === "object") {
+                //         return eval(LocalGroupData);
+                //     } else {
+                //         return eval(LocalFromEval + LocalGroupData);
+                //     };
+                // } catch (error) {
+                //     if (typeof LocalFromEval === "object") {
+                //         return LocalGroupData;
+                //     } else {
+                //         return LocalFromEval + LocalGroupData;
+                //     };
+
+                // };
+                let LocalReturnValue;
+
                 try {
-                    return eval(LocalFromEval + LocalGroupData);
+                    if (LocalFromEval === "Object") {
+                        LocalReturnValue = eval(LocalGroupData);
+                    } else {
+                        LocalReturnValue = eval(LocalFromEval + LocalGroupData);
+                    };
                 } catch (error) {
-                    return LocalFromEval + LocalGroupData;
+                    if (LocalFromEval === "Object") {
+                        LocalReturnValue = LocalGroupData;
+                    } else {
+                        LocalReturnValue = LocalFromEval + LocalGroupData;
+                    };
                 };
+
+                return LocalReturnValue;
             },
             ObjectToArrayMultipleColumnsGroupByAndEvalPositive: ({ inLoopItemColumn, inLoopItemData }) => {
                 let LocalReturnValue = 0;

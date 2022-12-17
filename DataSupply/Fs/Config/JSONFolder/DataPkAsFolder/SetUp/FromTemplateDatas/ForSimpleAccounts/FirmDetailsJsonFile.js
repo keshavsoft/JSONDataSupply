@@ -24,7 +24,7 @@ let StartFunc = async ({ inDataPK }) => {
 
     fs.copyFileSync(LocalFrom.FirmDetailsJsonFilePath, `${LocalFromFirmDetailsJsonFile.DataPKPath}/FirmDetails.json`);
     LocalReturnData.KTF = true;
-  //  console.log("aaaaaaa L : ", LocalFromFirmDetailsJsonFile);
+    console.log("aaaaaaa L : ", LocalFromFirmDetailsJsonFile);
 
     return await LocalReturnData;
 };

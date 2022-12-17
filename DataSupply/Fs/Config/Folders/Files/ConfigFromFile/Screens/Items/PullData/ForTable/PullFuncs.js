@@ -4,6 +4,7 @@ let CommonDisplayPullDataNew = require("../../../../../PullData/From-ConfigFromF
 let CommonReOrder = require("../../../../../../../../../CommonTableFuncs/TableFuncs/ReOrder");
 
 let CommonFilesPullData = require("../../../../../Items/PullData/FromDataFolder/Pull");
+let CommonFromReports = require("../../../../../../../../../Reports/CommonFuncs/VouchersConsider/Transform");
 
 let LocalPrepareTableConfig = async ({ inJsonConfig, inItemConfig, inUserPK }) => {
     let LocalDisplayDataNeeded;
@@ -56,11 +57,12 @@ let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inCol
 
                 return element;
             });
-
-            LocalReturnData = CommonReportsVouchersConsiderTransform.Transform({
+            //console.log("LocalData : ", LocalData[0]);
+            LocalReturnData = CommonFromReports.Transform({
                 inColumns: LocalTransformedColumns,
                 inData: LocalData
             });
+            //console.log("LocalReturnData : ", LocalReturnData[0]);
         };
     };
 

@@ -1,12 +1,16 @@
 let fs = require("fs");
 let CommonFromCheck = require("../Check");
 
-let ForExistence = ({ inDataPK }) => {
+let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
+    let LocalinFolderName = inFolderName;
+    let LocalinFileNameOnly = inFileNameOnly;
+
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
-    let LocalFileName = "FirmDetails.json";
 
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
+        inFolderName: LocalinFolderName,
+        inFileNameOnly: LocalinFileNameOnly,
         inDataPK: LocalinDataPK
     });
 
@@ -15,15 +19,12 @@ let ForExistence = ({ inDataPK }) => {
         return LocalReturnData;
     };
 
-    LocalReturnData.DataPKPath = LocalFromCommonFromCheck.DataPKPath;
-    LocalReturnData.FirmDetailsPath = `${LocalReturnData.DataPKPath}/${LocalFileName}`;
+    LocalReturnData.UserJsonFilePath = LocalFromCommonFromCheck.UserJsonFilePath;
 
     try {
-        if (fs.statSync(`${LocalReturnData.DataPKPath}/${LocalFileName}`)) {
-            LocalReturnData.KTF = true;
-        } else {
-            LocalReturnData.KReason = `${LocalFileName} : File not found!`;
-        }
+        let rawdata = fs.readFileSync(LocalReturnData.UserJsonFilePath);
+        LocalReturnData.JsonData = JSON.parse(rawdata);
+        LocalReturnData.KTF = true;
     } catch (error) {
         LocalReturnData.KReason = error;
     };
@@ -31,10 +32,10 @@ let ForExistence = ({ inDataPK }) => {
     return LocalReturnData;
 };
 
-// console.log("ForExistence : ", ForExistence({
+// console.log("ForExistence : ", StartFunc({
 //     inFolderName: "Masters",
 //     inFileNameOnly: "Customers",
 //     inDataPK: 16
 // }));
 
-module.exports = { ForExistence };
+module.exports = { StartFunc };
