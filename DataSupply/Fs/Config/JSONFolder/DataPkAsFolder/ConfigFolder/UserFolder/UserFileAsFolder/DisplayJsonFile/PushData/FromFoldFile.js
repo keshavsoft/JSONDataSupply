@@ -40,14 +40,14 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inOriginalData, 
     return await LocalReturnObject;
 };
 
-StartFunc({
-    inFolderName: "Masters",
-    inFileNameWithExtension: "Customers.json",
-    inDataPK: 16,
-    inUpdatedData: {}
-}).then(p => {
-    console.log("pppp : ", p);
-});
+// StartFunc({
+//     inFolderName: "Masters",
+//     inFileNameWithExtension: "Customers.json",
+//     inDataPK: 16,
+//     inUpdatedData: {}
+// }).then(p => {
+//     console.log("pppp : ", p);
+// });
 
 // FromJsonConfig({
 //     inJsonConfig:{
