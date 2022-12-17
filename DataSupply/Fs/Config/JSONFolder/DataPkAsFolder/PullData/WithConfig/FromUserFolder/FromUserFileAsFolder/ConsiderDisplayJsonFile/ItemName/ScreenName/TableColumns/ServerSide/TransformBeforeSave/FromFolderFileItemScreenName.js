@@ -1,37 +1,43 @@
-let CommonFromCheck = require("../Check");
 let _ = require("lodash");
-let Common=require("../../../../../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/")
-let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
-    let LocalinFolderName = inFolderName;
-    let LocalinFileNameOnly = inFileNameOnly;
-    let LocalinItemName = inItemName;
+let CommonFromTableColumns = require("../../../../../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/TableColumns/PullData/AsArray");
 
-    let LocalinDataPK = inDataPK;
-    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
+    let LocalDataPK = inDataPK;
 
-    let LocalFromCommonFromCheck = CommonFromCheck.StartFunc({
-        inFolderName: LocalinFolderName,
-        inFileNameOnly: LocalinFileNameOnly,
-        inItemName: LocalinItemName,
-        inDataPK: LocalinDataPK
-    });
-
-    if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
-        return LocalReturnData;
+    let LocalReturnObject = {
+        KTF: false,
+        JsonData: {}
     };
 
-    LocalReturnData.JsonData = LocalFromCommonFromCheck.JsonData[LocalinItemName];
-    LocalReturnData.KTF = true;
+    if (LocalDataPK > 0) {
+        let LocalFolderName = inFolderName;
+        let LocalFileNameWithExtension = inFileNameWithExtension;
+        let LocalinItemName = inItemName;
+        let LocalinScreenName = inScreenName;
 
-    return LocalReturnData;
+        let LocalCommonFromTableColumns = await CommonFromTableColumns.StartFunc({
+            inFolderName: LocalFolderName,
+            inFileNameWithExtension: LocalFileNameWithExtension,
+            inItemName: LocalinItemName,
+            inScreenName: LocalinScreenName,
+            inDataPK: LocalDataPK
+        });
+
+        console.log("LocalCommonFromTableColumns : ", LocalCommonFromTableColumns);
+
+    };
+
+    return await LocalReturnObject;
 };
 
-console.log("ForExistence----- : ", ReturnAsArrayWithPKSortByPK({
-    inFolderName: "Transactions",
-    inFileNameOnly: "GST-SALES",
-    inItemName: "FERTLIZERS-GST--SALES",
-    inDataPK: 1024
-}).JsonData[0]);
+StartFunc({
+    inFolderName: "Masters",
+    inFileNameWithExtension: "Customers.json",
+    inItemName: "CustomerNames",
+    inScreenName: "Create",
+    inDataPK: 16
+}).then(p => {
+    console.log("pppp : ", p);
+});
 
 module.exports = { StartFunc };
