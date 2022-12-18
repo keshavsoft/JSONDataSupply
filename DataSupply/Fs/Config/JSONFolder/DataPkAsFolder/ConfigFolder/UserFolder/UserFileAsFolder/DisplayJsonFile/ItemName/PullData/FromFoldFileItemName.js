@@ -20,12 +20,12 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
             inItemName: LocalinItemName,
             inDataPK: LocalDataPK
         });
-
+        
         if (LocalFromCommonFromCheck.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
             return await LocalReturnObject;
         };
-
+       // console.log("LocalFromCommonFromCheck111111 : ", LocalFromCommonFromCheck.JsonData[LocalinItemName]);
         LocalReturnObject.JsonData = LocalFromCommonFromCheck.JsonData[LocalinItemName];
         LocalReturnObject.KTF = true;
     };

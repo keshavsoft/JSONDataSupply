@@ -1,3 +1,4 @@
+const e = require("express");
 let CommonFromPullData = require("../PullData/AsJson");
 
 let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDataPK }) => {
@@ -23,11 +24,13 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
             LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
             return await LocalReturnObject;
         };
-
+     //   console.log("LocalFromCommonFromPullData22222222 : ", LocalFromCommonFromPullData.JsonData);
         LocalReturnObject.JsonData = LocalFromCommonFromPullData.JsonData
 
         if (inItemName in LocalFromCommonFromPullData.JsonData) {
             LocalReturnObject.KTF = true;
+        } else {
+            LocalReturnObject.KReason = `Item Name : ${inItemName} is not found!`;
         };
     };
 

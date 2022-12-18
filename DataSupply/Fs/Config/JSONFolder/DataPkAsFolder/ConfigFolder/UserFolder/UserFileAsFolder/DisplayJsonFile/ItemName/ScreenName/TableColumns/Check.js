@@ -22,7 +22,7 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             inScreenName: LocalinScreenName,
             inDataPK: LocalDataPK
         });
-
+      //  console.log("LocalFromCommonFromPullData : ", LocalFromCommonFromPullData);
         if (LocalFromCommonFromPullData.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
             return await LocalReturnObject;
