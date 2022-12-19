@@ -150,4 +150,4 @@ let ReturnAsArrayWithPKSortByPKDes = ({ inFolderName, inFileNameOnly, inItemName
 //     inDataPK: 1024
 // }).JsonData[0]);
 
-module.exports = { StartFunc };
+module.exports = { StartFunc, ReturnAsArrayWithPK };
