@@ -14,20 +14,6 @@ class FuncsWithColumns {
             Folders: {}
         };
 
-        // LocalFoldersData.forEach(LoopFolderName => {
-        //     LocalReturnObject.Folders[LoopFolderName] = {
-        //         FolderName: LoopFolderName,
-        //         Files: this.PullFiles({
-        //             inFilesArray: CommonFiles.StartFunc({ inFolderName: LoopFolderName, inDataPk }),
-        //             inFolderName: LoopFolderName,
-        //             inUserPK: inDataPk
-        //         })
-        //     };
-
-        //     return LocalFolderObject;
-        // });
-
-
         await Promise.all(LocalFoldersData.map(async LoopFolderName => {
             LocalReturnObject.Folders[LoopFolderName] = {
                 FolderName: LoopFolderName,
@@ -46,30 +32,6 @@ class FuncsWithColumns {
 
     static PullFiles = async ({ inFolderName, inFilesArray, inUserPK }) => {
         let LocalReturnObject = {};
-        console.log("inUserPK : ", inUserPK);
-        // inFilesArray.forEach(LoopFileName => {
-        //     LocalReturnObject[path.parse(LoopFileName).name] = {
-        //         FileName: LoopFileName,
-        //         Items: CommonNewItems.StartFunc({
-        //             inFolderName,
-        //             inFileNameWithExtension: LoopFileName,
-        //             inUserPK,
-        //             inFuncToRun: this.HigherOrderFuncToRun
-        //         })
-        //     };
-        // });
-
-        // inFilesArray.forEach(LoopFileName => {
-        //     LocalReturnObject[path.parse(LoopFileName).name] = {
-        //         FileName: LoopFileName,
-        //         Items: CommonNewItems.StartFunc({
-        //             inFolderName,
-        //             inFileNameWithExtension: LoopFileName,
-        //             inUserPK,
-        //             inFuncToRun: this.HigherOrderFuncToRun
-        //         })
-        //     };
-        // });
 
         await Promise.all(inFilesArray.map(async LoopFileName => {
             LocalReturnObject[path.parse(LoopFileName).name] = {
@@ -82,26 +44,6 @@ class FuncsWithColumns {
                 })
             };
         }));
-
-        // LocalReturnData = await Promise.all(LocalFilesArray.map(async (LoopFileName, LoopIndex) => {
-        //     let LocalLoopObject = {};
-        //     LocalLoopObject.FileName = LoopFileName;
-        //     LocalLoopObject.FileNameHtmlId = `File${LoopIndex}`;
-
-        //     LocalJsonConfig = {
-        //         inFolderName,
-        //         inJsonFileName: LoopFileName
-        //     };
-
-        //     let LocalLoopItems = await CommonItems.AsTree({
-        //         inJsonConfig: LocalJsonConfig,
-        //         inDataPk
-        //     });
-
-        //     LocalLoopObject.Items = LocalLoopItems
-
-        //     LocalReturnObject[LocalLoopObject.FileNameHtmlId] = LocalLoopObject;
-        // }));
 
         return await LocalReturnObject;
     };
