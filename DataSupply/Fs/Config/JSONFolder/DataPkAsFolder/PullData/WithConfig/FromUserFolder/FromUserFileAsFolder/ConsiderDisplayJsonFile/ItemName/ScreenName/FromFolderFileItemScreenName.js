@@ -3,7 +3,6 @@ let _ = require("lodash");
 let CommonFromDataFolder = require("../../../../../../../DataFolder/UserFolder/UserJsonFile/ItemName/PullData/FromFolderFileItemName");
 let path = require("path");
 let CommonFromTableColumns = require("../../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/TableColumns/PullData/ForShowInTable");
-let fs = require("fs");
 
 let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -17,10 +16,12 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
 
         let LocalTableColumnsData = await LocalTableColumnsDataFunc({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK });
         let LocalJsonData = await LocalJsonDataFunc({ inFolderName, inFileNameWithExtension, inItemName, inDataPK });
-        
-        console.log("aaaaaaa : ", LocalJsonData); // 👉️ a
 
-        //console.log("------ : ", map[0]);
+        LocalReturnObject.JsonData = _.map(LocalJsonData, LoopItem => {
+            return _.pick({ ...LocalTableColumnsData, ...LoopItem }, Object.keys(LocalTableColumnsData));
+        });
+        
+        LocalReturnObject.KTF = true;
     };
 
     return await LocalReturnObject;
