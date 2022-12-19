@@ -44,9 +44,9 @@ let UpdateKeys = async ({ DataPK, folderName, FileName, ItemName, ScreenName, Da
 
                 //console.log("LocalFromUpdate : ", LocalFromUpdate);
 
-                // if (LocalFromUpdate.KTF) {
-                //     LocalReturnObject.KTF = true;
-                // };
+                if (LocalFromUpdate.KTF) {
+                    LocalReturnObject.KTF = true;
+                };
 
                 return await LocalReturnObject;
             };
