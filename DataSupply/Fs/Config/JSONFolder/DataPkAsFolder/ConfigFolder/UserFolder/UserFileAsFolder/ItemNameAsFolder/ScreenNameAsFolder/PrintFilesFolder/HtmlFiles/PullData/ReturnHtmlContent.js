@@ -1,6 +1,43 @@
 let path = require("path");
-let CommonFromCheck = require("../Check");
+let CommonFromCheck = require("../../Check");
 let fs = require("fs");
+
+
+let LocalGetFiles = ({ inPath }) => {
+    return fs.readdirSync(inPath).map(function (file) {
+        //return fs.readFileSync(inPath + '/' + file);
+        let LoopInsideReturn = {};
+        LoopInsideReturn[path.parse(file).name] = fs.readFileSync(inPath + '/' + file, 'utf8');
+
+        //        console.log("LoopInsideReturn : ", LoopInsideReturn);
+
+        return LoopInsideReturn;
+
+        //  fs.readFileSync(inPath + '/' + file);
+
+    });
+};
+
+let LocalGetFiles1 = ({ inPath }) => {
+    fs.readdir(inPath, function (err, files) {
+        if (err) {
+            console.error("Could not list the directory.", err);
+            //   process.exit(1);
+        };
+        let LocalReturnObject = {};
+
+        files.forEach(function (file, index) {
+            var fromPath = path.join(inPath, file);
+
+            let LoopInsideHtmlContent = fs.readFileSync(fromPath);
+            LocalReturnObject[path.parse(file).name] = LoopInsideHtmlContent;
+
+
+        });
+        console.log("LoopInsideHtmlContent.", LocalReturnObject);
+        return LocalReturnObject;
+    });
+};
 
 let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -30,19 +67,24 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
             return await LocalReturnObject;
         };
+        //console.log('LocalFromCommonFromCheck------------- : ', LocalFromCommonFromCheck);
 
-        LocalReturnObject.ScreenNamePath = LocalFromCommonFromCheck.ScreenNamePath;
-        LocalReturnObject.PrintFilesPath = `${LocalReturnObject.ScreenNamePath}/${LocalPrintFilesFolderName}`;
+        let LocalFromGetFiles = LocalGetFiles({ inPath: LocalFromCommonFromCheck.PrintFilesPath });
+        LocalReturnObject.KTF = true;
+        LocalReturnObject.HtmlData = LocalFromGetFiles;
+        //console.log("LocalFromGetFiles : ", LocalFromGetFiles);
+        // LocalReturnObject.ScreenNamePath = LocalFromCommonFromCheck.ScreenNamePath;
+        // LocalReturnObject.PrintFilesPath = `${LocalReturnObject.ScreenNamePath}/${LocalPrintFilesFolderName}`;
 
-        try {
-            if (fs.statSync(LocalReturnObject.PrintFilesPath).isDirectory()) {
-                LocalReturnObject.KTF = true;
-            } else {
-                LocalReturnObject.KReason = `PrintFilesPath not found!`;
-            }
-        } catch (error) {
-            LocalReturnObject.KReason = error;
-        };
+        // try {
+        //     if (fs.statSync(LocalReturnObject.PrintFilesPath).isDirectory()) {
+        //         LocalReturnObject.KTF = true;
+        //     } else {
+        //         LocalReturnObject.KReason = `PrintFilesPath not found!`;
+        //     }
+        // } catch (error) {
+        //     LocalReturnObject.KReason = error;
+        // };
 
     };
 

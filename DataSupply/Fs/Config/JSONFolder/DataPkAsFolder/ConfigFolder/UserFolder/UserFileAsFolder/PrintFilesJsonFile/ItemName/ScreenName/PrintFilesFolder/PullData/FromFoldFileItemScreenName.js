@@ -50,20 +50,22 @@ let ReturnHtmlFiles = async ({ inFolderName, inFileNameWithExtension, inItemName
         let LocalinItemName = inItemName;
         let LocalinScreenName = inScreenName;
 
-        LocalFromCommonFromCheck = await CommonFromCheck.StartFunc({
+        LocalFromCommonFromCheck = await CommonFromCheck.ForExistence({
             inFolderName: LocalFolderName,
             inFileNameWithExtension: LocalFileNameWithExtension,
             inItemName: LocalinItemName,
             inScreenName: LocalinScreenName,
             inDataPK: LocalDataPK
         });
-        //  console.log("LocalFromCommonFromCheck : ", LocalFromCommonFromCheck);
+        console.log("LocalFromCommonFromCheck-------- : ", LocalFromCommonFromCheck);
         if (LocalFromCommonFromCheck.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
             return await LocalReturnObject;
         };
 
         let LocalPrintFilesArray = LocalFromCommonFromCheck.JsonData[LocalinScreenName];
+
+        console.log("LocalPrintFilesArray : ", LocalPrintFilesArray);
         LocalReturnObject.KTF = true;
     };
 
@@ -75,7 +77,7 @@ let LocalReturnFileData = () => {
 };
 
 let MockFuncFromFolderFile = async () => {
-    return await StartFunc({
+    return await ReturnHtmlFiles({
         inFolderName: "Transactions",
         inFileNameWithExtension: "GST-SALES.json",
         inItemName: "GST-SALE",
@@ -84,9 +86,9 @@ let MockFuncFromFolderFile = async () => {
     });
 };
 
-// MockFuncFromFolderFile().then(p => {
-//     console.log("aaaaaaaa : ", p);
-// });
+MockFuncFromFolderFile().then(p => {
+    console.log("aaaaaaaa : ", p);
+});
 
 module.exports = {
     StartFunc,

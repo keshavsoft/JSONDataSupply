@@ -11,7 +11,6 @@ let ForExistence = async ({ inFolderName, inFileNameWithExtension, inItemName, i
     let LocalDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
-
     LocalFromCommonFromCheck = await CommonFromCheck.StartFunc({
         inFolderName: LocalFolderName,
         inFileNameWithExtension: LocalFileNameWithExtension,
@@ -24,19 +23,20 @@ let ForExistence = async ({ inFolderName, inFileNameWithExtension, inItemName, i
         LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
-    console.log("LocalFromCommonFromCheck : ", LocalFromCommonFromCheck);
-    // LocalReturnData.JsonFilePath = LocalFromCommonFromCheck.JsonFilePath;
-    // LocalReturnData.PrintFilesPath = `${LocalFromCommonFromCheck.JsonFilePath}/${LocalFileName}`;
+    //  console.log("LocalFromCommonFromCheck : ", LocalFromCommonFromCheck);
 
-    // try {
-    //     if (fs.statSync(LocalReturnData.PrintFilesPath)) {
-    //         LocalReturnData.KTF = true;
-    //     } else {
-    //         LocalReturnData.KReason = "File not found!";
-    //     }
-    // } catch (error) {
-    //     LocalReturnData.KReason = error;
-    // };
+    LocalReturnData.JsonFilePath = LocalFromCommonFromCheck.JsonFilePath;
+    LocalReturnData.PrintFilesPath = `${LocalFromCommonFromCheck.JsonFilePath}/${LocalFileName}`;
+
+    try {
+        if (fs.statSync(LocalReturnData.PrintFilesPath)) {
+            LocalReturnData.KTF = true;
+        } else {
+            LocalReturnData.KReason = "File not found!";
+        }
+    } catch (error) {
+        LocalReturnData.KReason = error;
+    };
 
     return LocalReturnData;
 };
@@ -51,8 +51,8 @@ let MockFuncFromFolderFile = async () => {
     });
 };
 
-MockFuncFromFolderFile().then(p => {
-    console.log("aaaaaaaa : ", p);
-});
+// MockFuncFromFolderFile().then(p => {
+//     console.log("aaaaaaaa : ", p);
+// });
 
 module.exports = { ForExistence };
