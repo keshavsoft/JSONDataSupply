@@ -24,6 +24,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inUserPK }) => {
 
     return await LocalReturnData;
 };
+
 let MockFuncFromFolderFile = async () => {
     return await StartFunc({
         inFolderName: "Transactions",

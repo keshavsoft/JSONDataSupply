@@ -41,14 +41,14 @@ let ReturnArray = async ({ inFolderName, inFileNameWithExtension, inItemName, in
 let MockFuncFromFolderFile = async () => {
     return await ReturnArray({
         inFolderName: "Transactions",
-        inFileNameWithExtension: "General Payments.json",
-        inItemName: "General Payments",
+        inFileNameWithExtension: "GST-SALES.json",
+        inItemName: "GST-SALE",
         inScreenName: "Print",
-        inDataPK: 1018
+        inDataPK: 1022
     });
 };
 
-//MockFuncFromFolderFile().then(p => { console.log("p:", p) })
+MockFuncFromFolderFile().then(p => { console.log("p:", p) })
 
 module.exports = {
     ReturnArray
