@@ -82,7 +82,7 @@ let LocalLedgerHelperFuncs = {
                     inVouchersConsiderLine: inVouchersConsiderLoopObject,
                     inUserPK
                 });
-
+            //    console.log("LocalDataArrayToPullFrom------- : ", LocalDataArrayToPullFrom);
                 LocalDataTransformedToPullFrom = CommonVouchersConsiderTransform.Transform({
                     inColumns: inVouchersConsiderLoopObject.Columns,
                     inData: LocalDataArrayToPullFrom
@@ -200,18 +200,8 @@ let LocalLedgerHelperFuncs = {
                         inJsonFileName: inVouchersConsiderLine.FileName
                     };
 
-                    // LocalReturnData = await CommonPullUserData.AsJsonAsync({
-                    //     inJsonConfig: LocalJsonConfig,
-                    //     inUserPK
-                    // });
-
                     if ("FromFolder" in inVouchersConsiderLine) {
                         if (inVouchersConsiderLine.FromFolder) {
-                            // LocalFromLoopFunc = LocalLedgerHelperFuncs.VouchersConsiderFuncs.VouchersConsider.SubFuncs.LoopReturnDataFuncFromFolder({
-                            //     inFolderName: LocalFolderName,
-                            //     inReturnData: LocalReturnData,
-                            //     inUserPK
-                            // });
                             if ("FolderConfig" in inVouchersConsiderLine) {
                                 if ("ConsiderFilesArray" in inVouchersConsiderLine.FolderConfig) {
                                     LocalFromLoopFunc = await CommonFolderIncludeAllFiles.AsArray({
@@ -236,21 +226,11 @@ let LocalLedgerHelperFuncs = {
                         } else {
                             if ("ItemNameConsider" in inVouchersConsiderLine) {
                                 if (inVouchersConsiderLine.ItemNameConsider) {
-                                    // console.log("vvvvvvvvvvvv L : ",
-                                    //     LocalJsonConfig,
-                                    //     inVouchersConsiderLine.ItemName,
-                                    //     inUserPK);
-
                                     LocalFromLoopFunc = await CommonPullItemData.FromJsonConfig({
                                         inJsonConfig: LocalJsonConfig,
                                         inItemName: inVouchersConsiderLine.ItemName,
                                         inDataPK: inUserPK
                                     });
-
-                                    // LocalReturnData = await CommonPullUserData.AsJsonAsync({ inJsonConfig: LocalJsonConfig, inUserPK });
-                                    // if (LocalFromObject.KTF) {
-                                    //     LocalReturnData = LocalFromObject.ReturnArray;
-                                    // };
 
                                     if (LocalFromLoopFunc.KTF) {
                                         LocalReturnObject.KTF = true;
@@ -565,7 +545,7 @@ let FromVouchersConsiderOnly = async ({ inLedgerAutoJsonWithItemName, inUserPK }
     };
 
     LocalReturnArray = await DataFromVouchersConsider({ inVouchersConsider: LocalVouchersConsider, inUserPK });
-
+    // console.log("11111111111 : ", LocalReturnArray);
     if (LocalGroupByKTF) {
         LocalReturnArray = CommonGroupBy.SingleColumnAndMultipleDataRetruned({
             inDataToSort: LocalReturnArray,
@@ -598,7 +578,7 @@ let DataFromVouchersConsider = async ({ inVouchersConsider, inUserPK }) => {
             inVouchersConsiderLoopObject: LocalVouchersConsiderActive[property],
             inUserPK
         });
-
+        //console.log("LocalDataNeeded : ", LocalDataNeeded);
         LocalGroupInsideVouchersConsider = LocalDataNeeded;
 
         if ("ReportConfig" in LocalVouchersConsiderActive[property]) {

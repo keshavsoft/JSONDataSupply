@@ -50,8 +50,11 @@ let ShowDataWithOutFilters = async ({ inLedgerName, inUserPK }) => {
         LocalReturnArrayObject.KData.TableColumns = LocalLedgerAutoJsonWithItemName.TableColumns;
         LocalReturnArrayObject.KData.TableInfo = LocalLedgerAutoJsonWithItemName.TableInfo
 
-        LocalReturnArrayObject.KData.TableData = await GlobalReportsPullDataOnly.FromItemNameWithOutFilters({ inLedgerAutoJsonWithItemName: LocalLedgerAutoJsonWithItemName, inUserPK });
-        
+        LocalReturnArrayObject.KData.TableData = await GlobalReportsPullDataOnly.FromItemNameWithOutFilters({
+            inLedgerAutoJsonWithItemName: LocalLedgerAutoJsonWithItemName,
+            inUserPK
+        });
+
         LocalReturnData.DataFromServer.push(LocalReturnArrayObject);
         LocalReturnData.KTF = true;
         return await LocalReturnData;
@@ -76,5 +79,12 @@ let ShowDataFromConfig = ({ inReportConfigJson, inUserPK }) => {
         };
     });
 };
+
+// ShowDataWithOutFilters({
+//     inLedgerName: "Ledger",
+//     inUserPK: 16
+// }).then(p => {
+//    // console.log("sssss : ", p.DataFromServer[0].KData.TableData);
+// });
 
 module.exports = { ShowDataWithFilters, ShowDataWithOutFilters, ShowDataFromConfig };

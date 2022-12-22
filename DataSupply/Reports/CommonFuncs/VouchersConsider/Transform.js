@@ -376,12 +376,13 @@ let CommonFuns = {
             },
             FromPositive: ({ inColumnData, inLoopItemData }) => {
                 let LocalReturnValue = 0;
+              //  console.log("aaaaaaa : ", typeof inLoopItemData[inColumnData.Name]);
                 if (typeof inLoopItemData[inColumnData.Name] === "number") {
                     if (inLoopItemData[inColumnData.Name] > 0) {
                         LocalReturnValue = inLoopItemData[inColumnData.Name];
                     };
                 };
-
+                //console.log("bbbbbbb : ", LocalReturnValue);
                 return LocalReturnValue;
             },
             PositiveAndEvalDefaultValue: ({ inColumnData, inLoopItemData }) => {

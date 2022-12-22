@@ -91,16 +91,19 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
     return await LocalReturnObject;
 };
 
-// StartFunc({
-//     inFolderName: "Transactions",
-//     inFileNameWithExtension: "GST-SALES.json",
-//     inItemName: "GST-SALE",
-//     inScreenName: "Print",
-//     inDataPK: 1022
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+let LocalMockFuncForPrint = async () => {
+    let result = await StartFunc({
+        inFolderName: "Transactions",
+        inFileNameWithExtension: "GST-SALES.json",
+        inItemName: "GST-SALE",
+        inScreenName: "Print",
+        inDataPK: 1022
+    });
 
+    console.log("result : ", result);
+};
+
+//LocalMockFuncForPrint().then();
 // FromJsonConfig({
 //     inJsonConfig:{
 //         inFolderName: "Masters",

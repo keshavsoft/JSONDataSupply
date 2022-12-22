@@ -125,7 +125,7 @@ let LocalLedgerHelperFuncs = {
                 let LocalReturnArray = [];
 
                 LocalDataFromVouchersConsider = await LocalLedgerHelperFuncs.VouchersConsiderFuncs.VouchersConsider.SubFuncs.PullDataFromVouchersConsiderJsonFileName({ inVouchersConsiderLine, inUserPK });
-                
+
                 if (LocalDataFromVouchersConsider.KTF) {
                     if (inVouchersConsiderLine.ColumnNameToPick.trim() === "") {
                         LocalReturnArray = LocalDataFromVouchersConsider.KResult;
@@ -697,14 +697,14 @@ let FromItemNameWithOutFilters = async ({ inLedgerAutoJsonWithItemName, inUserPK
 
     if ("BeforeLast" in inLedgerAutoJsonWithItemName) {
         let LocalFromBeforeLast = LocalBeforeLastFunc({ inLedgerAutoJsonWithItemName, LocalReturnArray });
-       // console.log("LocalFromBeforeLast : ");
+        //console.log("LocalFromBeforeLast : ", LocalFromBeforeLast);
         return LocalFromBeforeLast;
     } else {
         LocalReturnData = CommonOrderByFuncs.SortData({
             inDataToSort: LocalReturnArray,
             inOrderByColumnsArray: inLedgerAutoJsonWithItemName.OrderByColumns
         });
-       // console.log("LocalReturnData---------- : ");
+       // console.log("LocalReturnData---------- : ", LocalReturnData);
         return await LocalReturnData;
     };
 };
@@ -720,16 +720,23 @@ let FromItemNameWithOutFiltersShowInTableColumnsOnly = async ({ inLedgerAutoJson
 
     if ("BeforeLast" in inLedgerAutoJsonWithItemName) {
         let LocalFromBeforeLast = LocalBeforeLastFunc({ inLedgerAutoJsonWithItemName, LocalReturnArray });
-       // console.log("LocalFromBeforeLast : ", LocalFromBeforeLast);
+        // console.log("LocalFromBeforeLast : ", LocalFromBeforeLast);
         return LocalFromBeforeLast;
     } else {
         LocalReturnData = CommonOrderByFuncs.SortData({
             inDataToSort: LocalReturnArray,
             inOrderByColumnsArray: inLedgerAutoJsonWithItemName.OrderByColumns
         });
-       // console.log("LocalReturnData---------- : ", LocalReturnData);
+        // console.log("LocalReturnData---------- : ", LocalReturnData);
         return await LocalReturnData;
     };
 };
+
+// FromItemNameWithOutFilters({
+//     inLedgerAutoJsonWithItemName: "",
+//     inUserPK: 16
+// }).then(p => {
+//     console.log("sssss : ", p);
+// });
 
 module.exports = { FromItemNameWithFilters, FromItemNameWithOutFilters, FromItemNameWithOutFiltersShowInTableColumnsOnly };
