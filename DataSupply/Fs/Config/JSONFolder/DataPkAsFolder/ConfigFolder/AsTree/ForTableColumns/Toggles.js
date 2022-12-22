@@ -105,6 +105,7 @@ let AsObject2 = async ({ inDataPK }) => {
 };
 
 let AsObject = async ({ inDataPK }) => {
+    console.log("inDataPK--",inDataPK);
     let LocalDataPK = inDataPK;
     let LocalReturnObject = {};
     LocalReturnObject.Folders = {};
@@ -143,7 +144,11 @@ let AsObject = async ({ inDataPK }) => {
                                     ([ColumnKey, ColumnValue]) => {
                                         LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
                                             DataAttribute: ColumnValue.DataAttribute,
-                                            DisplayName: ColumnValue.DisplayName
+                                            DisplayName: ColumnValue.DisplayName,
+                                            ShowInTable:ColumnValue.ShowInTable,
+                                            Insert:ColumnValue.Insert,
+                                            CreateNew:ColumnValue.CreateNew,
+                                            IsTextArea:ColumnValue.IsTextArea
                                         };
                                     }
                                 );
