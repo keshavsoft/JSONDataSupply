@@ -1,8 +1,10 @@
-let CommonFromUserFolder = require("../../../UserFolder/getDirectories");
-let CommonFromgetDirectories = require("../../../getDirectories");
+let CommonFromUserFolder = require("../../UserFolder/getDirectories");
+let CommonFromgetDirectories = require("../../getDirectories");
 let _ = require("lodash");
 
+
 let AsObject = async ({ inDataPK }) => {
+    console.log("inDataPK--",inDataPK);
     let LocalDataPK = inDataPK;
     let LocalReturnObject = {};
     LocalReturnObject.Folders = {};
@@ -40,11 +42,7 @@ let AsObject = async ({ inDataPK }) => {
                                 Object.entries(ScreenValue.TableColumnsObject).forEach(
                                     ([ColumnKey, ColumnValue]) => {
                                         LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
-                                            DataAttribute: ColumnValue.DataAttribute,
-                                            Parent1Class: ColumnValue.ParentClasses.Parent1Class,
-                                            Parent2Class: ColumnValue.ParentClasses.Parent2Class,
-                                            Parent3Class: ColumnValue.ParentClasses.Parent3Class,
-                                            InputClass: ColumnValue.ParentClasses.InputClass
+                                            DataAttribute: ColumnValue.DataAttribute
                                         };
                                     }
                                 );
