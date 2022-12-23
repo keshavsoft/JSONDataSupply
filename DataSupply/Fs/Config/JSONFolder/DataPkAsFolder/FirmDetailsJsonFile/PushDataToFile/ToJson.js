@@ -27,7 +27,8 @@ let StartFunc = async ({ inFirmName,
         KTF: false,
         JsonData: {}
     };
-    console.log("LocalDataPK --------: ", LocalDataPK);
+    
+    console.log("LocalDataPK --------: ", LocalDataPK,inFirmName);
 
 
     if (LocalDataPK > 0) {
@@ -48,12 +49,10 @@ let StartFunc = async ({ inFirmName,
             return await LocalReturnObject;
         };
 
-        if (("Firm" in LocalDataFromCommonCreate.JsonData) === false) {
-            LocalReturnObject.KReason = "Firm not found!";
-            return await LocalReturnObject;
-        };
-
         LocalDataFromCommonCreate.JsonData.Firm.FirmName = inFirmName;
+        LocalDataFromCommonCreate.JsonData.Firm.FromDate = FromDate;
+        LocalDataFromCommonCreate.JsonData.Firm.ToDate = ToDate;
+
         //console.log("aaaaaaaa : ", LocalDataFromCommonCreate.JsonData);
         // LocalCheckBeforeInsert({ inOriginalData, inDataToUpdate });
 
@@ -76,7 +75,8 @@ let LocalMockFroStartFunc = async () => {
     });
     console.log("result : ", result);
 };
-LocalMockFroStartFunc().then();
+
+//LocalMockFroStartFunc().then();
 
 // StartFunc({
 //     inFolderName: "Masters",
