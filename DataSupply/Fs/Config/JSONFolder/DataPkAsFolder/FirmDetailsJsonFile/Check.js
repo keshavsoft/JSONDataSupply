@@ -9,7 +9,7 @@ let ForExistence = ({ inDataPK }) => {
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
         inDataPK: LocalinDataPK
     });
-
+  //  console.log("LocalFromCommonFromCheck : ", LocalFromCommonFromCheck);
     if (LocalFromCommonFromCheck.KTF === false) {
         LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
