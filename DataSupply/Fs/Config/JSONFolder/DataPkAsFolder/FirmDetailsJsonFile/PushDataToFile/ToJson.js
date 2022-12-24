@@ -52,7 +52,9 @@ let StartFunc = async ({ inFirmName,
         LocalDataFromCommonCreate.JsonData.Firm.FirmName = inFirmName;
         LocalDataFromCommonCreate.JsonData.Firm.FromDate = FromDate;
         LocalDataFromCommonCreate.JsonData.Firm.ToDate = ToDate;
-
+        LocalDataFromCommonCreate.JsonData.Firm.AssYear = AssYear;
+        LocalDataFromCommonCreate.JsonData.Firm.FinYear = FinYear;
+        LocalDataFromCommonCreate.JsonData.Firm.PAN = PAN;
         //console.log("aaaaaaaa : ", LocalDataFromCommonCreate.JsonData);
         // LocalCheckBeforeInsert({ inOriginalData, inDataToUpdate });
 

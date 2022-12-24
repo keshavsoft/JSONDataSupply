@@ -25,10 +25,8 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAt
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName]) {
                 LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].TableColumns, { DataAttribute });
-                console.log("kkkk",LocalFindColumnObject.DataAttribute , LocalDataToUpdate.DataAttribute);
 
                 LocalFindColumnObject.DataAttribute = LocalDataToUpdate.DataAttribute;
-
 
                 LocalFromUpdate = await CommonFromPushData.StartFunc({
                     inFolderName: FolderName,
