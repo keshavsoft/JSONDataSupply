@@ -13,6 +13,7 @@ let ForExistence = ({ inFolderName, inDataPK }) => {
         return LocalReturnData;
     };
 
+    LocalReturnData.DataPkAsFolderPresent = true;
     LocalReturnData.FolderPath = `${LocalFromCommonFromCheck.DirPath}/${inFolderName}`
 
     try {

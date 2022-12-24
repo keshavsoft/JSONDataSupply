@@ -4,7 +4,6 @@ let CommonFromCheck = require("../Check");
 let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
-    let LocalFileName = "Display.json";
 
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
