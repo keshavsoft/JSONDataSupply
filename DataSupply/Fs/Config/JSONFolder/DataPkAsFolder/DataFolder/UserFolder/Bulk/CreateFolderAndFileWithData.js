@@ -2,10 +2,20 @@ let CommonFromCreateFolder = require("../CreateFolder/FromInput");
 let CommonFromUserJsonFile = require("../UserJsonFile/Check");
 let CommonFromAsBulk = require("../UserJsonFile/PushDataToFile/AsBulk.js");
 
+let LocalReturnRowCount = ({ inPostData }) => {
+    let LocalRowCount = 0;
+    if (Object.values(inPostData).length > 0) {
+        LocalRowCount = Object.keys(Object.values(inPostData)[0]).length;
+    };
+
+    return LocalRowCount;
+};
+
 let StartFunc = async ({ inFolderName, inFileName, inData, inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalFolderName = inFolderName;
     let LocalFileName = inFileName;
+    let LocalPostData = inData;
 
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
@@ -31,7 +41,7 @@ let StartFunc = async ({ inFolderName, inFileName, inData, inDataPK }) => {
             inFolderName: LocalFolderName,
             inFileNameOnly: LocalFileName,
             inDataPK: LocalinDataPK,
-            inData
+            inData: LocalPostData
         });
 
         if (LocalFromCommonFromAsBulk.KTF == false) {
@@ -39,8 +49,10 @@ let StartFunc = async ({ inFolderName, inFileName, inData, inDataPK }) => {
 
             return LocalReturnData;
         };
-        
-        LocalReturnData.KResult = `FileName : ${inFileName} inserted with data...`;
+
+        let LocalRowCount = LocalReturnRowCount({ inPostData: LocalPostData });
+
+        LocalReturnData.KResult = `FileName : ${inFileName} : ${LocalRowCount} inserted with data...`;
         LocalReturnData.KTF = true;
     };
 
