@@ -42,7 +42,7 @@ let AsObject = async ({ inDataPK }) => {
                                         LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
                                             DataAttribute: ColumnValue.DataAttribute,
                                             DisplayName: ColumnValue.DisplayName,
-                                            Widths: ColumnValue.Widths.px
+                                            px: ColumnValue.Widths.px
                                         };
                                     }
                                 );
