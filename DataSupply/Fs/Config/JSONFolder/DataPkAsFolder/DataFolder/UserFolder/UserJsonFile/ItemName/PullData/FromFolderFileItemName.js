@@ -79,6 +79,7 @@ let ReturnAsArrayWithPK = ({ inFolderName, inFileNameOnly, inItemName, inDataPK 
             pk: element
         };
     });
+    //console.log("LocalReturnData : ", LocalReturnData);
 
     LocalReturnData.KTF = true;
 
