@@ -28,8 +28,9 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             LocalReturnObject.KReason = LocalFromCommonFromAsArray.KReason;
             return await LocalReturnObject;
         };
-      //  console.log("total columns : ", LocalFromCommonFromAsArray.JsonData.length);
+       //console.log("total columns ----------: ", LocalFromCommonFromAsArray.JsonData.length);
         let LocalShowInTableColumns = _.filter(LocalFromCommonFromAsArray.JsonData, { CreateNew: true });
+       // console.log("22222 ----------: ", LocalShowInTableColumns.length);
 
         LocalReturnObject.JsonData = LocalShowInTableColumns;
 

@@ -1,4 +1,5 @@
 let CommonFromReturnColumns = require("./ReturnColumns");
+let CommonFromDefaultValueCreate = require("../../ServerSide/PullData/DefaultValueCreate");
 let _ = require("lodash");
 
 let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
@@ -28,12 +29,27 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             LocalReturnObject.KReason = LocalFromCommonFromReturnColumns.KReason;
             return await LocalReturnObject;
         };
-        console.log("total columns : ", LocalFromCommonFromAsArray.JsonData.length);
-        // let LocalShowInTableColumns = _.filter(LocalFromCommonFromAsArray.JsonData, { CreateNew: true });
 
-        // LocalReturnObject.JsonData = LocalShowInTableColumns;
+        let LocalColumnsArray = _.map(LocalFromCommonFromReturnColumns.JsonData, "DataAttribute");
 
-        //   console.log("sssssss : ", LocalReturnObject.JsonData.length, LocalShowInTableColumns.length);
+        let LocalFromDefaultValueCreate = await CommonFromDefaultValueCreate.StartFunc({
+            inFolderName: LocalFolderName,
+            inFileNameWithExtension: LocalFileNameWithExtension,
+            inItemName: LocalinItemName,
+            inScreenName: LocalinScreenName,
+            inDataPK: LocalDataPK
+        });
+
+        if (LocalFromDefaultValueCreate.KTF === false) {
+            LocalReturnObject.KReason = LocalFromDefaultValueCreate.KReason;
+            return await LocalReturnObject;
+        };
+
+        _.forEach(LocalColumnsArray, LoopItem => {
+            LocalReturnObject.JsonData[LoopItem] = "";
+        });
+
+        LocalReturnObject.JsonData = { ...LocalReturnObject.JsonData, ...LocalFromDefaultValueCreate.JsonData };
 
         LocalReturnObject.KTF = true;
     };
@@ -50,30 +66,10 @@ let LocalMockFuncForStartFunc = async () => {
         inDataPK: 901
     });
 
-   // console.log("LocalResult : ", LocalResult.JsonData.length);
+    console.log("LocalResult : ", LocalResult.JsonData);
 };
 
-// LocalMockFuncForStartFunc().then();
-
-// ColumnsAsObject({
-//     inFolderName: "Transactions",
-//     inFileNameWithExtension: "GST-SALES.json",
-//     inItemName: "GST-SALE",
-//     inScreenName: "Create",
-//     inDataPK: 1022
-// }).then(p => {
-//         console.log("pppp : ", p);
-// });
-
-// FromJsonConfig({
-//     inJsonConfig:{
-//         inFolderName: "Masters",
-//         inJsonFileName: "Customers.json"
-//     },
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+//LocalMockFuncForStartFunc().then();
 
 module.exports = {
     StartFunc
