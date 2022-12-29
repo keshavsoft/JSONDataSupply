@@ -106,7 +106,7 @@ let LocalMockFuncForStartFunc = async () => {
     console.log("LocalResult ----------: ", LocalResult.JsonData);
 };
 
-//LocalMockFuncForStartFunc().then();
+LocalMockFuncForStartFunc().then();
 
 // ColumnsAsObject({
 //     inFolderName: "Transactions",
