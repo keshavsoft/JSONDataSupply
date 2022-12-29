@@ -1,6 +1,6 @@
 let CommonFromCheck = require("../Check");
 
-let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
+let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inSubTableColumnKey, inDataPK }) => {
     let LocalDataPK = inDataPK;
 
     let LocalReturnObject = {
@@ -20,40 +20,36 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             inFileNameWithExtension: LocalFileNameWithExtension,
             inItemName: LocalinItemName,
             inScreenName: LocalinScreenName,
+            inSubTableColumnKey,
             inDataPK: LocalDataPK
         });
-      //  console.log("bbbbbbbbbbb--- : ", LocalFromCommonFromCheck);
+        // console.log("LocalReturnObjectp------------- : ", LocalFromCommonFromCheck);
         if (LocalFromCommonFromCheck.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
             return await LocalReturnObject;
         };
-
-        LocalReturnObject.JsonData = LocalFromCommonFromCheck.JsonData[LocalinScreenName];
+      //  console.log("LocalReturnObjectp-------------pppp : ", LocalFromCommonFromCheck);
+        LocalReturnObject.JsonData = LocalFromCommonFromCheck.JsonData.TableColumns;
         LocalReturnObject.KTF = true;
     };
 
     return await LocalReturnObject;
 };
 
-// StartFunc({
-//     inFolderName: "Masters",
-//     inFileNameWithExtension: "Customers.json",
-//     inItemName: "CustomerNames",
-//     inScreenName: "Create",
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+let LocalMockFuncForStartFunc = async () => {
+    let LocalResult = await StartFunc({
+        inFolderName: "Purchases",
+        inFileNameWithExtension: "Vouchers.json",
+        inItemName: "VouchersName",
+        inScreenName: "Create",
+        inSubTableColumnKey: "InvGrid",
+        inDataPK: 901
+    });
 
-// FromJsonConfig({
-//     inJsonConfig:{
-//         inFolderName: "Masters",
-//         inJsonFileName: "Customers.json"
-//     },
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+    console.log("ssssssssssss : ", LocalResult.JsonData.length);
+};
+
+//LocalMockFuncForStartFunc().then();
 
 module.exports = {
     StartFunc

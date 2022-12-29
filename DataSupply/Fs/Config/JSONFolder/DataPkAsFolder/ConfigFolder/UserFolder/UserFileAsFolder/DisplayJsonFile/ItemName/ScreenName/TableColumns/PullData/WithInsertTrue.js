@@ -1,4 +1,5 @@
 let CommonFromCheck = require("../Check");
+let _ = require("lodash");
 
 let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -22,27 +23,46 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             inScreenName: LocalinScreenName,
             inDataPK: LocalDataPK
         });
-      //  console.log("bbbbbbbbbbb--- : ", LocalFromCommonFromCheck);
+        //  console.log("LocalReturnObject : ", LocalReturnObject);
         if (LocalFromCommonFromCheck.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
             return await LocalReturnObject;
         };
 
-        LocalReturnObject.JsonData = LocalFromCommonFromCheck.JsonData[LocalinScreenName];
+        let LocalShowInTableColumns = _.filter(LocalFromCommonFromCheck.JsonData.TableColumns, { Insert: true });
+
+        LocalReturnObject.JsonData = LocalShowInTableColumns;
+
+        //   console.log("sssssss : ", LocalReturnObject.JsonData.length, LocalShowInTableColumns.length);
+
         LocalReturnObject.KTF = true;
     };
 
     return await LocalReturnObject;
 };
 
-// StartFunc({
-//     inFolderName: "Masters",
-//     inFileNameWithExtension: "Customers.json",
-//     inItemName: "CustomerNames",
+let LocalMockFuncForStartFunc = async () => {
+    let LocalResult = await StartFunc({
+        inFolderName: "Purchases",
+        inFileNameWithExtension: "Vouchers.json",
+        inItemName: "VouchersName",
+        inScreenName: "Create",
+        inDataPK: 901
+    });
+
+    console.log("LocalResult : ", LocalResult.JsonData.length);
+};
+
+// LocalMockFuncForStartFunc().then();
+
+// ColumnsAsObject({
+//     inFolderName: "Transactions",
+//     inFileNameWithExtension: "GST-SALES.json",
+//     inItemName: "GST-SALE",
 //     inScreenName: "Create",
-//     inDataPK: 16
+//     inDataPK: 1022
 // }).then(p => {
-//     console.log("pppp : ", p);
+//         console.log("pppp : ", p);
 // });
 
 // FromJsonConfig({

@@ -21,7 +21,7 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             inItemName: LocalinItemName,
             inDataPK: LocalDataPK
         });
-   //     console.log("LocalFromCommonFromPullData : ", LocalFromCommonFromPullData);
+        //console.log("cccccccccccc : ", LocalinScreenName, LocalFromCommonFromPullData);
         if (LocalFromCommonFromPullData.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
             return await LocalReturnObject;
@@ -29,9 +29,12 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
 
         LocalReturnObject.JsonData = LocalFromCommonFromPullData.JsonData
 
-        if (LocalinScreenName in LocalFromCommonFromPullData.JsonData) {
-            LocalReturnObject.KTF = true;
+        if ((LocalinScreenName in LocalFromCommonFromPullData.JsonData) === false) {
+            LocalReturnObject.KReason = `Screen Name : ${LocalinScreenName} not found!`;
+            return await LocalReturnObject;
         };
+
+        LocalReturnObject.KTF = true;
     };
 
     return await LocalReturnObject;

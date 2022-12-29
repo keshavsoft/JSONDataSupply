@@ -1,6 +1,6 @@
-let CommonFromPullData = require("../PullData/FromFoldFileItemScreenName");
+let CommonFromPullData = require("../PullData/AsObject");
 
-let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
+let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inSubTableColumnKey, inDataPK }) => {
     let LocalDataPK = inDataPK;
 
     let LocalReturnObject = {
@@ -20,9 +20,10 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             inFileNameWithExtension: LocalFileNameWithExtension,
             inItemName: LocalinItemName,
             inScreenName: LocalinScreenName,
+            inSubTableColumnKey,
             inDataPK: LocalDataPK
         });
-      //  console.log("aaaaaaaaaaa------ : ", LocalFromCommonFromPullData);
+        //  console.log("aaaaaaaaaaa------ : ", LocalFromCommonFromPullData);
 
         if (LocalFromCommonFromPullData.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
@@ -30,7 +31,7 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
         };
 
         LocalReturnObject.JsonData = LocalFromCommonFromPullData.JsonData
-       // console.log("LocalFromCommonFromPullData------ : ", LocalReturnObject.JsonData);
+       // console.log("LocalFromCommonFromPullData------ : ", LocalFromCommonFromPullData);
 
         if ("TableColumns" in LocalFromCommonFromPullData.JsonData) {
             LocalReturnObject.KTF = true;
@@ -40,25 +41,20 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
     return await LocalReturnObject;
 };
 
-// StartFunc({
-//     inFolderName: "Masters",
-//     inFileNameWithExtension: "Customers.json",
-//     inItemName: "CustomerNames",
-//     inScreenName: "Create",
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+let LocalMockFuncForStartFunc = async () => {
+    let LocalResult = await StartFunc({
+        inFolderName: "Purchases",
+        inFileNameWithExtension: "Vouchers.json",
+        inItemName: "VouchersName",
+        inScreenName: "Create",
+        inSubTableColumnKey: "InvGrid",
+        inDataPK: 901
+    });
 
-// FromJsonConfig({
-//     inJsonConfig:{
-//         inFolderName: "Masters",
-//         inJsonFileName: "Customers.json"
-//     },
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+    console.log("LocalResult : ", LocalResult.JsonData);
+};
+
+//LocalMockFuncForStartFunc().then();
 
 module.exports = {
     StartFunc

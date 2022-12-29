@@ -1,20 +1,7 @@
 let CommonFromPullDataFromFile = require("../../PullDataFromFile/FromFolderAndFile");
 let CommonFromPushDataToFile = require("../../PushDataToFile/FolderAndFile");
 
-const toNumbers = arr => arr.map(Number);
-
-let LocalGeneratePk = ({ inDataWithKey }) => {
-    let LocalNewPk = 1;
-    let LocalPkArray = toNumbers(Object.keys(inDataWithKey));
-
-    if (LocalPkArray.length > 0) {
-        LocalNewPk = Math.max(...LocalPkArray) + 1;
-    };
-
-    return LocalNewPk;
-};
-
-let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert }) => {
+let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inJsonPk }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -38,8 +25,12 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
         return LocalReturnData;
     };
 
-    let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPk] = inDataToInsert;
+    if ((inJsonPk in LocalFromCommonFromCheck.JsonData[LocalinItemName]) === false) {
+        LocalReturnData.KReason = `RowPK : ${inJsonPk} is not found in data!`;
+        return LocalReturnData;
+    };
+
+    delete LocalFromCommonFromCheck.JsonData[LocalinItemName][inJsonPk];
 
     let LocalFromPush = await CommonFromPushDataToFile.InsertToJson({
         inFolderName: LocalinFolderName,
@@ -48,7 +39,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
         inDataToUpdate: LocalFromCommonFromCheck.JsonData,
         inOriginalData: ""
     });
-    
+    console.log("ddddddddddddd : ", LocalFromPush);
     LocalReturnData.KTF = true;
 
     return await LocalReturnData;

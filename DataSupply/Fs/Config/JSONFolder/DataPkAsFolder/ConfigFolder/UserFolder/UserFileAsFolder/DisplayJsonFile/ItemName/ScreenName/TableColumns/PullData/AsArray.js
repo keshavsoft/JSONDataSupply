@@ -22,13 +22,13 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             inScreenName: LocalinScreenName,
             inDataPK: LocalDataPK
         });
-      //  console.log("LocalReturnObject : ", LocalReturnObject);
+       // console.log("LocalReturnObjectp------------- : ", LocalFromCommonFromCheck);
         if (LocalFromCommonFromCheck.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
             return await LocalReturnObject;
         };
-
-        LocalReturnObject.JsonData = LocalFromCommonFromCheck.JsonData.TableColumns
+       // console.log("LocalReturnObjectp-------------pppp : ", LocalFromCommonFromCheck);
+        LocalReturnObject.JsonData = LocalFromCommonFromCheck.JsonData.TableColumns;
         LocalReturnObject.KTF = true;
     };
 

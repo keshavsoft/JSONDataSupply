@@ -32,7 +32,7 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
         LocalReturnObject.JsonData = LocalFromCommonFromPullData.JsonData
        // console.log("LocalFromCommonFromPullData------ : ", LocalReturnObject.JsonData);
 
-        if ("TableColumns" in LocalFromCommonFromPullData.JsonData) {
+        if ("SubTableColumns" in LocalFromCommonFromPullData.JsonData) {
             LocalReturnObject.KTF = true;
         };
     };

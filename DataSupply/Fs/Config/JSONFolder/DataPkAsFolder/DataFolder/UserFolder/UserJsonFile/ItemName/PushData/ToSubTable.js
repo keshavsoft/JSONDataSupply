@@ -14,7 +14,7 @@ let LocalGeneratePk = ({ inDataWithKey }) => {
     return LocalNewPk;
 };
 
-let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert }) => {
+let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert, inMainRowPK, inSubTableKey }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -38,8 +38,18 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
         return LocalReturnData;
     };
 
-    let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPk] = inDataToInsert;
+    if ((inMainRowPK in LocalFromCommonFromCheck.JsonData[LocalinItemName]) === false) {
+        LocalReturnData.KReason = `MainRowPK : ${inMainRowPK} not found!`;
+        return LocalReturnData;
+    };
+
+    if ((inSubTableKey in LocalFromCommonFromCheck.JsonData[LocalinItemName][inMainRowPK]) === false) {
+        LocalReturnData.KReason = `SubTableKey : ${inSubTableKey} not found!`;
+        return LocalReturnData;
+    };
+
+    let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName][inMainRowPK][inSubTableKey] });
+    LocalFromCommonFromCheck.JsonData[LocalinItemName][inMainRowPK][inSubTableKey][LocalNewPk] = inDataToInsert;
 
     let LocalFromPush = await CommonFromPushDataToFile.InsertToJson({
         inFolderName: LocalinFolderName,
@@ -48,7 +58,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
         inDataToUpdate: LocalFromCommonFromCheck.JsonData,
         inOriginalData: ""
     });
-    
+
     LocalReturnData.KTF = true;
 
     return await LocalReturnData;

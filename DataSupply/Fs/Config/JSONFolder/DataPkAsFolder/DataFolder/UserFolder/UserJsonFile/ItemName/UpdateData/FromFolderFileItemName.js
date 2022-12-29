@@ -1,23 +1,11 @@
 let CommonFromPullDataFromFile = require("../../PullDataFromFile/FromFolderAndFile");
 let CommonFromPushDataToFile = require("../../PushDataToFile/FolderAndFile");
 
-const toNumbers = arr => arr.map(Number);
-
-let LocalGeneratePk = ({ inDataWithKey }) => {
-    let LocalNewPk = 1;
-    let LocalPkArray = toNumbers(Object.keys(inDataWithKey));
-
-    if (LocalPkArray.length > 0) {
-        LocalNewPk = Math.max(...LocalPkArray) + 1;
-    };
-
-    return LocalNewPk;
-};
-
-let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert }) => {
+let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToUpdate, inJsonPk }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
+    let LocalDataToUpdate = inDataToUpdate;
 
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
@@ -38,8 +26,18 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
         return LocalReturnData;
     };
 
-    let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPk] = inDataToInsert;
+    if ((inJsonPk in LocalFromCommonFromCheck.JsonData[LocalinItemName]) === false) {
+        LocalReturnData.KReason = `RowPK : ${inJsonPk} is not found in data!`;
+        return LocalReturnData;
+    };
+    console.log("LocalDataToUpdate : ", LocalDataToUpdate);
+    LocalFromCommonFromCheck.JsonData[LocalinItemName][inJsonPk] = {
+        ...LocalFromCommonFromCheck.JsonData[LocalinItemName][inJsonPk],
+        ...LocalDataToUpdate
+    };
+
+    // let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
+    // LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPk] = inDataToInsert;
 
     let LocalFromPush = await CommonFromPushDataToFile.InsertToJson({
         inFolderName: LocalinFolderName,
@@ -48,7 +46,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
         inDataToUpdate: LocalFromCommonFromCheck.JsonData,
         inOriginalData: ""
     });
-    
+    console.log("LocalFromPush : ", LocalFromPush);
     LocalReturnData.KTF = true;
 
     return await LocalReturnData;

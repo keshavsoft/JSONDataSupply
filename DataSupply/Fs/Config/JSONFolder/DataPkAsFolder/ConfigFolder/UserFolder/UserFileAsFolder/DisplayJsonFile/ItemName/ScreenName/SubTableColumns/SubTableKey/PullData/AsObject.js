@@ -1,6 +1,6 @@
-let CommonFromPullData = require("../PullData/FromFoldFileItemScreenName");
+let CommonFromCheck = require("../Check");
 
-let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
+let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inSubTableColumnKey, inDataPK }) => {
     let LocalDataPK = inDataPK;
 
     let LocalReturnObject = {
@@ -9,32 +9,29 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
     };
 
     if (LocalDataPK > 0) {
-        let LocalFromCommonFromPullData;
+        let LocalFromCommonFromCheck;
         let LocalFolderName = inFolderName;
         let LocalFileNameWithExtension = inFileNameWithExtension;
         let LocalinItemName = inItemName;
         let LocalinScreenName = inScreenName;
 
-        LocalFromCommonFromPullData = await CommonFromPullData.StartFunc({
+        LocalFromCommonFromCheck = await CommonFromCheck.StartFunc({
             inFolderName: LocalFolderName,
             inFileNameWithExtension: LocalFileNameWithExtension,
             inItemName: LocalinItemName,
             inScreenName: LocalinScreenName,
+            inSubTableColumnKey,
             inDataPK: LocalDataPK
         });
-      //  console.log("aaaaaaaaaaa------ : ", LocalFromCommonFromPullData);
-
-        if (LocalFromCommonFromPullData.KTF === false) {
-            LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
+        // console.log("LocalReturnObjectp------------- : ", LocalFromCommonFromCheck);
+        if (LocalFromCommonFromCheck.KTF === false) {
+            LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
             return await LocalReturnObject;
         };
 
-        LocalReturnObject.JsonData = LocalFromCommonFromPullData.JsonData
-       // console.log("LocalFromCommonFromPullData------ : ", LocalReturnObject.JsonData);
-
-        if ("TableColumns" in LocalFromCommonFromPullData.JsonData) {
-            LocalReturnObject.KTF = true;
-        };
+        //console.log("aaaaaaaaaaaaaaa : ", LocalFromCommonFromCheck);
+        LocalReturnObject.JsonData = LocalFromCommonFromCheck.JsonData[inSubTableColumnKey];
+        LocalReturnObject.KTF = true;
     };
 
     return await LocalReturnObject;

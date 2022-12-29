@@ -1,6 +1,6 @@
-let CommonFromPullData = require("../PullData/FromFoldFileItemScreenName");
+let CommonFromPullData = require("../PullData/AsObject");
 
-let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
+let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inSubTableColumnKey, inDataPK }) => {
     let LocalDataPK = inDataPK;
 
     let LocalReturnObject = {
@@ -22,19 +22,20 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
             inScreenName: LocalinScreenName,
             inDataPK: LocalDataPK
         });
-      //  console.log("aaaaaaaaaaa------ : ", LocalFromCommonFromPullData);
+        //  console.log("aaaaaaaaaaa------ : ", LocalFromCommonFromPullData);
 
         if (LocalFromCommonFromPullData.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
             return await LocalReturnObject;
         };
 
-        LocalReturnObject.JsonData = LocalFromCommonFromPullData.JsonData
-       // console.log("LocalFromCommonFromPullData------ : ", LocalReturnObject.JsonData);
-
-        if ("TableColumns" in LocalFromCommonFromPullData.JsonData) {
-            LocalReturnObject.KTF = true;
+        if ((inSubTableColumnKey in LocalFromCommonFromPullData.JsonData) === false) {
+            LocalReturnObject.KReason = `SubTableColumnKey : ${inSubTableColumnKey} not found!`;
+            return await LocalReturnObject;
         };
+        
+        LocalReturnObject.JsonData=LocalFromCommonFromPullData.JsonData;
+        LocalReturnObject.KTF = true;
     };
 
     return await LocalReturnObject;
