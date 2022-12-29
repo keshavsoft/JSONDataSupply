@@ -11,13 +11,12 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
     };
 
     if (LocalDataPK > 0) {
-        let LocalFromCommonFromCheck;
         let LocalFolderName = inFolderName;
         let LocalFileNameWithExtension = inFileNameWithExtension;
         let LocalinItemName = inItemName;
         let LocalinScreenName = inScreenName;
 
-        LocalFromCommonFromReturnColumns = await CommonFromReturnColumns.StartFunc({
+        let LocalFromCommonFromReturnColumns = await CommonFromReturnColumns.StartFunc({
             inFolderName: LocalFolderName,
             inFileNameWithExtension: LocalFileNameWithExtension,
             inItemName: LocalinItemName,

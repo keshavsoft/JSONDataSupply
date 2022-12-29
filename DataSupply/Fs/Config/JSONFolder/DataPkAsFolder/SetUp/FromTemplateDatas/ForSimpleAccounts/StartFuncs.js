@@ -24,15 +24,7 @@ let StartFunc = async ({ inDataPK }) => {
     let LocalFromCommonFromFirmDetailsJsonFile = await CommonFromFirmDetailsJsonFile.StartFunc({ inDataPK });
     let LocalFromCommonFromReportsOnly = await CommonFromReportsOnly.StartFunc({ inDataPK });
 
-    console.log("LocalFromCommonFromAdminOnly : ", LocalFromCommonFromReportsOnly);
-
     return await LocalReturnData;
-
-    // let LocalFromCommonFromConfigFolder = CommonFromConfigFolder.FolderIsEmpty({ inDataPK })
-
-    // if (LocalFromCommonFromConfigFolder) {
-
-    // };
 };
 
 // StartFunc({ inDataPK: 1016 }).then(p => {
