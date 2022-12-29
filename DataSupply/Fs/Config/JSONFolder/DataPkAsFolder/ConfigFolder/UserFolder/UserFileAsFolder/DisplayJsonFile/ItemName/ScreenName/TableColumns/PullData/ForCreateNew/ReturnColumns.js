@@ -10,7 +10,7 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
     };
 
     if (LocalDataPK > 0) {
-        let LocalFromCommonFromCheck;
+        let LocalFromCommonFromAsArray;
         let LocalFolderName = inFolderName;
         let LocalFileNameWithExtension = inFileNameWithExtension;
         let LocalinItemName = inItemName;

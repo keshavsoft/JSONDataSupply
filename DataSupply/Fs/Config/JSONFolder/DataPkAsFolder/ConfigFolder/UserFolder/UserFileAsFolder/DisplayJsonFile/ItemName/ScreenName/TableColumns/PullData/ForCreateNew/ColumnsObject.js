@@ -52,7 +52,7 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
 
         LocalReturnObject.KTF = true;
     };
-
+    
     return await LocalReturnObject;
 };
 
