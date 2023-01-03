@@ -64,10 +64,10 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalReturnObject;
 };
 let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1022 });
-    //  console.log("LocalData : ", LocalData);
+    let LocalData = await AsObject({ inDataPK: 901 });
+      console.log("LocalData : ", LocalData);
 };
 
-// LocalMockFunc().then();
+//LocalMockFunc().then();
 
 module.exports = { AsObject };
