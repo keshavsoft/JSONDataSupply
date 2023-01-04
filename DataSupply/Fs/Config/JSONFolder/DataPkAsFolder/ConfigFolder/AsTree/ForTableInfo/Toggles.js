@@ -1,5 +1,5 @@
-let CommonFromUserFolder = require("../../../UserFolder/getDirectories");
-let CommonFromgetDirectories = require("../../../getDirectories");
+let CommonFromUserFolder = require("../../UserFolder/getDirectories");
+let CommonFromgetDirectories = require("../../getDirectories");
 let _ = require("lodash");
 
 

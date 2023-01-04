@@ -99,19 +99,11 @@ let AsObject = async ({ inDataPK }) => {
                             ([ScreenKey, ScreenValue]) => {
                                 delete ScreenValue.TableColumnsObject;
 
-                                ScreenValue.ColumnReOrder = ScreenValue.TableInfo.ColumnReOrder;
-
+                                if ("TableInfo" in ScreenValue) {
+                                    ScreenValue.ColumnReOrder = ScreenValue.TableInfo.ColumnReOrder;
+                                }
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
-                                console.log("sssssss : ", Object.keys(ScreenValue));
-                                //LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].ColumnReOrder = ScreenValue.TableInfo.ColumnReOrder;
 
-                                // Object.entries(ScreenValue.TableColumnsObject).forEach(
-                                //     ([ColumnKey, ColumnValue]) => {
-                                //         LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
-                                //             ColumnReOrder: ColumnValue.ColumnReOrder
-                                //         };
-                                //     }
-                                // );
                             }
                         );
                     }
