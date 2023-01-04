@@ -75,59 +75,6 @@ let AsObjects = async ({ inFolderName, inDataPK }) => {
 };
 
 
-let AsObjects2 = async ({ inFolderName, inDataPK }) => {
-    let LocalDataPK = inDataPK;
-    let LocalFolderName = inFolderName;
-
-    let LocalArray = await AsArray({
-        inFolderName: LocalFolderName,
-        inDataPK: LocalDataPK
-    });
-
-    const result = await Promise.all(LocalArray.map(async (file) => {
-        let LoopInsideFile = await CommonFromUserFileAsFolder.AsObjects({
-            inFolderName: LocalFolderName,
-            inFileNameOnly: file,
-            inDataPK: LocalDataPK
-        });
-
-        if (LoopInsideFile.KTF) {
-            return await LoopInsideFile.JsonData;
-        } else {
-            return await undefined;
-        };
-    }));
-
-    return await result;
-};
-
-
-let AsObjects1 = async ({ inFolderName, inDataPK }) => {
-    let LocalDataPK = inDataPK;
-    let LocalFolderName = inFolderName;
-
-    let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
-        inFolderName: LocalFolderName,
-        inDataPK: LocalDataPK
-    });
-
-    if (LocalFromCommonFromCheck.KTF === false) {
-        return [];
-    };
-
-    let LocalDataPath = LocalFromCommonFromCheck.FolderPath;
-
-    return fs.readdirSync(LocalDataPath).map(async (file) => {
-        let LoopInsideFile = await CommonFromUserFileAsFolder.AsObjects({
-            inFolderName: LocalFolderName,
-            inFileNameOnly: file,
-            inDataPK: LocalDataPK
-        });
-        //  console.log("LoopInsideFile : ", LoopInsideFile);
-        return await LoopInsideFile;
-    });
-};
-
 let LocalMockFunc = async () => {
     let LocalData = await AsObjects({
         inDataPK: 1022,
