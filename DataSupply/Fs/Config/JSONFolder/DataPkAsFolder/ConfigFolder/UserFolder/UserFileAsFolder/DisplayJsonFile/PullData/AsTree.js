@@ -52,6 +52,7 @@ let AsObjects = async ({ inFolderName, inFileNameOnly, inDataPK }) => {
                         LocalScreenObject.ScreenName = ScreenKey;
                         LocalScreenObject.ScreenNameForHtmlId = ScreenKey.replace(" ", "_");
                         LocalScreenObject.TableColumnsObject = {};
+                        LocalScreenObject.TableInfo = ScreenValue.TableInfo;
 
                         ScreenValue.TableColumns.forEach(LoopTableColumn => {
                             LocalScreenObject.TableColumnsObject[LoopTableColumn.DataAttribute] = LoopTableColumn;
