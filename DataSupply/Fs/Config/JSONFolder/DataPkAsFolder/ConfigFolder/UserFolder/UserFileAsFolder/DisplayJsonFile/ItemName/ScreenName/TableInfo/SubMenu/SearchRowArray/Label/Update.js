@@ -1,11 +1,15 @@
 let _ = require("lodash");
 
-let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
-let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
+//let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
+let CommonPullDataFromConfig = require("../../../../../../PullData/AsJson");
+
+let CommonFromPushData = require("../../../../../../PushData/FromFoldFile");
+
+//let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
 
 let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
-    console.log("FolderName--", FolderName);
-    const LocalDataToUpdate = (({ ColumnReOrder }) => ({ ColumnReOrder }))(BodyAsJson);
+
+    const LocalDataToUpdate = (({ KTF }) => ({ KTF }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
     let inJsonConfig = { inFolderName: FolderName, inJsonFileName: FileName }
@@ -26,8 +30,7 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAt
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("TableInfo" in LocalNewData[LocalItemName][LocalScreenName]) {
-
-                LocalNewData[LocalItemName][LocalScreenName].TableInfo.ColumnReOrder = LocalDataToUpdate.ColumnReOrder;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.SearchRowArray.Label.KTF = LocalDataToUpdate.KTF;
 
                 LocalFromUpdate = await CommonFromPushData.StartFunc({
                     inFolderName: FolderName,
@@ -36,8 +39,6 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAt
                     inDataToUpdate: LocalNewData,
                     inOriginalData: LocalFromPullData.JsonData
                 });
-
-                console.log("LocalFromUpdate : ", LocalFromUpdate);
 
                 if (LocalFromUpdate.KTF) {
                     LocalReturnObject.KTF = true;

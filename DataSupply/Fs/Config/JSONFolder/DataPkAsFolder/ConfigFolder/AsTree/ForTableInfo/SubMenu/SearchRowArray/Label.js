@@ -40,7 +40,7 @@ let AsObject = async ({ inDataPK }) => {
 
                                 if ("TableInfo" in ScreenValue) {
                                     console.log("jjjjj");
-                                    ScreenValue.SearchRowArray.Label.KTF = ScreenValue.TableInfo.SearchRowArray.Label.KTF;
+                                    ScreenValue.KTF = ScreenValue.TableInfo.SearchRowArray.Label.KTF;
 
                                 }
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
