@@ -1,11 +1,15 @@
 let _ = require("lodash");
 
-let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
-let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
+//let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
+let CommonPullDataFromConfig = require("../../../../../../PullData/AsJson");
 
-let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
-    console.log("FolderName--", FolderName);
-    const LocalDataToUpdate = (({ ColumnReOrder }) => ({ ColumnReOrder }))(BodyAsJson);
+let CommonFromPushData = require("../../../../../../PushData/FromFoldFile");
+
+//let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
+
+let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAsJson }) => {
+
+    const LocalDataToUpdate = (({ ShowBalance,CreateNew,ShowTotals }) => ({ ShowBalance,CreateNew,ShowTotals }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
     let inJsonConfig = { inFolderName: FolderName, inJsonFileName: FileName }
@@ -26,8 +30,9 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAt
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("TableInfo" in LocalNewData[LocalItemName][LocalScreenName]) {
-
-                LocalNewData[LocalItemName][LocalScreenName].TableInfo.ColumnReOrder = LocalDataToUpdate.ColumnReOrder;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowBalance = LocalDataToUpdate.ShowBalance;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.CreateNew = LocalDataToUpdate.CreateNew;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowTotals = LocalDataToUpdate.ShowTotals;
 
                 LocalFromUpdate = await CommonFromPushData.StartFunc({
                     inFolderName: FolderName,
@@ -36,8 +41,6 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAt
                     inDataToUpdate: LocalNewData,
                     inOriginalData: LocalFromPullData.JsonData
                 });
-
-                console.log("LocalFromUpdate : ", LocalFromUpdate);
 
                 if (LocalFromUpdate.KTF) {
                     LocalReturnObject.KTF = true;
