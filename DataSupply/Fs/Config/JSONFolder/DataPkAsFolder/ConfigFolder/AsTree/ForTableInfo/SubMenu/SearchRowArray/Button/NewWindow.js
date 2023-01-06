@@ -1,7 +1,10 @@
-let CommonFromUserFolder = require("../../../../UserFolder/getDirectories");
-let CommonFromgetDirectories = require("../../../../getDirectories");
-let _ = require("lodash");
+// let CommonFromUserFolder = require("../../../../UserFolder/getDirectories");
+// let CommonFromgetDirectories = require("../../../../getDirectories");
 
+let CommonFromUserFolder = require("../../../../../UserFolder/getDirectories");
+let CommonFromgetDirectories = require("../../../../../getDirectories");
+
+let _ = require("lodash");
 
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -65,7 +68,7 @@ let AsObject = async ({ inDataPK }) => {
 };
 
 let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 901 });
+    let LocalData = await AsObject({ inDataPK: 301 });
     console.log("LocalData : ", LocalData);
 };
 
