@@ -99,6 +99,11 @@ let AsObject = async ({ inDataPK }) => {
                             ([ScreenKey, ScreenValue]) => {
                                 delete ScreenValue.TableColumnsObject;
 
+                                if (ItemKey ==="AccountGroup1Names" ) {
+                                    console.log("ScreenValue--",ScreenValue);
+                                    
+                                }
+
                                 if ("TableInfo" in ScreenValue) {
                                     ScreenValue.ColumnReOrder = ScreenValue.TableInfo.ColumnReOrder;
                                 }

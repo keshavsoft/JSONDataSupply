@@ -36,15 +36,17 @@ let AsObject = async ({ inDataPK }) => {
 
                         Object.entries(ItemValue.Screens).forEach(
                             ([ScreenKey, ScreenValue]) => {
-
-                                if ("TableInfo" in ScreenValue) {
-                                        ScreenValue.ColumnReOrder = ScreenValue.TableInfo.ColumnReOrder,
-                                        ScreenValue.ShowFooter = ScreenValue.TableInfo.ShowFooter,
-                                        ScreenValue.DataAttributesFromTableInfo = ScreenValue.TableInfo.DataAttributesFromTableInfo,
-                                        ScreenValue.DataAttributesFromTableDataRow = ScreenValue.TableInfo.FilesDataAttributesFromTableDataRow
-                                }
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
 
+                                Object.entries(ScreenValue.TableColumnsObject).forEach(
+                                    ([ColumnKey, ColumnValue]) => {
+                                        LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
+                                            ColumnReOrder: ColumnValue.ColumnReOrder,
+                                            DataAttributesFromTableInfo:ColumnValue.DataAttributesFromTableInfo,
+                                            DataAttributesFromTableDataRow:ColumnValue.FilesDataAttributesFromTableDataRow
+                                        };
+                                    }
+                                );
                             }
                         );
                     }
@@ -65,7 +67,7 @@ let AsObject = async ({ inDataPK }) => {
 };
 let LocalMockFunc = async () => {
     let LocalData = await AsObject({ inDataPK: 901 });
-    console.log("LocalData : ", LocalData);
+      console.log("LocalData : ", LocalData);
 };
 
 //LocalMockFunc().then();
