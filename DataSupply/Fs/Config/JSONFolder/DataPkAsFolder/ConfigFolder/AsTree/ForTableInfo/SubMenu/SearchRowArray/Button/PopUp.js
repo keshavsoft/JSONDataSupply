@@ -1,5 +1,9 @@
-let CommonFromUserFolder = require("../../../../UserFolder/getDirectories");
-let CommonFromgetDirectories = require("../../../../getDirectories");
+// let CommonFromUserFolder = require("../../../../UserFolder/getDirectories");
+// let CommonFromgetDirectories = require("../../../../getDirectories");
+
+
+let CommonFromUserFolder = require("../../../../../UserFolder/getDirectories");
+let CommonFromgetDirectories = require("../../../../../getDirectories");
 let _ = require("lodash");
 
 
@@ -69,6 +73,6 @@ let LocalMockFunc = async () => {
     console.log("LocalData : ", LocalData);
 };
 
-//LocalMockFunc().then();
+LocalMockFunc().then();
 
 module.exports = { AsObject };

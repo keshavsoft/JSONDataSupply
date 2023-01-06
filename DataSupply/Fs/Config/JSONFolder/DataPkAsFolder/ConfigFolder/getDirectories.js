@@ -46,10 +46,10 @@ let AsObject = async ({ inDataPK }) => {
 };
 
 let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1022 });
+    let LocalData = await AsObject({ inDataPK: 901 });
     console.log("LocalData : ", LocalData);
 };
 
-// LocalMockFunc().then();
+LocalMockFunc().then();
 
 module.exports = { StartFunc, AsObject };
