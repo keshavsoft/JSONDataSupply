@@ -24,7 +24,7 @@ exports.StartFunc = async ({ inJsonConfig, inItemConfig, inPK, inDataPK }) => {
     let LocalReturnArray = [];
     let LocallReturnData = { KTF: true };
     let LocalSubTablesArray;
-    
+
     if (inDataPK > 0) {
         LocalHtmlVerticalObject = await LocalPrepareHTMLObject.Vertical({
             inJsonConfig,
@@ -35,6 +35,32 @@ exports.StartFunc = async ({ inJsonConfig, inItemConfig, inPK, inDataPK }) => {
             inJsonConfig,
             inItemConfig, inPK, inDataPK
         });
+
+        LocalReturnArray.push(LocalHtmlVerticalObject);
+        LocallReturnData.DataFromServer = [...LocalReturnArray, ...LocalSubTablesArray];
+    };
+
+    return await LocallReturnData;
+};
+
+exports.ForInsert = async ({ inJsonConfig, inItemConfig, inPK, inDataPK }) => {
+    let LocalHtmlVerticalObject;
+    let LocalReturnArray = [];
+    let LocallReturnData = { KTF: true };
+    let LocalSubTablesArray;
+
+    if (inDataPK > 0) {
+        LocalHtmlVerticalObject = await LocalPrepareHTMLObject.Vertical({
+            inJsonConfig,
+            inItemConfig, inPK, inDataPK
+        });
+
+        LocalSubTablesArray = await LocalPrepareHTMLObject.SubTables.StartFunc({
+            inJsonConfig,
+            inItemConfig, inPK, inDataPK
+        });
+
+        LocalSubTablesArray[0].KData.TableInfo.FooterType.CreateNewRow.Style = "";
 
         LocalReturnArray.push(LocalHtmlVerticalObject);
         LocallReturnData.DataFromServer = [...LocalReturnArray, ...LocalSubTablesArray];
@@ -141,7 +167,7 @@ let LocalPrepareHTMLObject = {
             };
 
             let LocalSubTableColumns = LocalDisplayForFileJsonData.DataFromServer["SubTableColumns"];
-            
+
             if (LocalSubTableColumns !== undefined) {
                 let LocalTransactionData = await CommonFromRowPK.AsJsonAsyncAsObject({
                     inJsonConfig, inItemName: LocalItemName,
