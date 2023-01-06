@@ -1,13 +1,11 @@
 let _ = require("lodash");
 
 //let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
-let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
+let CommonPullDataFromConfig = require("../../../../../../PullData/AsJson");
+let CommonFromPushData = require("../../../../../../PushData/FromFoldFile");
 
-let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
 
-//let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
-
-let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAsJson }) => {
+let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
 
     const LocalDataToUpdate = (({ ShowBalance,CreateNew,ShowTotals }) => ({ ShowBalance,CreateNew,ShowTotals }))(BodyAsJson);
     let LocalinDataPK = DataPK;
