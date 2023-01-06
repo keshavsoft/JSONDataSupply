@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // let CommonFromUserFolder = require("../../../../UserFolder/getDirectories");
 // let CommonFromgetDirectories = require("../../../../getDirectories");
 
@@ -6,6 +7,13 @@ let CommonFromgetDirectories = require("../../../../../getDirectories");
 
 let _ = require("lodash");
 
+=======
+let CommonFromUserFolder = require("../../../../UserFolder/getDirectories");
+let CommonFromgetDirectories = require("../../../../getDirectories");
+let _ = require("lodash");
+
+
+>>>>>>> 2e1752cdd6656576d1ed5022b96cce018a076f6b
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
     let LocalReturnObject = {};
@@ -42,8 +50,15 @@ let AsObject = async ({ inDataPK }) => {
                                 delete ScreenValue.TableColumnsObject;
 
                                 if ("TableInfo" in ScreenValue) {
+<<<<<<< HEAD
                                    
                                     ScreenValue.KTF = ScreenValue.TableInfo.SearchRowArray.Label.KTF;
+=======
+
+                                    ScreenValue.ShowBalance = ScreenValue.TableInfo.FooterType.ShowBalance;
+                                    ScreenValue.CreateNew = ScreenValue.TableInfo.FooterType.CreateNew;
+                                    ScreenValue.ShowTotals = ScreenValue.TableInfo.FooterType.ShowTotals;
+>>>>>>> 2e1752cdd6656576d1ed5022b96cce018a076f6b
 
                                 }
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
@@ -71,6 +86,11 @@ let LocalMockFunc = async () => {
     let LocalData = await AsObject({ inDataPK: 901 });
     console.log("LocalData : ", LocalData);
 };
+<<<<<<< HEAD
 LocalMockFunc().then();
+=======
+
+//LocalMockFunc().then();
+>>>>>>> 2e1752cdd6656576d1ed5022b96cce018a076f6b
 
 module.exports = { AsObject };
