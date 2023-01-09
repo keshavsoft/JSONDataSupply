@@ -1,10 +1,13 @@
 const fs = require("fs");
 let CommongetDirectories = require("./getDirectories");
+let CommonLoginDetails = require("../../LoginFolder/UserDataJsonFile/PullDataFromFile/FromJson")
 
 
 let StartFunc = () => {
     let LocalFromCommonFromCheck = CommongetDirectories.StartFunc();
-    console.log("LocalFromCommonFromCheck",LocalFromCommonFromCheck);
+    let LocalLoginDetails = CommonLoginDetails.StartFunc()
+    console.log("LocalFromCommonFromCheck", LocalFromCommonFromCheck);
+    console.log("LocalLoginDetails--", LocalLoginDetails.JsonData);
 
     // if (LocalFromCommonFromCheck.KTF === false) {
     //     return [];
