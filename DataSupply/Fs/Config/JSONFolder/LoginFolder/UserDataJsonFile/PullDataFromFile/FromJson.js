@@ -10,23 +10,23 @@ let StartFunc = () => {
     LocalReturnData.UserDataJsonFilePath = LocalFromCheck.UserDataJsonFilePath;
 
     if (LocalFromCheck.KTF === false) {
-        LocalReturnData.KReson = `${LocalReturnData.JsonFileName} File Not Found!`;
+        LocalReturnData.KReason = `${LocalReturnData.JsonFileName} File Not Found!`;
 
         return LocalReturnData;
     };
 
     try {
-       let LocalDataFromFile = fs.readFileSync(LocalReturnData.UserDataJsonFilePath);
+        let LocalDataFromFile = fs.readFileSync(LocalReturnData.UserDataJsonFilePath);
         let LocalJsonData = JSON.parse(LocalDataFromFile);
 
         if (("data" in LocalJsonData) === false) {
-            LocalReturnData.KReson = `Data : Not Found in  ${LocalReturnData.JsonFileName}!`;
+            LocalReturnData.KReason = `Data : Not Found in  ${LocalReturnData.JsonFileName}!`;
 
             return LocalReturnData;
         };
+        LocalReturnData.KTF = true;
+        LocalReturnData.JsonData = LocalJsonData.data;
 
-           LocalReturnData.JsonData = LocalJsonData.data;
-      
 
     } catch (error) {
 

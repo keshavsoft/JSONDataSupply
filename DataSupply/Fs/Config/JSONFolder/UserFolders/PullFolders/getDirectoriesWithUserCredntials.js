@@ -2,16 +2,26 @@ const fs = require("fs");
 let CommongetDirectories = require("./getDirectories");
 let CommonLoginDetails = require("../../LoginFolder/UserDataJsonFile/PullDataFromFile/FromJson")
 
-
+// 16:{UserName: "KESHAV", PassWord: "KESHAV"}
 let StartFunc = () => {
-    let LocalFromCommonFromCheck = CommongetDirectories.StartFunc();
-    let LocalLoginDetails = CommonLoginDetails.StartFunc()
-    console.log("LocalFromCommonFromCheck", LocalFromCommonFromCheck);
-    console.log("LocalLoginDetails--", LocalLoginDetails.JsonData);
+    let LocalReturnData = { KTF: false, JSONObject: {}, CreatedLog: {} };
+    let LocalFromCommongetDirectoriesArray = CommongetDirectories.StartFunc();
+    let LocalLoginDetails = CommonLoginDetails.StartFunc();
+    console.log("LocalFromCommongetDirectoriesArray-", LocalLoginDetails);
 
-    // if (LocalFromCommonFromCheck.KTF === false) {
-    //     return [];
-    // };
+
+    if (LocalLoginDetails.KTF === false) {
+        LocalReturnData.KReason = LocalLoginDetails.KReason;
+
+        return LocalReturnData;
+    };
+
+    LocalFromCommongetDirectoriesArray.forEach(element => {
+        LocalReturnData.JSONObject[element] = LocalLoginDetails.JsonData[element];
+    });
+    LocalReturnData.KTF = true;
+    console.log("LocalReturnData--", LocalReturnData);
+    return LocalReturnData;
 
     // let LocalDataPath = `${LocalFromCommonFromCheck.JSONFolderPath}`;
     // let LocalReturnArray = fs.readdirSync(LocalDataPath).filter(function (file) {
@@ -29,6 +39,7 @@ let StartFunc = () => {
 
 let LocalMockFunc = () => {
     let LocalData = StartFunc();
+    console.log("LocalData--", LocalData);
 };
 
 LocalMockFunc();
