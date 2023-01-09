@@ -19,6 +19,8 @@ let StartFunc = () => {
         return isNaN(element) === false;
     });
 
+    
+
     return LocalFilterArray;
 };
 
@@ -27,6 +29,6 @@ let LocalMockFunc = () => {
     console.log("LocalData : ", LocalData);
 };
 
-LocalMockFunc();
+// LocalMockFunc();
 
 module.exports = { StartFunc };
