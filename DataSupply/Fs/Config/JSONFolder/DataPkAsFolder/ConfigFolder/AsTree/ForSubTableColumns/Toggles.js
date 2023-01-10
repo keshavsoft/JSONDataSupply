@@ -94,6 +94,6 @@ let LocalMockFunc = async () => {
     //  console.log("LocalData : ", LocalData);
 };
 
-LocalMockFunc().then();
+// LocalMockFunc().then();
 
 module.exports = { AsObject };
