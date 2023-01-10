@@ -56,7 +56,7 @@ let AsObject = async ({ inDataPK }) => {
                                                     LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject = {};
                                                     //LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject[SubTableColumnKey] = JSON.parse(JSON.stringify(SubTableColumnValue));
 
-                                                    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
+                                                    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[SubTableColumnKey] = {
                                                         DataAttribute: SubTableColumnValue.DataAttribute,
                                                         DisplayName: SubTableColumnValue.DisplayName,
                                                         ShowInTable:SubTableColumnValue.ShowInTable,
