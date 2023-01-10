@@ -54,8 +54,16 @@ let AsObject = async ({ inDataPK }) => {
                                             Object.entries(SubColumnValue.TableColumns).forEach(
                                                 ([SubTableColumnKey, SubTableColumnValue]) => {
                                                     LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject = {};
-                                                    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject[SubTableColumnKey] = JSON.parse(JSON.stringify(SubTableColumnValue));
+                                                    //LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject[SubTableColumnKey] = JSON.parse(JSON.stringify(SubTableColumnValue));
 
+                                                    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
+                                                        DataAttribute: SubTableColumnValue.DataAttribute,
+                                                        DisplayName: SubTableColumnValue.DisplayName,
+                                                        ShowInTable:SubTableColumnValue.ShowInTable,
+                                                        Insert:SubTableColumnValue.Insert,
+                                                        CreateNew:SubTableColumnValue.CreateNew,
+                                                        IsTextArea:SubTableColumnValue.IsTextArea
+                                                    };
                                                 }
                                             );
                                         }
