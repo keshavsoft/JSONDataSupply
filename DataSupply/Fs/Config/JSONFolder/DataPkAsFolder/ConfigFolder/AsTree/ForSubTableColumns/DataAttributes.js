@@ -2,9 +2,8 @@ let CommonFromUserFolder = require("../../UserFolder/getDirectories");
 let CommonFromgetDirectories = require("../../getDirectories");
 let _ = require("lodash");
 
-
 let AsObject = async ({ inDataPK }) => {
-    console.log("inDataPK--",inDataPK);
+    //  console.log("inDataPK-----", inDataPK);
     let LocalDataPK = inDataPK;
     let LocalReturnObject = {};
     LocalReturnObject.Folders = {};
@@ -37,15 +36,35 @@ let AsObject = async ({ inDataPK }) => {
 
                         Object.entries(ItemValue.Screens).forEach(
                             ([ScreenKey, ScreenValue]) => {
+                                //console.log("ScreenValue---", ScreenValue.SubTableColumns);
+                                // LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject = {}
+
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
 
-                                Object.entries(ScreenValue.TableColumnsObject).forEach(
-                                    ([ColumnKey, ColumnValue]) => {
-                                        LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
-                                            DataAttribute: ColumnValue.DataAttribute
-                                        };
-                                    }
-                                );
+                                if ("SubTableColumns" in ScreenValue && ScreenValue.SubTableColumns !== undefined) {
+                                    console.log("ScreenValue---", ScreenValue.SubTableColumns);
+
+
+                                    Object.entries(ScreenValue.SubTableColumns).forEach(
+                                        ([SubColumnKey, SubColumnValue]) => {
+
+                                            LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject = {};
+                                            LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey] = JSON.parse(JSON.stringify(SubColumnValue));
+
+                                            Object.entries(SubColumnValue.TableColumns).forEach(
+                                                ([SubTableColumnKey, SubTableColumnValue]) => {
+                                                //    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject = {};
+                                                    //LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject[SubTableColumnKey] = JSON.parse(JSON.stringify(SubTableColumnValue));
+
+                                                    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubTableColumnKey] = {
+                                                        DataAttribute: SubTableColumnValue.DataAttribute
+                                                    };
+                                                }
+                                            );
+                                        }
+                                    );
+
+                                };
                             }
                         );
                     }
@@ -64,8 +83,9 @@ let AsObject = async ({ inDataPK }) => {
 
     return await LocalReturnObject;
 };
+
 let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1022 });
+    let LocalData = await AsObject({ inDataPK: 301 });
     //  console.log("LocalData : ", LocalData);
 };
 
