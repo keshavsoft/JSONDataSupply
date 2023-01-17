@@ -6,8 +6,7 @@ let CommonFromPushData = require("../../../../../../PushData/FromFoldFile");
 
 
 let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
-
-    const LocalDataToUpdate = (({ ShowFooter }) => ({ ShowFooter }))(BodyAsJson);
+    const LocalDataToUpdate = (({ CreateNew, ShowBalance, ShowTotals }) => ({ CreateNew, ShowBalance, ShowTotals }))(BodyAsJson);
 
     console.log("ccccccccccccbbbbbbbb : ", LocalDataToUpdate);
 
@@ -31,10 +30,13 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAt
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("TableInfo" in LocalNewData[LocalItemName][LocalScreenName]) {
-             //   console.log("bbbbbbbb : ", LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType);
+                //   console.log("bbbbbbbb : ", LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType);
 
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.CreateNew = LocalDataToUpdate.CreateNew;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowBalance = LocalDataToUpdate.ShowBalance;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowTotals = LocalDataToUpdate.ShowTotals;
 
-                LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowFooter = LocalDataToUpdate.ShowFooter;
+                //LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowFooter = LocalDataToUpdate.ShowFooter;
                 // LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.CreateNew = LocalDataToUpdate.CreateNew;
                 // LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowTotals = LocalDataToUpdate.ShowTotals;
 

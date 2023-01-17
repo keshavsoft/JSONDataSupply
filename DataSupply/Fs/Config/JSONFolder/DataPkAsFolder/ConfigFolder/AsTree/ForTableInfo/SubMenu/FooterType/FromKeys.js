@@ -33,27 +33,37 @@ let AsObject = async ({ inDataPK }) => {
                 Object.entries(FileValue.Items).forEach(
                     ([ItemKey, ItemValue]) => {
                         LoopInsideFile.Files[FileKey].Items[ItemKey] = JSON.parse(JSON.stringify(ItemValue));
+                       // LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
 
                         Object.entries(ItemValue.Screens).forEach(
                             ([ScreenKey, ScreenValue]) => {
-                                delete ScreenValue.TableColumnsObject;
+                               // LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
 
                                 if ("TableInfo" in ScreenValue) {
-                                
-                                   
-                                    ScreenValue.KTF = ScreenValue.TableInfo.SearchRowArray.Label.KTF;
+                                    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableInfoObject = {
+                                        ShowBalance: ScreenValue.TableInfo.FooterType.ShowBalance,
+                                        CreateNew: ScreenValue.TableInfo.FooterType.CreateNew,
+                                        ShowTotals: ScreenValue.TableInfo.FooterType.ShowTotals
+                                    };
+                                };
 
 
+                                delete LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumns;
+                                delete LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject;
+                                delete LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableInfo;
 
 
-                                    ScreenValue.ShowBalance = ScreenValue.TableInfo.FooterType.ShowBalance;
-                                    ScreenValue.CreateNew = ScreenValue.TableInfo.FooterType.CreateNew;
-                                    ScreenValue.ShowTotals = ScreenValue.TableInfo.FooterType.ShowTotals;
-                                    
+                                // delete ScreenValue.TableColumnsObject;
 
-                                }
-                                LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
+                                // if ("TableInfo" in ScreenValue) {
+                                //     // ScreenValue.KTF = ScreenValue.TableInfo.SearchRowArray.Label.KTF;
 
+                                //     ScreenValue.ShowBalance = ScreenValue.TableInfo.FooterType.ShowBalance;
+                                //     ScreenValue.CreateNew = ScreenValue.TableInfo.FooterType.CreateNew;
+                                //     ScreenValue.ShowTotals = ScreenValue.TableInfo.FooterType.ShowTotals;
+                                // };
+
+                                // LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
                             }
                         );
                     }
