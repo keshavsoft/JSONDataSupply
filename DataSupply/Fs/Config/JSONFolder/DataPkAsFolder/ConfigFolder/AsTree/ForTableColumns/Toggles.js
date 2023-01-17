@@ -101,10 +101,11 @@ let AsObject = async ({ inDataPK }) => {
                                         LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
                                             DataAttribute: ColumnValue.DataAttribute,
                                             DisplayName: ColumnValue.DisplayName,
-                                            ShowInTable:ColumnValue.ShowInTable,
-                                            Insert:ColumnValue.Insert,
-                                            CreateNew:ColumnValue.CreateNew,
-                                            IsTextArea:ColumnValue.IsTextArea
+                                            ShowInTable: ColumnValue.ShowInTable,
+                                            Insert: ColumnValue.Insert,
+                                            CreateNew: ColumnValue.CreateNew,
+                                            IsTextArea: ColumnValue.IsTextArea,
+                                            ShowTotal: ColumnValue.ShowTotal
                                         };
                                     }
                                 );
