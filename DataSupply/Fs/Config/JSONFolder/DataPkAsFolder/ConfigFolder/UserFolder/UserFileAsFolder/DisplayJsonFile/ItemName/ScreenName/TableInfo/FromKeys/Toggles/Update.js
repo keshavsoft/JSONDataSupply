@@ -7,7 +7,8 @@ let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
 
 let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAsJson }) => {
 
-    const LocalDataToUpdate = (({ ShowFooter }) => ({ ShowFooter }))(BodyAsJson);
+    const LocalDataToUpdate = (({ ColumnReOrder,ShowFooter,DataAttributesFromTableInfo,DataAttributesFromTableDataRow }) => ({ ColumnReOrder,ShowFooter,DataAttributesFromTableInfo,DataAttributesFromTableDataRow }))(BodyAsJson);
+    console.log("BodyAsJson",BodyAsJson);
 
     let LocalinDataPK = DataPK;
 
@@ -28,10 +29,9 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAs
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("TableInfo" in LocalNewData[LocalItemName][LocalScreenName]) {
                 LocalNewData[LocalItemName][LocalScreenName].TableInfo.ShowFooter = LocalDataToUpdate.ShowFooter;
-
-                // LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowBalance = LocalDataToUpdate.ShowBalance;
-                // LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.CreateNew = LocalDataToUpdate.CreateNew;
-                // LocalNewData[LocalItemName][LocalScreenName].TableInfo.FooterType.ShowTotals = LocalDataToUpdate.ShowTotals;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.ColumnReOrder = LocalDataToUpdate.ColumnReOrder;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.DataAttributesFromTableInfo = LocalDataToUpdate.DataAttributesFromTableInfo;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.DataAttributesFromTableDataRow = LocalDataToUpdate.DataAttributesFromTableDataRow;
 
                 LocalFromUpdate = await CommonFromPushData.StartFunc({
                     inFolderName: FolderName,

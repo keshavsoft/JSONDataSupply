@@ -27,15 +27,15 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("SubTableColumns" in LocalNewData[LocalItemName][LocalScreenName]) {
-                if ("FinGrid" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
-                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid) {
+                if ("InvGrid" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
+                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.InvGrid) {
 
-                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid.TableColumns, { DataAttribute });
+                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.InvGrid.TableColumns, { DataAttribute });
 
                         LocalFindColumnObject.Widths.px = parseInt(LocalDataToUpdate.px);
 
                         LocalFromUpdate = await CommonFromPushData.StartFunc({
-                            inFolderName: FolderName,
+                            inFolderName: folderName,
                             inFileNameWithExtension: FileName,
                             inDataPK: LocalinDataPK,
                             inDataToUpdate: LocalNewData,
