@@ -43,6 +43,16 @@ exports.StartFunc = async ({ inJsonConfig, inItemConfig, inPK, inDataPK }) => {
     return await LocallReturnData;
 };
 
+let LocalForCreateNew = ({ inSubTablesArray }) => {
+    let LocalSubTablesArray = inSubTablesArray;
+
+    if (Array.isArray(LocalSubTablesArray)) {
+        if (LocalSubTablesArray.length > 0) {
+            LocalSubTablesArray[0].KData.TableInfo.FooterType.CreateNewRow.Style = "";
+        };
+    };
+};
+
 exports.ForInsert = async ({ inJsonConfig, inItemConfig, inPK, inDataPK }) => {
     let LocalHtmlVerticalObject;
     let LocalReturnArray = [];
@@ -60,7 +70,9 @@ exports.ForInsert = async ({ inJsonConfig, inItemConfig, inPK, inDataPK }) => {
             inItemConfig, inPK, inDataPK
         });
 
-        LocalSubTablesArray[0].KData.TableInfo.FooterType.CreateNewRow.Style = "";
+        LocalForCreateNew({ inSubTablesArray: LocalSubTablesArray });
+
+        //LocalSubTablesArray[0].KData.TableInfo.FooterType.CreateNewRow.Style = "";
 
         LocalReturnArray.push(LocalHtmlVerticalObject);
         LocallReturnData.DataFromServer = [...LocalReturnArray, ...LocalSubTablesArray];
