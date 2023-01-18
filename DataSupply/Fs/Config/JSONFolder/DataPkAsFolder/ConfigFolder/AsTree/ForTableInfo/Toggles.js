@@ -36,9 +36,11 @@ let AsObject = async ({ inDataPK }) => {
                         Object.entries(ItemValue.Screens).forEach(
                             ([ScreenKey, ScreenValue]) => {
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
-
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableInfoObject = {
-                                    ShowFooter: ScreenValue.TableInfo.ShowFooter
+                                    ColumnReOrder: ScreenValue.TableInfo.ColumnReOrder,
+                                    ShowFooter: ScreenValue.TableInfo.ShowFooter,
+                                    DataAttributesFromTableInfo: ScreenValue.TableInfo.DataAttributesFromTableInfo,
+                                    DataAttributesFromTableDataRow: ScreenValue.TableInfo.DataAttributesFromTableDataRow
                                 };
 
                                 delete LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumns;
