@@ -4,8 +4,8 @@ let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
 
 
-let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
-    console.log("BodyAsJson", BodyAsJson);
+let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, subtablecolumnkey, tablecolumnkey, DataAttribute, BodyAsJson }) => {
+    console.log("BodyAsJson", BodyAsJson, DataAttribute, subtablecolumnkey, tablecolumnkey);
     const LocalDataToUpdate = (({ px }) => ({ px }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
@@ -15,7 +15,8 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
     let LocalFindColumnObject;
     let LocalFromUpdate;
     let LocalReturnObject = { KTF: false };
-    let LocalJsonTableColumnsKey = "TableColumns";
+    let LocalJsubtablecolumnkey = subtablecolumnkey;
+    let Localtablecolumnkey = subtablecolumnkey;
 
     let LocalFromPullData = await CommonPullDataFromConfig.FromJsonConfig({
         inJsonConfig,
@@ -27,10 +28,9 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("SubTableColumns" in LocalNewData[LocalItemName][LocalScreenName]) {
-                if ("InvGrid" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
-                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.InvGrid) {
-
-                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.InvGrid.TableColumns, { DataAttribute });
+                if (LocalJsubtablecolumnkey in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
+                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns[LocalJsubtablecolumnkey]) {
+                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns[LocalJsubtablecolumnkey].TableColumns, { DataAttribute });
 
                         LocalFindColumnObject.Widths.px = parseInt(LocalDataToUpdate.px);
 
