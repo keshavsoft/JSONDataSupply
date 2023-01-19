@@ -3,7 +3,7 @@ let _ = require("lodash");
 let CommonPullDataFromConfig = require("../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../PushData/FromFoldFile");
 
-let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
+let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName,subtablecolumnkey, DataAttribute, BodyAsJson }) => {
     const LocalDataToUpdate = (({ DisplayName, ShowInTable, Insert, CreateNew, IsTextArea, ShowTotal }) => ({ DisplayName, ShowInTable, Insert, CreateNew, IsTextArea, ShowTotal }))(BodyAsJson);
     console.log("LocalDataToUpdate------------- : ", LocalDataToUpdate);
     let LocalinDataPK = DataPK;
