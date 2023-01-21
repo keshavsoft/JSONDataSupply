@@ -23,33 +23,30 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAt
 
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
-            if ("SubTableColumns" in LocalNewData[LocalItemName][LocalScreenName]) {
-                if ("FinGrid" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
-                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid) {
+            if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName]) {
+                LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].TableColumns, { DataAttribute });
 
-                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid.TableColumns, { DataAttribute });
-
-                        LocalFindColumnObject.DefaultValue = LocalDataToUpdate.DefaultValue;
-                        LocalFindColumnObject.TextAlign = LocalDataToUpdate.TextAlign;
-
-                        LocalFromUpdate = await CommonFromPushData.StartFunc({
-                            inFolderName: FolderName,
-                            inFileNameWithExtension: FileName,
-                            inDataPK: LocalinDataPK,
-                            inDataToUpdate: LocalNewData,
-                            inOriginalData: LocalFromPullData.JsonData
-                        });
+                LocalFindColumnObject.DefaultValue = LocalDataToUpdate.DefaultValue;
+                LocalFindColumnObject.TextAlign = LocalDataToUpdate.TextAlign;
 
 
-                        if (LocalFromUpdate.KTF) {
-                            LocalReturnObject.KTF = true;
-                        };
 
-                        return await LocalReturnObject;
-                    };
+                LocalFromUpdate = await CommonFromPushData.StartFunc({
+                    inFolderName: FolderName,
+                    inFileNameWithExtension: FileName,
+                    inDataPK: LocalinDataPK,
+                    inDataToUpdate: LocalNewData,
+                    inOriginalData: LocalFromPullData.JsonData
+                });
+
+                //console.log("LocalFromUpdate : ", LocalFromUpdate);
+
+                if (LocalFromUpdate.KTF) {
+                    LocalReturnObject.KTF = true;
                 };
+
+                return await LocalReturnObject;
             };
-           
         };
     };
 
