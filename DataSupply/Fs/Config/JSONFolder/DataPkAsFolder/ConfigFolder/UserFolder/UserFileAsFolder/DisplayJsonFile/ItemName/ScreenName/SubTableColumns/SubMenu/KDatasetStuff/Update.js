@@ -4,7 +4,7 @@ let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
 
 
-let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
+let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName,subtablecolumnkey, DataAttribute, BodyAsJson }) => {
     console.log("BodyAsJson", BodyAsJson);
     const LocalDataToUpdate = (({ Validate, DataListReverse, Type }) => ({ Validate, DataListReverse, Type }))(BodyAsJson);
     let LocalinDataPK = DataPK;
@@ -15,6 +15,7 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
     let LocalFindColumnObject;
     let LocalFromUpdate;
     let LocalReturnObject = { KTF: false };
+    let Localsubtablecolumnkey = subtablecolumnkey;
 
     let LocalFromPullData = await CommonPullDataFromConfig.FromJsonConfig({
         inJsonConfig,
@@ -26,10 +27,10 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("SubTableColumns" in LocalNewData[LocalItemName][LocalScreenName]) {
-                if ("FinGrid" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
-                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid) {
+                if (Localsubtablecolumnkey in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
+                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns[Localsubtablecolumnkey]) {
 
-                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid.TableColumns, { DataAttribute });
+                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns[Localsubtablecolumnkey].TableColumns, { DataAttribute });
 
                         LocalFindColumnObject.KDatasetStuff.Validate = LocalDataToUpdate.Validate;
                         LocalFindColumnObject.KDatasetStuff.Type = LocalDataToUpdate.Type;

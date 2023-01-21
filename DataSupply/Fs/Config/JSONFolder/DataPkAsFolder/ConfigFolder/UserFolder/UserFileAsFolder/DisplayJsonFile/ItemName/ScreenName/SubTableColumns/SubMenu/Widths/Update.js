@@ -4,7 +4,7 @@ let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
 
 
-let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, subtablecolumnkey, tablecolumnkey, DataAttribute, BodyAsJson }) => {
+let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, subtablecolumnkey, DataAttribute, BodyAsJson }) => {
     console.log("BodyAsJson", BodyAsJson, DataAttribute, subtablecolumnkey, tablecolumnkey);
     const LocalDataToUpdate = (({ px }) => ({ px }))(BodyAsJson);
     let LocalinDataPK = DataPK;
@@ -16,7 +16,6 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, subtab
     let LocalFromUpdate;
     let LocalReturnObject = { KTF: false };
     let LocalJsubtablecolumnkey = subtablecolumnkey;
-    let Localtablecolumnkey = subtablecolumnkey;
 
     let LocalFromPullData = await CommonPullDataFromConfig.FromJsonConfig({
         inJsonConfig,
