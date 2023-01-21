@@ -4,7 +4,7 @@ let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
 
 
-let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
+let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName,subtablecolumnkey, DataAttribute, BodyAsJson }) => {
     const LocalDataToUpdate = (({ Parent1Class, Parent2Class, Parent3Class, InputClass }) => ({ Parent1Class, Parent2Class, Parent3Class, InputClass }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
@@ -14,7 +14,7 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
     let LocalFindColumnObject;
     let LocalFromUpdate;
     let LocalReturnObject = { KTF: false };
-    let LocalJsonTableColumnsKey = "TableColumns";
+    let Localsubtablecolumnkey = subtablecolumnkey;
 
     let LocalFromPullData = await CommonPullDataFromConfig.FromJsonConfig({
         inJsonConfig,
@@ -26,10 +26,10 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("SubTableColumns" in LocalNewData[LocalItemName][LocalScreenName]) {
-                if ("FinGrid" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
-                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid) {
+                if (Localsubtablecolumnkey in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
+                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns[Localsubtablecolumnkey]) {
 
-                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid.TableColumns, { DataAttribute });
+                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns[Localsubtablecolumnkey].TableColumns, { DataAttribute });
 
                         LocalFindColumnObject.ParentClasses.Parent1Class = LocalDataToUpdate.Parent1Class;
                         LocalFindColumnObject.ParentClasses.Parent2Class = LocalDataToUpdate.Parent2Class;
