@@ -14,7 +14,8 @@ let StartFunc = async ({ inDataPK }) => {
         LocalReturnData.KReason = "JsonData is Not Found..!";
         return await LocalReturnData;
     };
-    LocalReturnData = CommonFromData.JsonData;
+
+    LocalReturnData.JsonData = LocalBuildJsonData({ inJsonData: CommonFromData.JsonData });
     LocalReturnData.KTF = true;
 
     return await LocalReturnData;
@@ -22,16 +23,39 @@ let StartFunc = async ({ inDataPK }) => {
 
 };
 
+let LocalBuildJsonData = ({ inJsonData }) => {
+    let LocalReturnObject = {};
+    LocalReturnObject.Reports = {};
+
+    Object.entries(inJsonData).forEach(
+        ([key, value]) => {
+            LocalReturnObject.Reports[key] = {};
+            LocalReturnObject.Reports[key].VouchersConsider = {};
+
+            value.VouchersConsider.forEach(element => {
+                //   LocalReturnObject.Reports[key].VouchersConsider[element.pk] = { Active: element.Active };
+                LocalReturnObject.Reports[key].VouchersConsider[element.pk] = {
+                    FolderName:element.FolderName,
+                    FileName:element.FileName,
+                    Active: element.Active };
+
+                //  LocalReturnObject.Reports[key].VouchersConsider[element.pk] = { ...element };
+            });
+        }
+    );
+
+    return LocalReturnObject;
+};
+
 let MockFunc = () => {
     StartFunc({
-        inDataPK: 1024
+        inDataPK: 301
 
     }).then((PromiseData) => {
-        console.log("PromiseData--", Object.keys(PromiseData));
+        console.log("PromiseData--", PromiseData.JsonData.Reports.StockBalances);
     });
 };
-// MockFunc();
 
-
+//MockFunc();
 
 module.exports = { StartFunc };
