@@ -1,16 +1,21 @@
 let fs = require("fs");
-let CommonAbsolutePath = require("../../../../DataPath");
+let CommonAbsolutePath = require("../Check");
 
 let ForExistence = ({ inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
     let LocalFolderName = "Reports";
 
-    let GlobalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp({});
-    LocalReturnData.ReportsPath = `${GlobalDataPath}/${LocalinDataPK}/${LocalFolderName}`
+    let CommomFromFolderCheck = CommonAbsolutePath.ForExistence({ inDataPK: LocalinDataPK });
+    if (CommomFromFolderCheck === false) {
+        LocalReturnData.KReason = CommomFromFolderCheck.KReason;
+        return LocalReturnData;
+
+    }
+    LocalReturnData.ReportsPath = `${CommomFromFolderCheck.DataPKPath}/${LocalFolderName}`;
 
     try {
-        if (fs.statSync(LocalReturnData.DirPath).isDirectory()) {
+        if (fs.statSync(LocalReturnData.ReportsPath).isDirectory()) {
             LocalReturnData.KTF = true;
         } else {
             LocalReturnData.KReason = "File not found!";
@@ -49,6 +54,12 @@ let FolderIsEmpty = ({ inDataPK }) => {
 
     return LocalReturnData;
 };
+
+let MockFunc = () => {
+    let CheckData = ForExistence({ inDataPK: 1024 });
+    console.log("CheckData---", CheckData);
+};
+// MockFunc();
 
 //console.log("ForExistence : ", ForExistence({ inDataPK: 16 }));
 
