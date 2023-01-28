@@ -3,15 +3,14 @@ let _ = require("lodash");
 let CommonPullDataFromConfig = require("../../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../../PushData/FromFoldFile");
 
-
-let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
-    console.log("BodyAsJson", BodyAsJson);
-    const LocalDataToUpdate = (({ Validate, Type }) => ({ Validate, Type }))(BodyAsJson);
+let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName,subtablecolumnkey, DataAttribute, BodyAsJson }) => {
+    const LocalDataToUpdate = (({ DisplayName, ShowInTable, Insert, CreateNew, IsTextArea }) => ({ DisplayName, ShowInTable, Insert, CreateNew, IsTextArea }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
-    let inJsonConfig = { inFolderName: folderName, inJsonFileName: FileName }
+    let inJsonConfig = { inFolderName: FolderName, inJsonFileName: FileName }
     let LocalItemName = ItemName;
     let LocalScreenName = ScreenName;
+    let Localsubtablecolumnkey = subtablecolumnkey;
     let LocalFindColumnObject;
     let LocalFromUpdate;
     let LocalReturnObject = { KTF: false };
@@ -26,16 +25,16 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
     if (LocalItemName in LocalNewData) {
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("SubTableColumns" in LocalNewData[LocalItemName][LocalScreenName]) {
-                if ("FinGrid" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
-                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid) {
+                if (Localsubtablecolumnkey in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns) {
+                    if ("TableColumns" in LocalNewData[LocalItemName][LocalScreenName].SubTableColumns[Localsubtablecolumnkey]) {
 
-                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns.FinGrid.TableColumns, { DataAttribute });
+                        LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].SubTableColumns[Localsubtablecolumnkey].TableColumns, { DataAttribute });
 
                         LocalFindColumnObject.ServerSide.SaveCheck.Validate = LocalDataToUpdate.Validate;
                         LocalFindColumnObject.ServerSide.SaveCheck.Type = LocalDataToUpdate.Type;
 
                         LocalFromUpdate = await CommonFromPushData.StartFunc({
-                            inFolderName: folderName,
+                            inFolderName: FolderName,
                             inFileNameWithExtension: FileName,
                             inDataPK: LocalinDataPK,
                             inDataToUpdate: LocalNewData,
