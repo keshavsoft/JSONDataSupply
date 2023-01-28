@@ -37,30 +37,26 @@ let AsObject = async ({ inDataPK }) => {
                             ([ScreenKey, ScreenValue]) => {
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
 
-                                if ("SubTableColumns" in ScreenValue && ScreenValue.SubTableColumns !== undefined) {
-                                    console.log("ScreenValue---", ScreenValue.SubTableColumns);
-
-
-                                    Object.entries(ScreenValue.SubTableColumns).forEach(
+                                if ("SubTableColumnsObject" in ScreenValue && ScreenValue.SubTableColumnsObject !== undefined) {
+                                    Object.entries(ScreenValue.SubTableColumnsObject).forEach(
                                         ([SubColumnKey, SubColumnValue]) => {
-
-                                            LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject = {};
                                             LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey] = JSON.parse(JSON.stringify(SubColumnValue));
 
-                                            Object.entries(SubColumnValue.TableColumns).forEach(
-                                                ([SubTableColumnKey, SubTableColumnValue]) => {
-                                                    //    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject = {};
-                                                    //LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject[SubTableColumnKey] = JSON.parse(JSON.stringify(SubTableColumnValue));
+                                            if ("TableColumnsObject" in SubColumnValue && SubColumnValue.TableColumnsObject !== undefined) {
+                                                Object.entries(SubColumnValue.TableColumnsObject).forEach(
+                                                    ([SubColumnTableColumnKey, SubColumnTableColumnValue]) => {
+                                                        LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject[SubColumnTableColumnKey] = {
 
-                                                    LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubTableColumnKey] = {
-                                                        DataAttribute: SubTableColumnValue.DataAttribute,
-                                                        DisplayName: SubTableColumnValue.DisplayName,
-                                                        Validate: SubTableColumnValue.ServerSide.TransformBeforeSave.Validate,
-                                                        Type: SubTableColumnValue.ServerSide.TransformBeforeSave.Type
+                                                            DataAttribute: SubColumnTableColumnValue.DataAttribute,
+                                                            DisplayName: SubColumnTableColumnValue.DisplayName,
+                                                            Validate: SubColumnTableColumnValue.ServerSide.TransformBeforeSave.Validate,
+                                                            Type: SubColumnTableColumnValue.ServerSide.TransformBeforeSave.Type
+                                                        };
+                                                    }
+                                                );
 
-                                                    };
-                                                }
-                                            );
+                                            };
+
                                         }
                                     );
 
