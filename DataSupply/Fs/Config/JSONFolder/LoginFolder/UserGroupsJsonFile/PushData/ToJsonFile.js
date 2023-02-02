@@ -3,7 +3,7 @@ let CommonCheckForFile = require("../Check");
 
 let StartFunc = async ({ inOriginalData, inDataToUpdate }) => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
-    let LocalFromCheck = await CommonCheckForFile.StartFunc();
+    let LocalFromCheck = await CommonCheckForFile.ForExistence();
     
     if (LocalFromCheck.KTF) {
         LocalReturnData.FilePath = LocalFromCheck.FilePath;
@@ -25,9 +25,9 @@ let StartFunc = async ({ inOriginalData, inDataToUpdate }) => {
 
 let LocalCheckBeforeInsert = ({ inOriginalData, inDataToUpdate }) => {
     let LocalReturnObject = { KTF: true };
-    //debug("inserted length : ", JSON.stringify(inDataToUpdate).length, inOriginalData.length, JSON.stringify(inDataToUpdate).length - inOriginalData.length);
+    // debug("inserted length : ", JSON.stringify(inDataToUpdate).length, inOriginalData.length, JSON.stringify(inDataToUpdate).length - inOriginalData.length);
 
-    //debug("inserted length : ", JSON.stringify(inDataToUpdate).length, JSON.stringify(inOriginalData).length, JSON.stringify(inDataToUpdate).length - inOriginalData.length, Math.abs(JSON.stringify(inDataToUpdate).length - inOriginalData.length));
+    // debug("inserted length : ", JSON.stringify(inDataToUpdate).length, JSON.stringify(inOriginalData).length, JSON.stringify(inDataToUpdate).length - inOriginalData.length, Math.abs(JSON.stringify(inDataToUpdate).length - inOriginalData.length));
 
     return LocalReturnObject;
 };

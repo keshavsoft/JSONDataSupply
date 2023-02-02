@@ -3,21 +3,24 @@ let CommonFromCheck = require("../Check");
 
 let ForExistence = async () => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+
     let LocalFromCheck = await CommonFromCheck.ForExistence();
-    let LocalFileName = "UserGroups.json";
-
-    LocalReturnData.FilePath = `${LocalFromCheck.LoginFolderPath}/${LocalFileName}`
-
-    if (LocalFromCheck.KTF === false) {
-        LocalReturnData.Reason = `${LocalFileName}: File not found..!`
-
-        return await LocalReturnData;
+    LocalReturnData.LoginFolderPath = LocalFromCheck.LoginFolderPath;
+    LocalReturnData.localFileName = "UserGroups.json";
+    
+    if (LocalFromCheck.KTF) {
+        LocalReturnData.UserGroupJsonFilePath = `${LocalFromCheck.LoginFolderPath}/${LocalReturnData.localFileName}`
     };
 
-    if (fs.existsSync(LocalReturnData.FilePath)) {
-        LocalReturnData.KTF = true;
+    try {
+        if (fs.statSync(LocalReturnData.UserGroupJsonFilePath)) {
+            LocalReturnData.KTF = true;
+        };
+    } catch (error) {
+
     };
-    return await LocalReturnData;
+
+    return LocalReturnData;
 };
 // let LocalMockForExistence = ForExistence().then((promiseData) => {
 //     console.log("promiseData", promiseData);
