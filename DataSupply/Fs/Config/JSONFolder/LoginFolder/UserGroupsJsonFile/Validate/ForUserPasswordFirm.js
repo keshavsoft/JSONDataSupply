@@ -1,4 +1,5 @@
 let CommonFromJson = require("../PullDataFromFile/FromJson");
+let CommonFrom = require("../../UserDataJsonFile/Find/Find")
 
 let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
@@ -32,8 +33,20 @@ let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
         }
     );
 
-    console.log("hhh", LocalKeyNeeded);
+    let commonFromFind = CommonFrom.StartFunc({ inDataPK: LocalKeyNeeded });
+    if (commonFromFind.KTF === false) {
+        LocalReturnData.KReason = commonFromFind.KReason
+        return LocalReturnData;
+    };
 
+    LocalReturnData.KTF = true
+
+    return LocalReturnData;
 };
+
+let mockFunc = () => {
+    StartFunc({ inUserName: "NSP2223", inPassWord: "NSP2223", inFirmName: "KeshavSoft" })
+};
+// mockFunc();
 
 module.exports = { StartFunc };
