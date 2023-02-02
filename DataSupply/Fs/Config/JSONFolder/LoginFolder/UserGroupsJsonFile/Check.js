@@ -1,15 +1,16 @@
 let fs = require("fs");
 let CommonFromCheck = require("../Check");
 
-let ForExistence = async () => {
+let ForExistence = () => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
-    let LocalFromCheck = await CommonFromCheck.ForExistence();
+    let LocalFromCheck = CommonFromCheck.ForExistence();
     LocalReturnData.LoginFolderPath = LocalFromCheck.LoginFolderPath;
     LocalReturnData.localFileName = "UserGroups.json";
-    
+
     if (LocalFromCheck.KTF) {
         LocalReturnData.UserGroupJsonFilePath = `${LocalFromCheck.LoginFolderPath}/${LocalReturnData.localFileName}`
+        LocalReturnData.KReason = LocalFromCheck.KReason;
     };
 
     try {

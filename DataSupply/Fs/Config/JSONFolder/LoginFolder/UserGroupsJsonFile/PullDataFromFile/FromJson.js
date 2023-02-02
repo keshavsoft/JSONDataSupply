@@ -28,11 +28,37 @@ let AsAsync = async () => {
     return await LocalReturnData;
 };
 
+let StartFunc = () => {
+    let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
+
+    let LocalFromCheck = CommonCheck.ForExistence();
+
+    LocalReturnData.UserGroupJsonFilePath = LocalFromCheck.UserGroupJsonFilePath;
+
+    if (LocalFromCheck.KTF === false) {
+        LocalReturnData.KReason = LocalFromCheck.KReason;
+
+        return LocalReturnData;
+    };
+
+    try {
+        let LocalDataFromFile = fs.readFileSync(LocalReturnData.UserGroupJsonFilePath);
+        let LocalJsonData = JSON.parse(LocalDataFromFile);
+
+        LocalReturnData.KTF = true;
+        LocalReturnData.JsonData = LocalJsonData;
+    } catch (error) {
+
+    };
+
+    return LocalReturnData;
+};
+
 let mockFunc = () => {
-    AsAsync()
+    AsAsync();
 };
 // mockFunc();
 
 module.exports = {
-    AsAsync
+    StartFunc
 };
