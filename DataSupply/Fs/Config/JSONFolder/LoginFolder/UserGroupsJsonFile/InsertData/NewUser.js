@@ -1,4 +1,4 @@
-let CommonPullData = require("../PullData/FromJson");
+let CommonPullData = require("../PullDataFromFile/FromJson");
 let CommonPushData = require("../PushData/ToJsonFile");
 let CommonFind = require("../Find/InJson");
 let CommonUserDataJson = require("../../../../../LoginFolder/UserDataJson/Find/UserNameAndPassword");
@@ -52,13 +52,13 @@ let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
 };
 let mockFunc = async () => {
     await StartFunc({
-        inUserName:"NSP2223",
+        inUserName:"NSP",
         inPassWord:"NSP2223",
-        inFirmName:"KeshavSoft"
+        inFirmName:"Keshav"
 
     })
 };
-// mockFunc();
+mockFunc();
 
 
 

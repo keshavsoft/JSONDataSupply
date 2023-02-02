@@ -1,6 +1,6 @@
 let _ = require("lodash");
 
-let CommonPullData = require("../PullData/FromJson");
+let CommonPullData = require("../PullDataFromFile/FromJson");
 
 let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
     let LocalUserName = inUserName;

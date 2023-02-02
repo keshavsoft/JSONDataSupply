@@ -1,5 +1,5 @@
-let CommonCheck = require("../Check");
 let fs = require("fs");
+let CommonCheck = require("../Check");
 
 let AsAsync = async () => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
@@ -11,12 +11,12 @@ let AsAsync = async () => {
     LocalDataFromCommonCreate = await CommonCheck.ForExistence();
 
     if (LocalDataFromCommonCreate.KTF === false) {
-        LocalReturnData.Reason = LocalDataFromCommonCreate.Reason;
+        LocalReturnData.Reason = `${LocalDataFromCommonCreate.UserGroupJsonFilePath} file not found...!`;
         return await LocalReturnData;
     };
 
     if (LocalDataFromCommonCreate.KTF) {
-        LocalFilePath = LocalDataFromCommonCreate.FilePath
+        LocalFilePath = LocalDataFromCommonCreate.UserGroupJsonFilePath
 
         LocalDataFromJSON = await fs.readFileSync(LocalFilePath);
         LocalReturnData = JSON.parse(LocalDataFromJSON);
@@ -28,9 +28,9 @@ let AsAsync = async () => {
     return await LocalReturnData;
 };
 
-// let mockFunc = () => {
-//     AsAsync()
-// };
+let mockFunc = () => {
+    AsAsync()
+};
 // mockFunc();
 
 module.exports = {
