@@ -13,6 +13,7 @@ let LocalCheckBeforeInsert = ({ inOriginalData, inDataToUpdate }) => {
 };
 
 let StartFunc = async ({ inFolderName, inFileNameWithExtension, inOriginalData, inDataToUpdate, inDataPK }) => {
+    console.log("hhhhhhhhhh");
     let LocalDataPK = inDataPK;
 
     let LocalReturnObject = {
