@@ -10,7 +10,7 @@ let StartFunc = async ({ inDataPK }) => {
         return await LocalReturnData;
     };
     LocalReturnData.KTF = true;
-    LocalReturnData = CommonFromFromJson.JsonData;
+    LocalReturnData.JsonData = CommonFromFromJson.JsonData;
 
     return await LocalReturnData;
 };
