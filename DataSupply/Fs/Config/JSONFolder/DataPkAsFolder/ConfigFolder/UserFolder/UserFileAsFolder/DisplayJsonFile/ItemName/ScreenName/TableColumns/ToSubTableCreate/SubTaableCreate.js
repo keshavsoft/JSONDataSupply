@@ -53,6 +53,6 @@ let StartFunc = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, col
 let mockFunc = () => {
     StartFunc({ DataPK: "1024", FolderName: "TransActions", FileName: "GST-PURCHASES", ItemName: "GST-PURCHASE", ScreenName: "Create", columnName: "VoucherName" });
 };
-mockFunc();
+// mockFunc();
 
 module.exports = { StartFunc };
