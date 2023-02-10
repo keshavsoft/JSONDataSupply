@@ -30,7 +30,7 @@ let StartFunc1 = async ({ inDataPK }) => {
 
     return await LocalReturnData;
 };
-let StartFunc = async ({ inDataPK }) => {
+let StartFunc2 = async ({ inDataPK }) => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
     let CommonFromRepotsJson = await CommonFromJson.StartFunc({ inDataPK });
@@ -73,11 +73,51 @@ let StartFunc = async ({ inDataPK }) => {
 
     return await LocalReturnData;
 };
+
+let StartFunc = async ({ inDataPK }) => {
+    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+
+    let CommonFromFromJson = await CommonFromJson.StartFunc({ inDataPK });
+
+    if (CommonFromFromJson.KTF === false) {
+        LocalReturnData.KReason = CommonFromFromJson.KReason;
+        return await LocalReturnData;
+    };
+
+    LocalReturnData.ReportsObject = {};
+
+    LocalObjectToArray = Object.keys(CommonFromFromJson.JsonData);
+    LocalObjectToArray.forEach(x => {
+
+        LocalReturnData.ReportsObject[x] = {
+            ReportName: x,
+            VouchersConsiderObject: {}
+        };
+
+        // return {
+        //     ReportName: x,
+        //     VouchersConsider: CommonFromFromJson.JsonData[x].VouchersConsider
+        // }
+    });
+
+
+    Object.entries(LocalReturnData.ReportsObject).forEach(([key, value]) => {
+        CommonFromFromJson.JsonData[key].VouchersConsider.forEach(x => {
+            value.VouchersConsiderObject[x.pk] = x;
+        });
+    });
+
+    // LocalReturnData.JsonObject = LocalObject;
+    LocalReturnData.KTF = true;
+
+    return await LocalReturnData;
+};
+
 let MockFunc = async () => {
     let findData = StartFunc({ inDataPK: "1022" }).then((PromiseData) => {
-        // console.log("PromiseData",PromiseData);
+        console.log("PromiseData", PromiseData.ReportsObject);
     });
 };
-MockFunc();
+// MockFunc();
 
 module.exports = { StartFunc };
