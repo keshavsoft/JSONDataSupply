@@ -27,7 +27,7 @@ let StartFunc = async ({ inDataPK, ReportName, inVoucherConsiderpk }) => {
 
         let jVarLocalFind = jvarLocalNewData[jvarLocalReportName].VouchersConsider.find(e => e.pk === parseInt(jvarLocalinVoucherConsiderpk));
 
-        console.log("jVarLocalFind : ", jVarLocalFind);
+        // console.log("jVarLocalFind : ", jVarLocalFind);
 
         let jvarLocalFindVouchersConsider = JSON.parse(JSON.stringify(jVarLocalFind));
 
@@ -41,7 +41,7 @@ let StartFunc = async ({ inDataPK, ReportName, inVoucherConsiderpk }) => {
             return await LocalReturnData;
         };
 
-        console.log("LocalFromMax : ", LocalFromMax);
+        // console.log("LocalFromMax : ", LocalFromMax);
 
         jvarLocalFindVouchersConsider.pk = LocalFromMax.MaxPk + 1;
 
