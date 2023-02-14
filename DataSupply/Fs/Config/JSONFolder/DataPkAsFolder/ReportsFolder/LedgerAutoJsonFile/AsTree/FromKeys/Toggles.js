@@ -37,6 +37,7 @@ let LocalBuildJsonData = ({ inJsonData }) => {
                 LocalReturnObject.Reports[key].VouchersConsider[element.pk] = {
                     FolderName:element.FolderName,
                     FileName:element.FileName,
+                    ItemName:element.ItemName,
                     Active: element.Active };
 
                 //  LocalReturnObject.Reports[key].VouchersConsider[element.pk] = { ...element };
