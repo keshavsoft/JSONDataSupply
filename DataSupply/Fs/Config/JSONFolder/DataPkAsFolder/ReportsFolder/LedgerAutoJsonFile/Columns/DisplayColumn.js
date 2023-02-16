@@ -25,25 +25,12 @@ let LocalBuildJsonData = ({ inJsonData }) => {
     LocalReturnObject.Reports = {};
 
     Object.entries(inJsonData).forEach(
-        ([key, value]) => {
-            LocalReturnObject.Reports[key] = {};
-            LocalReturnObject.Reports[key].VouchersConsider = {};
-
-            Object.entries(value.VouchersConsider).forEach(
-                ([key, value]) => {
-                    console.log("key",key);
-
-                });
-
-            // value.VouchersConsider.forEach(element => {
-            //     LocalReturnObject.Reports[key].VouchersConsider[element] = {
-            //         FolderName: element.Columns
-            //     };
-
-            // });
-        }
-    );
-
+        ([FileKey, FileValue]) => {
+            // console.log("Local",LocalReturnObject.Reports[FileKey] );
+            LocalReturnObject.Reports[FileKey] = {
+                DisplayName: FileValue.TableColumns.DisplayName
+            }
+        });
     return LocalReturnObject;
 };
 
@@ -51,10 +38,10 @@ let MockFunc = () => {
     StartFunc({
         inDataPK: 1022
     }).then((PromiseData) => {
-        // console.log("PromiseData--", Object.keys(PromiseData));
+        console.log("PromiseData--", PromiseData.JsonData);
     })
 };
-// MockFunc();
+MockFunc();
 
 
 module.exports = { StartFunc };
