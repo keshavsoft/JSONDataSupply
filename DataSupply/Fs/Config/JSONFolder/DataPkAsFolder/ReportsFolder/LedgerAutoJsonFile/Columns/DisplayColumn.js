@@ -41,7 +41,7 @@ let MockFunc = () => {
         console.log("PromiseData--", PromiseData.JsonData);
     })
 };
-MockFunc();
+// MockFunc();
 
 
 module.exports = { StartFunc };
