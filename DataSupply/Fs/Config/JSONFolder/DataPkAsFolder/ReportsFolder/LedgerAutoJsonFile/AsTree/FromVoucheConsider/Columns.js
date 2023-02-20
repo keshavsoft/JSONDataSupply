@@ -34,6 +34,7 @@ let StartFunc1 = async ({ inDataPK }) => {
 
     return await LocalReturnData;
 };
+
 let StartFunc = async ({ inDataPK }) => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
@@ -74,6 +75,7 @@ let StartFunc = async ({ inDataPK }) => {
 
     return await LocalReturnData;
 };
+
 let PrepareColumnsFromVouchersConsider = ({ inReportsObject, inOriginalData }) => {
 
     let LocalinObject = inReportsObject
@@ -100,6 +102,7 @@ let MockFunc = async () => {
         console.log("PromiseData", PromiseData.ReportsObject.Purchases.VouchersConsiderObject);
     });
 };
-MockFunc();
+
+// MockFunc();
 
 module.exports = { StartFunc };
