@@ -1,5 +1,6 @@
-let CommonFromFromJson = require("../../PullDataFromFile/FromJson");
-let CommonFromToJson = require("../../PushDataFromFile/FromJson");
+//let CommonFromFromJson = require("../../PullDataFromFile/FromJson");
+let CommonFromFromJson = require("../../../../PullDataFromFile/FromJson");
+let CommonFromToJson = require("../../../../PushDataFromFile/FromJson");
 
 let CommonFromMaxPk = require("./MaxPk")
 
@@ -68,10 +69,6 @@ let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK, ColumnPk }) =>
         };
 
     };
-
-
-
-
     return await LocalReturnData;
 };
 let MockFunc = async () => {

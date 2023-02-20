@@ -1,4 +1,4 @@
-let CommonFromFromJson = require("../../PullDataFromFile/FromJson");
+let CommonFromFromJson = require("../../../../PullDataFromFile/FromJson");
 
 let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK }) => {
     let jvarLocalDataPK = inDataPK;
