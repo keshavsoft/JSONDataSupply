@@ -1,7 +1,7 @@
 let _ = require("lodash");
 
 let CommonFromFromJson = require("../../../../../PullDataFromFile/FromJson");
-let CommonFromToJson = require("../../../../../PushDataFromFile/FromJson");
+let CommonFromPushData = require("../../../../../PushDataFromFile/FromJson");
 
 
 let StartFunc = async ({ inDataPK, ReportName, voucherconsiderpk, columnpk, BodyAsJson }) => {
@@ -9,7 +9,7 @@ let StartFunc = async ({ inDataPK, ReportName, voucherconsiderpk, columnpk, Body
     let LocalinDataPK = inDataPK;
     let localReportName = ReportName;
     let localvoucherconsiderpk = parseInt(voucherconsiderpk);
-    let localcolumnpk = columnpk;
+    let localcolumnpk = parseInt(columnpk);
 
     let LocalReturnData = { KTF: false };
 
@@ -18,18 +18,39 @@ let StartFunc = async ({ inDataPK, ReportName, voucherconsiderpk, columnpk, Body
         LocalReturnData.KReason = LocalLedgerJsonDate.KReason;
         return await LocalReturnData;
     };
-
+    let LocalFromUpdate;
     let localData = LocalLedgerJsonDate.JsonData;
 
     if (localReportName in localData) {
         if ("VouchersConsider" in localData[localReportName]) {
             let LocalFilterObject = {};
             LocalFilterObject.pk = localvoucherconsiderpk;
+            let LocalFindColumnObject;
 
             LocalFindColumnObject = _.find(localData[localReportName].VouchersConsider, LocalFilterObject);
             if ("Columns" in LocalFindColumnObject) {
-                console.log("LocalFindColumnObject", LocalFindColumnObject);
+                let localFindColumn = {};
+                localFindColumn.pk = localcolumnpk
+                let LocalColumnObject = _.find(LocalFindColumnObject.Columns, localFindColumn);
 
+                LocalColumnObject.DisplayColumn = LocalDataToUpdate.DisplayColumn;
+                LocalColumnObject.TransformType = LocalDataToUpdate.TransformType;
+                LocalColumnObject.DefaultValue = LocalDataToUpdate.DefaultValue;
+                LocalColumnObject.ConsiderJoinTable = LocalDataToUpdate.ConsiderJoinTable;
+                LocalColumnObject.TransformTF = LocalDataToUpdate.TransformTF;
+
+
+                LocalFromUpdate = await CommonFromPushData.StartFunc({
+                    inDataPK: LocalinDataPK,
+                    inDataToUpdate: localData,
+                    inOriginalData: LocalLedgerJsonDate.JsonData
+                });
+
+                if (LocalFromUpdate.KTF) {
+                    LocalReturnData.KTF = true;
+                };
+
+                return await LocalReturnData;
             };
 
         };
