@@ -38,6 +38,7 @@ console.log("jatin");
                     FolderName:element.FolderName,
                     FileName:element.FileName,
                     ItemName:element.ItemName,
+                    ColumnNameToPick: element.ColumnNameToPick,
                     Active: element.Active,
                     FromFolder: element.FromFolder,
                     ItemNameConsider: element.ItemNameConsider};
