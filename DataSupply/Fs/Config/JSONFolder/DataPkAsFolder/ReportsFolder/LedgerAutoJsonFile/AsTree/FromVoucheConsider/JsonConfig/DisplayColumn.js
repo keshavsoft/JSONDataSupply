@@ -51,11 +51,11 @@ let PrepareColumnsFromVouchersConsider = ({ inReportsObject, inOriginalData }) =
         Object.entries(Reportvalue.VouchersConsiderObject).forEach(([Voucherkey, Vouchervalue]) => {
 
             Vouchervalue.ColumnsObject = {};
-            Vouchervalue.JoinTablesColumns.forEach(x => {
+            Vouchervalue.JoinTables.forEach(x => {
                 Vouchervalue.ColumnsObject[x.pk] = x;
             });
             delete Vouchervalue.Columns;
-            delete Vouchervalue.JoinTables;
+            delete Vouchervalue.JoinTablesColumns;
             delete Vouchervalue.ReportConfig;
             delete Vouchervalue.ColumnsObject;
 
