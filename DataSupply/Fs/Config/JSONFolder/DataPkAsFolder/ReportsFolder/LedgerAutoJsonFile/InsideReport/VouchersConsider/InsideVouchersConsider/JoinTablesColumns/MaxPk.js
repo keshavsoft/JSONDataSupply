@@ -11,7 +11,7 @@ let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK }) => {
         ReportName: jvarLocalReportName,
         VoucherConsiderPK: localVoucherConsiderPK
     });
-    console.log("LocalFromCommonFromReturnPkArray",LocalFromCommonFromReturnPkArray);
+    // console.log("LocalFromCommonFromReturnPkArray",LocalFromCommonFromReturnPkArray);
 
     if (LocalFromCommonFromReturnPkArray.KTF === false) {
         LocalReturnData.KReason = LocalFromCommonFromReturnPkArray.KReason;
