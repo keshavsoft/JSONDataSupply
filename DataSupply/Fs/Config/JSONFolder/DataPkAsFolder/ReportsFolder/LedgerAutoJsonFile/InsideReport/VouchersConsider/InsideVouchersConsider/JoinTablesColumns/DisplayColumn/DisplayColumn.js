@@ -59,6 +59,6 @@ let mockFunc = () => {
 
     });
 };
-// mockFunc();
+mockFunc();
 
 module.exports = { StartFunc };
