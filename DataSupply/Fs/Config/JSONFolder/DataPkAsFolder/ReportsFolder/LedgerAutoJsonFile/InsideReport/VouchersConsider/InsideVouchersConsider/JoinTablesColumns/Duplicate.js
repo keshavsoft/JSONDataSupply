@@ -3,6 +3,7 @@ let CommonFromToJson = require("../../../../PushDataFromFile/FromJson");
 let CommonFromMaxPk = require("./MaxPk");
 
 let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK }) => {
+    console.log("jjjj", inReportName, inVouchersConsiderPK, JoinTablesColumnsPK);
     let localinDataPK = inDataPK;
     let localinReportName = inReportName;
     let localinVouchersConsiderPK = inVouchersConsiderPK;
