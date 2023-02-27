@@ -30,8 +30,8 @@ let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 
             console.log("ooooooo---", LocalFindColumnObject.FolderName, LocalDataToUpdate.FolderName);
 
-            LocalFindColumnObject.FolderName = LocalDataToUpdate.FolderName;
-            LocalFindColumnObject.FileName = LocalDataToUpdate.FileName;
+            LocalFindColumnObject.ItemNameConsider = LocalDataToUpdate.ItemNameConsider;
+            LocalFindColumnObject.FromFolder = LocalDataToUpdate.FromFolder;
             LocalFindColumnObject.Active = LocalDataToUpdate.Active;
 
 
