@@ -47,8 +47,10 @@ let PrepareColumnsFromVouchersConsider = ({ inReportsObject, inOriginalData }) =
     let LocalinObject = inReportsObject
 
     Object.entries(LocalinObject).forEach(([Reportkey, Reportvalue]) => {
+        // console.log("jjjj",Reportvalue);
 
         Object.entries(Reportvalue.VouchersConsiderObject).forEach(([Voucherkey, Vouchervalue]) => {
+            // console.log("l-------------------lll",Vouchervalue);
 
             Vouchervalue.JoinTablesColumnsObject = {};
             Vouchervalue.JoinTablesColumns.forEach(x => {
