@@ -2,7 +2,7 @@ let CommonFromFromJson = require("../../../../../PullDataFromFile/FromJson");
 let CommonFromToJson = require("../../../../../PushDataFromFile/FromJson");
 
 let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ DisplayColumn }) => ({ DisplayColumn }))(BodyAsJson);
+    const LocalDataToUpdate = (({ Name, DisplayColumn, TransformType, JoinTable, ConsiderJoinTable }) => ({ Name, DisplayColumn, TransformType, JoinTable, ConsiderJoinTable }))(BodyAsJson);
 
     let localinDataPK = inDataPK;
     let localinReportName = inReportName;
@@ -26,7 +26,12 @@ let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTable
             if ("JoinTablesColumns" in LocalVouchersConsiderFind) {
 
                 let localJoinTablesColumnsFind = LocalVouchersConsiderFind.JoinTablesColumns.find(p => p.pk === parseInt(localJoinTablesColumnsPK));
+                console.log("ggggggggggggg", localJoinTablesColumnsFind.Name, LocalDataToUpdate.Name);
+                localJoinTablesColumnsFind.Name = LocalDataToUpdate.Name;
                 localJoinTablesColumnsFind.DisplayColumn = LocalDataToUpdate.DisplayColumn;
+                localJoinTablesColumnsFind.TransformType = LocalDataToUpdate.TransformType;
+                localJoinTablesColumnsFind.JoinTable = LocalDataToUpdate.JoinTable;
+                localJoinTablesColumnsFind.ConsiderJoinTable = LocalDataToUpdate.ConsiderJoinTable;
 
 
                 let jvarLocalPushData = await CommonFromToJson.StartFunc({
