@@ -45,6 +45,7 @@ let StartFunc = async ({ inDataPK }) => {
 let PrepareColumnsFromVouchersConsider = ({ inReportsObject, inOriginalData }) => {
 
     let LocalinObject = inReportsObject
+    // console.log("LocalinObject-------",LocalinObject);
 
     Object.entries(LocalinObject).forEach(([Reportkey, Reportvalue]) => {
 
@@ -52,8 +53,8 @@ let PrepareColumnsFromVouchersConsider = ({ inReportsObject, inOriginalData }) =
 
             Vouchervalue.JoinTablesObject = {};
             Vouchervalue.JoinTables.forEach(x => {
-                Vouchervalue.JoinTablesObject[x.JT1] = x;
-                // console.log("x",Vouchervalue.JoinTablesObject[x.JT1]);
+                Vouchervalue.JoinTablesObject = x;
+                console.log("x----nnnnn---",Vouchervalue.JoinTablesObject);
 
             });
             delete Vouchervalue.Columns;
