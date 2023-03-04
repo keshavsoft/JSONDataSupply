@@ -1,6 +1,6 @@
 let CommonFromFromJson = require("../../../../PullDataFromFile/FromJson");
 let CommonFromToJson = require("../../../../PushDataFromFile/FromJson");
-let CommonFromMaxPk = require("./MaxPk");
+let CommonFromMaxPk = require("./ReturnPkArray");
 
 let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK }) => {
     let localinDataPK = inDataPK;
@@ -22,35 +22,46 @@ let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTable
         if ("VouchersConsider" in localLedgerAutoJsonData[localinReportName]) {
             let LocalVouchersConsiderFind = localLedgerAutoJsonData[localinReportName].VouchersConsider.find(e => e.pk === parseInt(localinVouchersConsiderPK));
 
-            if ("JoinTablesColumns" in LocalVouchersConsiderFind) {
+            if ("JoinTables" in LocalVouchersConsiderFind) {
+                let localJoinTablesColumnsFind = LocalVouchersConsiderFind.JoinTables.find(p => p);
 
-                let localJoinTablesColumnsFind = LocalVouchersConsiderFind.JoinTablesColumns.find(p => p.pk === parseInt(localJoinTablesColumnsPK));
-                let localJoinTablesColumns = JSON.parse(JSON.stringify(localJoinTablesColumnsFind));
+                if (localJoinTablesColumnsPK in localJoinTablesColumnsFind) {
+                    let localJoinTablesColumns = JSON.parse(JSON.stringify(localJoinTablesColumnsFind[localJoinTablesColumnsPK]));
 
-                let LocalFromMax = await CommonFromMaxPk.StartFunc({
-                    inDataPK: localinDataPK,
-                    ReportName: localinReportName,
-                    VoucherConsiderPK: localinVouchersConsiderPK
-                });
-                if (LocalFromMax.KTF === false) {
-                    LocalReturnData.KReason = LocalFromMax.KReason;
+                    let LocalFromMax = await CommonFromMaxPk.StartFunc({
+                        inDataPK: localinDataPK,
+                        ReportName: localinReportName,
+                        VoucherConsiderPK: localinVouchersConsiderPK
+                    });
+
+                    if (LocalFromMax.KTF === false) {
+                        LocalReturnData.KReason = LocalFromMax.KReason;
+                        return await LocalReturnData;
+                    };
+
+                    let MaxKey = LocalFromMax.DataAsMaxString;
+                    let localAdditionKey = parseInt(MaxKey) + 1
+                    let localMaxString = `JT${localAdditionKey}`
+                    
+                    console.log("localMaxString", localMaxString);
+
+                    localJoinTablesColumns.localJoinTablesColumnsPK = localMaxString;
+
+                    // localLedgerAutoJsonData[localinReportName][LocalVouchersConsiderFind].JoinTables.push(localJoinTablesColumns);
+
+                    let jvarLocalPushData = await CommonFromToJson.StartFunc({
+                        inOriginalData: localCommonJsonData.JsonData,
+                        inDataToUpdate: localLedgerAutoJsonData,
+                        inDataPK: localinDataPK
+                    });
+
+                    if (jvarLocalPushData.KTF) {
+                        LocalReturnData.KTF = true
+                    };
                     return await LocalReturnData;
+
                 };
 
-                localJoinTablesColumns.pk = LocalFromMax.MaxPk + 1;
-
-                LocalVouchersConsiderFind.JoinTablesColumns.push(localJoinTablesColumns);
-
-                let jvarLocalPushData = await CommonFromToJson.StartFunc({
-                    inOriginalData: localCommonJsonData.JsonData,
-                    inDataToUpdate: localLedgerAutoJsonData,
-                    inDataPK: localinDataPK
-                });
-
-                if (jvarLocalPushData.KTF) {
-                    LocalReturnData.KTF = true
-                };
-                return await LocalReturnData;
             };
         };
     };
@@ -63,12 +74,12 @@ let mockFunc = () => {
         inDataPK: 1022,
         inReportName: "Purchases",
         inVouchersConsiderPK: 30,
-        JoinTablesColumnsPK: 30
+        JoinTablesColumnsPK: "JT1"
 
     }).then((promiseData) => {
 
     });
 };
-mockFunc();
+// mockFunc();
 
 module.exports = { StartFunc };
