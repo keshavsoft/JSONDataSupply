@@ -18,18 +18,24 @@ let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK }) => {
     if (localReportName in jvarLocalNewData) {
         let LocalVouchersConsiderFind = jvarLocalNewData[localReportName].VouchersConsider.find(e => e.pk === parseInt(localVoucherConsiderPK));
         if ("JoinTables" in LocalVouchersConsiderFind) {
-            let LocalJoinTablesFind = LocalVouchersConsiderFind.JoinTables.find(e => e);
+            let LocalJoinTablesFind = LocalVouchersConsiderFind.JoinTables.map(e => parseInt(  Object.keys( e)[0].substring(2)));
+            const max = LocalJoinTablesFind.reduce((a, b) => { return Math.max(a, b) });
+            // console.log("max:",max);
+         
+            
+            LocalReturnData.DataAsMaxString = `JT${max+1}`;
 
-            for (let key in LocalJoinTablesFind) {
-                if (LocalJoinTablesFind.hasOwnProperty(key)) {
-                    let localsubstr = key.substring(2);
-                    // console.log("localsubstr:", localsubstr);
-                    LocalReturnData.DataAsMaxString = localsubstr;
-                    
-                    LocalReturnData.KTF = true;
 
-                };
-            };
+            // for (let key in LocalJoinTablesFind) {
+            //     if (LocalJoinTablesFind.hasOwnProperty(key)) {
+            //         let localsubstr = key.substring(2);
+            //         // console.log("localsubstr:", localsubstr);
+            //         LocalReturnData.DataAsMaxString = localsubstr;
+
+
+            //     };
+            // };
+            LocalReturnData.KTF = true;
 
         };
     };
@@ -38,7 +44,7 @@ let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK }) => {
 };
 
 let MockFunc = () => {
-    let findData = StartFunc({ inDataPK: "1022", ReportName: "Purchases", VoucherConsiderPK: "30" }).then((promseData) => {
+    let findData = StartFunc({ inDataPK: "1022", ReportName: "StockBook", VoucherConsiderPK: 20 }).then((promseData) => {
         console.log("promseData--", promseData);
     });
 };
