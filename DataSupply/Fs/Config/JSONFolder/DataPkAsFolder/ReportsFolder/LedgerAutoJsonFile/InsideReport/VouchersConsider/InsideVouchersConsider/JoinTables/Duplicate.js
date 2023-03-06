@@ -4,7 +4,7 @@ let CommonFromMaxPk = require("./ReturnPkArray");
 let CommonFindKey = require("./FindKey");
 
 let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK }) => {
-    //   console.log("----:",inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK );
+      console.log("----:",inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK );
     let localinDataPK = inDataPK;
     let localinReportName = inReportName;
     let localinVouchersConsiderPK = inVouchersConsiderPK;

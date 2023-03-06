@@ -2,7 +2,8 @@ let CommonFromFromJson = require("../../../../../PullDataFromFile/FromJson");
 let CommonFromToJson = require("../../../../../PushDataFromFile/FromJson");
 
 let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ DisplayColumn }) => ({ DisplayColumn }))(BodyAsJson);
+    console.log("-----:",inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK, BodyAsJson );
+    const LocalDataToUpdate = (({ UserFolderName,inFolderName,inJsonFileName }) => ({ UserFolderName ,inFolderName,inJsonFileName}))(BodyAsJson);
 
     let localinDataPK = inDataPK;
     let localinReportName = inReportName;
@@ -26,7 +27,9 @@ let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTable
             if ("JoinTablesColumns" in LocalVouchersConsiderFind) {
 
                 let localJoinTablesColumnsFind = LocalVouchersConsiderFind.JoinTablesColumns.find(p => p.pk === parseInt(localJoinTablesColumnsPK));
-                localJoinTablesColumnsFind.DisplayColumn = LocalDataToUpdate.DisplayColumn;
+                localJoinTablesColumnsFind.UserFolderName = LocalDataToUpdate.UserFolderName;
+                localJoinTablesColumnsFind.inFolderName = LocalDataToUpdate.inFolderName;
+                localJoinTablesColumnsFind.inJsonFileName = LocalDataToUpdate.inJsonFileName;
 
 
                 let jvarLocalPushData = await CommonFromToJson.StartFunc({
@@ -59,6 +62,6 @@ let mockFunc = () => {
 
     });
 };
-mockFunc();
+// mockFunc();
 
 module.exports = { StartFunc };
