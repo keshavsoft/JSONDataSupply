@@ -1,9 +1,10 @@
 let CommonFromFromJson = require("../../../../PullDataFromFile/FromJson");
 let CommonFromToJson = require("../../../../PushDataFromFile/FromJson");
 let CommonFromMaxPk = require("./ReturnPkArray");
+let CommonFindKey = require("./FindKey");
 
 let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK }) => {
- //   console.log("----:",inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK );
+    //   console.log("----:",inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK );
     let localinDataPK = inDataPK;
     let localinReportName = inReportName;
     let localinVouchersConsiderPK = inVouchersConsiderPK;
@@ -31,43 +32,49 @@ let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTable
                     ReportName: localinReportName,
                     VoucherConsiderPK: localinVouchersConsiderPK
                 });
-                console.log("LocalFromMax", LocalFromMax,localJoinTablesColumnsPK);
 
                 if (LocalFromMax.KTF === false) {
                     LocalReturnData.KReason = LocalFromMax.KReason;
                     return await LocalReturnData;
                 };
 
+                let LocalCommonFindKey = await CommonFindKey.StartFunc({
+                    inDataPK: localinDataPK,
+                    ReportName: localinReportName,
+                    VoucherConsiderPK: localinVouchersConsiderPK,
+                    inJoinTablePk: localJoinTablesColumnsPK
+                });
+
+
+                if (LocalCommonFindKey.KTF === false) {
+                    LocalReturnData.KReason = LocalCommonFindKey.KReason;
+                    return await LocalReturnData;
+                };
+
+
+                // let localNewData =
+
                 let MaxKey = LocalFromMax.DataAsMaxString;
-                let localAdditionKey = parseInt(MaxKey) + 1
-                let localMaxString = `JT${localAdditionKey}`
 
                 let localNewObject = {};
 
+                localNewObject[MaxKey] = LocalCommonFindKey.FindValue;
 
+                console.log("localNewObject : ", localNewObject);
 
-                LocalVouchersConsiderFind.JoinTables.push(localJoinTablesColumnsFind.localMaxString);
+                LocalVouchersConsiderFind.JoinTables.push(localNewObject);
 
-                if (localJoinTablesColumnsPK in localJoinTablesColumnsFind) {
-                    let localJoinTablesColumns = JSON.parse(JSON.stringify(localJoinTablesColumnsFind[localJoinTablesColumnsPK]));
+                let jvarLocalPushData = await CommonFromToJson.StartFunc({
+                    inOriginalData: localCommonJsonData.JsonData,
+                    inDataToUpdate: localLedgerAutoJsonData,
+                    inDataPK: localinDataPK
+                });
 
-                    // LocalVouchersConsiderFind.JoinTables.push(localMaxString);
+                if (jvarLocalPushData.KTF) {
+                    LocalReturnData.KTF = true;
 
-
-
-                    // let jvarLocalPushData = await CommonFromToJson.StartFunc({
-                    //     inOriginalData: localCommonJsonData.JsonData,
-                    //     inDataToUpdate: localLedgerAutoJsonData,
-                    //     inDataPK: localinDataPK
-                    // });
-
-                    // if (jvarLocalPushData.KTF) {
-                    //     LocalReturnData.KTF = true
-                    // };
                     return await LocalReturnData;
-
                 };
-
             };
         };
     };
@@ -86,6 +93,7 @@ let mockFunc = () => {
 
     });
 };
-mockFunc();
+
+// mockFunc();
 
 module.exports = { StartFunc };

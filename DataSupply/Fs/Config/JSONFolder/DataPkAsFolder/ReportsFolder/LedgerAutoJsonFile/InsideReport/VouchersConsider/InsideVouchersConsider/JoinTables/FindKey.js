@@ -1,10 +1,11 @@
 let CommonFromFromJson = require("../../../../PullDataFromFile/FromJson");
 
-let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK }) => {
+let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK, inJoinTablePk }) => {
     let jvarLocalDataPK = inDataPK;
     let localReportName = ReportName;
     let LocalReturnData = { KTF: false };
     let localVoucherConsiderPK = VoucherConsiderPK;
+    let LocalJoinTablePk = inJoinTablePk;
 
     let ComonFromJsonData = await CommonFromFromJson.StartFunc({ inDataPK: jvarLocalDataPK });
 
@@ -18,25 +19,13 @@ let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK }) => {
     if (localReportName in jvarLocalNewData) {
         let LocalVouchersConsiderFind = jvarLocalNewData[localReportName].VouchersConsider.find(e => e.pk === parseInt(localVoucherConsiderPK));
         if ("JoinTables" in LocalVouchersConsiderFind) {
-            let LocalJoinTablesFind = LocalVouchersConsiderFind.JoinTables.map(e => parseInt(Object.keys(e)[0].substring(2)));
-            const max = LocalJoinTablesFind.reduce((a, b) => { return Math.max(a, b) });
-            // console.log("max:",max);
+            let LocalJoinTablesFind = LocalVouchersConsiderFind.JoinTables.find(e => Object.keys(e)[0] === LocalJoinTablePk);
+            //  const max = LocalJoinTablesFind.reduce((a, b) => { return Math.max(a, b) });
+            //            console.log("max-------:", LocalJoinTablesFind);
 
 
-            LocalReturnData.DataAsMaxString = `JT${max + 1}`;
-
-
-            // for (let key in LocalJoinTablesFind) {
-            //     if (LocalJoinTablesFind.hasOwnProperty(key)) {
-            //         let localsubstr = key.substring(2);
-            //         // console.log("localsubstr:", localsubstr);
-            //         LocalReturnData.DataAsMaxString = localsubstr;
-
-
-            //     };
-            // };
+            LocalReturnData.FindValue = Object.values(LocalJoinTablesFind)[0];
             LocalReturnData.KTF = true;
-
         };
     };
 
