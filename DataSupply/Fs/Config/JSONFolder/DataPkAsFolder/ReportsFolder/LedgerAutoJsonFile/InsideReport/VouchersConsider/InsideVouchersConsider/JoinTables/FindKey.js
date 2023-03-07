@@ -21,7 +21,7 @@ let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK, inJoinTablePk 
         if ("JoinTables" in LocalVouchersConsiderFind) {
             let LocalJoinTablesFind = LocalVouchersConsiderFind.JoinTables.find(e => Object.keys(e)[0] === LocalJoinTablePk);
             //  const max = LocalJoinTablesFind.reduce((a, b) => { return Math.max(a, b) });
-            //            console.log("max-------:", LocalJoinTablesFind);
+                       console.log("max-------:", LocalJoinTablesFind);
 
 
             LocalReturnData.FindValue = Object.values(LocalJoinTablesFind)[0];
@@ -33,7 +33,7 @@ let StartFunc = async ({ inDataPK, ReportName, VoucherConsiderPK, inJoinTablePk 
 };
 
 let MockFunc = () => {
-    let findData = StartFunc({ inDataPK: "1022", ReportName: "StockBook", VoucherConsiderPK: 20 }).then((promseData) => {
+    let findData = StartFunc({ inDataPK: "1022", ReportName: "StockBook", VoucherConsiderPK: 20,inJoinTablePk:"JT1" }).then((promseData) => {
         console.log("promseData--", promseData);
     });
 };
