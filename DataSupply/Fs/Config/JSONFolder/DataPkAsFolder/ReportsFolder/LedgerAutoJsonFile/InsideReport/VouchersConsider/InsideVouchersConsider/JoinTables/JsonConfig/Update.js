@@ -2,8 +2,7 @@ let CommonFromFromJson = require("../../../../../PullDataFromFile/FromJson");
 let CommonFromToJson = require("../../../../../PushDataFromFile/FromJson");
 
 let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK, BodyAsJson }) => {
-    console.log("-----:",inDataPK, inReportName, inVouchersConsiderPK, JoinTablesColumnsPK, BodyAsJson );
-    const LocalDataToUpdate = (({ UserFolderName,inFolderName,inJsonFileName }) => ({ UserFolderName ,inFolderName,inJsonFileName}))(BodyAsJson);
+    const LocalDataToUpdate = (({ UserFolderName, inFolderName, inJsonFileName }) => ({ UserFolderName, inFolderName, inJsonFileName }))(BodyAsJson);
 
     let localinDataPK = inDataPK;
     let localinReportName = inReportName;
@@ -24,13 +23,17 @@ let StartFunc = async ({ inDataPK, inReportName, inVouchersConsiderPK, JoinTable
         if ("VouchersConsider" in localLedgerAutoJsonData[localinReportName]) {
             let LocalVouchersConsiderFind = localLedgerAutoJsonData[localinReportName].VouchersConsider.find(e => e.pk === parseInt(localinVouchersConsiderPK));
 
-            if ("JoinTablesColumns" in LocalVouchersConsiderFind) {
+            if ("JoinTables" in LocalVouchersConsiderFind) {
 
-                let localJoinTablesColumnsFind = LocalVouchersConsiderFind.JoinTablesColumns.find(p => p.pk === parseInt(localJoinTablesColumnsPK));
-                localJoinTablesColumnsFind.UserFolderName = LocalDataToUpdate.UserFolderName;
-                localJoinTablesColumnsFind.inFolderName = LocalDataToUpdate.inFolderName;
-                localJoinTablesColumnsFind.inJsonFileName = LocalDataToUpdate.inJsonFileName;
+                LocalVouchersConsiderFind.JoinTables.forEach(element => {
+                    if (localJoinTablesColumnsPK in element) {
+                        element[localJoinTablesColumnsPK].JsonConfig.UserFolderName = LocalDataToUpdate.UserFolderName;
+                        element[localJoinTablesColumnsPK].JsonConfig.inFolderName = LocalDataToUpdate.inFolderName;
+                        element[localJoinTablesColumnsPK].JsonConfig.inJsonFileName = LocalDataToUpdate.inJsonFileName;
 
+                    };
+
+                });
 
                 let jvarLocalPushData = await CommonFromToJson.StartFunc({
                     inOriginalData: localCommonJsonData.JsonData,
