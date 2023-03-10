@@ -1,9 +1,10 @@
 let _ = require("lodash");
 
-let CommonPullDataFromConfig = require("../../../PullDataFromFile/FromJson");
-let CommonFromPushData = require("../../../PushDataFromFile/FromJson");
+let CommonPullDataFromConfig = require("../../../../PullDataFromFile/FromJson");
+let CommonFromPushData = require("../../../../PushDataFromFile/FromJson");
 
 let Update = async ({ inDataPK, inReportName, inTableColumnsPk, BodyAsJson }) => {
+    console.log("Jssssssssss",BodyAsJson,inDataPK,inReportName,inTableColumnsPk);
     const LocalDataToUpdate = (({ DisplayName, DataAttribute, CreateNew, Insert, ShowInTable }) => ({ DisplayName, DataAttribute, CreateNew, Insert, ShowInTable }))(BodyAsJson);
     let LocalinDataPK = inDataPK;
     let LocalReportName = inReportName;
