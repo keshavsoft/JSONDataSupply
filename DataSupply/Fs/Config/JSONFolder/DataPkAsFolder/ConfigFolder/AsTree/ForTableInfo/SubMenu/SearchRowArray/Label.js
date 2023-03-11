@@ -39,7 +39,6 @@ let AsObject = async ({ inDataPK }) => {
                                 delete ScreenValue.TableColumnsObject;
 
                                 if ("TableInfo" in ScreenValue) {
-                                    console.log("jjjjj");
                                     ScreenValue.KTF = ScreenValue.TableInfo.SearchRowArray.Label.KTF;
 
                                 }
@@ -69,6 +68,6 @@ let LocalMockFunc = async () => {
     console.log("LocalData : ", LocalData);
 };
 
-LocalMockFunc().then();
+// LocalMockFunc().then();
 
 module.exports = { AsObject };

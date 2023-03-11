@@ -39,8 +39,7 @@ let AsObject = async ({ inDataPK }) => {
                                 delete ScreenValue.TableColumnsObject;
 
                                 if ("TableInfo" in ScreenValue) {
-                                    console.log("jjjjj");
-                                    ScreenValue.KTF = ScreenValue.TableInfo.SearchRowArray.Label.KTF;
+                                    ScreenValue.Simple = ScreenValue.TableInfo.TableRowOptions.Delete.Simple;
 
                                 }
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
@@ -65,8 +64,8 @@ let AsObject = async ({ inDataPK }) => {
 };
 
 let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 901 });
-    console.log("LocalData : ", LocalData);
+    let LocalData = await AsObject({ inDataPK: 1022 });
+    // console.log("LocalData : ", LocalData);
 };
 
 LocalMockFunc().then();
