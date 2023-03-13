@@ -42,8 +42,9 @@ let AsObject = async ({ inDataPK }) => {
                                     Object.entries(ScreenValue.SubTableInfo).forEach(
                                         ([SubInfoKey, SubInfoValue]) => {
                                             LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableInfo[SubInfoKey] = {
-                                                ColumnReOrder: SubInfoValue.ColumnReOrder,
                                                 ShowFooter: SubInfoValue.ShowFooter,
+                                                HeadRowSearch: SubInfoValue.HeadRowSearch,
+                                                DataAttributesFromTableInfo: SubInfoValue.DataAttributesFromTableInfo,
                                                 DataAttributesFromTableDataRow: SubInfoValue.DataAttributesFromTableDataRow
 
                                             }
