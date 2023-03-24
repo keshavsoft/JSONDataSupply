@@ -30,7 +30,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
         LocalReturnData.KReason = `RowPK : ${inJsonPk} is not found in data!`;
         return LocalReturnData;
     };
-    console.log("LocalDataToUpdate : ", LocalDataToUpdate);
+    
     LocalFromCommonFromCheck.JsonData[LocalinItemName][inJsonPk] = {
         ...LocalFromCommonFromCheck.JsonData[LocalinItemName][inJsonPk],
         ...LocalDataToUpdate

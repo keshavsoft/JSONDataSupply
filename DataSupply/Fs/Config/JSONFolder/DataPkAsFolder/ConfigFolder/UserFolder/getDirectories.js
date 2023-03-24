@@ -80,7 +80,6 @@ let LocalMockFunc = async () => {
         inDataPK: 1022,
         inFolderName: "Transactions"
     });
-    console.log("LocalData --------: ", LocalData);
 };
 
 // LocalMockFunc().then();

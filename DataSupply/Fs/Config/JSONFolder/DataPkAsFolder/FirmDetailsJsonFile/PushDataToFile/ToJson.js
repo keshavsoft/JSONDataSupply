@@ -27,9 +27,6 @@ let StartFunc = async ({ inFirmName,
         KTF: false,
         JsonData: {}
     };
-    
-    console.log("LocalDataPK --------: ", LocalDataPK,inFirmName);
-
 
     if (LocalDataPK > 0) {
         let LocalDataFromCommonCreate;
@@ -37,7 +34,6 @@ let StartFunc = async ({ inFirmName,
         LocalDataFromCommonCreate = CommonPullDataFromFile.StartFunc({
             inDataPK: LocalDataPK
         });
-        console.log("11111111111LocalDataFromCommonCreate --------: ", LocalDataFromCommonCreate);
 
         if (LocalDataFromCommonCreate.KTF === false) {
             LocalReturnObject.KReason = LocalDataFromCommonCreate.KReason;
@@ -55,7 +51,6 @@ let StartFunc = async ({ inFirmName,
         LocalDataFromCommonCreate.JsonData.Firm.AssYear = AssYear;
         LocalDataFromCommonCreate.JsonData.Firm.FinYear = FinYear;
         LocalDataFromCommonCreate.JsonData.Firm.PAN = PAN;
-        //console.log("aaaaaaaa : ", LocalDataFromCommonCreate.JsonData);
         // LocalCheckBeforeInsert({ inOriginalData, inDataToUpdate });
 
         try {
@@ -75,7 +70,6 @@ let LocalMockFroStartFunc = async () => {
         inDataPK: 16,
         inFirmName: "Keshav"
     });
-    console.log("result : ", result);
 };
 
 //LocalMockFroStartFunc().then();

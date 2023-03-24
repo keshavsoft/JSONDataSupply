@@ -40,7 +40,6 @@ let CommonFuns = {
             return await LocalReturnData;
         };
 
-        console.log("LocalDataFromJSON-------------------- : ", LocalDataFromJSON);
         let LocalDataFromJSONObject = JSON.parse(JSON.stringify(LocalDataFromJSON.JsonData));
 
         if (inToName in LocalDataFromJSONObject === false) {

@@ -29,7 +29,7 @@ let RedirectPage = async ({ inDataPk }) => {
         let LocalOriginalData;
 
         LocalDataFromCommonCreate = await CommonCheck.ForExistence({ inDataPK: inDataPk });
-        console.log("LocalDataFromCommonCreate", LocalDataFromCommonCreate);
+        
         if (LocalDataFromCommonCreate.KTF) {
             LocalFilePath = LocalDataFromCommonCreate.FilePath
             LocalDataFromJSON = await fs.readFileSync(LocalFilePath);

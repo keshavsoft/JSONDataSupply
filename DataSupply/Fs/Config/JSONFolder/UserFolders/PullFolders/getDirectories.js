@@ -26,7 +26,6 @@ let StartFunc = () => {
 
 let LocalMockFunc = () => {
     let LocalData = StartFunc();
-    console.log("LocalData : ", LocalData);
 };
 
 // LocalMockFunc();

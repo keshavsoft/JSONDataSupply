@@ -77,7 +77,6 @@ let AsObject = async ({ inDataPK }) => {
 
 let LocalMockFunc = async () => {
     let LocalData = await AsObject({ inDataPK: 901 });
-    console.log("LocalData : ", LocalData);
 };
 
 //LocalMockFunc().then();

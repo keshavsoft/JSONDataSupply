@@ -39,8 +39,6 @@ let LocalMockFunc = async () => {
         inFolderName: "Masters",
         inFileNameWithExtension: "Products.json"
     });
-
-    console.log("LocalData:", LocalData);
 };
 
 // LocalMockFunc().then(P => {

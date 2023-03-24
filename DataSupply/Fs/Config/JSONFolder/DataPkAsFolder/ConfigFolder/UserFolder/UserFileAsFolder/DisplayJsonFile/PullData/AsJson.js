@@ -94,7 +94,6 @@ let FromJsonConfig = async ({ inJsonConfig, inDataPK }) => {
             inFileNameOnly: path.parse(LocalFileNameWithExtension).name,
             inDataPK: LocalDataPK
         });
-        console.log("LocalDataFromCommonCreate---",LocalDataFromCommonCreate);
 
         if (LocalDataFromCommonCreate.KTF === false) {
             LocalReturnObject.KReason = LocalDataFromCommonCreate.KReason;

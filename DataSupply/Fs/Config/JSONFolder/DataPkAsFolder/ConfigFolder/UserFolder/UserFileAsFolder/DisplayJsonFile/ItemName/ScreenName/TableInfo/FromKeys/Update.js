@@ -10,7 +10,7 @@ let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
 let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAsJson }) => {
 
     const LocalDataToUpdate = (({ ShowBalance, CreateNew, ShowTotals }) => ({ ShowBalance, CreateNew, ShowTotals }))(BodyAsJson);
-    console.log("LocalDataToUpdate : ", LocalDataToUpdate);
+    
     let LocalinDataPK = DataPK;
 
     let inJsonConfig = { inFolderName: FolderName, inJsonFileName: FileName }

@@ -109,8 +109,6 @@ let AsObject = async ({ inDataPK }) => {
         return LoopInsideFile;
     });
 
-    //  console.log("result---------- : ", LocalAltered[0].Files.Accounts.Items.Accounts.Screens.Create.TableColumnsObject.pk);
-
     LocalAltered.forEach(element => {
         LocalReturnObject.Folders[element.FolderName] = element;
     });
@@ -119,7 +117,6 @@ let AsObject = async ({ inDataPK }) => {
 };
 let LocalMockFunc = async () => {
     let LocalData = await AsObject({ inDataPK: 1024 });
-    console.log("LocalData : ", LocalData);
 };
 
 // LocalMockFunc().then();

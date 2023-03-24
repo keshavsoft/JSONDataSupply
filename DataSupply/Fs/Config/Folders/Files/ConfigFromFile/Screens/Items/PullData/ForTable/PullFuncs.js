@@ -57,12 +57,11 @@ let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inCol
 
                 return element;
             });
-            //console.log("LocalData : ", LocalData[0]);
+            
             LocalReturnData = CommonFromReports.Transform({
                 inColumns: LocalTransformedColumns,
                 inData: LocalData
             });
-            //console.log("LocalReturnData : ", LocalReturnData[0]);
         };
     };
 

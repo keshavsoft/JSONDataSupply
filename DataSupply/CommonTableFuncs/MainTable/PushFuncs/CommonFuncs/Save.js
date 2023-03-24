@@ -4,7 +4,7 @@ let CommonSaveFuncs = require("../../../SaveFuncs");
 let SaveOnly = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
     let LocalDataToBeInserted = JSON.parse(JSON.stringify(inOriginalData));
     let LocalDataWithKey = LocalDataToBeInserted[inItemName];
-    //  console.log("LocalDataWithKey : ", LocalDataWithKey, inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK);
+    
     let LocalNewPk = CommonSaveFuncs.GeneratePk({ inDataWithKey: LocalDataWithKey });
     let LocalReturnObject = { KTF: false, kPK: 0 };
 
