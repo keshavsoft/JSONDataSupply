@@ -6,7 +6,9 @@ let CommonFromConfigFolder = require("../../../../../../ConfigFolder/UserFolder/
 let CommonObjectToSave = require("../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/TableColumns/PullData/ObjectToSave");
 
 let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inDataToInsert }) => {
-    console.log("kkkkkkkkkkkkkkkkkkkkk",inDataToInsert);
+    //console.log("kkkkkkkkkkkkkkkkkkkkk",inDataToInsert);
+    const LocalDataObject = (({ pk }) => ({ pk }))(inDataToInsert)
+
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -47,7 +49,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inScreenName,
         inDataPK: LocalinDataPK,
         inObjectToInsert: inDataToInsert
     });
-    
+
     if (LocalFromCheck.KTF === false) {
         LocalReturnData.KReason = LocalFromCheck.KReason;
         return await LocalReturnData;
