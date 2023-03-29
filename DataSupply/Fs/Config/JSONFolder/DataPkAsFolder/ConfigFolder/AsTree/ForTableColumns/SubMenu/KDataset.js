@@ -1,6 +1,5 @@
 let CommonFromUserFolder = require("../../../UserFolder/getDirectories");
 let CommonFromgetDirectories = require("../../../getDirectories");
-let _ = require("lodash");
 
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -28,7 +27,7 @@ let AsObject = async ({ inDataPK }) => {
         Object.entries(element.Files).forEach(
             ([FileKey, FileValue]) => {
                 LoopInsideFile.Files[FileKey] = JSON.parse(JSON.stringify(FileValue));
- 
+
                 Object.entries(FileValue.Items).forEach(
                     ([ItemKey, ItemValue]) => {
                         LoopInsideFile.Files[FileKey].Items[ItemKey] = JSON.parse(JSON.stringify(ItemValue));
@@ -41,11 +40,14 @@ let AsObject = async ({ inDataPK }) => {
                                     ([ColumnKey, ColumnValue]) => {
                                         LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
                                             DataAttribute: ColumnValue.DataAttribute,
-                                            DisplayName: ColumnValue.DisplayName,
-                                            HTMLControlType: ColumnValue.KDataset.HTMLControlType,
-                                            Min: ColumnValue.KDataset.Min,
-                                            Max: ColumnValue.KDataset.Max,
-                                            Step: ColumnValue.KDataset.Step,
+                                            DisplayName: ColumnValue.DisplayName
+                                        };
+
+                                        if ("KDataset" in ColumnValue) {
+                                            LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].HTMLControlType = ColumnValue.KDataset.HTMLControlType;
+                                            LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].Min = ColumnValue.KDataset.Min;
+                                            LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].Max = ColumnValue.KDataset.Max;
+                                            LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].Step = ColumnValue.KDataset.Step;
                                         };
                                     }
                                 );
@@ -59,8 +61,6 @@ let AsObject = async ({ inDataPK }) => {
         return LoopInsideFile;
     });
 
-    //  console.log("result---------- : ", LocalAltered[0].Files.Accounts.Items.Accounts.Screens.Create.TableColumnsObject.pk);
-
     LocalAltered.forEach(element => {
         LocalReturnObject.Folders[element.FolderName] = element;
     });
@@ -69,9 +69,9 @@ let AsObject = async ({ inDataPK }) => {
 };
 let LocalMockFunc = async () => {
     let LocalData = await AsObject({ inDataPK: 1022 });
-     console.log("LocalData : ", LocalData.Folders.Transactions.Files.PAYMENTS.Items.PAYMENT.Screens.Create);
+    console.log("LocalData : ", LocalData.Folders.Transactions.Files.PAYMENTS.Items.PAYMENT.Screens.Create.TableColumnsObject);
 };
 
-LocalMockFunc().then();
+//LocalMockFunc().then();
 
 module.exports = { AsObject };
