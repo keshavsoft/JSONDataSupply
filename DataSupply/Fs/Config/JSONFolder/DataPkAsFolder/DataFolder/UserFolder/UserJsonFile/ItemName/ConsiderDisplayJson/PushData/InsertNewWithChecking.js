@@ -81,6 +81,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inScreenName,
     };
 
     LocalReturnData.KTF = true;
+    LocalReturnData.NewRowPK = LocalFromCommonFromPushDataToFile.NewRowPK;
 
     return await LocalReturnData;
 };

@@ -49,7 +49,13 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
         inOriginalData: ""
     });
     
+    if (LocalFromPush.KTF === false) {
+        LocalReturnData.KReason = LocalFromPush.KReason;
+        return await LocalReturnData;
+    };
+    
     LocalReturnData.KTF = true;
+    LocalReturnData.NewRowPK = LocalNewPk;
 
     return await LocalReturnData;
 };
