@@ -151,4 +151,17 @@ let ReturnAsArrayWithPKSortByPKDes = ({ inFolderName, inFileNameOnly, inItemName
 //     inDataPK: 1024
 // }).JsonData[0]);
 
+let LocalMockFunc = () => {
+    let LocalFromStartFunc = StartFunc({
+        inFolderName: "QrCodes",
+        inFileNameOnly: "Generate",
+        inItemName: "Barcodes",
+        inDataPK: 901
+    });
+
+    console.log("LocalFromStartFunc : ", LocalFromStartFunc);
+};
+
+// LocalMockFunc();
+
 module.exports = { StartFunc, ReturnAsArrayWithPK };
