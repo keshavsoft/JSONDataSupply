@@ -1,15 +1,17 @@
 let fs = require("fs");
-let CommonFromCheck = require("../../Check");
+let CommonFromCheck = require("../CheckJsonFileAsFolder");
 
-let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
+let ForExistence = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
+    let LocalItemName = inItemName;
 
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
         inFolderName: LocalinFolderName,
+        inFileNameOnly: LocalinFileNameOnly,
         inDataPK: LocalinDataPK
     });
 
@@ -19,16 +21,17 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     };
 
     LocalReturnData.FolderPath = LocalFromCommonFromCheck.FolderPath;
-    LocalReturnData.UserJsonFilePath = `${LocalFromCommonFromCheck.FolderPath}/${LocalinFileNameOnly}.json`;
+    LocalReturnData.UserJsonFileAsFolderPath = LocalFromCommonFromCheck.UserJsonFileAsFolderPath;
+    LocalReturnData.ItemNameAsFolderPath = `${LocalFromCommonFromCheck.UserJsonFileAsFolderPath}/${LocalItemName}`;
 
     try {
-        if (fs.statSync(LocalReturnData.UserJsonFilePath).isDirectory()) {
+        if (fs.statSync(LocalReturnData.ItemNameAsFolderPath).isDirectory()) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = "Folder not found!";
+            LocalReturnData.KReason = "ItemNameAsFolderPath not found!";
         }
     } catch (error) {
-        LocalReturnData.KReason = error;
+        LocalReturnData.KReason = "ItemNameAsFolderPath not found!";
     };
 
     return LocalReturnData;
