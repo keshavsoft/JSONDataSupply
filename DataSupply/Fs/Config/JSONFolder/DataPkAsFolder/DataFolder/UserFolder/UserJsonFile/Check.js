@@ -1,5 +1,5 @@
 let fs = require("fs");
-let CommonFromCheck = require("../../Check");
+let CommonFromCheck = require("../Check");
 
 let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalinFolderName = inFolderName;
@@ -19,13 +19,13 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     };
 
     LocalReturnData.FolderPath = LocalFromCommonFromCheck.FolderPath;
-    LocalReturnData.UserJsonFilePath = `${LocalFromCommonFromCheck.FolderPath}/${LocalinFileNameOnly}.json`;
+    LocalReturnData.UserJsonFilePath = `${LocalReturnData.FolderPath}/${LocalinFileNameOnly}.json`;
 
     try {
-        if (fs.statSync(LocalReturnData.UserJsonFilePath).isDirectory()) {
+        if (fs.existsSync(LocalReturnData.UserJsonFilePath)) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = "Folder not found!";
+            LocalReturnData.KReason = "Json File name not found in Data Folder";
         }
     } catch (error) {
         LocalReturnData.KReason = error;
