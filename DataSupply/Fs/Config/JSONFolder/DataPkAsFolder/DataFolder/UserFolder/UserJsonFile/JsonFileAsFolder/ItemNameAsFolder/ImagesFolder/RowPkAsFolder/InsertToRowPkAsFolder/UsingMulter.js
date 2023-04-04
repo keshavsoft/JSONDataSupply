@@ -1,18 +1,19 @@
 const multer = require('multer');
-let CommonFromCheck = require("../CheckImagesFolder");
+let CommonFromCreateRowPkAsFolder = require("../CreateRowPkAsFolder");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-     //   console.log("bbbbbbbb : ", req.body);
-        let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
+        //   console.log("bbbbbbbb : ", req.body);
+        let LocalFromCommonFromCheck = CommonFromCreateRowPkAsFolder.StartFunc({
             inFolderName: req.body.inFolderName,
             inFileNameOnly: req.body.inFileNameOnly,
             inItemName: req.body.inItemName,
+            inRowPk: req.body.inRowPk,
             inDataPK: req.KeshavSoft.DataPk
         });
-
+        console.log("LocalFromCommonFromCheck : ", LocalFromCommonFromCheck);
         if (LocalFromCommonFromCheck.KTF) {
-            cb(null, `${LocalFromCommonFromCheck.ImagesFolderPath}/16` );
+            cb(null, LocalFromCommonFromCheck.RowPkAsFolderPath);
         };
 
         //cb(null, "Images");
