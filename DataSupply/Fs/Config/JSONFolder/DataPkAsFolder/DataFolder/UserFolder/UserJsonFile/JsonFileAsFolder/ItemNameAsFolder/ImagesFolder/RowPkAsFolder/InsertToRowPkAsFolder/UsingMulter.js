@@ -11,7 +11,7 @@ var storage = multer.diskStorage({
             inRowPk: req.body.inRowPk,
             inDataPK: req.KeshavSoft.DataPk
         });
-        console.log("LocalFromCommonFromCheck : ", LocalFromCommonFromCheck);
+        
         if (LocalFromCommonFromCheck.KTF) {
             cb(null, LocalFromCommonFromCheck.RowPkAsFolderPath);
         };
