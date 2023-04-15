@@ -1,7 +1,7 @@
 let localPullDataJsonData = require("../PullData/AsJson");
 let localPushDataJsonData = require("../PushData/FromFoldFile");
 
-let StartFucn = async ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inToItemName }) => {
+let StartFunc = async ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inToItemName }) => {
     let localinDataPK = inDataPK;
     let localinFolderName = inFolderName;
     let localinFileNameOnly = inFileNameOnly;
@@ -22,46 +22,53 @@ let StartFucn = async ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inT
         return await LocalReturnObject;
     };
 
+    if (localinItemName in localNewJsonDate === false) {
+        LocalReturnObject.KReason = `ItemName : ${localinItemName} not found in config.json!`;
+
+        return await LocalReturnObject;
+    };
+
     if (localinToItemName in localNewJsonDate) {
         LocalReturnObject.KReason = `inToItemName:${localinToItemName} found in file..!`;
 
         return await LocalReturnObject;
     };
 
-    if (localinItemName in localNewJsonDate) {
-        localItemNameObject = localNewJsonDate[localinItemName];
+    localItemNameObject = localNewJsonDate[localinItemName];
 
-        localNewJsonDate = {};
-        localNewJsonDate = localoldItemData;
-        localNewJsonDate[localinToItemName] = localItemNameObject;
+    localNewJsonDate = {};
+    localNewJsonDate = localoldItemData;
+    localNewJsonDate[localinToItemName] = localItemNameObject;
 
-        let localpush = localPushDataJsonData.StartFunc({
-            inFolderName: localinFolderName,
-            inFileNameWithExtension: `${localinFileNameOnly}.json`,
-            inOriginalData: localJsonData.JsonData,
-            inDataToUpdate: localNewJsonDate,
-            inDataPK: localinDataPK
-        });
+    let localpush = localPushDataJsonData.StartFunc({
+        inFolderName: localinFolderName,
+        inFileNameWithExtension: `${localinFileNameOnly}.json`,
+        inOriginalData: localJsonData.JsonData,
+        inDataToUpdate: localNewJsonDate,
+        inDataPK: localinDataPK
+    });
 
-        if (localpush.KTF) {
-            LocalReturnObject.KTF = true
-        };
-
-        return await LocalReturnObject;
+    if (localpush.KTF) {
+        LocalReturnObject.KTF = true
     };
 
     return await LocalReturnObject;
 };
 
 let localMockFunc = async () => {
-    StartFucn({
-        inDataPK: 1022, inFolderName: "Transactions", inFileNameOnly: "GST-SALES", inItemName: "GST-SALE", inToItemName: "GST-SALE2"
+    let FromStartFunc = await StartFunc({
+        inDataPK: 1022,
+        inFolderName: "Transactions",
+        inFileNameOnly: "GST-PURCHASES",
+        inItemName: "GST-PURCHASE",
+        inToItemName: "GST-PURCHASE1"
     });
+
+    console.log("FromStartFunc", FromStartFunc);
 
 };
 
 // localMockFunc().then((PromiseData) => {
-//     console.log("PromiseData", PromiseData);
 // });
 
-module.exports = { StartFucn };
+module.exports = { StartFunc };
