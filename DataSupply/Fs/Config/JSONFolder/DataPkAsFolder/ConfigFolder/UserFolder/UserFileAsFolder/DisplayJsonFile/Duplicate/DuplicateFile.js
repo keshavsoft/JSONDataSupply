@@ -7,9 +7,8 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
 
     let LocalReturnData = { KTF: false, KReason: "" };
 
-
     let localFilesAsArray = await localpullFolders.AsObjects({ inFolderName, inDataPK });
-    console.log(localFilesAsArray.FolderPath);
+    console.log(localFilesAsArray);
     if (localFilesAsArray.KTF) {
         LocalReturnData.KReason = localFilesAsArray.KReason;
         LocalReturnData.FolderPath = localFilesAsArray.FolderPath;
@@ -27,25 +26,23 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
         return await LocalReturnData;
     };
 
-
     fs.copy('/path/to/source', '/path/to/destination', function (err) {
         if (err) return console.error(err)
         console.log('success!')
     });
-
-
-
 };
+
 let localMockFunc = async () => {
     let localdata = await StartFunc({
         inFolderName: "Transactions",
-        inFileNameOnly: "GST-SALES-",
-        inToFileName: "GST-PURCHASE",
+        inFileNameOnly: "GST-PURCHASES",
+        inToFileName: "GST-PURCHASES1",
         inDataPK: "1022"
 
     });
     console.log("localdata", localdata);
 };
+
 localMockFunc();
 
 module.exports = { StartFunc };
