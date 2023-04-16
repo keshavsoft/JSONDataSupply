@@ -67,7 +67,7 @@ let localMockFunc = async () => {
     console.log("FromStartFunc", FromStartFunc);
 
 };
-
+// uncomment next 2 lines to run the mock func
 // localMockFunc().then((PromiseData) => {
 // });
 
