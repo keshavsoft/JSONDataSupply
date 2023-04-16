@@ -6,19 +6,21 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalinFileNameOnly = inFileNameOnly;
 
     let LocalinDataPK = inDataPK;
-    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+    // let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
-    let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
+    let LocalFromCommonFromCheck = CommonFromCheck.ForExistenceOfUserFolder({
         inFolderName: LocalinFolderName,
         inDataPK: LocalinDataPK
     });
+    // console.log("aaaaaaaaaaaaa: ", LocalFromCommonFromCheck);
+    let LocalReturnData = { ...LocalFromCommonFromCheck };
 
     if (LocalFromCommonFromCheck.KTF === false) {
         LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
-    LocalReturnData.FolderPath = LocalFromCommonFromCheck.FolderPath;
+  //  LocalReturnData.FolderPath = LocalFromCommonFromCheck.FolderPath;
     LocalReturnData.UserJsonFilePath = `${LocalReturnData.FolderPath}/${LocalinFileNameOnly}.json`;
 
     try {

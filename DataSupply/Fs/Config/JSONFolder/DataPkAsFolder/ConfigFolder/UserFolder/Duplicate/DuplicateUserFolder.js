@@ -2,12 +2,12 @@ let CommonCheck = require("../Check");
 
 let fs = require("fs-extra");
 
-let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK }) => {
+let StartFunc = async ({ inFolderName, inToFolderName, inDataPK }) => {
 
     //let LocalReturnData = { KTF: false, KReason: "" };
 
     let localFromCommonCheck = await CommonCheck.ForExistence({
-        inFolderName, inFileNameOnly,
+        inFolderName,
         inDataPK
     });
 
@@ -21,22 +21,24 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
 
         return await LocalReturnData;
     };
+    // console.log("localFromCommonCheck----------", inToFolderName, localFromCommonCheck);
 
     let localFrominToFileName = await CommonCheck.ForExistence({
-        inFolderName,
-        inFileNameOnly: inToFileName,
+        inFolderName: inToFolderName,
         inDataPK
     });
-    // console.log("localFrominToFileName----------", localFrominToFileName);
+    // console.log("1111111111----------", localFrominToFileName);
+
     if (localFrominToFileName.KTF) {
-        // LocalReturnData.KReason = localFrominToFileName.KReason;
-        LocalReturnData.KReason = `FileName : ${inToFileName} already present in Config Folder...`;
+        LocalReturnData.KReason = `FileName : ${inToFolderName} already present in Config Folder...`;
 
         return await LocalReturnData;
     };
+    // console.log("22222222----------", localFrominToFileName);
 
     try {
-        fs.copySync(localFromCommonCheck.JsonFilePath, localFrominToFileName.JsonFilePath);
+        fs.copySync(localFromCommonCheck.FolderPath, localFrominToFileName.FolderPath);
+        LocalReturnData.KTF = true;
 
         return await LocalReturnData;
     } catch (error) {
@@ -53,8 +55,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
 let localMockFunc = async () => {
     let localdata = await StartFunc({
         inFolderName: "Transactions",
-        inFileNameOnly: "GST-PURCHASES",
-        inToFileName: "GST-PURCHASES5",
+        inToFolderName: "Transactions1",
         inDataPK: "1023"
 
     });

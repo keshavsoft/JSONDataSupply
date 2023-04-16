@@ -4,31 +4,39 @@ let CommonFromCheck = require("../Check");
 let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalinFolderName = inFolderName;
     let LocalinDataPK = inDataPK;
-    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+    //    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
         inFolderName: LocalinFolderName,
         inDataPK: LocalinDataPK
     });
 
+    let LocalReturnData = { ...LocalFromCommonFromCheck };
+    LocalReturnData.KTF = false;
+    // LocalReturnData.KDataPath = LocalFromCommonFromCheck.KDataPath;
+    // LocalReturnData.KDataJSONFolderPath = LocalFromCommonFromCheck.KDataJSONFolderPath;
+    // LocalReturnData.DataPKPath = LocalFromCommonFromCheck.DataPKPath;
+    // LocalReturnData.DirPath = LocalFromCommonFromCheck.DirPath;
+
     if (LocalFromCommonFromCheck.KTF === false) {
         LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
-    LocalReturnData.FolderPath = LocalFromCommonFromCheck.FolderPath;
     LocalReturnData.JsonFilePath = `${LocalFromCommonFromCheck.FolderPath}/${inFileNameOnly}`;
 
     try {
         if (fs.statSync(LocalReturnData.JsonFilePath).isDirectory()) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = "File not found!";
+            // LocalReturnData.KReason = "File not found!";
+            LocalReturnData.KReason = "JsonFilePath not found!";
         }
     } catch (error) {
-        LocalReturnData.KReason = error;
+        LocalReturnData.KReason = "JsonFilePath not found!";
+        // LocalReturnData.KReason = error;
     };
-
+    
     return LocalReturnData;
 };
 

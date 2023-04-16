@@ -34,4 +34,6 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
 //     inDataPK: 16
 // }));
 
-module.exports = { StartFunc };
+module.exports = {
+    StartFunc
+};

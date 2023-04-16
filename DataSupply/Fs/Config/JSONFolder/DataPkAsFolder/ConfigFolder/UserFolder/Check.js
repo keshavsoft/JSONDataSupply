@@ -6,6 +6,9 @@ let ForExistence = ({ inFolderName, inDataPK }) => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({ inDataPK: LocalinDataPK });
 
+    LocalReturnData.KDataPath = LocalFromCommonFromCheck.KDataPath;
+    LocalReturnData.KDataJSONFolderPath = LocalFromCommonFromCheck.KDataJSONFolderPath;
+    LocalReturnData.DataPKPath = LocalFromCommonFromCheck.DataPKPath;
     LocalReturnData.DirPath = LocalFromCommonFromCheck.DirPath;
 
     if (LocalFromCommonFromCheck.KTF === false) {
@@ -22,7 +25,8 @@ let ForExistence = ({ inFolderName, inDataPK }) => {
             LocalReturnData.KReason = "File not found!";
         }
     } catch (error) {
-        LocalReturnData.KReason = error;
+        LocalReturnData.KReason = `FolderName ${inFolderName} not found!`;
+        //  LocalReturnData.KReason = error;
     };
 
     return LocalReturnData;

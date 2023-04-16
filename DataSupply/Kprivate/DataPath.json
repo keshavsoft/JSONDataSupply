@@ -1,4 +1,4 @@
-{
+    {
     "Path": "KData\\JSON",
     "Nwjs": {
         "ProjectFolderName": "svjpBarcode",
@@ -8,5 +8,10 @@
         "WinPath": "KData\\JSON",
         "UbuntuPath": "KData/JSON",
         "darwinPath": "KData/JSON"
+    },
+    "KDataPath": {
+        "WinPath": "KData",
+        "UbuntuPath": "KData",
+        "darwinPath": "KData"
     }
 }

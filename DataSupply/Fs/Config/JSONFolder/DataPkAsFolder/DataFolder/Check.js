@@ -1,5 +1,6 @@
 let fs = require("fs");
 let CommonAbsolutePath = require("../../../../DataPath");
+let CommonFromCheck = require("../Check.js");
 
 let ForExistence = ({ inDataPK }) => {
     let LocalinDataPK = inDataPK;
@@ -17,6 +18,39 @@ let ForExistence = ({ inDataPK }) => {
         }
     } catch (error) {
         LocalReturnData.KReason = error;
+    };
+
+    return LocalReturnData;
+};
+
+let ForExistenceOfDataFolder = ({ inDataPK }) => {
+    let LocalinDataPK = inDataPK;
+    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+    let LocalConfigPathName = "Data";
+
+    let LocalCommonFromCheck = CommonFromCheck.ForExistence({ inDataPK: LocalinDataPK });
+
+    LocalReturnData.KDataPath = LocalCommonFromCheck.KDataPath;
+    LocalReturnData.KDataJSONFolderPath = LocalCommonFromCheck.KDataJSONFolderPath;
+    LocalReturnData.DataPKPath = LocalCommonFromCheck.DataPKPath;
+    LocalReturnData.DirPath = `${LocalReturnData.DataPKPath}/${LocalConfigPathName}`;
+
+    //  console.log("111111111111 : ", LocalCommonFromCheck);
+
+    if (LocalCommonFromCheck.KTF === false) {
+        LocalReturnData.KReason = LocalCommonFromCheck.KReason;
+        return LocalReturnData;
+    };
+
+    try {
+        if (fs.statSync(LocalReturnData.DirPath).isDirectory()) {
+            LocalReturnData.KTF = true;
+        } else {
+            LocalReturnData.KReason = "File not found!";
+        }
+    } catch (error) {
+        LocalReturnData.KReason = `Config Folder not found.`;
+        // LocalReturnData.KReason = error;
     };
 
     return LocalReturnData;
@@ -52,4 +86,7 @@ let FolderIsEmpty = ({ inDataPK }) => {
 
 //console.log("ForExistence : ", ForExistence({ inDataPK: 16 }));
 
-module.exports = { ForExistence, FolderIsEmpty };
+module.exports = {
+    ForExistence, FolderIsEmpty,
+    ForExistenceOfDataFolder
+};
