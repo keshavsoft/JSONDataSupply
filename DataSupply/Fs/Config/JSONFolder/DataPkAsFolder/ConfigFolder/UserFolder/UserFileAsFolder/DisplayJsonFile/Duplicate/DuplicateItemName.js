@@ -11,7 +11,12 @@ let StartFunc = async ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inT
 
     let LocalReturnObject = { KTF: false, KReason: "" };
 
-    let localJsonData = await localPullDataJsonData.StartFunc({ inFolderName: localinFolderName, inFileNameOnly: localinFileNameOnly, inDataPK: localinDataPK });
+    let localJsonData = await localPullDataJsonData.StartFunc({
+        inFolderName: localinFolderName,
+        inFileNameOnly: localinFileNameOnly, inDataPK: localinDataPK
+    });
+
+    LocalReturnObject = { ...localJsonData };
 
     let localNewJsonDate = localJsonData.JsonData;
     let localoldItemData = localJsonData.JsonData;

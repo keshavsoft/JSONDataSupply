@@ -23,6 +23,8 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inDataPK }) => {
             inDataPK: LocalDataPK
         });
 
+        LocalReturnObject = { ...LocalDataFromCommonCreate };
+
         if (LocalDataFromCommonCreate.KTF === false) {
             LocalReturnObject.KReason = LocalDataFromCommonCreate.KReason;
             return await LocalReturnObject;

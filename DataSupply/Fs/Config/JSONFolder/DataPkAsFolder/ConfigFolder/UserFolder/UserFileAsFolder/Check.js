@@ -13,6 +13,9 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
     let LocalReturnData = { ...LocalFromCommonFromCheck };
     LocalReturnData.KTF = false;
+    
+    LocalReturnData.JsonFilePath = `${LocalFromCommonFromCheck.FolderPath}/${inFileNameOnly}`;
+
     // LocalReturnData.KDataPath = LocalFromCommonFromCheck.KDataPath;
     // LocalReturnData.KDataJSONFolderPath = LocalFromCommonFromCheck.KDataJSONFolderPath;
     // LocalReturnData.DataPKPath = LocalFromCommonFromCheck.DataPKPath;
@@ -22,8 +25,6 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
         LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
-
-    LocalReturnData.JsonFilePath = `${LocalFromCommonFromCheck.FolderPath}/${inFileNameOnly}`;
 
     try {
         if (fs.statSync(LocalReturnData.JsonFilePath).isDirectory()) {

@@ -25,13 +25,20 @@ let ForJSONFolderExistence = () => {
     let LocalCommonCheckDataPK = CommonCheckKDataFolder.ForExistence();
     LocalReturnData.KDataPath = LocalCommonCheckDataPK.KDataPath;
     LocalReturnData.KDataJSONFolderPath = `${LocalReturnData.KDataPath}/JSON`;
+    console.log("v : ", LocalCommonCheckDataPK);
+    if (LocalCommonCheckDataPK.KTF === false) {
+        LocalReturnData.KReason = LocalCommonCheckDataPK.KReason;
+        return LocalReturnData;
+    };
 
     try {
         if (fs.statSync(LocalReturnData.KDataJSONFolderPath).isDirectory()) {
             LocalReturnData.KTF = true;
+        } else {
+            LocalReturnData.KReason = `KDataJSONFolderPath: not found!`;
         };
     } catch (error) {
-
+        LocalReturnData.KReason = `KDataJSONFolderPath: not found!`;
     };
 
     return LocalReturnData;
