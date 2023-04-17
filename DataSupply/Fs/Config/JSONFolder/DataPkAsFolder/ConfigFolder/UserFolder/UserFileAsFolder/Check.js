@@ -13,7 +13,7 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
     let LocalReturnData = { ...LocalFromCommonFromCheck };
     LocalReturnData.KTF = false;
-    
+
     LocalReturnData.JsonFilePath = `${LocalFromCommonFromCheck.FolderPath}/${inFileNameOnly}`;
 
     // LocalReturnData.KDataPath = LocalFromCommonFromCheck.KDataPath;
@@ -31,13 +31,14 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
             LocalReturnData.KTF = true;
         } else {
             // LocalReturnData.KReason = "File not found!";
-            LocalReturnData.KReason = "JsonFilePath not found!";
+            //            LocalReturnData.KReason = "JsonFilePath not found!";
+            LocalReturnData.KReason = `JsonFilePath not found! : ${LocalReturnData.JsonFilePath}`;
         }
     } catch (error) {
-        LocalReturnData.KReason = "JsonFilePath not found!";
+        LocalReturnData.KReason = `JsonFilePath not found! : ${LocalReturnData.JsonFilePath}`;
         // LocalReturnData.KReason = error;
     };
-    
+
     return LocalReturnData;
 };
 
