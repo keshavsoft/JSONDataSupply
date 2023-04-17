@@ -43,7 +43,7 @@ let FromDataFolder = async ({ inData, inJsonConfig, inItemConfig, inDataPK }) =>
 
     let LocalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp({});
     let LocalModulesPath = `${LocalDataPath}/${inDataPK}/Config/${LocalFolderName}/${LocalFileName}/${LocalItemName}/${LocalScreenName}/PrepareDataForPrint`;
-    console.log('v :LocalModulesPath : ', LocalModulesPath, fs.existsSync(`${LocalModulesPath}.js`));
+    console.log('22222222222 :LocalModulesPath : ', LocalModulesPath, fs.existsSync(`${LocalModulesPath}.js`));
     if (fs.existsSync(`${LocalModulesPath}.js`) === false) {
         LocalRetrunObject.KReason = "Code not found in KData!";
         return await LocalRetrunObject;
@@ -51,7 +51,7 @@ let FromDataFolder = async ({ inData, inJsonConfig, inItemConfig, inDataPK }) =>
 
     let LocalCode = require(LocalModulesPath);
 
-    console.log('v :LocalCode : ', LocalCode);
+    console.log('3333333 :LocalCode : ', LocalCode);
 
     LocalFromCode = await LocalCode.StartFunc({ inData, inDataPK });
 

@@ -33,7 +33,6 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inOriginalData, 
             inFileNameOnly: path.parse(LocalFileNameWithExtension).name,
             inDataPK: LocalDataPK
         });
-        //   console.log("11111111111LocalDataFromCommonCreate --------: ", LocalDataFromCommonCreate);
 
         if (LocalDataFromCommonCreate.KTF === false) {
             LocalReturnObject.KReason = LocalDataFromCommonCreate.KReason;

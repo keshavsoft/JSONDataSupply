@@ -45,21 +45,16 @@ let OnlyKeys = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData, inPK }
     let LocalUserData;
     let LocalUserDataWithItemName;
     let LocalUpdateData;
-    console.log("inUserPK-- : ", inUserPK, inJsonConfig);
 
     if (inUserPK > 0) {
         try {
             LocalUserData = await CommonFromData.AsJsonAsync({ inJsonConfig, inUserPK });
             //LocalUserData = CommonPullData.ReturnDataFromJson({ inJsonConfig, inUserPK });
 
-            console.log("LocalUserData-- : ", LocalUserData);
-
             LocalUpdateData = JSON.parse(JSON.stringify(LocalUserData));
             LocalUserDataWithItemName = LocalUpdateData[inItemConfig.inItemName];
             //LocalUserDataWithItemName[inPK] = inPostData;
-            console.log("start : ", LocalUserDataWithItemName[inPK]);
             LocalUpdateRow({ inOriginalData: LocalUserDataWithItemName[inPK], inPostData });
-            console.log("end : ", LocalUserDataWithItemName[inPK]);
 
             return await CommonPushData.PushDataAsync({
                 inJsonConfig, inUserPK, inOriginalData: LocalUserData,
@@ -67,7 +62,6 @@ let OnlyKeys = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData, inPK }
             });
 
         } catch (error) {
-            console.log("error : ", error);
             reject(error);
         };
     };
@@ -148,6 +142,6 @@ let LocalMockFuncForOnlyKeys = async () => {
     });
 };
 
-LocalMockFuncForOnlyKeys().then();
+// LocalMockFuncForOnlyKeys().then();
 
 module.exports = { OnlyKeys, WithTransformBeforeSave };

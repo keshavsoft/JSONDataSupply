@@ -23,22 +23,18 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
 
         return await LocalReturnData;
     };
-    console.log("localFromCommonCheck----------", localFromCommonCheck);
 
     let localFrominToFileName = await CommonCheck.ForExistence({
         inFolderName: LocalinFolderName,
         inFileNameOnly: inToFileName,
         inDataPK
     });
-    console.log("1111111111----------", localFrominToFileName);
 
     if (localFrominToFileName.KTF) {
         LocalReturnData.KReason = `FileName : ${inToFolderName} already present in Config Folder...`;
 
         return await LocalReturnData;
     };
-    console.log("22222222----------", localFrominToFileName);
-
 
     try {
         fs.copyFileSync(localFromCommonCheck.UserJsonFilePath, localFrominToFileName.UserJsonFilePath);

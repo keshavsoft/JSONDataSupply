@@ -545,7 +545,7 @@ let FromVouchersConsiderOnly = async ({ inLedgerAutoJsonWithItemName, inUserPK }
     };
 
     LocalReturnArray = await DataFromVouchersConsider({ inVouchersConsider: LocalVouchersConsider, inUserPK });
-    // console.log("11111111111 : ", LocalReturnArray);
+    
     if (LocalGroupByKTF) {
         LocalReturnArray = CommonGroupBy.SingleColumnAndMultipleDataRetruned({
             inDataToSort: LocalReturnArray,

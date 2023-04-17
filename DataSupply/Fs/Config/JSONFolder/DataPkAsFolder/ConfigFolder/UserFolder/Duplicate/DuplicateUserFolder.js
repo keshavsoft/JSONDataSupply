@@ -3,9 +3,6 @@ let CommonCheck = require("../Check");
 let fs = require("fs-extra");
 
 let StartFunc = async ({ inFolderName, inToFolderName, inDataPK }) => {
-
-    //let LocalReturnData = { KTF: false, KReason: "" };
-
     let localFromCommonCheck = await CommonCheck.ForExistence({
         inFolderName,
         inDataPK
@@ -17,24 +14,19 @@ let StartFunc = async ({ inFolderName, inToFolderName, inDataPK }) => {
     if (localFromCommonCheck.KTF === false) {
         LocalReturnData.KReason = localFromCommonCheck.KReason;
 
-        //LocalReturnData.KReason = `FileName : ${inFileNameOnly} not found in ${inDataPK}: Config Folder...`;
-
         return await LocalReturnData;
     };
-    // console.log("localFromCommonCheck----------", inToFolderName, localFromCommonCheck);
 
     let localFrominToFileName = await CommonCheck.ForExistence({
         inFolderName: inToFolderName,
         inDataPK
     });
-    // console.log("1111111111----------", localFrominToFileName);
 
     if (localFrominToFileName.KTF) {
         LocalReturnData.KReason = `FileName : ${inToFolderName} already present in Config Folder...`;
 
         return await LocalReturnData;
     };
-    // console.log("22222222----------", localFrominToFileName);
 
     try {
         fs.copySync(localFromCommonCheck.FolderPath, localFrominToFileName.FolderPath);

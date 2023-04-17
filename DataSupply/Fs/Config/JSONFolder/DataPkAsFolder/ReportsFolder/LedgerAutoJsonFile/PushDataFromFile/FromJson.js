@@ -23,7 +23,6 @@ let StartFunc = async ({  inOriginalData, inDataToUpdate, inDataPK }) => {
         LocalDataFromCommonCreate = CommonCheck.StartFunc({
             inDataPK: LocalDataPK
         });
-        //   console.log("11111111111LocalDataFromCommonCreate --------: ", LocalDataFromCommonCreate);
 
         if (LocalDataFromCommonCreate.KTF === false) {
             LocalReturnObject.KReason = LocalDataFromCommonCreate.KReason;

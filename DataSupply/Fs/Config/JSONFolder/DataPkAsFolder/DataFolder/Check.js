@@ -35,8 +35,6 @@ let ForExistenceOfDataFolder = ({ inDataPK }) => {
     LocalReturnData.DataPKPath = LocalCommonFromCheck.DataPKPath;
     LocalReturnData.DirPath = `${LocalReturnData.DataPKPath}/${LocalConfigPathName}`;
 
-    //  console.log("111111111111 : ", LocalCommonFromCheck);
-
     if (LocalCommonFromCheck.KTF === false) {
         LocalReturnData.KReason = LocalCommonFromCheck.KReason;
         return LocalReturnData;

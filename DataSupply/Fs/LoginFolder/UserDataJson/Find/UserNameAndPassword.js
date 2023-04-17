@@ -44,7 +44,7 @@ let ForUserAndPasswordReturnFirmDetails = async ({ inUserName, inPassWord }) => 
                 return await LocalReturnData;
             };
             let LocalFromCommonFirmDetailsJson = await CommonFirmDetailsJson.RedirectPageKTF({ inDataPk: LocalReturnData.kPK });
-            console.log("vvvvvvvvvvv : ", LocalFromCommonFirmDetailsJson);
+            console.log("2222222 : ", LocalFromCommonFirmDetailsJson);
             if (LocalFromCommonFirmDetailsJson.KTF === false) {
                 LocalReturnData.KReason = LocalFromCommonFirmDetailsJson.KReason;
                 //return await LocalReturnData;

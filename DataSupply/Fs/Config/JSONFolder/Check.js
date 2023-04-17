@@ -25,7 +25,7 @@ let ForJSONFolderExistence = () => {
     let LocalCommonCheckDataPK = CommonCheckKDataFolder.ForExistence();
     LocalReturnData.KDataPath = LocalCommonCheckDataPK.KDataPath;
     LocalReturnData.KDataJSONFolderPath = `${LocalReturnData.KDataPath}/JSON`;
-    console.log("v : ", LocalCommonCheckDataPK);
+    
     if (LocalCommonCheckDataPK.KTF === false) {
         LocalReturnData.KReason = LocalCommonCheckDataPK.KReason;
         return LocalReturnData;

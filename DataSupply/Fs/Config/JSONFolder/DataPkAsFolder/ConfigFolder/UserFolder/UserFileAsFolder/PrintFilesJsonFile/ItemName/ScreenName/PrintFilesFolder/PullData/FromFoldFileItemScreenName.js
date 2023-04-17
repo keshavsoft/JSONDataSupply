@@ -86,9 +86,9 @@ let MockFuncFromFolderFile = async () => {
     });
 };
 
-MockFuncFromFolderFile().then(p => {
-    console.log("aaaaaaaa : ", p);
-});
+// MockFuncFromFolderFile().then(p => {
+//     console.log("aaaaaaaa : ", p);
+// });
 
 module.exports = {
     StartFunc,
