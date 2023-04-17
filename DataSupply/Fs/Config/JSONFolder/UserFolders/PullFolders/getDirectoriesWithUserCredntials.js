@@ -1,4 +1,3 @@
-const fs = require("fs");
 let CommongetDirectories = require("./getDirectories");
 let CommonLoginDetails = require("../../LoginFolder/UserDataJsonFile/PullDataFromFile/FromJson")
 
