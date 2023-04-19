@@ -5,18 +5,32 @@ let ForExistence = () => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
     let LocalFromCheck = CommonFromCheck.ForExistence();
-    LocalReturnData.JSONFolderPath = LocalFromCheck.JSONFolderPath;
-    LocalReturnData.LoginFolderPath = LocalFromCheck.LoginFolderPath;
+    // LocalReturnData.JSONFolderPath = LocalFromCheck.JSONFolderPath;
+    // LocalReturnData.LoginFolderPath = LocalFromCheck.LoginFolderPath;
+
+    LocalReturnData = { ...LocalFromCheck };
     LocalReturnData.JsonFileName = "UserData.json";
 
-    LocalReturnData.UserDataJsonFilePath = `${LocalFromCheck.LoginFolderPath}/${LocalReturnData.JsonFileName}`;
+    LocalReturnData.UserDataJsonFilePath = `${LocalReturnData.LoginFolderPath}/${LocalReturnData.JsonFileName}`;
+
+    // LocalReturnData.JsonFileName = LocalFromCheck.JsonFileName;
+    // LocalReturnData.UserDataJsonFilePath = LocalFromCheck.UserDataJsonFilePath;
+
+    if (LocalReturnData.KTF === false) {
+        return LocalReturnData;
+    };
+
 
     try {
         if (fs.statSync(LocalReturnData.UserDataJsonFilePath)) {
             LocalReturnData.KTF = true;
+        } else {
+            LocalReturnData.KReason = "UserDataJsonFilePath: not found!";
+            LocalReturnData.KTF = false;
         };
     } catch (error) {
-
+        LocalReturnData.KReason = "UserDataJsonFilePath: not found!";
+        LocalReturnData.KTF = false;
     };
 
     return LocalReturnData;

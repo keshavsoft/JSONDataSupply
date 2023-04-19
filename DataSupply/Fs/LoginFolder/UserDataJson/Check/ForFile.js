@@ -4,7 +4,10 @@ let CommonFolderPath = require("../../Check/ForFolder");
 let StartFunc = async () => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
     let LocalFromFolderCheck = await CommonFolderPath.StartFunc();
-    LocalReturnData.FolderPath = LocalFromFolderCheck.FolderPath;
+
+    LocalReturnData = { ...LocalFromFolderCheck };
+
+   // LocalReturnData.FolderPath = LocalFromFolderCheck.FolderPath;
     LocalReturnData.FilePath = `${LocalReturnData.FolderPath}/UserData.json`;
 
     //console.log(LocalFromFolderCheck);

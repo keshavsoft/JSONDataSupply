@@ -5,13 +5,12 @@ let StartFunc = () => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
     let LocalFromCheck = CommonFromCheck.ForExistence();
-    LocalReturnData.JsonFileName = LocalFromCheck.JsonFileName;
+    LocalReturnData = { ...LocalFromCheck };
 
-    LocalReturnData.UserDataJsonFilePath = LocalFromCheck.UserDataJsonFilePath;
+    // LocalReturnData.JsonFileName = LocalFromCheck.JsonFileName;
+    // LocalReturnData.UserDataJsonFilePath = LocalFromCheck.UserDataJsonFilePath;
 
     if (LocalFromCheck.KTF === false) {
-        LocalReturnData.KReason = `${LocalReturnData.JsonFileName} File Not Found!`;
-
         return LocalReturnData;
     };
 
