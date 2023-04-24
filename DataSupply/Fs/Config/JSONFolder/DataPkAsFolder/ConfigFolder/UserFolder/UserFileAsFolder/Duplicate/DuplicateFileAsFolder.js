@@ -4,14 +4,14 @@ let fs = require("fs-extra");
 
 let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK }) => {
 
-    //let LocalReturnData = { KTF: false, KReason: "" };
+    let LocalReturnData = { KTF: false, KReason: "" };
 
     let localFromCommonCheck = await CommonCheck.ForExistence({
         inFolderName, inFileNameOnly,
         inDataPK
     });
 
-    let LocalReturnData = { ...localFromCommonCheck };
+     LocalReturnData = { ...localFromCommonCheck };
     LocalReturnData.KTF = false;
 
     if (localFromCommonCheck.KTF === false) {
@@ -38,6 +38,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
     try {
         fs.copySync(localFromCommonCheck.JsonFilePath, localFrominToFileName.JsonFilePath);
 
+        LocalReturnData.KTF = true;
         return await LocalReturnData;
     } catch (error) {
 
