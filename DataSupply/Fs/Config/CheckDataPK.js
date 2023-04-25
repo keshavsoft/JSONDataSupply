@@ -18,4 +18,12 @@ let ForExistence = ({ inDataPK }) => {
     return LocalReturnData;
 };
 
+const LocalFuncForMockForExistence = () => {
+    let LocalDataPk = 1022;
+    let LocalFrom = ForExistence({ inDataPK: LocalDataPk });
+    console.log("LocalFrom : ", LocalFrom);
+};
+
+// LocalFuncForMockForExistence();
+
 module.exports = { ForExistence };
