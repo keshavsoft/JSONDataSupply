@@ -30,8 +30,8 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
         inDataPK
     });
 
-    if (localFrominToFileName.KTF) {
-        LocalReturnData.KReason = `FileName : ${inToFolderName} already present in Config Folder...`;
+    if ((localFrominToFileName.KTF)===false) {
+        LocalReturnData.KReason = `FileName : ${inToFileName} already present in Config Folder...`;
 
         return await LocalReturnData;
     };
@@ -66,8 +66,8 @@ let localMockFunc = async () => {
     let localdata = await StartFunc({
         inFolderName: "Transactions",
         inFileNameOnly: "GST-SALES",
-        inToFileName: "GST-SALES1",
-        inDataPK: "1023"
+        inToFileName: "GST-SALES4",
+        inDataPK: "1022"
     });
 
     console.log("localdata", localdata);
