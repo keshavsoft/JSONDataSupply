@@ -70,8 +70,8 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalReturnObject;
 };
 let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1024 });
-    //  console.log("LocalData : ", LocalData.Folders.Transactions.Files.Items);
+    let LocalData = await AsObject({ inDataPK: 1022 });
+     console.log("LocalData : ", LocalData);
 };
 
 // LocalMockFunc().then();
