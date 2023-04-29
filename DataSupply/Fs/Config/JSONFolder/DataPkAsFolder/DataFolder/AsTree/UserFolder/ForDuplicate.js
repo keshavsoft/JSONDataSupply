@@ -2,7 +2,7 @@
 let CommonFromgetDirectories = require("../../getDirectories");
 
 
-let AsObject = async ({ inDataPK }) => {
+let AsObject =  ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
     let LocalReturnObject = {};
     LocalReturnObject.Folders = {};
@@ -21,10 +21,10 @@ let AsObject = async ({ inDataPK }) => {
         LocalReturnObject.Folders[element.FolderName] = element;
     });
 
-    return await LocalReturnObject;
+    return  LocalReturnObject;
 };
-let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1022 });
+let LocalMockFunc =  () => {
+    let LocalData =  AsObject({ inDataPK: 1022 });
     console.log("LocalData : ", LocalData);
 };
 
