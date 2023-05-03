@@ -9,6 +9,7 @@ let StartFunc = () => {
     };
 
     let LocalDataPath = `${LocalFromCommonFromCheck.JSONFolderPath}`;
+  
     let LocalReturnArray = fs.readdirSync(LocalDataPath).filter(function (file) {
         return fs.statSync(LocalDataPath + '/' + file).isDirectory();
     });
@@ -18,8 +19,6 @@ let StartFunc = () => {
     let LocalFilterArray = LocalNumberArray.filter(element => {
         return isNaN(element) === false;
     });
-
-    
 
     return LocalFilterArray;
 };
