@@ -22,13 +22,10 @@ let StartFunc = async ({ inDataPK }) => {
                         ValueFile.Files[filename] = {};
                         ValueFile.Files[filename].FileName = loopFileName;
                         let localData = CommonFromgetData.StartFunc({ inFolderName: KeyFile, inFileNameOnly: filename, inDataPK: LocalDataPK });
-                        Object.entries(localData).forEach(([Key, Value]) => {
-                            ValueFile.Files[filename].ItemName = {};
-                            ValueFile.Files[filename].ItemName = Value;
-                            // console.log("jjjjjjjjj",ValueFile.Files[filename].ItemName);
-
-
-                             //console.log("Key",Value);
+                        // console.log("localData",localData);
+                        Object.entries(localData.JsonData).forEach(([itemKey, itemValue]) => {
+                            ValueFile.Files[filename].Items = {};
+                            ValueFile.Files[filename].Items.ItemName = itemKey;
 
                         });
 
@@ -47,6 +44,6 @@ let LocalMockFunc = async () => {
    // console.log("LocalData : ", LocalData.Folders);
 };
 
-LocalMockFunc();
+// LocalMockFunc();
 
 module.exports = { StartFunc };
