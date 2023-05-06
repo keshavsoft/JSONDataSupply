@@ -14,5 +14,6 @@
             "UbuntuPath": "KData",
             "darwinPath": "KData"
         },
-        "DataUploadPath": "KData/JSON-UpLoad"
+        "DataUploadPath": "KData/JSON-UpLoad",
+        "KDataFolderPath": "KData"
     }

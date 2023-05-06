@@ -1,19 +1,26 @@
 let fs = require("fs");
 let CommonAbsolutePath = require("../../DataPath");
-let CommonDataPath = require("../../../Kprivate/DataPath.json");
+let CommonCheckKDataFolder = require("../CheckKDataFolder");
 
 let ForExistence = () => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
+    let LocalFromKData = CommonCheckKDataFolder.ForExistence();
+    LocalReturnData = { ...LocalFromKData };
+
+    if (LocalReturnData.KTF === false) {
+        return LocalReturnData;
+    };
+
+    console.log("----------- : ", LocalFromKData);
+
     //LocalReturnData.DataUploadPath = CommonDataPath.DataUploadPath;
-    LocalReturnData.DataUploadPath = CommonAbsolutePath.ReturnJsonUploadPath();
+    LocalReturnData.DataUploadPath = `${KDataPath}/`
 
     // console.log("ssssssssssss : ", LocalReturnData);
 
-    console.log("----------- : ", LocalReturnData.DataUploadPath);
-
     try {
-        if (fs.statSync(`${__dirname}/${LocalReturnData.DataUploadPath}`).isDirectory()) {
+        if (fs.statSync(LocalReturnData.DataUploadPath).isDirectory()) {
             LocalReturnData.KTF = true;
         } else {
             LocalReturnData.KReason = "DataUploadPath: not found!";
@@ -24,6 +31,13 @@ let ForExistence = () => {
 
     return LocalReturnData;
 };
+
+const MockLockFunc = () => {
+    let LocalFromMock = ForExistence();
+    console.log("LocalFromMock : ", LocalFromMock);
+};
+
+MockLockFunc();
 
 module.exports = {
     ForExistence
