@@ -8,9 +8,9 @@ let StartFunc = () => {
         return [];
     };
 
-    let LocalDataPath = `${LocalFromCommonFromCheck.JSONFolderPath}`;
-  
-    let LocalReturnArray = fs.readdirSync(LocalDataPath).filter(function (file) {
+    let LocalDataPath = `${LocalFromCommonFromCheck.DataUploadPath}`;
+    console.log("LocalDataPath : ", LocalDataPath, `${__dirname}/${LocalDataPath}`, __dirname);
+    let LocalReturnArray = fs.readdirSync(`${__dirname}/${LocalDataPath}`).filter(function (file) {
         return fs.statSync(LocalDataPath + '/' + file).isDirectory();
     });
 
@@ -25,7 +25,7 @@ let StartFunc = () => {
 
 let LocalMockFunc = () => {
     let LocalData = StartFunc();
-    console.log("LocalData",LocalData);
+    console.log("LocalData", LocalData);
 };
 
 LocalMockFunc();

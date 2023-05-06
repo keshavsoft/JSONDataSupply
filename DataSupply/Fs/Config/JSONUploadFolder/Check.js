@@ -1,57 +1,30 @@
 let fs = require("fs");
-let CommonAbsolutePath = require("../../DataPathForUpload");
-let CommonCheckKDataFolder = require("../CheckKDataFolderForUpload");
-
+let CommonAbsolutePath = require("../../DataPath");
+let CommonDataPath = require("../../../Kprivate/DataPath.json");
 
 let ForExistence = () => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
-    let GlobalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp({});
-    LocalReturnData.JSONFolderPath = GlobalDataPath;
-    console.log("GlobalDataPath:",GlobalDataPath);
+    //LocalReturnData.DataUploadPath = CommonDataPath.DataUploadPath;
+    LocalReturnData.DataUploadPath = CommonAbsolutePath.ReturnJsonUploadPath();
+
+    // console.log("ssssssssssss : ", LocalReturnData);
+
+    console.log("----------- : ", LocalReturnData.DataUploadPath);
 
     try {
-        if (fs.statSync(LocalReturnData.JSONFolderPath).isDirectory()) {
+        if (fs.statSync(`${__dirname}/${LocalReturnData.DataUploadPath}`).isDirectory()) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = "JSONFolderPath: not found!";
+            LocalReturnData.KReason = "DataUploadPath: not found!";
         }
     } catch (error) {
-        LocalReturnData.KReason = "JSONFolderPath: not found!";
+        LocalReturnData.KReason = "DataUploadPath: not found!";
     };
 
     return LocalReturnData;
 };
-
-let ForJSONFolderExistence = () => {
-    let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
-
-    let LocalCommonCheckDataPK = CommonCheckKDataFolder.ForExistence();
-    LocalReturnData.KDataPath = LocalCommonCheckDataPK.KDataPath;
-    LocalReturnData.KDataJSONFolderPath = `${LocalReturnData.KDataPath}/JSON`;
-
-    if (LocalCommonCheckDataPK.KTF === false) {
-        LocalReturnData.KReason = LocalCommonCheckDataPK.KReason;
-        return LocalReturnData;
-    };
-
-    try {
-        if (fs.statSync(LocalReturnData.KDataJSONFolderPath).isDirectory()) {
-            LocalReturnData.KTF = true;
-        } else {
-            LocalReturnData.KReason = `KDataJSONFolderPath: not found!`;
-        };
-    } catch (error) {
-        LocalReturnData.KReason = `KDataJSONFolderPath: not found!`;
-    };
-
-    return LocalReturnData;
-};
-
-// let LocalMockForExistence = ForJSONFolderExistence();
-// console.log("LocalMockForExistence : ", LocalMockForExistence);
 
 module.exports = {
-    ForExistence,
-    ForJSONFolderExistence
+    ForExistence
 };

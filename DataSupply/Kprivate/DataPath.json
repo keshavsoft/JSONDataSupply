@@ -1,17 +1,18 @@
     {
-    "Path": "KData\\JSON",
-    "Nwjs": {
-        "ProjectFolderName": "svjpBarcode",
-        "Path": "C:\\KeshavSoft\\DataTesting\\svjp"
-    },
-    "DataPath": {
-        "WinPath": "KData\\JSON",
-        "UbuntuPath": "KData/JSON",
-        "darwinPath": "KData/JSON"
-    },
-    "KDataPath": {
-        "WinPath": "KData",
-        "UbuntuPath": "KData",
-        "darwinPath": "KData"
+        "Path": "KData\\JSON",
+        "Nwjs": {
+            "ProjectFolderName": "svjpBarcode",
+            "Path": "C:\\KeshavSoft\\DataTesting\\svjp"
+        },
+        "DataPath": {
+            "WinPath": "KData\\JSON",
+            "UbuntuPath": "KData/JSON",
+            "darwinPath": "KData/JSON"
+        },
+        "KDataPath": {
+            "WinPath": "KData",
+            "UbuntuPath": "KData",
+            "darwinPath": "KData"
+        },
+        "DataUploadPath": "KData/JSON-UpLoad"
     }
-}

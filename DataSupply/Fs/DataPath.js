@@ -1,19 +1,6 @@
 let path = require("path");
 
-let os = require("os");
-
-// exports.ReturnAbsolutePath = ({ inPresentDirectory }) => {
-//     let LocalPlatform = os.platform();
-//     let LocalReturnPath;
-
-//     if (LocalPlatform === "linux") {
-//         LocalReturnPath = `${inPresentDirectory}/${CommonDataPath.DataPath.UbuntuPath}`;
-//     } else {
-//         LocalReturnPath = `${inPresentDirectory}\\${CommonDataPath.DataPath.WinPath}`;
-//     };
-//     //console.log("LocalReturnPath : ", LocalReturnPath);
-//     return LocalReturnPath;
-// };
+let os = require("os")
 
 exports.ReturnAbsolutePathOfPresentApp = () => {
     let LocalPlatform = os.platform();
@@ -67,6 +54,14 @@ exports.ReturnAbsoluteKDataPath = () => {
     // } else {
     //     LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataPath.WinPath}`);
     // };
+
+    return LocalReturnPath;
+};
+
+exports.ReturnJsonUploadPath = () => {
+    let LocalReturnPath;
+    let CommonDataPath = require("../Kprivate/DataPath.json");
+    LocalReturnPath = path.resolve(__dirname + `/../../${CommonDataPath.DataUploadPath}`);
 
     return LocalReturnPath;
 };
