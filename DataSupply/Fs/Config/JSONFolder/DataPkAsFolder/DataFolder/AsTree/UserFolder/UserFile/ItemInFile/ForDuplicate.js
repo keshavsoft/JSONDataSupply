@@ -21,11 +21,13 @@ let StartFunc = async ({ inDataPK }) => {
                         const filename = Path.parse(loopFileName).name
                         ValueFile.Files[filename] = {};
                         ValueFile.Files[filename].FileName = loopFileName;
+                        ValueFile.Files[filename].Items = {};
+
                         let localData = CommonFromgetData.StartFunc({ inFolderName: KeyFile, inFileNameOnly: filename, inDataPK: LocalDataPK });
                         // console.log("localData",localData);
                         Object.entries(localData.JsonData).forEach(([itemKey, itemValue]) => {
-                            ValueFile.Files[filename].Items = {};
-                            ValueFile.Files[filename].Items.ItemName = itemKey;
+                            ValueFile.Files[filename].Items[itemKey] = {};
+                            ValueFile.Files[filename].Items[itemKey].ItemName = itemKey;
 
                         });
 
@@ -41,7 +43,7 @@ let StartFunc = async ({ inDataPK }) => {
 };
 let LocalMockFunc = async () => {
     let LocalData = await StartFunc({ inDataPK: 1022 });
-   // console.log("LocalData : ", LocalData.Folders);
+    // console.log("LocalData : ", LocalData.Folders);
 };
 
 // LocalMockFunc();
