@@ -1,0 +1,17 @@
+    {
+    "Path": "KData\\JSON-Upload",
+    "Nwjs": {
+        "ProjectFolderName": "svjpBarcode",
+        "Path": "C:\\KeshavSoft\\DataTesting\\svjp"
+    },
+    "DataPath": {
+        "WinPath": "KData\\JSON-Upload",
+        "UbuntuPath": "KData/JSON-Upload",
+        "darwinPath": "KData/JSON-Upload"
+    },
+    "KDataPath": {
+        "WinPath": "KData",
+        "UbuntuPath": "KData",
+        "darwinPath": "KData"
+    }
+}
