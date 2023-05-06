@@ -43,7 +43,8 @@ let AsObject = async ({ inDataPK }) => {
 
                                 if ("TableInfo" in ScreenValue) {
                                    
-                                    ScreenValue.KTF = ScreenValue.TableInfo.SearchRowArray.Label.KTF;
+                                    ScreenValue.TransformToUi = ScreenValue.TableInfo.TableInfoServerSide.TransformToUi;
+                                    ScreenValue.TransformFromReports = ScreenValue.TableInfo.TableInfoServerSide.TransformFromReports;
 
                                 }
                                 LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
