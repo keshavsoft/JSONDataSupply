@@ -12,12 +12,7 @@ let ForExistence = () => {
         return LocalReturnData;
     };
 
-    console.log("----------- : ", LocalFromKData);
-
-    //LocalReturnData.DataUploadPath = CommonDataPath.DataUploadPath;
-    LocalReturnData.DataUploadPath = `${KDataPath}/`
-
-    // console.log("ssssssssssss : ", LocalReturnData);
+    LocalReturnData.DataUploadPath = `${LocalReturnData.KDataPath}/JSON-UpLoad`;
 
     try {
         if (fs.statSync(LocalReturnData.DataUploadPath).isDirectory()) {
@@ -37,7 +32,7 @@ const MockLockFunc = () => {
     console.log("LocalFromMock : ", LocalFromMock);
 };
 
-MockLockFunc();
+// MockLockFunc();
 
 module.exports = {
     ForExistence

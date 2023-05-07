@@ -5,7 +5,7 @@ let CommonDataPath = require("../../Kprivate/DataPath.json");
 let ForExistence = () => {
     let LocalReturnData = { KTF: false, DataPKPath: "", KReason: "" };
 
-    LocalReturnData.KDataPath = path.resolve(__dirname + `/../../${CommonDataPath.KDataFolderPath}`)
+    LocalReturnData.KDataPath = path.resolve(__dirname + `/../../../${CommonDataPath.KDataFolderPath}`)
 
     try {
         if (fs.statSync(LocalReturnData.KDataPath).isDirectory()) {
