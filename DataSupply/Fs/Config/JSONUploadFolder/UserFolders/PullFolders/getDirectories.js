@@ -8,10 +8,8 @@ let StartFunc = () => {
         return [];
     };
 
-    let LocalDataPath = `${LocalFromCommonFromCheck.DataUploadPath}`;
-    console.log("LocalDataPath : ", LocalDataPath, `${__dirname}/${LocalDataPath}`, __dirname);
-    let LocalReturnArray = fs.readdirSync(`${__dirname}/${LocalDataPath}`).filter(function (file) {
-        return fs.statSync(LocalDataPath + '/' + file).isDirectory();
+    let LocalReturnArray = fs.readdirSync(LocalFromCommonFromCheck.DataUploadPath).filter(function (file) {
+        return fs.statSync(LocalFromCommonFromCheck.DataUploadPath + '/' + file).isDirectory();
     });
 
     let LocalNumberArray = LocalReturnArray.map(element => parseInt(element));
@@ -28,6 +26,6 @@ let LocalMockFunc = () => {
     console.log("LocalData", LocalData);
 };
 
-LocalMockFunc();
+// LocalMockFunc();
 
 module.exports = { StartFunc };

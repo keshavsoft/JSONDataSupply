@@ -13,6 +13,7 @@ let ForExistence = () => {
     };
 
     LocalReturnData.DataUploadPath = `${LocalReturnData.KDataPath}/JSON-UpLoad`;
+    LocalReturnData.KTF = false;
 
     try {
         if (fs.statSync(LocalReturnData.DataUploadPath).isDirectory()) {
@@ -23,7 +24,7 @@ let ForExistence = () => {
     } catch (error) {
         LocalReturnData.KReason = "DataUploadPath: not found!";
     };
-
+    
     return LocalReturnData;
 };
 
