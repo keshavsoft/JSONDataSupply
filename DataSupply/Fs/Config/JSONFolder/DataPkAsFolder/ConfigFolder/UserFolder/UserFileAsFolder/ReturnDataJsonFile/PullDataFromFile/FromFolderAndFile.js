@@ -14,15 +14,14 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
         inDataPK: LocalinDataPK
     });
 
+    LocalReturnData = { ...LocalFromCommonFromCheck };
+
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
-    LocalReturnData.UserJsonFilePath = LocalFromCommonFromCheck.UserJsonFilePath;
-
     try {
-        let rawdata = fs.readFileSync(LocalReturnData.UserJsonFilePath);
+        let rawdata = fs.readFileSync(LocalReturnData.ReturnDataJsonPath);
         LocalReturnData.JsonData = JSON.parse(rawdata);
         LocalReturnData.KTF = true;
     } catch (error) {
@@ -34,8 +33,8 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
 // console.log("ForExistence : ", StartFunc({
 //     inFolderName: "Masters",
-//     inFileNameOnly: "Customers",
-//     inDataPK: 16
+//     inFileNameOnly: "Accounts",
+//     inDataPK: 1022
 // }));
 
 module.exports = { StartFunc };

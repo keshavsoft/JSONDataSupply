@@ -1,6 +1,7 @@
 const fs = require("fs");
 let CommonFromCheck = require("./Check");
-let CommonFromUserFileAsFolder = require("./UserFileAsFolder/DisplayJsonFile/PullData/AsTree");
+//let CommonFromUserFileAsFolder = require("./UserFileAsFolder/DisplayJsonFile/PullData/AsTree");
+let CommonFromUserFileAsFolder = require("./UserFileAsFolder/AsTree");
 
 // LocalLoopObject = {};
 // LocalLoopObject.ItemName = key;
@@ -74,12 +75,13 @@ let AsObjects = async ({ inFolderName, inDataPK }) => {
     return await LocalReturnObject;
 };
 
-
 let LocalMockFunc = async () => {
     let LocalData = await AsObjects({
         inDataPK: 1022,
-        inFolderName: "Transactions"
+        inFolderName: "Masters"
     });
+
+    console.log('LocalData : ', LocalData);
 };
 
 // LocalMockFunc().then();
