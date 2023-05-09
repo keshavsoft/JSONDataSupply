@@ -71,12 +71,33 @@ let AsObject = async ({ inDataPK }) => {
 
 let AsObjectFromCommonCode = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
-    let LocalReturnObject = {};
-    LocalReturnObject.Folders = {};
+    // let LocalReturnObject = {};
+    // LocalReturnObject.Folders = {};
 
     let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
-    console.log("LocalFromCommon : ", LocalFromCommon);
-    return await LocalReturnObject;
+
+    Object.entries(LocalFromCommon.Folders).forEach(
+        ([KeyForFolder, ValueForFolder]) => {
+            Object.entries(ValueForFolder.Files).forEach(
+                ([KeyForFiles, ValueForFiles]) => {
+                    Object.entries(ValueForFiles.Items).forEach(
+                        ([KeyForItems, ValueForItems]) => {
+                            Object.entries(ValueForItems.Screens).forEach(
+                                ([KeyForScreens, ValueForScreens]) => {
+                                    delete ValueForScreens.ReturnDataJsonContent;
+                                    delete ValueForScreens.SubTableColumnsObject;
+                                    delete ValueForScreens.SubTableInfo;
+                                    delete ValueForScreens.TableColumnsObject;
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+        }
+    );
+
+    return await LocalFromCommon;
 };
 
 let LocalMockFunc = async () => {

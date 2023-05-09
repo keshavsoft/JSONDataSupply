@@ -93,26 +93,29 @@ let AsObjects = async ({ inFolderName, inFileNameOnly, inDataPK }) => {
 let LocalFuncInsertReturnData = async ({ inData, inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalFromJson = await CommonFromReturnDataJsonFile.StartFunc({ inFolderName, inFileNameOnly, inDataPK });
 
-    Object.entries(inData).forEach(
-        ([keyOfItem, valueOfItem]) => {
-            LoopInsideItemPresent = LocalFromJson.JsonData.hasOwnProperty(keyOfItem);
+    if (LocalFromJson.KTF) {
+        Object.entries(inData).forEach(
+            ([keyOfItem, valueOfItem]) => {
+                LoopInsideItemPresent = LocalFromJson.JsonData.hasOwnProperty(keyOfItem);
 
-            if (LoopInsideItemPresent) {
-                Object.entries(valueOfItem.Screens).forEach(
-                    ([keyOfScreen, valueOfScreen]) => {
-                        LoopInsideScreenPresent = LocalFromJson.JsonData[keyOfItem].hasOwnProperty(keyOfScreen);
+                if (LoopInsideItemPresent) {
+                    Object.entries(valueOfItem.Screens).forEach(
+                        ([keyOfScreen, valueOfScreen]) => {
+                            LoopInsideScreenPresent = LocalFromJson.JsonData[keyOfItem].hasOwnProperty(keyOfScreen);
 
-                        if (LoopInsideScreenPresent) {
-                            // valueOfScreen.ReturnDataJsonContent = {};
-                            valueOfScreen.ReturnDataJsonContent = LocalFromJson.JsonData[keyOfItem][keyOfScreen];
-                        };
-                        // console.log("key : ", keyOfScreen, LoopInsideScreenPresent, valueOfScreen);
-                    }
-                );
+                            if (LoopInsideScreenPresent) {
+                                // valueOfScreen.ReturnDataJsonContent = {};
+                                valueOfScreen.ReturnDataJsonContent = LocalFromJson.JsonData[keyOfItem][keyOfScreen];
+                            };
+                            // console.log("key : ", keyOfScreen, LoopInsideScreenPresent, valueOfScreen);
+                        }
+                    );
 
-            };
-        }
-    );
+                };
+            }
+        );
+
+    };
 };
 
 module.exports = {
