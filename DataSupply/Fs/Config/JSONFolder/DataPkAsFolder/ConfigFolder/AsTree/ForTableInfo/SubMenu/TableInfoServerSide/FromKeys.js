@@ -3,6 +3,7 @@
 
 let CommonFromUserFolder = require("../../../../UserFolder/getDirectories");
 let CommonFromgetDirectories = require("../../../../getDirectories");
+// let CommonFromCompleteJson = require("../../../../getDirectories");
 
 let _ = require("lodash");
 
@@ -42,7 +43,7 @@ let AsObject = async ({ inDataPK }) => {
                                 delete ScreenValue.TableColumnsObject;
 
                                 if ("TableInfo" in ScreenValue) {
-                                   
+
                                     ScreenValue.TransformToUi = ScreenValue.TableInfo.TableInfoServerSide.TransformToUi;
                                     ScreenValue.TransformFromReports = ScreenValue.TableInfo.TableInfoServerSide.TransformFromReports;
 
@@ -68,10 +69,20 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalReturnObject;
 };
 
+let AsObjectFromCommonCode = async ({ inDataPK }) => {
+    let LocalDataPK = inDataPK;
+    let LocalReturnObject = {};
+    LocalReturnObject.Folders = {};
+
+    let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
+    console.log("LocalFromCommon : ", LocalFromCommon);
+    return await LocalReturnObject;
+};
+
 let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 901 });
+    let LocalData = await AsObjectFromCommonCode({ inDataPK: 1022 });
 };
 
 // LocalMockFunc().then();
 
-module.exports = { AsObject };
+module.exports = { AsObject, AsObjectFromCommonCode };
