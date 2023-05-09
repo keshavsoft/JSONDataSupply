@@ -4,21 +4,23 @@ let CommonJSONFolder = require("../../JSONFolder/UserFolders/PullFolders/getDire
 let StartFunc = () => {
     let LocaFromCommonJSONUploadFolder = CommonJSONUploadFolder.StartFunc();
     let LocaCommonJSONFolder = CommonJSONFolder.StartFunc();
-    let LocalReturnObject = {};
+    let LocalReturnData = {};
+    LocalReturnData.FolderData = {};
+    LocalReturnData.KTF = true;
 
     LocaFromCommonJSONUploadFolder.forEach(element => {
-        LocalReturnObject[element] = {};
-        LocalReturnObject[element].JsonPk = element;
-        LocalReturnObject[element].DataMissing = false;
+        LocalReturnData.FolderData[element] = {};
+        LocalReturnData.FolderData[element].JsonPk = element;
+        LocalReturnData.FolderData[element].DataMissing = false;
 
         let LocalFilteredArray = LocaFromCommonJSONUploadFolder.filter(element => LocaCommonJSONFolder.includes(element));
-        
+
         if (LocalFilteredArray.length === 0) {
-            LocalReturnObject[element].DataMissing = true;
+            LocalReturnData.FolderData[element].DataMissing = true;
         };
     });
 
-    return LocalReturnObject;
+    return LocalReturnData;
 };
 
 let LocalMockFunc = () => {
