@@ -19,7 +19,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
         return LocalReturnData;
     };
 
-    LocalReturnData.UserJsonFilePath = LocalFromCommonFromCheck.UserJsonFilePath;
+    LocalReturnData.UserJsonFilePath = LocalFromCommonFromCheck.DisplayJsonPath;
 
     try {
         let rawdata = fs.readFileSync(LocalReturnData.UserJsonFilePath);
