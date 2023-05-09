@@ -38,22 +38,14 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
 
 // StartFunc({
 //     inFolderName: "Masters",
-//     inFileNameWithExtension: "Customers.json",
-//     inItemName: "CustomerNames",
-//     inDataPK: 16
+//     inFileNameWithExtension: "Accounts.json",
+//     inItemName: "Accounts",
+//     inDataPK: 1022
 // }).then(p => {
 //     console.log("pppp : ", p);
 // });
 
-// FromJsonConfig({
-//     inJsonConfig:{
-//         inFolderName: "Masters",
-//         inJsonFileName: "Customers.json"
-//     },
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+
 
 module.exports = {
     StartFunc

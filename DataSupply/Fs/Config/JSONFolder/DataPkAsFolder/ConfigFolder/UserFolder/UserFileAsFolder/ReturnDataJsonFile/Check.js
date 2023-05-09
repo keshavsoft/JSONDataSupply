@@ -4,7 +4,7 @@ let CommonFromCheck = require("../Check");
 let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
-    let LocalFileName = "Display.json";
+    let LocalFileName = "ReturnData.json";
 
     let LocalinDataPK = inDataPK;
     //  let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
@@ -41,8 +41,8 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
 // console.log("ForExistence : ", ForExistence({
 //     inFolderName: "Masters",
-//     inFileNameOnly: "Customers",
-//     inDataPK: 16
+//     inFileNameOnly: "Accounts",
+//     inDataPK: 1022
 // }));
 
 module.exports = { ForExistence };
