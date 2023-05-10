@@ -8,7 +8,7 @@ let StartFunc = ({ inJsonPk }) => {
     LocalReturnObject.KTF = false;
 
     let LocalFromCompare = CommonFromCompare.StartFunc();
-    let LocalKeys = Object.keys(LocalFromCompare);
+    let LocalKeys = Object.keys(LocalFromCompare.FolderData);
 
     if (LocalKeys.includes(inJsonPk)) {
         let LocalFromUpload = CommonFromJSONUploadFolder.ForExistence();
