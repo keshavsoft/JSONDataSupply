@@ -13,9 +13,9 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
         let LocalFolderName = inFolderName;
         let LocalFileNameWithExtension = inFileNameWithExtension;
 
-        LocalFromCommonFromPullData = await CommonFromPullData.FromFoldFile({
+        LocalFromCommonFromPullData = await CommonFromPullData.StartFunc({
             inFolderName: LocalFolderName,
-            inFileNameWithExtension: LocalFileNameWithExtension,
+            inFileNameOnly: LocalFileNameWithExtension,
             inDataPK: LocalDataPK
         });
 
@@ -38,22 +38,14 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
 
 // StartFunc({
 //     inFolderName: "Masters",
-//     inFileNameWithExtension: "Customers.json",
-//     inItemName: "CustomerNames",
-//     inDataPK: 16
+//     inFileNameWithExtension: "Products",
+//     inItemName: "Products",
+//     inDataPK: 1022
 // }).then(p => {
 //     console.log("pppp : ", p);
 // });
 
-// FromJsonConfig({
-//     inJsonConfig:{
-//         inFolderName: "Masters",
-//         inJsonFileName: "Customers.json"
-//     },
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+
 
 module.exports = {
     StartFunc

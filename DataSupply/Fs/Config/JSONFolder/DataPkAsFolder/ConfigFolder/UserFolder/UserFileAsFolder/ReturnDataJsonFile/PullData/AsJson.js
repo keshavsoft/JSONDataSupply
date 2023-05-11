@@ -30,7 +30,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inDataPK }) => {
         };
 
         LocalFilePath = LocalDataFromCommonCreate.ReturnDataJsonPath;
-        
+
         LocalDataFromJSON = await fs.readFileSync(LocalFilePath);
         LocalReturnObject.JsonData = JSON.parse(LocalDataFromJSON);
 
@@ -39,24 +39,16 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
     return await LocalReturnObject;
 };
+let mockFunck = async () => {
+    let localData = await StartFunc({
+        inFolderName: "Masters",
+        inFileNameOnly: "Products",
+        inDataPK: 1022
+    })
+    console.log("localData:",localData.JsonData.Products.Create);
 
-// FromFoldFile({
-//     inFolderName: "Masters",
-//     inFileNameWithExtension: "Customers.json",
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
-
-// FromJsonConfig({
-//     inJsonConfig:{
-//         inFolderName: "Masters",
-//         inJsonFileName: "Customers.json"
-//     },
-//     inDataPK: 16
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+};
+// mockFunck()
 
 module.exports = {
     StartFunc

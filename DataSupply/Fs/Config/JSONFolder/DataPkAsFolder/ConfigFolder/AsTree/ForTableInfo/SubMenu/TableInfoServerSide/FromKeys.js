@@ -75,6 +75,8 @@ let AsObjectFromCommonCode = async ({ inDataPK }) => {
     // LocalReturnObject.Folders = {};
 
     let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
+    console.log("LocalFromCommon----:",Object.keys(LocalFromCommon));
+
 
     Object.entries(LocalFromCommon.Folders).forEach(
         ([KeyForFolder, ValueForFolder]) => {
