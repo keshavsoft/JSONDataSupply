@@ -41,11 +41,11 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inDataPK }) => {
 };
 let mockFunck = async () => {
     let localData = await StartFunc({
-        inFolderName: "Masters",
-        inFileNameOnly: "Products",
+        inFolderName: "Transactions",
+        inFileNameOnly: "GST-SALES",
         inDataPK: 1022
     })
-    console.log("localData:",localData.JsonData.Products.Create);
+    console.log("localData:",localData);
 
 };
 // mockFunck()
