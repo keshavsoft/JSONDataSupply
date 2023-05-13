@@ -12,7 +12,6 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inScreenName,
     if ((localcommonPullData.KTF) === false) {
         LocalReturnObject.KReason = localcommonPullData.KReason;
 
-        return await LocalReturnObject;
     };
 
     let localJsonData = localcommonPullData.JsonData;
@@ -29,36 +28,37 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inScreenName,
         return await LocalReturnObject;
     };
 
-    if (("Vertical" in localJsonData[inItemName][inScreenName]) === false) {
-        LocalReturnObject.KReason = `Vertical not found in Screen !`;
+    if (("SubTable" in localJsonData[inItemName][inScreenName]) === false) {
+        LocalReturnObject.KReason = `SubTable not found in Scrren !`;
 
         return await LocalReturnObject;
 
     };
 
-    if (("Footer" in localJsonData[inItemName][inScreenName].Vertical) === false) {
+    if (("Row" in localJsonData[inItemName][inScreenName].SubTable) === false) {
+        LocalReturnObject.KReason = `Row not found in Table !`;
+
+        return await LocalReturnObject;
+
+    };
+
+    if (("Delete" in localJsonData[inItemName][inScreenName].SubTable.Row) === false) {
         LocalReturnObject.KReason = `Footer not found in Vetical !`;
 
         return await LocalReturnObject;
 
     };
 
-    if (("Save" in localJsonData[inItemName][inScreenName].Vertical.Footer) === false) {
-        LocalReturnObject.KReason = `Save not found in Footer !`;
 
-        return await LocalReturnObject;
-
-    };
-
-    if (("ReturnData" in localJsonData[inItemName][inScreenName].Vertical.Footer.Save) === false) {
+    if (("ReturnData" in localJsonData[inItemName][inScreenName].SubTable.Row.Delete) === false) {
         LocalReturnObject.KReason = `ReturnData not found in Save !`;
 
         return await LocalReturnObject;
 
     };
 
-    localJsonData[inItemName][inScreenName].Vertical.Footer.Save.ReturnData.DataType = LocalDataToUpdate.DataType
-    localJsonData[inItemName][inScreenName].Vertical.Footer.Save.ReturnData.KTF = LocalDataToUpdate.KTF
+    localJsonData[inItemName][inScreenName].SubTable.Row.Delete.ReturnData.DataType = LocalDataToUpdate.DataType
+    localJsonData[inItemName][inScreenName].SubTable.Row.Delete.ReturnData.KTF = LocalDataToUpdate.KTF
 
     LocalFromUpdate = await CommonFromPushData.StartFunc({
         inFolderName: inFolderName,
@@ -67,8 +67,6 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inScreenName,
         inDataToUpdate: localJsonData,
         inOriginalData: localcommonPullData.JsonData
     });
-    console.log("LocalFromUpdate:",LocalFromUpdate);
-
     if (LocalFromUpdate.KTF) {
         LocalReturnObject.KTF = true;
 
