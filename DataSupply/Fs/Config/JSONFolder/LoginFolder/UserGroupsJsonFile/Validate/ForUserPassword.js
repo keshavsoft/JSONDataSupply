@@ -2,6 +2,7 @@ let CommonFromJson = require("../PullDataFromFile/FromJson");
 let CommonFrom = require("../../UserDataJsonFile/Find/Find")
 
 let StartFunc = ({ inUserName, inPassWord }) => {
+
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
     let LocalCommonFromJson = CommonFromJson.StartFunc();
 
@@ -26,7 +27,7 @@ let StartFunc = ({ inUserName, inPassWord }) => {
         return LocalReturnData;
     };
 
-    LocalReturnData.DataPk = LocalKeyNeeded;
+    LocalReturnData.kPK = LocalKeyNeeded;
     LocalReturnData.KTF = true
 
     return LocalReturnData;
