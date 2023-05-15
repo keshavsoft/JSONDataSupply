@@ -1,7 +1,7 @@
 let CommonFromJson = require("../PullDataFromFile/FromJson");
 let CommonFrom = require("../../UserDataJsonFile/Find/Find")
 
-let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
+let StartFunc = ({ inUserName, inPassWord }) => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
     let LocalCommonFromJson = CommonFromJson.StartFunc();
 
@@ -13,42 +13,31 @@ let StartFunc = async ({ inUserName, inPassWord, inFirmName }) => {
 
     let LocalJsonData = LocalCommonFromJson.JsonData;
 
-    console.log("2222222", inUserName, inPassWord);
-
     let LocalFind = Object.values(LocalJsonData).find((obj) => {
-
-        console.log("obj", obj.UserName, obj.PassWord, obj.UserName === inUserName);
-
-        //    return obj.UserName === inUserName && obj.PassWord === inPassWord && obj.ConnectedDatas === inFirmName;
         return obj.UserName === inUserName && obj.PassWord === inPassWord;
     });
 
-    let LocalKeyNeeded;
-
-    Object.entries(LocalFind.ConnectedDatas).forEach(
-        ([key, value]) => {
-            if (value.FirmName === inFirmName) {
-                LocalKeyNeeded = key;
-            }
-        }
-    );
-
+    let LocalKeyNeeded = Object.keys(LocalFind.ConnectedDatas)[0];
+    console.log("LocalKeyNeeded : ", LocalKeyNeeded);
     let commonFromFind = CommonFrom.StartFunc({ inDataPK: LocalKeyNeeded });
+
     if (commonFromFind.KTF === false) {
         LocalReturnData.KReason = commonFromFind.KReason
         return LocalReturnData;
     };
 
+    LocalReturnData.DataPk = LocalKeyNeeded;
     LocalReturnData.KTF = true
 
     return LocalReturnData;
 };
 
 let mockFunc = () => {
-    StartFunc({
+    let LocalFrom = StartFunc({
         inUserName: "JASTI", inPassWord: "JASTI",
         inFirmName: "KeshavSoft"
-    })
+    });
+    console.log("LocalFrom ", LocalFrom);
 };
 
 // mockFunc();
