@@ -24,7 +24,6 @@ let LocalPullReportData = ({ inEnterToServer, inUserPK }) => {
 };
 
 let LocalPullData = async ({ inEnterToServer, inUserPK, inPostData }) => {
-    console.log("hhhhhhhhhhhhhhhhh : ", inEnterToServer, inUserPK, inPostData);
     let LocalReturnObject = { KTF: false, KReason: "" };
     let LocalColumnNameToFind = inEnterToServer.ColumnName;
 
@@ -32,30 +31,47 @@ let LocalPullData = async ({ inEnterToServer, inUserPK, inPostData }) => {
     let LocalJsonData = await CommonFilesPullData.AsJsonAsync({ inJsonConfig: LocalJsonConfig, inUserPK });
 
     let LocalJsonDataWithItemName = LocalJsonData[inEnterToServer.ItemName];
-    let LocalDataAsArray = Object.values(LocalJsonDataWithItemName);
 
-    let LocalDataRowFound = LocalDataAsArray.find(element => element[LocalColumnNameToFind] === inPostData);
+    if (LocalColumnNameToFind === "pk") {
+        LocalReturnObject.KTF = true;
+        LocalReturnObject.KResult = LocalFuncForPk({
+            inItemData: LocalJsonDataWithItemName,
+            inPostData
+        });
+    } else {
+        let LocalDataAsArray = Object.values(LocalJsonDataWithItemName);
 
-    if (LocalDataRowFound === undefined) {
+        let LocalDataRowFound = LocalDataAsArray.find(element => element[LocalColumnNameToFind] === inPostData);
 
-        let LocalKeyNeeded = Object.values(inPostData)[0];
+        if (LocalDataRowFound === undefined) {
 
-        if (LocalKeyNeeded in LocalJsonDataWithItemName) {
-            LocalDataRowFound = LocalJsonDataWithItemName[LocalKeyNeeded];
+            let LocalKeyNeeded = Object.values(inPostData)[0];
 
-            LocalReturnObject.KTF = true;
-            LocalReturnObject.KResult = LocalDataRowFound;
-        } else {
-            LocalReturnObject.KReason = "From LocalPullData";
+            if (LocalKeyNeeded in LocalJsonDataWithItemName) {
+                LocalDataRowFound = LocalJsonDataWithItemName[LocalKeyNeeded];
+
+                LocalReturnObject.KTF = true;
+                LocalReturnObject.KResult = LocalDataRowFound;
+            } else {
+                LocalReturnObject.KReason = "From LocalPullData";
+            };
+
+            return await LocalReturnObject;
         };
 
-        return await LocalReturnObject;
+        LocalReturnObject.KTF = true;
+        LocalReturnObject.KResult = LocalDataRowFound;
     };
 
-    LocalReturnObject.KTF = true;
-    LocalReturnObject.KResult = LocalDataRowFound;
-
     return await LocalReturnObject;
+};
+
+let LocalFuncForPk = ({ inItemData, inPostData }) => {
+    let LocalValueToFind = Object.values(inPostData)[0];
+
+    if (LocalValueToFind in inItemData) {
+        return inItemData[LocalValueToFind];
+    };
 };
 
 let LocalSwitch = async ({ inEnterToServer, inUserPK, inPostData }) => {
@@ -89,9 +105,7 @@ let LocalSwitch = async ({ inEnterToServer, inUserPK, inPostData }) => {
 let EnterToServer = ({ inJsonConfig, inItemConfig, inInsertKey, inUserPK, inPostData }) => {
     return new Promise((resolve, reject) => {
         if (inUserPK > 0) {
-            console.log("inInsertKey : ", inInsertKey);
             if (inInsertKey === undefined || inInsertKey === "") {
-                console.log("inInsertKey :-----------");
                 MainTable.KeyAsTreeWithReturnData({
                     inJsonConfig, inItemConfig, inUserPK,
                     inDataToServer: inPostData
@@ -106,14 +120,12 @@ let EnterToServer = ({ inJsonConfig, inItemConfig, inInsertKey, inUserPK, inPost
 let EnterToServerSubTable = async ({ inJsonConfig, inItemConfig, inInsertKey, inUserPK, inPostData }) => {
     let LocalReturnData = { KTF: false };
 
-    //   let LocalItemConfigData = CommonDisplayPullData.ReturnDataFromJsonAndItemName({ inJsonConfig, inItemConfig, inUserPK });
     let LocalItemConfigData = await CommonDisplayPullData.AsJsonAsync({
         inJsonConfig, inItemConfig,
         inDataPK: inUserPK
     });
 
     let LocalTableColumnsRow = _.find(LocalItemConfigData[LocalSubTableColumnskey][inInsertKey][LocalTableColumnskey], { DataAttribute: Object.keys(inPostData)[0] });
-    //console.log("ssssssssssssssss: ", LocalTableColumnsRow);
     let LocalEnterToServer = LocalTableColumnsRow.ServerSide.EnterToServer;
 
     let LocalDataNeeded = await LocalSwitch({
@@ -145,7 +157,6 @@ let EnterToServerFromMainTable = async ({ inJsonConfig, inItemConfig, inUserPK, 
     });
 
     let LocalKeyToFind = Object.keys(inPostData)[0];
-    let LocalValueToFind = Object.values(inPostData)[0];
 
     let LocalTableColumnsRow = LocalItemConfigData[LocalTableColumnskey].find(LoopItem => {
         return LoopItem.DataAttribute === LocalKeyToFind;
