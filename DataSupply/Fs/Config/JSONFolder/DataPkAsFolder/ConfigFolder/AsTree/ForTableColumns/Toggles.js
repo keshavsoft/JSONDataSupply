@@ -105,7 +105,9 @@ let AsObject = async ({ inDataPK }) => {
                                             Insert: ColumnValue.Insert,
                                             CreateNew: ColumnValue.CreateNew,
                                             IsTextArea: ColumnValue.IsTextArea,
-                                            ShowTotal: ColumnValue.ShowTotal
+                                            ShowTotal: ColumnValue.ShowTotal,
+                                            EnterToServer: ColumnValue.EnterToServer,
+
                                         };
                                     }
                                 );
@@ -129,7 +131,7 @@ let AsObject = async ({ inDataPK }) => {
 };
 let LocalMockFunc = async () => {
     let LocalData = await AsObject({ inDataPK: 1022 });
-    //  console.log("LocalData : ", LocalData);
+     console.log("LocalData : ", LocalData);
 };
 
 // LocalMockFunc().then();
