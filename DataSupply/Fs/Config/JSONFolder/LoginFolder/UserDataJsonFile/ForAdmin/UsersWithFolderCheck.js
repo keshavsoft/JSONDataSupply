@@ -43,6 +43,6 @@ let LocalMockFunc = () => {
     console.log("LocalData--", LocalData);
 };
 
-LocalMockFunc();
+// LocalMockFunc();
 
 module.exports = { StartFunc };
