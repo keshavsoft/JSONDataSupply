@@ -1,5 +1,6 @@
 let CommonFromPullDataFromFile = require("../PullDataFromFile/FromJson");
-let CommonFromgetDirectories = require("../../../UserFolders/PullFolders/getDirectories");
+// let CommonFromgetDirectories = require("../../../UserFolders/PullFolders/getDirectories");
+let CommonFromgetDirectories = require("../../../../JSONUploadFolder/UserFolders/PullFolders/getDirectories");
 
 // 16:{UserName: "KESHAV", PassWord: "KESHAV"}
 let StartFunc = () => {
@@ -42,6 +43,6 @@ let LocalMockFunc = () => {
     console.log("LocalData--", LocalData);
 };
 
-// LocalMockFunc();
+LocalMockFunc();
 
 module.exports = { StartFunc };
