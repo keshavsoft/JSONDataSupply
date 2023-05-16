@@ -4,7 +4,7 @@ let CommonPullDataFromConfig = require("../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../PushData/FromFoldFile");
 
 let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName,subtablecolumnkey, DataAttribute, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ DisplayName, ShowInTable, Insert, CreateNew, IsTextArea, ShowTotal }) => ({ DisplayName, ShowInTable, Insert, CreateNew, IsTextArea, ShowTotal }))(BodyAsJson);
+    const LocalDataToUpdate = (({ DisplayName, ShowInTable, Insert, CreateNew, IsTextArea, ShowTotal,EnterToServer }) => ({ DisplayName, ShowInTable, Insert, CreateNew, IsTextArea, ShowTotal,EnterToServer }))(BodyAsJson);
     
     let LocalinDataPK = DataPK;
 
@@ -33,6 +33,7 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName,subtabl
                 LocalFindColumnObject.CreateNew = LocalDataToUpdate.CreateNew;
                 LocalFindColumnObject.IsTextArea = LocalDataToUpdate.IsTextArea;
                 LocalFindColumnObject.ShowTotal = LocalDataToUpdate.ShowTotal;
+                LocalFindColumnObject.EnterToServer = LocalDataToUpdate.EnterToServer;
 
                 LocalFromUpdate = await CommonFromPushData.StartFunc({
                     inFolderName: FolderName,
