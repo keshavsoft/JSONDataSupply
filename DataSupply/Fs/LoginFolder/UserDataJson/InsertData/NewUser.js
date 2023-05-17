@@ -4,6 +4,7 @@ let CommonEmail = require("../../../../../common/Jwt/Email");
 let CommonUtilityFuncs = require("../../../../UtilityFuncs/BackupToMail");
 let CommonUpdate = require("../Update");
 let CommonFind = require("../Find/UserName");
+const toNumbers = arr => arr.map(Number);
 
 let StartFunc = async ({ inUserName, inPassword }) => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
@@ -15,9 +16,14 @@ let StartFunc = async ({ inUserName, inPassword }) => {
 
             if ("data" in LocalToBeInsertedData) {
                 var StringArray = Object.keys(LocalToBeInsertedData.data);
-                var NumericArray = StringArray.map(Number);
-                //const maxNum = Math.max(...NumericArray).toString();
-                const maxNum = Math.max(...NumericArray)
+                let maxNum = 0;
+
+                if (StringArray.length > 0) {
+
+                    var NumericArray = toNumbers(StringArray);
+
+                    maxNum = Math.max(...NumericArray);
+                };
 
                 if ((maxNum + 1 in LocalToBeInsertedData.data) === false) {
                     LocalToBeInsertedData.data[maxNum + 1] = {
@@ -199,5 +205,18 @@ let WithUerNameAndEmailOnly = async ({ inUserName, inEmail }) => {
 
     return await LocalReturnData;
 };
+
+
+const MockFunc = (params) => {
+    StartFunc({
+        inUserName: "SS1",
+        inPassword: "SS1"
+    }).then(localData => {
+        console.log("localData:", localData);
+    })
+
+};
+// MockFunc()
+
 
 module.exports = { StartFunc, WithEmail, WithUerNameAndEmailOnly };
