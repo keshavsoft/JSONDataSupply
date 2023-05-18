@@ -144,16 +144,16 @@ let SaveOnly_Keshav_18May2023 = async ({ inJsonConfig, inOriginalData, inItemNam
 
 let SaveOnly = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
     if ("pk" in inPostData) {
-        await SaveOnlyWithPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
+        return await SaveOnlyWithPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
     } else {
-        await SaveOnlyWithOutPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
+        return await SaveOnlyWithOutPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
     };
 };
 
 let SaveOnlyWithPk = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
     let LocalDataToBeInserted = JSON.parse(JSON.stringify(inOriginalData));
     let LocalDataWithKey = LocalDataToBeInserted[inItemName];
-    let LocalNewPk =  inPostData.pk;
+    let LocalNewPk = inPostData.pk;
     let LocalReturnObject = { KTF: false, kPK: 0 };
 
     LocalDataWithKey[LocalNewPk] = inPostData;
