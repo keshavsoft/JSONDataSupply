@@ -5,6 +5,8 @@ let CommonDisplayPullData = require("../Fs/Config/Folders/Files/ConfigFromDispla
 let CommonFilesPullData = require("../Fs/Config/Folders/Files/PullData/FromData");
 let CommonFilesPushData = require("../Fs/Config/Folders/Files/PushData/ToData");
 let CommonSaveFuncs = require("../SaveFuncs");
+let CommonInsertWithPk = require("../Fs/Config/JSONFolder/DataPkAsFolder/DataFolder/UserFolder/UserJsonFile/ItemName/PushData/InsertWithPk");
+let CommonFromFolderFileItemName = require("../Fs/Config/JSONFolder/DataPkAsFolder/DataFolder/UserFolder/UserJsonFile/ItemName/PushData/FromFolderFileItemName");
 
 let Save = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData }) => {
     let LocalReturnObject = { KTF: false, kPK: 0 };
@@ -43,7 +45,9 @@ let Save = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData }) => {
 
             if (LocalFromSaveOnly.KTF) {
                 LocalReturnObject.KTF = true;
-                LocalReturnObject.kPK = LocalFromSaveOnly.kPK;
+                // LocalReturnObject.kPK = LocalFromSaveOnly.kPK;
+                LocalReturnObject.kPK = LocalFromSaveOnly.NewRowPK;
+
             }
         };
     };
@@ -142,11 +146,31 @@ let SaveOnly_Keshav_18May2023 = async ({ inJsonConfig, inOriginalData, inItemNam
     return await LocalReturnObject;
 };
 
-let SaveOnly = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
+let SaveOnly = async ({ inJsonConfig, inItemName, inPostData, inUserPK }) => {
+    let LocalFolderName = inJsonConfig.inFolderName;
+    //    let LocalJsonFileName = path.parse(inJsonConfig.inJsonFileName).name;
+    let LocalJsonFileName = inJsonConfig.inJsonFileName.substring(0, inJsonConfig.inJsonFileName.lastIndexOf("."));
+
     if ("pk" in inPostData) {
-        return await SaveOnlyWithPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
+        if (inPostData.pk === "" === false) {
+            return await CommonInsertWithPk.StartFunc({
+                inFolderName: LocalFolderName,
+                inFileNameOnly: LocalJsonFileName,
+                inItemName, inDataPK: inUserPK,
+                inDataToInsert: inPostData
+            });
+        };
+
+        //        return await SaveOnlyWithPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
     } else {
-        return await SaveOnlyWithOutPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
+        return CommonFromFolderFileItemName.StartFuncNoAsync({
+            inFolderName: LocalFolderName,
+            inFileNameOnly: LocalJsonFileName,
+            inItemName, inDataPK: inUserPK,
+            inDataToInsert: inPostData
+        });
+
+        //return await SaveOnlyWithOutPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
     };
 };
 
@@ -192,8 +216,13 @@ let SaveOnlyWithOutPk = async ({ inJsonConfig, inOriginalData, inItemName, inPos
 
 let InsertDefaultValueBeforeSaveConsiderInsert = ({ inDisplayColumns, inPostData }) => {
     let LocalObject = {};
+    let LocalFilteredForPk = inDisplayColumns.filter(element => element.DataAttribute === "pk" === false);
 
-    inDisplayColumns.forEach(loopitem => {
+    if ("pk" in inPostData) {
+        LocalObject.pk = inPostData.pk;
+    };
+
+    LocalFilteredForPk.forEach(loopitem => {
         if (loopitem.Insert) {
             if (loopitem.DefaultValue === "Object") {
                 LocalObject[loopitem.DataAttribute] = {};

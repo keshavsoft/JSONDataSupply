@@ -44,13 +44,14 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
             inDataToInsert: inDataToInsert,
             inDataPK: LocalinDataPK
         });
-        
+
         if (LocalFromCommonFromPushDataToFile.KTF === false) {
             LocalReturnData.KReason = LocalFromCommonFromPushDataToFile.KReason;
             return await LocalReturnData;
         };
 
         LocalReturnData.KTF = true;
+        LocalReturnData.NewRowPK = localpk;
     };
 
     return await LocalReturnData;
