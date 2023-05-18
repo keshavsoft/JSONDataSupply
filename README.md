@@ -1,2 +1,2 @@
 # JsonDataSupply
-DataSupply for Json NodeJs App v5.17
+DataSupply for Json NodeJs App v5.18
