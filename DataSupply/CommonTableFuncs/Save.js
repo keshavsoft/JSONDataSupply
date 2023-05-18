@@ -120,7 +120,7 @@ let PrepareObjectBeforeSave = ({ inJsonConfig, inItemConfig, inUserPK, inPostDat
     });
 };
 
-let SaveOnly = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
+let SaveOnly_Keshav_18May2023 = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
     let LocalDataToBeInserted = JSON.parse(JSON.stringify(inOriginalData));
     let LocalDataWithKey = LocalDataToBeInserted[inItemName];
     let LocalNewPk = CommonSaveFuncs.GeneratePk({ inDataWithKey: LocalDataWithKey });
@@ -133,7 +133,55 @@ let SaveOnly = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, in
     };
 
     let PromiseData = await CommonFilesPushData.AsAsync({ inJsonConfig, inUserPK, inOriginalData, inDataToUpdate: LocalDataToBeInserted });
-    
+
+    if (PromiseData.KTF === true) {
+        LocalReturnObject.KTF = true;
+        LocalReturnObject.kPK = LocalNewPk;
+    };
+
+    return await LocalReturnObject;
+};
+
+let SaveOnly = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
+    if ("pk" in inPostData) {
+        await SaveOnlyWithPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
+    } else {
+        await SaveOnlyWithOutPk({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK });
+    };
+};
+
+let SaveOnlyWithPk = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
+    let LocalDataToBeInserted = JSON.parse(JSON.stringify(inOriginalData));
+    let LocalDataWithKey = LocalDataToBeInserted[inItemName];
+    let LocalNewPk =  inPostData.pk;
+    let LocalReturnObject = { KTF: false, kPK: 0 };
+
+    LocalDataWithKey[LocalNewPk] = inPostData;
+
+    let PromiseData = await CommonFilesPushData.AsAsync({ inJsonConfig, inUserPK, inOriginalData, inDataToUpdate: LocalDataToBeInserted });
+
+    if (PromiseData.KTF === true) {
+        LocalReturnObject.KTF = true;
+        LocalReturnObject.kPK = LocalNewPk;
+    };
+
+    return await LocalReturnObject;
+};
+
+let SaveOnlyWithOutPk = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK }) => {
+    let LocalDataToBeInserted = JSON.parse(JSON.stringify(inOriginalData));
+    let LocalDataWithKey = LocalDataToBeInserted[inItemName];
+    let LocalNewPk = CommonSaveFuncs.GeneratePk({ inDataWithKey: LocalDataWithKey });
+    let LocalReturnObject = { KTF: false, kPK: 0 };
+
+    LocalDataWithKey[LocalNewPk] = inPostData;
+
+    if ("pk" in inPostData) {
+        inPostData.pk = LocalNewPk;
+    };
+
+    let PromiseData = await CommonFilesPushData.AsAsync({ inJsonConfig, inUserPK, inOriginalData, inDataToUpdate: LocalDataToBeInserted });
+
     if (PromiseData.KTF === true) {
         LocalReturnObject.KTF = true;
         LocalReturnObject.kPK = LocalNewPk;
