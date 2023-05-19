@@ -41,7 +41,8 @@ let LocalPullData = async ({ inEnterToServer, inUserPK, inPostData }) => {
     } else {
         let LocalDataAsArray = Object.values(LocalJsonDataWithItemName);
 
-        let LocalDataRowFound = LocalDataAsArray.find(element => element[LocalColumnNameToFind] === inPostData);
+        //        let LocalDataRowFound = LocalDataAsArray.find(element => element[LocalColumnNameToFind] === inPostData);
+        let LocalDataRowFound = _.find(LocalDataAsArray, inPostData);
 
         if (LocalDataRowFound === undefined) {
 
