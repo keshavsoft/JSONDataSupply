@@ -1,0 +1,11 @@
+{
+    "inJsonConfig": {
+        "inFolderName": "Masters",
+        "inJsonFileName": "Items.json"
+    },
+    "inItemConfig": {
+        "inItemName": "ItemNames",
+        "inScreenName": "Create"
+    },
+    "inDataPK": 1024
+}
