@@ -1,0 +1,17 @@
+{
+    "pk": "",
+    "insertkey": "",
+    "JsonConfig": {
+        "inFolderName": "Transactions",
+        "inJsonFileName": "Sales.json"
+    },
+    "ItemConfig": {
+        "inItemName": "Sale",
+        "inScreenName": "Create"
+    },
+    "inDataToSave": {
+        "Number": 18,
+        "Date": "2023-05-23",
+        "Customer": "fdsfds"
+    }
+}

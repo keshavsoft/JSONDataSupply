@@ -1,7 +1,10 @@
 let CommonTableFuncs = require("../Save");
 let CommonDataSupplyReturnDataFuncs = require("../../Fs/Config/Folders/Files/ConfigFromDisplayJson/CommonFuns/ReturnDataFuncs");
+let CommonMock = require("../../MockAllow.json");
 
 let CheckAndSave = async ({ inJsonConfig, inItemConfig, inDataPK, inPostData }) => {
+    console.log("aaaaaaaaaa : ", inJsonConfig, inItemConfig, inDataPK, inPostData);
+
     let LocalDataPK = inDataPK;
     let localFromSave;
     let LocalReturnData = { KTF: false };
@@ -33,6 +36,26 @@ let CheckAndSave = async ({ inJsonConfig, inItemConfig, inDataPK, inPostData }) 
         };
     };
     return await LocalReturnData;
+};
+
+const LocalMockForSave = () => {
+    let LocalMockData = require("./MockSave.json");
+
+    CheckAndSave({
+        inJsonConfig: LocalMockData.JsonConfig,
+        inItemConfig: LocalMockData.ItemConfig,
+        inDataPK: CommonMock.DataPK,
+        inPostData: LocalMockData.inDataToSave
+    }).then(
+        (PromiseFromSave) => {
+            console.log("PromiseFromSave : ", PromiseFromSave);
+        }
+    );
+
+};
+
+if (CommonMock.AllowMock) {
+    LocalMockForSave();
 };
 
 module.exports = {

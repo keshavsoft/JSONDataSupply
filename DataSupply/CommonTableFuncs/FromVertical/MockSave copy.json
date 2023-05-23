@@ -1,0 +1,18 @@
+
+
+{
+    "pk": "",
+    "insertkey": "",
+    "JsonConfig": {
+        "inFolderName": "Masters",
+        "inJsonFileName": "Items.json"
+    },
+    "ItemConfig": {
+        "inItemName": "ItemNames",
+        "inScreenName": "Create"
+    },
+    "inDataToSave": {
+        "ItemName": "Item2",
+        "Rate": ""
+    }
+}
