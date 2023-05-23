@@ -1,8 +1,9 @@
-let CommonAbsolutePath = require("./DataSupply/Fs/Config/JSONUploadFolder/UserFolders/PullFolders/getDirectories");
+console.log("started");
+console.log("first");
 
-let StartFunc = () => {
-    console.log("ssssssssssssssaaaaaaaaaa : ", __dirname);
-    CommonAbsolutePath.StartFunc();
-};
+setTimeout(() => {
+    console.log("timed out...............");
+}, 5000);
 
-StartFunc();
+console.log("second");
+console.log("last");

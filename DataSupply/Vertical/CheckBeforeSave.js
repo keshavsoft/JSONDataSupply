@@ -1,4 +1,5 @@
 let CommonDataSupply = require(".././../DataSupply/Fs/Data/Items/PullData");
+let _ = require("lodash");
 
 let LocalSwitchFunc = ({ inUserData, inColumnData, inObjectToInsert, inUserPK }) => {
     try {
@@ -123,26 +124,32 @@ let ServerSideCheck = ({ inItemConfig, inUserData, inConfigData, inObjectToInser
 
         let LocalConfigTableColumns = inConfigData[LocalTableColumnsKey];
 
-        let LocalTableColumnsForSaveCheck;
         let LocalRetTf = { KTF: true, KReason: "From ServerSideCheck" };
 
-        LocalTableColumnsForSaveCheck = LocalConfigTableColumns.filter(LoopItem => {
-            if ("ServerSide" in LoopItem) {
-                if ("SaveCheck" in LoopItem.ServerSide) {
-                    return LoopItem.ServerSide.SaveCheck.Validate;
-                };
-            };
+        let LocalConfigTableColumnsFilter = _.filter(LocalConfigTableColumns, "ServerSide.SaveCheck.Validate", true);
+
+        let LocalColumnsFoundInData = LocalConfigTableColumnsFilter.filter((LoopItemColumn) => {
+            let LoopInsideDataAttribute = LoopItemColumn.DataAttribute;
+            return Object.keys(inObjectToInsert).includes(LoopInsideDataAttribute);
         });
 
-        LocalTableColumnsForSaveCheck.forEach((LoopItemColumn) => {
-            if (LocalRetTf.KTF) {
-                LocalRetTf = LocalSwitchFunc({
+        let LocalReturnTFArray = LocalColumnsFoundInData.map((LoopItemColumn) => {
+            let LoopInsideDataAttribute = LoopItemColumn.DataAttribute;
+            if (Object.keys(inObjectToInsert).includes(LoopInsideDataAttribute)) {
+                return LocalSwitchFunc({
                     inUserData: inUserData[LocalItemName],
                     inColumnData: LoopItemColumn,
                     inObjectToInsert, inUserPK
                 });
+
             };
         });
+
+        let LocalFindTF = _.find(LocalReturnTFArray, { "KTF": false });
+
+        if (LocalFindTF === undefined === false) {
+            return LocalFindTF;
+        };
 
         return LocalRetTf;
     } catch (error) {

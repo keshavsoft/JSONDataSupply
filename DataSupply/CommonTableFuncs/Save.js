@@ -40,6 +40,10 @@ let Save = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData }) => {
             inConfigData: LocalConfigData, inObjectToInsert: LocalObject, inUserPK
         });
 
+        if (LocalFromServerSideCheck.KTF === false) {
+            return await LocalFromServerSideCheck;
+        };
+
         if (LocalFromServerSideCheck.KTF) {
             LocalFromSaveOnly = await SaveOnly({ inJsonConfig, inOriginalData: LocalUserData, inItemName: inItemConfig.inItemName, inPostData: LocalObject, inUserPK });
 

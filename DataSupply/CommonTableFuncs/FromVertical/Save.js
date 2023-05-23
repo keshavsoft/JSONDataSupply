@@ -3,14 +3,16 @@ let CommonDataSupplyReturnDataFuncs = require("../../Fs/Config/Folders/Files/Con
 let CommonMock = require("../../MockAllow.json");
 
 let CheckAndSave = async ({ inJsonConfig, inItemConfig, inDataPK, inPostData }) => {
-    console.log("aaaaaaaaaa : ", inJsonConfig, inItemConfig, inDataPK, inPostData);
-
     let LocalDataPK = inDataPK;
     let localFromSave;
     let LocalReturnData = { KTF: false };
 
     if (LocalDataPK > 0) {
         localFromSave = await CommonTableFuncs.Save({ inJsonConfig, inItemConfig, inUserPK: LocalDataPK, inPostData });
+
+        if (localFromSave.KTF === false) {
+            return await localFromSave;
+        };
 
         if (localFromSave.KTF) {
             LocalReturnData.kPK = localFromSave.kPK;
@@ -51,7 +53,6 @@ const LocalMockForSave = () => {
             console.log("PromiseFromSave : ", PromiseFromSave);
         }
     );
-
 };
 
 if (CommonMock.AllowMock) {
