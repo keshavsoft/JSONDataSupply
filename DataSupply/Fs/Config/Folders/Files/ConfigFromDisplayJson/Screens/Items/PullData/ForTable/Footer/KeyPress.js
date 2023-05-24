@@ -1,14 +1,9 @@
-//let GlobalReportsPullDataOnly = require("../../Reports/CommonFuncs/PullDataOnly");
-
-//let GlobalCommonReportsPullData = require("../../Fs/Reports/PullData");
-
-// let CommonFilesPullData = require("../../Fs/Files/PullData");
-// let CommonDisplayPullData = require("../../Fs/DefultFileNames/Display/PullData");
-
+let path = require("path");
 
 let CommonFilesPullData = require("../../../../../../PullData/FromData");
 let CommonDisplayPullData = require("../../../PullData/FromDisplayJson/FromJson");
-
+let CommonMockAllow = require("../../../../../../../../../../MockAllow.json")
+let CommonFromData = require("../../../../../../../../JSONFolder/DataPkAsFolder/DataFolder/UserFolder/UserJsonFile/PullDataFromFile/FromFolderAndFile");
 
 let _ = require("lodash");
 let LocalTableColumnskey = "TableColumns";
@@ -28,7 +23,24 @@ let LocalPullData = async ({ inEnterToServer, inUserPK, inPostData }) => {
     let LocalColumnNameToFind = inEnterToServer.ColumnName;
 
     let LocalJsonConfig = { inFolderName: inEnterToServer.FolderName, inJsonFileName: inEnterToServer.FileName };
-    let LocalJsonData = await CommonFilesPullData.AsJsonAsync({ inJsonConfig: LocalJsonConfig, inUserPK });
+    let LocalFolderName = inEnterToServer.FolderName;
+    let LocalFileName = path.parse(inEnterToServer.FileName).name;
+
+    //  let LocalJsonData = await CommonFilesPullData.AsJsonAsync({ inJsonConfig: LocalJsonConfig, inUserPK });
+
+    let LocalFromData = CommonFromData.StartFunc({
+        inFolderName: LocalFolderName,
+        inFileNameOnly: LocalFileName,
+        inDataPK: inUserPK
+    });
+
+    LocalReturnObject = { ...LocalFromData };
+
+    if (LocalFromData.KTF === false) {
+        return await LocalReturnObject;
+    };
+
+    let LocalJsonData = LocalFromData.JsonData;
 
     let LocalJsonDataWithItemName = LocalJsonData[inEnterToServer.ItemName];
 
@@ -200,6 +212,19 @@ let SubTable = {
             EnterToServerSubTable({ inJsonConfig, inItemConfig, inInsertKey, inUserPK, inPostData: inDataToServer }).then(resolve).catch(reject);
         });
     }
+};
+
+if (CommonMockAllow.AllowMock) {
+    let LocalMockData = require("./KeyPressMock.json");
+
+    EnterToServerFromMainTable({
+        inJsonConfig: LocalMockData.JsonConfig,
+        inItemConfig: LocalMockData.ItemConfig,
+        inPostData: LocalMockData.DataToSearch,
+        inUserPK: CommonMockAllow.DataPK
+    }).then(FromPromise => {
+        console.log("FromPromise : ", FromPromise);
+    });
 };
 
 module.exports = { EnterToServer };

@@ -1,0 +1,15 @@
+{
+    "DataToSearch": {
+        "QrCode": "1303"
+    },
+    "JsonConfig": {
+        "inFolderName": "Sales",
+        "inJsonFileName": "Bills.json"
+    },
+    "ItemConfig": {
+        "inItemName": "BillsQrCode",
+        "inScreenName": "Create"
+    },
+    "insertkey": ""
+}
+
