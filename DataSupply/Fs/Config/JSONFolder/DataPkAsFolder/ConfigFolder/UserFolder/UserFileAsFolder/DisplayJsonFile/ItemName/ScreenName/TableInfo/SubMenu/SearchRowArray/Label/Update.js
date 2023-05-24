@@ -1,21 +1,13 @@
-let _ = require("lodash");
-
-//let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
 let CommonPullDataFromConfig = require("../../../../../../PullData/AsJson");
-
 let CommonFromPushData = require("../../../../../../PushData/FromFoldFile");
 
-//let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
+let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAsJson }) => {
 
-let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
-
-    const LocalDataToUpdate = (({ KTF }) => ({ KTF }))(BodyAsJson);
+    const LocalDataToUpdate = (({ KTF,DisplayText,ColClass }) => ({ KTF,DisplayText,ColClass }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
-    let inJsonConfig = { inFolderName: FolderName, inJsonFileName: FileName }
     let LocalItemName = ItemName;
     let LocalScreenName = ScreenName;
-    let LocalFindColumnObject;
     let LocalFromUpdate;
     let LocalReturnObject = { KTF: false };
 
@@ -31,6 +23,8 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, DataAt
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if ("TableInfo" in LocalNewData[LocalItemName][LocalScreenName]) {
                 LocalNewData[LocalItemName][LocalScreenName].TableInfo.SearchRowArray.Label.KTF = LocalDataToUpdate.KTF;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.SearchRowArray.Label.DisplayObject.DisplayText = LocalDataToUpdate.DisplayText;
+                LocalNewData[LocalItemName][LocalScreenName].TableInfo.SearchRowArray.Label.DisplayObject.ColClass = LocalDataToUpdate.ColClass;
 
                 LocalFromUpdate = await CommonFromPushData.StartFunc({
                     inFolderName: FolderName,
