@@ -1,5 +1,6 @@
 let CommonFromFromFolderFileItemName = require("../../PullData/FromFolderFileItemName");
 let _ = require("lodash");
+let CommonMockAllow = require("../../../../../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inColumnName, inValueToCheck, inDataPK }) => {
     let LocalinFolderName = inFolderName;
@@ -58,6 +59,17 @@ let LocalMockFunc = () => {
         inColumnName: "InventorySerial",
         inValueToCheck: "2",
         inDataPK: 901
+    });
+
+    console.log("LocalFromStartFunc : ", LocalFromStartFunc);
+};
+
+if (CommonMockAllow.AllowMock) {
+    let LocalMockData = require("./IsEqualMock.json");
+
+    let LocalFromStartFunc = StartFunc({
+        ...LocalMockData,
+        inDataPK: CommonMockAllow.DataPK
     });
 
     console.log("LocalFromStartFunc : ", LocalFromStartFunc);
