@@ -46,10 +46,12 @@ let AsObject = async ({ inDataPK }) => {
 };
 
 let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1022 });
+    let LocalData = await AsObject({ inDataPK: 20 });
     //console.log("LocalData : ", LocalData);
 
-     console.log("LocalData : ", LocalData.Folders.Masters.Files.Products.Items.Products.Screens.Create);
+      console.log("LocalData : ", LocalData.Folders.Masters.Files.Items.Items.ItemName.Screens.Create);
+    console.log("LocalData : ", LocalData);
+
 };
 
 // LocalMockFunc().then();

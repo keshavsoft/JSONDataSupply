@@ -75,16 +75,13 @@ let StartFunc = async ({ inDataPK }) => {
                         ([KeyForItems, ValueForItems]) => {
                             Object.entries(ValueForItems.Screens).forEach(
                                 ([KeyForScreens, ValueForScreens]) => {
-                                    console.log("KeyForScreens : ", KeyForScreens);
-                                    let LoopInsideTableInfoNeeded = ValueForScreens.TableInfo;
-                                    ValueForScreens = "";
-                                    //    ValueForScreens = { ...LoopInsideTableInfoNeeded };
+                                    ValueForScreens.TableInfoObject = ValueForScreens.TableInfo.SearchRowArray.Label;
 
-                                    // // delete ValueForScreens.SubTableColumnsObject;
-                                    // delete ValueForScreens.SubTableInfo;
-                                    // delete ValueForScreens.TableColumnsObject;
-                                    // // delete ValueForScreens.TableInfo;
-                                    // delete ValueForScreens.ReturnDataJsonContent;
+                                    delete ValueForScreens.SubTableColumnsObject;
+                                    delete ValueForScreens.SubTableInfo;
+                                    delete ValueForScreens.TableColumnsObject;
+                                    delete ValueForScreens.TableInfo;
+                                    delete ValueForScreens.ReturnDataJsonContent;
 
                                 }
                             );
