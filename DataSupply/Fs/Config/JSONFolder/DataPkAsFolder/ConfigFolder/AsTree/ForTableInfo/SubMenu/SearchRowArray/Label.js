@@ -1,6 +1,7 @@
 let CommonFromUserFolder = require("../../../../UserFolder/getDirectories");
 let CommonFromgetDirectories = require("../../../../getDirectories");
 let _ = require("lodash");
+let CommonMockAllow = require("../../../../../../../../../MockAllow.json");
 
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -100,6 +101,15 @@ let LocalMockFunc = async () => {
     console.log("LocalData ", LocalData.Folders.Masters.Files.Items.Items.ItemName.Screens);
 };
 
+
+if (CommonMockAllow.AllowMock) {
+    if (CommonMockAllow.MockKey === "KesahavMock1") {
+
+        console.log("aaaaaa");
+    };
+
+
+};
 // LocalMockFunc().then();
 
 module.exports = { AsObject, StartFunc };
