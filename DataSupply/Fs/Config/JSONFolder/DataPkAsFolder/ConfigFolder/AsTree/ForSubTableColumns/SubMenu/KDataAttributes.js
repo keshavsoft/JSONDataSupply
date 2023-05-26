@@ -1,10 +1,12 @@
-let CommonFromgetDirectories = require("../../../getDirectories");
-
+let CommonFromgetDirectories = require("../../../getDirectoriesWithCheckAndDelete");
+let CommonMockAllow = require("../../../../../../../../MockAllow.json");
 
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
 
     let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
+
+    LocalDeleteScreens({ inData: LocalFromCommon });
 
     Object.entries(LocalFromCommon.Folders).forEach(
         ([KeyForFolder, ValueForFolder]) => {
@@ -32,11 +34,46 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalFromCommon;
 };
 
-let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1022 });
-    //  console.log("LocalData : ", LocalData);
+const LocalDeleteScreens = ({ inData }) => {
+    Object.entries(inData.Folders).forEach(
+        ([KeyForFolder, ValueForFolder]) => {
+            Object.entries(ValueForFolder.Files).forEach(
+                ([KeyForFiles, ValueForFiles]) => {
+                    Object.entries(ValueForFiles.Items).forEach(
+                        ([KeyForItems, ValueForItems]) => {
+                            Object.entries(ValueForItems.Screens).forEach(
+                                ([KeyForScreens, ValueForScreens]) => {
+                                    if ("SubTableColumnsObject" in ValueForScreens === false) {
+                                        delete ValueForItems.Screens[KeyForScreens];
+                                    };
+                                }
+                            );
+
+                            if (Object.keys(ValueForItems.Screens).length === 0) {
+                                delete ValueForFiles.Items[KeyForItems];
+                            };
+                        }
+                    );
+
+                    if (Object.keys(ValueForFiles.Items).length === 0) {
+                        delete ValueForFolder.Files[KeyForFiles];
+                    };
+                }
+            );
+
+            if (Object.keys(ValueForFolder.Files).length === 0) {
+                delete inData.Folders[KeyForFolder];
+            };
+        }
+    );
 };
 
-// LocalMockFunc().then();
+if (CommonMockAllow.AllowMock) {
+    AsObject({
+        inDataPK: CommonMockAllow.DataPK
+    }).then(FromPromise => {
+        console.log("FromPromise : ", FromPromise);
+    });
+};
 
 module.exports = { AsObject };
