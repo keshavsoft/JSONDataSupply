@@ -5,8 +5,9 @@ let CommonDataFolder = require("../../../DataFolder/UserFolder/UserJsonFile/Pull
 let CommonPullDataFromItem = require("../../../DataFolder/UserFolder/UserJsonFile/ItemName/PullData/FromFolderFileItemName");
 let CommonDataFolderPushData = require("../../../DataFolder/UserFolder/UserJsonFile/ItemName/PushData/FromFolderFileItemName");
 
-let StartFunc = async ({ inPurchasePK,inDataPk }) => {
-    console.log("inDataPk",inDataPk);
+let StartFunc = async ({ inPurchasePK, inDataPk }) => {
+
+    let localDatapk = inDataPk;
 
     let LocalReturnObject = {};
     LocalReturnObject.KTF = false;
@@ -23,14 +24,14 @@ let StartFunc = async ({ inPurchasePK,inDataPk }) => {
     let LocalPurchasesData = CommonDataFolder.StartFunc({
         inFolderName: "Purchases",
         inFileNameOnly: "Vouchers",
-        inDataPk
+        inDataPK: localDatapk
     });
 
     let LocalQrCodeData = CommonPullDataFromItem.StartFunc({
         inFolderName: LocalToFolderName,
         inFileNameOnly: LocalToFileName,
         inItemName: LocalToItemName,
-        inDataPk
+        inDataPK: localDatapk
     });
 
     if (("KTF" in LocalQrCodeData) === false || LocalQrCodeData.KTF === false) {
@@ -51,18 +52,17 @@ let StartFunc = async ({ inPurchasePK,inDataPk }) => {
     };
 
     let LocalPurchasePK = LocalFromGetKey[inPurchasePK];
-    console.log("LocalPurchasePK : ", LocalPurchasePK);
     let LocalSupplierName = LocalPurchasePK.SupplierName;
     let LocalBillNumber = LocalPurchasePK.BillNumber;
     let LocalAliasName = LocalPurchasePK.AliasName;
-    
+
     async.forEachOf(LocalPurchasePK.InvGrid, (InvGridvalue, InvGridkey) => {
         async.times(InvGridvalue.Qty, (n) => {
             let LocalFromCommonDataFolderPushData = CommonDataFolderPushData.StartFuncNoAsync({
                 inFolderName: "QrCodes",
                 inFileNameOnly: "Generate",
                 inItemName: "Barcodes",
-                inDataPk,
+                inDataPK: localDatapk,
                 inDataToInsert: {
                     CostPrice: InvGridvalue.UnitRate,
                     ProductName: InvGridvalue.ItemName,
@@ -91,6 +91,7 @@ let StartFunc = async ({ inPurchasePK,inDataPk }) => {
         // configs is now a map of JSON data
         doSomethingWith(configs);
     });
+    LocalReturnObject.KTF = true;
 
     return await LocalReturnObject;
 };
