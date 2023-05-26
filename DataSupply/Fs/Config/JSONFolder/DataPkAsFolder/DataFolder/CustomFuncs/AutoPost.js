@@ -1,9 +1,9 @@
 let CommonMaguva = require("./Clients/Maguva");
 
-let StartFunc = async ({ inClientName, inPurchasePK }) => {
+let StartFunc = async ({ inClientName, inPurchasePK,inDataPk }) => {
     switch (inClientName) {
         case "Maguva":
-            let LocalFromMaguva = await CommonMaguva.StartFunc({ inPurchasePK });
+            let LocalFromMaguva = await CommonMaguva.StartFunc({ inPurchasePK,inDataPk });
             
             return await LocalFromMaguva;
             break;

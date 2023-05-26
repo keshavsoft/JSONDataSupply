@@ -5,7 +5,9 @@ let CommonDataFolder = require("../../../DataFolder/UserFolder/UserJsonFile/Pull
 let CommonPullDataFromItem = require("../../../DataFolder/UserFolder/UserJsonFile/ItemName/PullData/FromFolderFileItemName");
 let CommonDataFolderPushData = require("../../../DataFolder/UserFolder/UserJsonFile/ItemName/PushData/FromFolderFileItemName");
 
-let StartFunc = async ({ inPurchasePK }) => {
+let StartFunc = async ({ inPurchasePK,inDataPk }) => {
+    console.log("inDataPk",inDataPk);
+
     let LocalReturnObject = {};
     LocalReturnObject.KTF = false;
     LocalReturnObject.KReason = "";
@@ -21,14 +23,14 @@ let StartFunc = async ({ inPurchasePK }) => {
     let LocalPurchasesData = CommonDataFolder.StartFunc({
         inFolderName: "Purchases",
         inFileNameOnly: "Vouchers",
-        inDataPK: 901
+        inDataPk
     });
 
     let LocalQrCodeData = CommonPullDataFromItem.StartFunc({
         inFolderName: LocalToFolderName,
         inFileNameOnly: LocalToFileName,
         inItemName: LocalToItemName,
-        inDataPK: 901
+        inDataPk
     });
 
     if (("KTF" in LocalQrCodeData) === false || LocalQrCodeData.KTF === false) {
@@ -60,7 +62,7 @@ let StartFunc = async ({ inPurchasePK }) => {
                 inFolderName: "QrCodes",
                 inFileNameOnly: "Generate",
                 inItemName: "Barcodes",
-                inDataPK: 901,
+                inDataPk,
                 inDataToInsert: {
                     CostPrice: InvGridvalue.UnitRate,
                     ProductName: InvGridvalue.ItemName,
