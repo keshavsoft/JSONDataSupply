@@ -43,9 +43,15 @@ const LocalDeleteScreens = ({ inData }) => {
                         ([KeyForItems, ValueForItems]) => {
                             Object.entries(ValueForItems.Screens).forEach(
                                 ([KeyForScreens, ValueForScreens]) => {
+
                                     if ("SubTableColumnsObject" in ValueForScreens === false) {
                                         delete ValueForItems.Screens[KeyForScreens];
-                                    };
+                                    } else {
+                                        if (Object.keys(ValueForScreens.SubTableColumnsObject).length === 0) {
+                                            delete ValueForItems.Screens[KeyForScreens];
+                                        };
+                                    }
+
                                 }
                             );
 
