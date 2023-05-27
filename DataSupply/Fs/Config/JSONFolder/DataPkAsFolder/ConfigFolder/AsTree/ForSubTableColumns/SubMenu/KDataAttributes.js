@@ -1,12 +1,13 @@
 let CommonFromgetDirectories = require("../../../getDirectoriesWithCheckAndDelete");
 let CommonMockAllow = require("../../../../../../../../MockAllow.json");
+let CommonDeleteWithNoChildCheck = require("../CommonFuncs/DeleteWithNoChildCheck");
 
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
-
+    console.log("aaaaaaaaaaaaaaaa");
     let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
 
-    LocalDeleteScreens({ inData: LocalFromCommon });
+    CommonDeleteWithNoChildCheck.StartFunc({ inData: LocalFromCommon });
 
     Object.entries(LocalFromCommon.Folders).forEach(
         ([KeyForFolder, ValueForFolder]) => {
