@@ -7,3 +7,7 @@ Developers Hints
 2.  do look for MockFunc in each file to test locally.
 3.  can copy KData folder from JSONApi Repo
 
+For creating new user with email confirmation :
+
+1.  copy common folder from JSONApi
+2.  npm i

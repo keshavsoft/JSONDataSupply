@@ -5,6 +5,7 @@ let CommonUtilityFuncs = require("../../../../UtilityFuncs/BackupToMail");
 let CommonUpdate = require("../Update");
 let CommonFind = require("../Find/UserName");
 const toNumbers = arr => arr.map(Number);
+let CommonMockAllow = require("../../../../MockAllow.json");
 
 let StartFunc = async ({ inUserName, inPassword }) => {
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
@@ -181,7 +182,9 @@ let WithUerNameAndEmailOnly = async ({ inUserName, inEmail }) => {
                 if (LocalFromUtilityFuncs.KTF) {
                     //fs.writeFileSync(LocalFilePath, JSON.stringify(LocalUserDataJson));
                     CommonUpdate.EmailSent({ inUserPk: LocalReturnData.kPK });
-                };
+                } else {
+                    LocalReturnData.KReason = LocalFromUtilityFuncs.KError;
+                }
             };
         };
 
@@ -218,5 +221,13 @@ const MockFunc = (params) => {
 };
 // MockFunc()
 
+if (CommonMockAllow.AllowMock) {
+    WithUerNameAndEmailOnly({
+        inUserName: "KEmail",
+        inEmail: "nknnkumar@yahoo.com"
+    }).then(PromiseData => {
+        console.log("aaaaaaaaaa : ", PromiseData);
+    });
+};
 
 module.exports = { StartFunc, WithEmail, WithUerNameAndEmailOnly };

@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
 let path = require("path");
 
+require("dotenv").config();
+
 var mailOptions = {
     from: "nknnkumar@live.com",
     to: "",

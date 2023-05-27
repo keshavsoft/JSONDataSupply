@@ -10,8 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.4",
+    "dotenv": "^16.0.3",
     "fs-extra": "^11.1.1",
-    "lodash": "^4.17.21"
+    "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
+    "nodemailer": "^6.9.2"
   },
   "devDependencies": {
     "posthtml": "^0.16.6",
