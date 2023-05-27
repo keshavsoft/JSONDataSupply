@@ -1,94 +1,47 @@
-let CommonFromUserFolder = require("../../../UserFolder/getDirectories");
-let CommonFromgetDirectories = require("../../../getDirectories");
-let _ = require("lodash");
+let CommonFromgetDirectories = require("../../../getDirectoriesWithCheckAndDelete");
+let CommonMockAllow = require("../../../../../../../../MockAllow.json");
+let CommonDeleteWithNoChildCheck = require("../CommonFuncs/DeleteWithNoChildCheck");
 
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
-    let LocalReturnObject = {};
-    LocalReturnObject.Folders = {};
+    
+    let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
 
-    let LocalArray = CommonFromgetDirectories.StartFunc({ inDataPK: LocalDataPK });
+    CommonDeleteWithNoChildCheck.StartFunc({ inData: LocalFromCommon });
 
-    const result = await Promise.all(LocalArray.map(async (file) => {
-        let LoopInsideFile = await CommonFromUserFolder.AsObjects({
-            inFolderName: file,
-            inDataPK: LocalDataPK
-        });
+    Object.entries(LocalFromCommon.Folders).forEach(
+        ([KeyForFolder, ValueForFolder]) => {
+            Object.entries(ValueForFolder.Files).forEach(
+                ([KeyForFiles, ValueForFiles]) => {
+                    Object.entries(ValueForFiles.Items).forEach(
+                        ([KeyForItems, ValueForItems]) => {
+                            Object.entries(ValueForItems.Screens).forEach(
+                                ([KeyForScreens, ValueForScreens]) => {
+                                    // delete ValueForScreens.SubTableColumnsObject;
+                                    delete ValueForScreens.SubTableInfo;
+                                    delete ValueForScreens.TableColumnsObject;
+                                    delete ValueForScreens.TableInfo;
+                                    delete ValueForScreens.ReturnDataJsonContent;
 
-        return await {
-            FolderName: file,
-            Files: LoopInsideFile
-        };
-    }));
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+        }
+    );
 
-    let LocalAltered = result.map(element => {
-        let LoopInsideFile = JSON.parse(JSON.stringify(element));
-        LoopInsideFile.Files = {};
-
-        Object.entries(element.Files).forEach(
-            ([FileKey, FileValue]) => {
-                LoopInsideFile.Files[FileKey] = JSON.parse(JSON.stringify(FileValue));
-
-                Object.entries(FileValue.Items).forEach(
-                    ([ItemKey, ItemValue]) => {
-                        LoopInsideFile.Files[FileKey].Items[ItemKey] = JSON.parse(JSON.stringify(ItemValue));
-
-                        Object.entries(ItemValue.Screens).forEach(
-                            ([ScreenKey, ScreenValue]) => {
-                                LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey] = JSON.parse(JSON.stringify(ScreenValue));
-
-                                if ("SubTableColumnsObject" in ScreenValue && ScreenValue.SubTableColumnsObject !== undefined) {
-                                    Object.entries(ScreenValue.SubTableColumnsObject).forEach(
-                                        ([SubColumnKey, SubColumnValue]) => {
-                                            //LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject = JSON.parse(JSON.stringify(ScreenValue));
-                                            LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey] = JSON.parse(JSON.stringify(SubColumnValue));
-                                            // console.log("ssssssssss : ", "TableColumnsObject" in SubColumnValue);
-
-                                            if ("TableColumnsObject" in SubColumnValue && SubColumnValue.TableColumnsObject !== undefined) {
-                                                Object.entries(SubColumnValue.TableColumnsObject).forEach(
-                                                    ([SubColumnTableColumnKey, SubColumnTableColumnValue]) => {
-                                                        LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].SubTableColumnsObject[SubColumnKey].TableColumnsObject[SubColumnTableColumnKey] = {
-                                                            DataAttribute: SubColumnTableColumnValue.DataAttribute,
-                                                            DisplayName: SubColumnTableColumnValue.DisplayName,
-                                                            HTMLControlType: SubColumnTableColumnValue.KDataset.HTMLControlType,
-                                                            Min: SubColumnTableColumnValue.KDataset.Min,
-                                                            Max: SubColumnTableColumnValue.KDataset.Max,
-                                                            Step: SubColumnTableColumnValue.KDataset.Step,
-                                                        };
-
-                                                        
-                                                    }
-                                                );
-
-                                            };
-
-                                        }
-                                    );
-
-                                };
-                            }
-                        );
-                    }
-                );
-            }
-        );
-
-        return LoopInsideFile;
-    });
-
-    //  console.log("result---------- : ", LocalAltered[0].Files.Accounts.Items.Accounts.Screens.Create.TableColumnsObject.pk);
-
-    LocalAltered.forEach(element => {
-        LocalReturnObject.Folders[element.FolderName] = element;
-    });
-
-    return await LocalReturnObject;
-};
-let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1022 });
-    //  console.log("LocalData : ", LocalData);
+    return await LocalFromCommon;
 };
 
-// LocalMockFunc().then();
+
+if (CommonMockAllow.AllowMock) {
+    AsObject({
+        inDataPK: CommonMockAllow.DataPK
+    }).then(FromPromise => {
+        console.log("FromPromise : ", FromPromise);
+    });
+};
 
 module.exports = { AsObject };
