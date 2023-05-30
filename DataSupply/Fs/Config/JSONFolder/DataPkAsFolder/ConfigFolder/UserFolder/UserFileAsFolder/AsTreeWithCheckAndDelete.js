@@ -50,12 +50,9 @@ let AsObjects = async ({ inFolderName, inFileNameOnly, inDataPK }) => {
                             LocalScreenObject.SubTableColumnsObject = {};
                             LocalScreenObject.SubTableInfo = {};
 
-
                             Object.entries(ScreenValue.SubTableColumns).forEach(
                                 ([SubTableColumnskey, SubTableColumnsvalue]) => {
-                                    // LocalScreenObject.TableInfo = ScreenValue.TableInfo;
                                     LocalScreenObject.SubTableInfo[SubTableColumnskey] = SubTableColumnsvalue.TableInfo;
-
 
                                     let LoopInsideObject = {};
                                     LoopInsideObject.TableColumnsObject = {};

@@ -2,14 +2,12 @@ let CommonFromgetDirectories = require("../../../../getDirectoriesWithCheckAndDe
 let CommonMockAllow = require("../../../../../../../../../MockAllow.json");
 let CommonDeleteWithNoChildCheck = require("../../CommonFuncs/DeleteWithNoChildCheck");
 
-
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
-    
+
     let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
 
     CommonDeleteWithNoChildCheck.StartFunc({ inData: LocalFromCommon });
-
 
     Object.entries(LocalFromCommon.Folders).forEach(
         ([KeyForFolder, ValueForFolder]) => {
@@ -37,13 +35,14 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalFromCommon;
 };
 
-
 if (CommonMockAllow.AllowMock) {
-    AsObject({
-        inDataPK: CommonMockAllow.DataPK
-    }).then(FromPromise => {
-        console.log("FromPromise : ", FromPromise);
-    });
+    if (CommonMockAllow.MockKey === "Keshav") {
+        AsObject({
+            inDataPK: CommonMockAllow.DataPK
+        }).then(FromPromise => {
+            console.log("FromPromise : ", FromPromise.Folders.Transactions.Files.Sales.Items.Bills.Screens.Create);
+        });
+    };
 };
 
 module.exports = { AsObject };
