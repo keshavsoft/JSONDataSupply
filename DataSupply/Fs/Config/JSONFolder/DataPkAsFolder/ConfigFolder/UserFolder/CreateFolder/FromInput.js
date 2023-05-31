@@ -1,5 +1,6 @@
 let CommonFromCheck = require("../Check");
-let fs = require("fs");
+
+let fs = require("fs-extra");
 let CommonMockAllow = require("../../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inDataPK }) => {
@@ -21,29 +22,21 @@ let StartFunc = ({ inFolderName, inDataPK }) => {
 
         return LocalReturnData;
     };
+    
+    try {
+        fs.mkdirSync(LocalReturnData.FolderPath, {
+            recursive: true
+        });
 
-    if (LocalFromCommonFromCheck.DataPkAsFolderPresent === true & LocalFromCommonFromCheck.KTF === false) {
-        try {
-            fs.mkdirSync(LocalReturnData.FolderPath, {
-                recursive: true
-            });
-
-            LocalReturnData.KTF = true;
-        } catch (error) {
-            LocalReturnData.KReason = error;
-        };
+        LocalReturnData.KTF = true;
+    } catch (error) {
+        LocalReturnData.KReason = error;
     };
-
     return LocalReturnData;
 };
 
-let LocalMockFuncForStartFunc = () => {
-    let LocalFromStartFunc = StartFunc({ inFolderName: "Trans", inDataPK: 601 });
-    console.log("LocalFromStartFunc : ", LocalFromStartFunc);
-};
-
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav31") {
+    if (CommonMockAllow.MockKey === "Keshav32") {
         let LocalFrom = StartFunc({
             inFolderName: "Transactions",
             inDataPK: 416
@@ -52,5 +45,6 @@ if (CommonMockAllow.AllowMock) {
         console.log("LocalFrom : ", LocalFrom);
     };
 };
+// localMockFunc();
 
 module.exports = { StartFunc };
