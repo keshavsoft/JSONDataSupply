@@ -1,6 +1,7 @@
 let CommonConfigFolder = require("../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/PushData/FromInput");
+let CommonConfigFolderReturnDataJsonFile = require("../../../../ConfigFolder/UserFolder/UserFileAsFolder/ReturnDataJsonFile/ItemName/PushData/FromInput");
 
-// let CommonDataFolder = require("../../../DataFolder/UserFolder/UserJsonFile/PushDataToFile/FromInput");
+let CommonDataFolder = require("../../../../DataFolder/UserFolder/UserJsonFile/ItemName/PushData/FromFolderFileItemName");
 
 let CommonMockAllow = require("../../../../../../../../MockAllow.json");
 let path = require("path");
@@ -9,25 +10,32 @@ let StartFunc = ({ inFolderName, inFileName, inItemName, inDataPK }) => {
     let LocalFileName = inFileName;
     let LocalFileNameOnly = path.parse(LocalFileName).name;
 
-    let localFromConfig = CommonConfigFolder.StartFunc({
+    let localFromConfig = CommonConfigFolder.StartFuncNoSync({
         inFolderName,
         inFileNameOnly: LocalFileNameOnly,
         inItemName,
         inDataPK
     });
 
-    // let localFromData = CommonDataFolder.CreateFileWithData({
-    //     inFolderName,
-    //     inFileNameOnly: LocalFileNameOnly,
-    //     inData: {},
-    //     inDataPK
-    // });
+    let localFromConfigReturnData = CommonConfigFolderReturnDataJsonFile.StartFuncNoSync({
+        inFolderName,
+        inFileNameOnly: LocalFileNameOnly,
+        inItemName,
+        inDataPK
+    });
 
-    // return [localFromConfig, localFromData];
+    let localFromData = CommonDataFolder.StartFuncNoAsync({
+        inFolderName,
+        inFileNameOnly: LocalFileNameOnly,
+        inItemName,
+        inDataPK
+    });
+
+    return [localFromConfig, localFromConfigReturnData, localFromData];
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav32") {
+    if (CommonMockAllow.MockKey === "Keshav71") {
         let LocalFrom = StartFunc({
             inFolderName: "Masters",
             inFileName: "Items.json",

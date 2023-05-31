@@ -60,7 +60,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
     return await LocalReturnData;
 };
 
-let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert }) => {
+let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -74,20 +74,21 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, in
         inDataPK: LocalinDataPK
     });
 
+    LocalReturnData = { ...LocalFromCommonFromCheck };
+    LocalReturnData.KTF = false;
+
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
-    if ((LocalinItemName in LocalFromCommonFromCheck.JsonData) === false) {
-        LocalReturnData.KReason = `Item Name : ${LocalinItemName} not found!`;
+    if (LocalinItemName in LocalFromCommonFromCheck.JsonData) {
+        LocalReturnData.KReason = `Item Name : ${LocalinItemName} already found!`;
         return LocalReturnData;
     };
 
-    let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPk] = inDataToInsert;
+    LocalFromCommonFromCheck.JsonData[LocalinItemName] = {};
 
-    let LocalFromPush =  CommonFromPushDataToFile.InsertToJsonNoAsync({
+    let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
         inFolderName: LocalinFolderName,
         inFileNameOnly: LocalinFileNameOnly,
         inDataPK: LocalinDataPK,
@@ -97,13 +98,12 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, in
 
     if (LocalFromPush.KTF === false) {
         LocalReturnData.KReason = LocalFromPush.KReason;
-        return  LocalReturnData;
+        return LocalReturnData;
     };
 
     LocalReturnData.KTF = true;
-    LocalReturnData.NewRowPK = LocalNewPk;
 
-    return  LocalReturnData;
+    return LocalReturnData;
 };
 
 // console.log("ForExistence----- : ", ReturnAsArrayWithPKSortByPK({

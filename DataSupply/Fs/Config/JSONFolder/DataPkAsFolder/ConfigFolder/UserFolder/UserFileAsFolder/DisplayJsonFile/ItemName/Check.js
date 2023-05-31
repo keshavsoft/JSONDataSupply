@@ -1,4 +1,5 @@
 let CommonFromPullData = require("../PullData/AsJson");
+let CommonPullDataFromFile = require("../PullDataFromFile/AsJson");
 
 let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -23,7 +24,7 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
             LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
             return await LocalReturnObject;
         };
-     //   console.log("LocalFromCommonFromPullData22222222 : ", LocalFromCommonFromPullData.JsonData);
+        //   console.log("LocalFromCommonFromPullData22222222 : ", LocalFromCommonFromPullData.JsonData);
         LocalReturnObject.JsonData = LocalFromCommonFromPullData.JsonData
 
         if (inItemName in LocalFromCommonFromPullData.JsonData) {
@@ -34,6 +35,41 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
     };
 
     return await LocalReturnObject;
+};
+
+let StartFuncNoSync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
+    let LocalDataPK = inDataPK;
+
+    let LocalReturnObject = {
+        KTF: false,
+        JsonData: {}
+    };
+
+    if (LocalDataPK > 0) {
+        let LocalFromCommonFromPullData;
+        let LocalFolderName = inFolderName;
+
+        LocalFromCommonFromPullData = CommonPullDataFromFile.StartFunc({
+            inFolderName: LocalFolderName,
+            inFileNameOnly,
+            inDataPK: LocalDataPK
+        });
+
+        LocalReturnObject = { ...LocalFromCommonFromPullData };
+        LocalReturnObject.KTF = false;
+
+        if (LocalFromCommonFromPullData.KTF === false) {
+            return LocalReturnObject;
+        };
+
+        if (inItemName in LocalFromCommonFromPullData.JsonData) {
+            LocalReturnObject.KTF = true;
+        } else {
+            LocalReturnObject.KReason = `Item Name : ${inItemName} is not found!`;
+        };
+    };
+
+    return LocalReturnObject;
 };
 
 // StartFunc({
@@ -56,5 +92,6 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
 // });
 
 module.exports = {
-    StartFunc
+    StartFunc,
+    StartFuncNoSync
 };

@@ -1,6 +1,6 @@
 let localPullDataJsonData = require("../../PullData/AsJson");
 let localPushDataJsonData = require("../../PushData/FromFoldFile");
-let CommonPullDataFromFile = require("../../PullDataFromFile/AsJson");
+let CommonPullDataFromFile = require("../../PullDataFromFile/FromFolderAndFile");
 
 let StartFunc = async ({ inDataPK, inFolderName, inFileNameOnly, inItemName }) => {
     let localinDataPK = inDataPK;
@@ -93,22 +93,5 @@ let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName }) =
 
     return LocalReturnObject;
 };
-
-
-let localMockFunc = async () => {
-    let FromStartFunc = await StartFunc({
-        inDataPK: 1022,
-        inFolderName: "Transactions",
-        inFileNameOnly: "GST-PURCHASES",
-        inItemName: "GST-PURCHASE",
-        inToItemName: "GST-PURCHASE1"
-    });
-
-    console.log("FromStartFunc", FromStartFunc);
-
-};
-// uncomment next 2 lines to run the mock func
-// localMockFunc().then((PromiseData) => {
-// });
 
 module.exports = { StartFunc, StartFuncNoSync };
