@@ -29,6 +29,8 @@ let StartFunc = ({ inFolderName, inDataPK }) => {
             });
 
             LocalReturnData.KTF = true;
+            LocalReturnData.KResult = "Created in Data";
+            LocalReturnData.DataFolderCreated = true;
         } catch (error) {
             LocalReturnData.KReason = error;
         };

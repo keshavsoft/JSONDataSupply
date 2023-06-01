@@ -22,13 +22,15 @@ let StartFunc = ({ inFolderName, inDataPK }) => {
 
         return LocalReturnData;
     };
-    
+
     try {
         fs.mkdirSync(LocalReturnData.FolderPath, {
             recursive: true
         });
 
         LocalReturnData.KTF = true;
+        LocalReturnData.KResult = "Created in Config";
+        LocalReturnData.ConfigFolderCreated = true;
     } catch (error) {
         LocalReturnData.KReason = error;
     };
