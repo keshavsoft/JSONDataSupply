@@ -60,7 +60,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
     return await LocalReturnData;
 };
 
-let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
+let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -81,12 +81,14 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) 
         return LocalReturnData;
     };
 
-    if (LocalinItemName in LocalFromCommonFromCheck.JsonData) {
+    if (LocalinItemName in LocalFromCommonFromCheck.JsonData === false) {
         LocalReturnData.KReason = `Item Name : ${LocalinItemName} already found!`;
         return LocalReturnData;
     };
 
-    LocalFromCommonFromCheck.JsonData[LocalinItemName] = {};
+    let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
+
+    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPk] = inDataToInsert;
 
     let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
         inFolderName: LocalinFolderName,
@@ -102,7 +104,8 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) 
     };
 
     LocalReturnData.KTF = true;
-
+    LocalReturnData.NewRowPK = LocalNewPk;
+    
     return LocalReturnData;
 };
 
