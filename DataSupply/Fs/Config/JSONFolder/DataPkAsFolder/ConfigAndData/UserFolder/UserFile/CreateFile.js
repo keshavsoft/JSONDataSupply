@@ -5,8 +5,8 @@ let CommonDataFolder = require("../../../DataFolder/UserFolder/UserJsonFile/Push
 let CommonMockAllow = require("../../../../../../../MockAllow.json");
 let path = require("path");
 
-let StartFunc = ({ inFolderName, inFileName, inDataPK }) => {
-    let LocalFileName = inFileName;
+let StartFunc = ({ inFolderName, inNewFileName, inDataPK }) => {
+    let LocalFileName = inNewFileName;
     let LocalFileNameOnly = path.parse(LocalFileName).name;
 
     let localFromConfig = CommonConfigFolder.StartFunc({
