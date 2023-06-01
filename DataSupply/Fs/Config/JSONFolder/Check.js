@@ -25,11 +25,13 @@ let ForJSONFolderExistence = () => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
     let LocalCommonCheckDataPK = CommonCheckKDataFolder.ForExistence();
-    LocalReturnData.KDataPath = LocalCommonCheckDataPK.KDataPath;
+    
+    LocalReturnData = { ...LocalCommonCheckDataPK };
+    LocalReturnData.KTF = false;
+
     LocalReturnData.KDataJSONFolderPath = `${LocalReturnData.KDataPath}/JSON`;
 
     if (LocalCommonCheckDataPK.KTF === false) {
-        LocalReturnData.KReason = LocalCommonCheckDataPK.KReason;
         return LocalReturnData;
     };
 

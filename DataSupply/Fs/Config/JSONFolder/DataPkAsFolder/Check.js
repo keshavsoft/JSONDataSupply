@@ -6,23 +6,23 @@ let ForExistence = ({ inDataPK }) => {
 
     let LocalFromForFolderExistence = CommonCheck.ForJSONFolderExistence();
 
-    LocalReturnData.KDataPath = LocalFromForFolderExistence.KDataPath;
-    LocalReturnData.KDataJSONFolderPath = LocalFromForFolderExistence.KDataJSONFolderPath;
+    LocalReturnData = { ...LocalFromForFolderExistence };
+    LocalReturnData.KTF = false;
+
     LocalReturnData.DataPKPath = `${LocalReturnData.KDataJSONFolderPath}/${inDataPK}`;
 
     if (LocalFromForFolderExistence.KTF === false) {
-        LocalReturnData.KReason = LocalFromForFolderExistence.KReason;
-
         return LocalReturnData;
     };
 
     try {
         if (fs.statSync(LocalReturnData.DataPKPath).isDirectory()) {
             LocalReturnData.KTF = true;
+        } else {
+            LocalReturnData.KReason = `DataPK : ${inDataPK}: Folder not found!`;
         };
     } catch (error) {
         LocalReturnData.KReason = `DataPK : ${inDataPK}: Folder not found!`;
-
     };
 
     return LocalReturnData;

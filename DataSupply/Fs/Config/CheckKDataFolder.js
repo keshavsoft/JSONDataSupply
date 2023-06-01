@@ -10,19 +10,14 @@ let ForExistence = () => {
     try {
         if (fs.statSync(LocalReturnData.KDataPath).isDirectory()) {
             LocalReturnData.KTF = true;
+        } else {
+            LocalReturnData.KReason = `KDataPath not found!`;
         };
     } catch (error) {
-        LocalReturnData.KReason = `KData folder not found!`;
+        LocalReturnData.KReason = `KDataPath not found!`;
     };
 
     return LocalReturnData;
 };
-
-let LocalMockFunc = () => {
-    let LocalFromForExistence = ForExistence();
-    console.log("LocalFromForExistence : ", LocalFromForExistence);
-};
-
-// LocalMockFunc();
 
 module.exports = { ForExistence };

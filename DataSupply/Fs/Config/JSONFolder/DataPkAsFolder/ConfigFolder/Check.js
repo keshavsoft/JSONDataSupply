@@ -7,14 +7,13 @@ let ForExistence = ({ inDataPK }) => {
     let LocalConfigPathName = "Config";
 
     let LocalCommonFromCheck = CommonFromCheck.ForExistence({ inDataPK: LocalinDataPK });
- 
-    LocalReturnData.KDataPath = LocalCommonFromCheck.KDataPath;
-    LocalReturnData.KDataJSONFolderPath = LocalCommonFromCheck.KDataJSONFolderPath;
-    LocalReturnData.DataPKPath = LocalCommonFromCheck.DataPKPath;
+
+    LocalReturnData = { ...LocalCommonFromCheck };
+    LocalReturnData.KTF = false;
+
     LocalReturnData.DirPath = `${LocalReturnData.DataPKPath}/${LocalConfigPathName}`;
 
     if (LocalCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
@@ -22,7 +21,7 @@ let ForExistence = ({ inDataPK }) => {
         if (fs.statSync(LocalReturnData.DirPath).isDirectory()) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = "File not found!";
+            LocalReturnData.KReason = `Config Folder not found.`;
         }
     } catch (error) {
         LocalReturnData.KReason = `Config Folder not found.`;

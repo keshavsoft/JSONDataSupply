@@ -4,16 +4,15 @@ let CommonFromCheck = require("../Check");
 let ForExistence = ({ inFolderName, inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({ inDataPK: LocalinDataPK });
 
-    LocalReturnData.KDataPath = LocalFromCommonFromCheck.KDataPath;
-    LocalReturnData.KDataJSONFolderPath = LocalFromCommonFromCheck.KDataJSONFolderPath;
-    LocalReturnData.DataPKPath = LocalFromCommonFromCheck.DataPKPath;
-    LocalReturnData.DirPath = LocalFromCommonFromCheck.DirPath;
+    LocalReturnData = { ...LocalFromCommonFromCheck };
+    LocalReturnData.KTF = false;
+
     LocalReturnData.FolderPath = `${LocalFromCommonFromCheck.DirPath}/${inFolderName}`
 
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
@@ -21,7 +20,7 @@ let ForExistence = ({ inFolderName, inDataPK }) => {
         if (fs.statSync(LocalReturnData.FolderPath).isDirectory()) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = "File not found!";
+            LocalReturnData.KReason = `FolderName ${inFolderName} not found!`;
         }
     } catch (error) {
         LocalReturnData.KReason = `FolderName ${inFolderName} not found!`;

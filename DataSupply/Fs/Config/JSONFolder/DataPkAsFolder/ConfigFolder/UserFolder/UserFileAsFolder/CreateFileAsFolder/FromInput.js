@@ -39,12 +39,13 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
 let LocalCreateFolder = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalFolderName = inFolderName;
+    let LocalNewFileName = inFileNameOnly;
 
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
         inDataPK: LocalinDataPK,
-        inFileNameOnly,
+        inFileNameOnly: LocalNewFileName,
         inFolderName: LocalFolderName
     });
 
@@ -53,6 +54,7 @@ let LocalCreateFolder = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     if (LocalFromCommonFromCheck.KTF) {
         LocalReturnData.KTF = false;
         LocalReturnData.AlreadrPresent = true;
+        
 
         return LocalReturnData;
     };
