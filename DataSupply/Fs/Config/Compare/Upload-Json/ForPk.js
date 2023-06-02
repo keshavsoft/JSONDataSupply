@@ -18,8 +18,9 @@ let StartFunc = () => {
         return LocalReturnData;
     };
 
-    LocalReturnData.FolderData = LocaFromCommonJSONUploadFolder.map(element => {
-        let LoopInsideObject = {};
+    let LoopInsideObject = {};
+
+    LocaFromCommonJSONUploadFolder.forEach(element => {
         LoopInsideObject[element] = {};
 
         LoopInsideObject[element].JsonPk = element;
@@ -35,6 +36,8 @@ let StartFunc = () => {
             LoopInsideObject[element].UserName = LocalFromCommonLoginFolder.JsonData[element].UserName;
             LoopInsideObject[element].PassWord = LocalFromCommonLoginFolder.JsonData[element].PassWord;
         };
+
+        LocalReturnData.FolderData = LoopInsideObject;
 
         return LoopInsideObject;
     });
