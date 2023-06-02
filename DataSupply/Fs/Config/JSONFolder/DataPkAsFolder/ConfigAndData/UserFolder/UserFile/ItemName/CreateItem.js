@@ -6,28 +6,29 @@ let CommonDataFolder = require("../../../../DataFolder/UserFolder/UserJsonFile/I
 let CommonMockAllow = require("../../../../../../../../MockAllow.json");
 let path = require("path");
 
-let StartFunc = ({ inFolderName, inFileName, inItemName, inDataPK }) => {
+let StartFunc = ({ inFolderName, inFileName, inNewItemName, inDataPK }) => {
     let LocalFileName = inFileName;
     let LocalFileNameOnly = path.parse(LocalFileName).name;
+    let LocalNewItemName = inNewItemName;
 
     let localFromConfig = CommonConfigFolder.StartFuncNoSync({
         inFolderName,
         inFileNameOnly: LocalFileNameOnly,
-        inItemName,
+        inItemName: LocalNewItemName,
         inDataPK
     });
 
     let localFromConfigReturnData = CommonConfigFolderReturnDataJsonFile.StartFuncNoSync({
         inFolderName,
         inFileNameOnly: LocalFileNameOnly,
-        inItemName,
+        inItemName: LocalNewItemName,
         inDataPK
     });
 
     let localFromData = CommonDataFolder.StartFuncNoAsync({
         inFolderName,
         inFileNameOnly: LocalFileNameOnly,
-        inItemName,
+        inItemName: LocalNewItemName,
         inDataPK
     });
 
@@ -39,7 +40,7 @@ if (CommonMockAllow.AllowMock) {
         let LocalFrom = StartFunc({
             inFolderName: "Masters",
             inFileName: "Items.json",
-            inItemName: "ItemNames",
+            inNewItemName: "ItemNames",
             inDataPK: 416
         });
 
