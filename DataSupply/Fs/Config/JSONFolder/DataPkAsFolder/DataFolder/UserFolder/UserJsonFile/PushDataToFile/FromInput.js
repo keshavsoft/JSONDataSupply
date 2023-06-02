@@ -13,6 +13,10 @@ let CreateFileWithData = ({ inFolderName, inFileNameOnly, inData, inDataPK }) =>
 
     LocalReturnData = { ...LocalFromCheck };
 
+    if (LocalReturnData.UserFolderPresent === false) {
+        return LocalReturnData;
+    };
+
     if (LocalFromCheck.KTF === false) {
         fs.writeFileSync(LocalFromCheck.UserJsonFilePath, JSON.stringify(inData));
 

@@ -15,13 +15,13 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     // console.log("aaaaaaaaaaaaa: ", LocalFromCommonFromCheck);
     let LocalReturnData = { ...LocalFromCommonFromCheck };
 
+    LocalReturnData.KTF = false;
+    LocalReturnData.UserJsonFilePath = `${LocalReturnData.FolderPath}/${LocalinFileNameOnly}.json`;
+
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
+        LocalReturnData.UserFolderPresent = false;
         return LocalReturnData;
     };
-    LocalReturnData.KTF = false;
-    //  LocalReturnData.FolderPath = LocalFromCommonFromCheck.FolderPath;
-    LocalReturnData.UserJsonFilePath = `${LocalReturnData.FolderPath}/${LocalinFileNameOnly}.json`;
 
     try {
         if (fs.existsSync(LocalReturnData.UserJsonFilePath)) {
