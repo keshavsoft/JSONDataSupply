@@ -1,5 +1,6 @@
 let localPushDataJsonData = require("../../../PushData/FromFoldFile");
 let CommonPullDataFromFile = require("../../../PullDataFromFile/FromFolderAndFile");
+//let Local=require("../")
 
 let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inScreenName }) => {
     let localinDataPK = inDataPK;

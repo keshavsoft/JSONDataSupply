@@ -1,4 +1,5 @@
 let CommonFromPullData = require("../PullData/AsJson");
+let CommonMockAllow = require("../../../../../../../../../MockAllow.json");
 
 let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -23,7 +24,7 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
             LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
             return await LocalReturnObject;
         };
-     //   console.log("LocalFromCommonFromPullData22222222 : ", LocalFromCommonFromPullData.JsonData);
+        //   console.log("LocalFromCommonFromPullData22222222 : ", LocalFromCommonFromPullData.JsonData);
         LocalReturnObject.JsonData = LocalFromCommonFromPullData.JsonData
 
         if (inItemName in LocalFromCommonFromPullData.JsonData) {
@@ -36,16 +37,14 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
     return await LocalReturnObject;
 };
 
-// StartFunc({
-//     inFolderName: "Masters",
-//     inFileNameWithExtension: "Products",
-//     inItemName: "Products",
-//     inDataPK: 1022
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
-
-
+if (CommonMockAllow.AllowMock) {
+    if (CommonMockAllow.MockKey === "K3") {
+        let LocalMockData = require("./Check.json");
+        StartFunc({ ...LocalMockData }).then(PromiseData => {
+            console.log("PromiseData : ", PromiseData.JsonData);
+        });
+    };
+};
 
 module.exports = {
     StartFunc
