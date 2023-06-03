@@ -1,5 +1,5 @@
 let localPushDataJsonData = require("../../../PushData/FromFoldFile");
-let CommonPullDataFromFile = require("../../../PullDataFromFile/AsJson");
+let CommonCheck = require("../Check");
 
 let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inScreenName }) => {
     let localinDataPK = inDataPK;
@@ -9,30 +9,21 @@ let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inS
 
     let LocalReturnObject = { KTF: false, KReason: "" };
 
-    let localJsonData = CommonPullDataFromFile.StartFunc({
+    let LocalFromCheck = CommonCheck.StartFuncNoSync({
         inFolderName: localinFolderName,
-        inFileNameOnly: localinFileNameOnly, inDataPK: localinDataPK
+        inFileNameOnly: localinFileNameOnly,
+        inItemName: localinItemName,
+        inScreenName,
+        inDataPK: localinDataPK
     });
+    console.log("LocalFromCheck : ", LocalFromCheck);
+    LocalReturnObject = { ...LocalFromCheck };
+    LocalReturnObject.KTF = false;
 
-    LocalReturnObject = { ...localJsonData };
+    let localNewJsonDate = JSON.parse(JSON.stringify(LocalFromCheck.JsonData));
 
-    let localNewJsonDate = localJsonData.JsonData;
-
-    if (localJsonData.KTF === false) {
-        LocalReturnObject.KReason = localJsonData.KReason;
-
-        return LocalReturnObject;
-    };
-
-    if ((localinItemName in localNewJsonDate) === false) {
-        LocalReturnObject.KReason = `ItemName : ${localinItemName} found in config.json!`;
-
-        return LocalReturnObject;
-    };
-
-    if (inScreenName in localNewJsonDate[localinItemName]) {
-        LocalReturnObject.KReason = `ScreenName : ${inScreenName} found in config.json!`;
-
+    if (LocalFromCheck.KTF) {
+        LocalReturnObject.KReason = "ScreenName already present!";
         return LocalReturnObject;
     };
 
@@ -43,13 +34,13 @@ let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inS
     let localpush = localPushDataJsonData.StartFunc({
         inFolderName: localinFolderName,
         inFileNameWithExtension: `${localinFileNameOnly}.json`,
-        inOriginalData: localJsonData.JsonData,
+        inOriginalData: LocalFromCheck.JsonData,
         inDataToUpdate: localNewJsonDate,
         inDataPK: localinDataPK
     });
 
     if (localpush.KTF) {
-        LocalReturnObject.KTF = true
+        LocalReturnObject.KTF = true;
     };
 
     return LocalReturnObject;
