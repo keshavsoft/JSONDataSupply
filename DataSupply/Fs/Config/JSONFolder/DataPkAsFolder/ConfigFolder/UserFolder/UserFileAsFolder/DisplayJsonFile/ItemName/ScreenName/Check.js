@@ -66,6 +66,7 @@ let StartFuncNoSync = ({ inFolderName, inFileNameOnly, inItemName, inScreenName,
         LocalReturnObject.KTF = false;
 
         if (LocalFromCommonFromPullData.KTF === false) {
+            LocalReturnObject.KTFFromRoot = false;
             return LocalReturnObject;
         };
 

@@ -22,6 +22,10 @@ let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inS
 
     let localNewJsonDate = JSON.parse(JSON.stringify(LocalFromCheck.JsonData));
 
+    if (LocalFromCheck.KTFFromRoot === false) {
+        return LocalReturnObject;
+    };
+
     if (LocalFromCheck.KTF) {
         LocalReturnObject.KReason = "ScreenName already present!";
         return LocalReturnObject;

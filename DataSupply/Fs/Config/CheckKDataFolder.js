@@ -6,6 +6,7 @@ let ForExistence = () => {
     let LocalReturnData = { KTF: false, DataPKPath: "", KReason: "" };
 
     LocalReturnData.KDataPath = path.resolve(__dirname + `/../../../${CommonDataPath.KDataFolderPath}`)
+    LocalReturnData.JsonData = {};
 
     try {
         if (fs.statSync(LocalReturnData.KDataPath).isDirectory()) {
