@@ -1,6 +1,7 @@
 let localPushDataJsonData = require("../../../PushData/FromFoldFile");
 let CommonCheck = require("../Check");
 let CommonSupplyJson = require("../../../../../../../../../../../Fix/Json/SupplyJson");
+let CommonMockAllow = require("../../../../../../../../../../../MockAllow.json");
 
 let LocalFixTableColumnForPk = ({ inTableColumnObject }) => {
     inTableColumnObject.DisplayName = "pk";
@@ -15,7 +16,7 @@ let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inS
     let localinFolderName = inFolderName;
     let localinFileNameOnly = inFileNameOnly;
     let localinItemName = inItemName;
-    
+
     let LocalFromCheck = CommonCheck.StartFuncNoSync({
         inFolderName: localinFolderName,
         inFileNameOnly: localinFileNameOnly,
@@ -123,7 +124,7 @@ let StartFuncNoSync_Keshav_5Jun = ({ inDataPK, inFolderName, inFileNameOnly, inI
         LocalReturnObject.KReason = "ScreenName already present!";
         return LocalReturnObject;
     };
-    CommonSupplyJson
+
     localNewJsonDate[localinItemName][inScreenName] = {};
     localNewJsonDate[localinItemName][inScreenName].TableColumns = [];
     localNewJsonDate[localinItemName][inScreenName].TableInfo = {};
@@ -141,6 +142,14 @@ let StartFuncNoSync_Keshav_5Jun = ({ inDataPK, inFolderName, inFileNameOnly, inI
     };
 
     return LocalReturnObject;
+};
+
+if (CommonMockAllow.AllowMock) {
+    if (CommonMockAllow.MockKey = "K6") {
+        let LocalMockData = require("./FromInput.json");
+        let LocalFromStart = StartFuncNoSync(LocalMockData);
+        console.log("LocalFromStart : ", LocalFromStart);
+    };
 };
 
 module.exports = { StartFuncNoSync };

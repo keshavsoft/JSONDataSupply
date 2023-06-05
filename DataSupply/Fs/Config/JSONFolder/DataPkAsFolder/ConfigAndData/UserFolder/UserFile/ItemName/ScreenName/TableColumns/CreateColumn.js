@@ -30,14 +30,9 @@ let StartFunc = ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK,
 
 if (CommonMockAllow.AllowMock) {
     if (CommonMockAllow.MockKey === "s1") {
-        let LocalFrom = StartFunc({
-            inFolderName: "SimpleQuestions",
-            inFileName: "OnUI.json",
-            inItemName: "AllowNumberOnly",
-            inScreenName: "Create",
-            NewColumnName:"ss",
-            inDataPK: 19
-        });
+        let LocalMockData = require("./CreateColumnMock.json");
+
+        let LocalFrom = StartFunc(LocalMockData);
 
         console.log("LocalFrom : ", LocalFrom);
     };
