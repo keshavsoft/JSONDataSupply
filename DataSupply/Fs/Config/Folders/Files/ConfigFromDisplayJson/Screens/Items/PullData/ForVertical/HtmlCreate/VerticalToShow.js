@@ -74,11 +74,13 @@ let StartFunc = async ({ inJsonConfig, inItemConfig, inDataPK }) => {
 };
 
 if (CommonMock.AllowMock) {
-    let LocalForMock = require("./VerticalToShow.json");
+    if (CommonMock.MockKey === "Keshav5") {
+        let LocalForMock = require("./VerticalToShow.json");
 
-    StartFunc(LocalForMock).then(PromiseData => {
-        console.log("PromiseData : ", PromiseData);
-    });
+        StartFunc(LocalForMock).then(PromiseData => {
+            console.log("PromiseData : ", PromiseData);
+        });
+    };
 };
 
 module.exports = { StartFunc };

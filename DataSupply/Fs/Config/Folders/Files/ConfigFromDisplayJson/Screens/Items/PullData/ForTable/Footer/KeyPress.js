@@ -215,16 +215,18 @@ let SubTable = {
 };
 
 if (CommonMockAllow.AllowMock) {
-    let LocalMockData = require("./KeyPressMock.json");
+    if (CommonMockAllow.MockKey === "Keshav5") {
+        let LocalMockData = require("./KeyPressMock.json");
 
-    EnterToServerFromMainTable({
-        inJsonConfig: LocalMockData.JsonConfig,
-        inItemConfig: LocalMockData.ItemConfig,
-        inPostData: LocalMockData.DataToSearch,
-        inUserPK: CommonMockAllow.DataPK
-    }).then(FromPromise => {
-        console.log("FromPromise : ", FromPromise);
-    });
+        EnterToServerFromMainTable({
+            inJsonConfig: LocalMockData.JsonConfig,
+            inItemConfig: LocalMockData.ItemConfig,
+            inPostData: LocalMockData.DataToSearch,
+            inUserPK: CommonMockAllow.DataPK
+        }).then(FromPromise => {
+            console.log("FromPromise : ", FromPromise);
+        });
+    };
 };
 
 module.exports = { EnterToServer };

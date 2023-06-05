@@ -56,7 +56,9 @@ const LocalMockForSave = () => {
 };
 
 if (CommonMock.AllowMock) {
-    LocalMockForSave();
+    if (CommonMock.MockKey === "Keshav5") {
+        LocalMockForSave();
+    };
 };
 
 module.exports = {

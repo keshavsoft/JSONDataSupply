@@ -1,7 +1,7 @@
 let CommonConfigFolder = require("../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/PushData/FromInput");
 let CommonConfigFolderReturnDataJsonFile = require("../../../../ConfigFolder/UserFolder/UserFileAsFolder/ReturnDataJsonFile/ItemName/PushData/FromInput");
 
-let CommonDataFolder = require("../../../../DataFolder/UserFolder/UserJsonFile/ItemName/PushData/FromFolderFileItemName");
+let CommonDataFolder = require("../../../../DataFolder/UserFolder/UserJsonFile/ItemName/PushData/ItemNameOnly");
 
 let CommonMockAllow = require("../../../../../../../../MockAllow.json");
 let path = require("path");
@@ -36,15 +36,15 @@ let StartFunc = ({ inFolderName, inFileName, inNewItemName, inDataPK }) => {
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav71") {
+    if (CommonMockAllow.MockKey === "K71") {
         let LocalFrom = StartFunc({
             inFolderName: "Masters",
             inFileName: "Items.json",
-            inNewItemName: "ItemNames",
-            inDataPK: 416
+            inNewItemName: "ItemNames4",
+            inDataPK: 317
         });
 
-        console.log("LocalFrom : ", LocalFrom);
+        console.log("LocalFrom : ", LocalFrom[2]);
     };
 };
 

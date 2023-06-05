@@ -35,13 +35,14 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalFromCommon;
 };
 
-
 if (CommonMockAllow.AllowMock) {
-    AsObject({
-        inDataPK: CommonMockAllow.DataPK
-    }).then(FromPromise => {
-        console.log("FromPromise : ", FromPromise);
-    });
+    if (CommonMockAllow.MockKey === "Keshav5") {
+        AsObject({
+            inDataPK: CommonMockAllow.DataPK
+        }).then(FromPromise => {
+            console.log("FromPromise : ", FromPromise);
+        });
+    };
 };
 
 module.exports = { AsObject };

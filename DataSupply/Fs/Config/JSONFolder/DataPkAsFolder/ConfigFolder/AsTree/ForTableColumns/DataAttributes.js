@@ -2,7 +2,6 @@ let CommonFromUserFolder = require("../../UserFolder/getDirectories");
 let CommonFromgetDirectories = require("../../getDirectories");
 let _ = require("lodash");
 
-
 let AsObject = async ({ inDataPK }) => {
     console.log("inDataPK--",inDataPK);
     let LocalDataPK = inDataPK;
@@ -64,11 +63,4 @@ let AsObject = async ({ inDataPK }) => {
 
     return await LocalReturnObject;
 };
-let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 1022 });
-    //  console.log("LocalData : ", LocalData);
-};
-
-// LocalMockFunc().then();
-
 module.exports = { AsObject };

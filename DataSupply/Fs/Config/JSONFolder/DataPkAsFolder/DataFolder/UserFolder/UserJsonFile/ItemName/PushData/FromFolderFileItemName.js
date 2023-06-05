@@ -1,5 +1,6 @@
 let CommonFromPullDataFromFile = require("../../PullDataFromFile/FromFolderAndFile");
 let CommonFromPushDataToFile = require("../../PushDataToFile/FolderAndFile");
+let CommonCheck = require("../Check");
 
 const toNumbers = arr => arr.map(Number);
 
@@ -68,12 +69,19 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, in
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
-    let LocalFromCommonFromCheck = CommonFromPullDataFromFile.StartFunc({
+    // let LocalFromCommonFromCheck = CommonFromPullDataFromFile.StartFunc({
+    //     inFolderName: LocalinFolderName,
+    //     inFileNameOnly: LocalinFileNameOnly,
+    //     inDataPK: LocalinDataPK
+    // });
+
+    let LocalFromCommonFromCheck = CommonCheck.StartFunc({
         inFolderName: LocalinFolderName,
         inFileNameOnly: LocalinFileNameOnly,
+        inItemName: LocalinItemName,
         inDataPK: LocalinDataPK
     });
-
+    
     LocalReturnData = { ...LocalFromCommonFromCheck };
     LocalReturnData.KTF = false;
 
@@ -81,10 +89,10 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, in
         return LocalReturnData;
     };
 
-    if (LocalinItemName in LocalFromCommonFromCheck.JsonData === false) {
-        LocalReturnData.KReason = `Item Name : ${LocalinItemName} already found!`;
-        return LocalReturnData;
-    };
+    // if (LocalinItemName in LocalFromCommonFromCheck.JsonData === false) {
+    //     LocalReturnData.KReason = `Item Name : ${LocalinItemName} already found!`;
+    //     return LocalReturnData;
+    // };
 
     let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
 
@@ -105,7 +113,7 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, in
 
     LocalReturnData.KTF = true;
     LocalReturnData.NewRowPK = LocalNewPk;
-    
+
     return LocalReturnData;
 };
 

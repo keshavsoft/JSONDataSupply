@@ -51,30 +51,17 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inColumnName, inVal
     return LocalReturnData;
 };
 
-let LocalMockFunc = () => {
-    let LocalFromStartFunc = StartFunc({
-        inFolderName: "QrCodes",
-        inFileNameOnly: "Generate",
-        inItemName: "Barcodes",
-        inColumnName: "InventorySerial",
-        inValueToCheck: "2",
-        inDataPK: 901
-    });
-
-    console.log("LocalFromStartFunc : ", LocalFromStartFunc);
-};
-
 if (CommonMockAllow.AllowMock) {
-    let LocalMockData = require("./IsEqualMock.json");
+    if (CommonMockAllow.MockKey === "Keshav5") {
+        let LocalMockData = require("./IsEqualMock.json");
 
-    let LocalFromStartFunc = StartFunc({
-        ...LocalMockData,
-        inDataPK: CommonMockAllow.DataPK
-    });
+        let LocalFromStartFunc = StartFunc({
+            ...LocalMockData,
+            inDataPK: CommonMockAllow.DataPK
+        });
 
-    console.log("LocalFromStartFunc : ", LocalFromStartFunc);
+        console.log("LocalFromStartFunc : ", LocalFromStartFunc);
+    };
 };
-
-// LocalMockFunc();
 
 module.exports = { StartFunc };

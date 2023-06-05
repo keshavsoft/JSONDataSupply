@@ -3,7 +3,7 @@ let CommonMockAllow = require("../../../../../../../MockAllow.json");
 
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
-    
+
     let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
 
     Object.entries(LocalFromCommon.Folders).forEach(
@@ -32,13 +32,14 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalFromCommon;
 };
 
-
 if (CommonMockAllow.AllowMock) {
-    AsObject({
-        inDataPK: CommonMockAllow.DataPK
-    }).then(FromPromise => {
-        console.log("FromPromise : ", FromPromise);
-    });
+    if (CommonMockAllow.MockKey === "Keshav5") {
+        AsObject({
+            inDataPK: CommonMockAllow.DataPK
+        }).then(FromPromise => {
+            console.log("FromPromise : ", FromPromise);
+        });
+    };
 };
 
 module.exports = { AsObject };

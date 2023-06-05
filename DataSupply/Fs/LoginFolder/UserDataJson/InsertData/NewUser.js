@@ -222,12 +222,14 @@ const MockFunc = (params) => {
 // MockFunc()
 
 if (CommonMockAllow.AllowMock) {
-    WithUerNameAndEmailOnly({
-        inUserName: "KEmail",
-        inEmail: "nknnkumar@yahoo.com"
-    }).then(PromiseData => {
-        console.log("aaaaaaaaaa : ", PromiseData);
-    });
+    if (CommonMockAllow.MockKey === "K91") {
+        WithUerNameAndEmailOnly({
+            inUserName: "KEmail",
+            inEmail: "nknnkumar@yahoo.com"
+        }).then(PromiseData => {
+            console.log("aaaaaaaaaa : ", PromiseData);
+        });
+    };
 };
 
 module.exports = { StartFunc, WithEmail, WithUerNameAndEmailOnly };

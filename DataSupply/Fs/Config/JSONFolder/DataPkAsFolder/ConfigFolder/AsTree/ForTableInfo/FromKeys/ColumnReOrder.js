@@ -2,7 +2,6 @@ let CommonFromUserFolder = require("../../../UserFolder/getDirectories");
 let CommonFromgetDirectories = require("../../../getDirectories");
 let _ = require("lodash");
 
-
 let AsObject_4Jan2023 = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
     let LocalReturnObject = {};
