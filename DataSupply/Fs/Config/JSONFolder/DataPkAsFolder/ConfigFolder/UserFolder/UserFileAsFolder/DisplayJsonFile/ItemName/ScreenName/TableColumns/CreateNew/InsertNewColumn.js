@@ -1,5 +1,5 @@
 let CommonFromPushData = require("../../../../PushDataToFile/FromInput");
-let CommonCheckTableColumns = require("../CheckTableColumns");
+let CommonCheckTableColumns = require("./CheckNewColumn");
 let CommonMockAllow = require("../../../../../../../../../../../../MockAllow.json");
 let CommonSupplyJson = require("../../../../../../../../../../../../Fix/Json/SupplyJson");
 
@@ -13,12 +13,13 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
 
     let LocalReturnObject = { KTF: false, KReason: "" };
 
-    let LocalFromCheck = CommonCheckTableColumns.StartFuncNoSync({
+    let LocalFromCheck = CommonCheckTableColumns.StartFunc({
         inFolderName: LocalFolderName,
         inFileNameOnly: LocalinFileNameOnly,
         inItemName: LocalinItemName,
         inScreenName: LocalinScreenName,
-        inDataPK: LocalinDataPK
+        inDataPK: LocalinDataPK,
+        inNewColumnName
     });
 
     LocalReturnObject = { ...LocalFromCheck };
@@ -26,6 +27,11 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
 
     if (LocalFromCheck.KTF === false) {
         LocalReturnObject.KTFFromRoot = false;
+        return LocalReturnObject;
+    };
+
+    if (LocalFromCheck.KTFColumnFound) {
+        LocalReturnObject.KReason = "ColumnName already found!";
         return LocalReturnObject;
     };
 
@@ -56,7 +62,7 @@ if (CommonMockAllow.AllowMock) {
     if (CommonMockAllow.MockKey = "K5") {
         let LocalMockData = require("./InsertNewColumnMock.json");
         let LocalFromStart = StartFunc(LocalMockData);
-        console.log("LocalFromStart : ", LocalFromStart);
+        console.log("-------- : ", LocalFromStart);
     };
 }
 
