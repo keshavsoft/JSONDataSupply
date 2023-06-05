@@ -2,28 +2,18 @@
 let CommonConfigFolder = require("../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/TableColumns/CreateNew/InsertNewColumn");
 
 let CommonMockAllow = require("../../../../../../../../../../MockAllow.json");
-let path = require("path");
 
 let StartFunc = ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK, inNewColumnName }) => {
     let LocalFileName = inFileName;
-    let LocalFileNameOnly = path.parse(LocalFileName).name;
-
+    console.log("aaaaaaaaaaaa : ", inFolderName, inFileName, inItemName, inScreenName, inDataPK, inNewColumnName);
     let localFromConfig = CommonConfigFolder.StartFunc({
         inFolderName,
-        inFileNameOnly: LocalFileNameOnly,
+        inFileNameOnly: LocalFileName,
         inItemName,
         inScreenName,
         inNewColumnName,
         inDataPK
     });
-
-    // let localFromConfigReturnData = CommonConfigFolderReturnDataJsonFile.StartFuncNoSync({
-    //     inFolderName,
-    //     inFileNameOnly: LocalFileNameOnly,
-    //     inItemName,
-    //     inScreenName,
-    //     inDataPK
-    // });
 
     return [localFromConfig];
 };

@@ -1,7 +1,6 @@
 {
-    "inFolderName": "Masters",
-    "inFileName": "Items.json",
-    "inItemName": "ItemNames",
-    "inScreenName": "Create",
-    "inDataPK": 416
+    "FolderName": "Masters",
+    "FileName": "Items",
+    "ItemName": "ItemNames",
+    "NewScreenName": "Create"
 }

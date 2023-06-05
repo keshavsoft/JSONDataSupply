@@ -2,25 +2,23 @@ let CommonConfigFolder = require("../../../../../ConfigFolder/UserFolder/UserFil
 let CommonConfigFolderReturnDataJsonFile = require("../../../../../ConfigFolder/UserFolder/UserFileAsFolder/ReturnDataJsonFile/ItemName/ScreenName/PushData/FromInput");
 
 let CommonMockAllow = require("../../../../../../../../../MockAllow.json");
-let path = require("path");
 
-let StartFunc = ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK }) => {
-    let LocalFileName = inFileName;
-    let LocalFileNameOnly = path.parse(LocalFileName).name;
+let StartFunc = ({ FolderName, FileName, ItemName, NewScreenName, inDataPK }) => {
+    let LocalFileName = FileName;
 
     let localFromConfig = CommonConfigFolder.StartFuncNoSync({
-        inFolderName,
-        inFileNameOnly: LocalFileNameOnly,
-        inItemName,
-        inScreenName,
+        inFolderName: FolderName,
+        inFileNameOnly: LocalFileName,
+        inItemName: ItemName,
+        inScreenName: NewScreenName,
         inDataPK
     });
 
     let localFromConfigReturnData = CommonConfigFolderReturnDataJsonFile.StartFuncNoSync({
-        inFolderName,
-        inFileNameOnly: LocalFileNameOnly,
-        inItemName,
-        inScreenName,
+        inFolderName: FolderName,
+        inFileNameOnly: LocalFileName,
+        inItemName: ItemName,
+        inScreenName: NewScreenName,
         inDataPK
     });
 
@@ -31,9 +29,12 @@ if (CommonMockAllow.AllowMock) {
     if (CommonMockAllow.MockKey === "K04") {
         let LocalMockData = require("./CreateScreenMock.json");
 
-        let LocalFrom = StartFunc(LocalMockData);
+        let LocalFrom = StartFunc({
+            ...LocalMockData,
+            inDataPK: CommonMockAllow.DataPK
+        });
 
-        console.log("LocalFrom : ", LocalFrom);
+        console.log("LocalFrom : ", LocalFrom[0]);
     };
 };
 

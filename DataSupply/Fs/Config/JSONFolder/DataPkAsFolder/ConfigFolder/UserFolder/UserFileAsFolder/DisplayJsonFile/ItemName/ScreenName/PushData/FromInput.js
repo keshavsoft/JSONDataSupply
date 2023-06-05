@@ -1,4 +1,4 @@
-let localPushDataJsonData = require("../../../PushData/FromFoldFile");
+let localPushDataJsonData = require("../../../PushDataToFile/FromInput");
 let CommonCheck = require("../Check");
 let CommonSupplyJson = require("../../../../../../../../../../../Fix/Json/SupplyJson");
 let CommonMockAllow = require("../../../../../../../../../../../MockAllow.json");
@@ -46,7 +46,7 @@ let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inS
     localNewJsonData[localinItemName][inScreenName].TableInfo = LocalNewTableInfoObject;
     localNewJsonData[localinItemName][inScreenName].TableColumns.push(LocalNewColumnObject);
 
-    let localpush = localPushDataJsonData.StartFunc({
+    let localpush = localPushDataJsonData.StartFuncNoSync({
         inFolderName: localinFolderName,
         inFileNameWithExtension: `${localinFileNameOnly}.json`,
         inOriginalData: LocalFromCheck.JsonData,

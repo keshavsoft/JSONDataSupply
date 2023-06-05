@@ -32,6 +32,8 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
         return element.DataAttribute === inNewColumnName;
     });
 
+    LocalReturnObject.KTFColumnFound = false;
+
     if (LocalFilterColumn.length > 0) {
         LocalReturnObject.KTF = true;
         LocalReturnObject.KTFColumnFound = true;

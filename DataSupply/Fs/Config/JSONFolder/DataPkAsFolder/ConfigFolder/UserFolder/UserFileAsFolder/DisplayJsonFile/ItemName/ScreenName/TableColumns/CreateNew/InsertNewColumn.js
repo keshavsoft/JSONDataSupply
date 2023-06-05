@@ -6,6 +6,8 @@ let CommonSupplyJson = require("../../../../../../../../../../../../Fix/Json/Sup
 let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inNewColumnName }) => {
     let LocalinDataPK = inDataPK;
 
+    console.log("aaaaaaaaaaaa : ", inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inNewColumnName);
+
     let LocalFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -24,11 +26,6 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
 
     LocalReturnObject = { ...LocalFromCheck };
     LocalReturnObject.KTF = false;
-
-    if (LocalFromCheck.KTF === false) {
-        LocalReturnObject.KTFFromRoot = false;
-        return LocalReturnObject;
-    };
 
     if (LocalFromCheck.KTFColumnFound) {
         LocalReturnObject.KReason = "ColumnName already found!";
