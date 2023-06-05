@@ -1,10 +1,10 @@
-let CommonConfigFolder = require("../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/PushData/FromInput");
-let CommonConfigFolderReturnDataJsonFile = require("../../../../../ConfigFolder/UserFolder/UserFileAsFolder/ReturnDataJsonFile/ItemName/ScreenName/PushData/FromInput");
+let CommonConfigFolder = require("../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/ColumnName/PushData/FromInput");
+// let CommonConfigFolderReturnDataJsonFile = require("../../../../../ConfigFolder/UserFolder/UserFileAsFolder/ReturnDataJsonFile/ItemName/ScreenName/PushData/FromInput");
 
-let CommonMockAllow = require("../../../../../../../../../MockAllow.json");
+let CommonMockAllow = require("../../../../../../../../../../MockAllow.json");
 let path = require("path");
 
-let StartFunc = ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK }) => {
+let StartFunc = ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK, NewColumnName }) => {
     let LocalFileName = inFileName;
     let LocalFileNameOnly = path.parse(LocalFileName).name;
 
@@ -13,28 +13,30 @@ let StartFunc = ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK 
         inFileNameOnly: LocalFileNameOnly,
         inItemName,
         inScreenName,
+        NewColumnName,
         inDataPK
     });
 
-    let localFromConfigReturnData = CommonConfigFolderReturnDataJsonFile.StartFuncNoSync({
-        inFolderName,
-        inFileNameOnly: LocalFileNameOnly,
-        inItemName,
-        inScreenName,
-        inDataPK
-    });
+    // let localFromConfigReturnData = CommonConfigFolderReturnDataJsonFile.StartFuncNoSync({
+    //     inFolderName,
+    //     inFileNameOnly: LocalFileNameOnly,
+    //     inItemName,
+    //     inScreenName,
+    //     inDataPK
+    // });
 
-    return [localFromConfig, localFromConfigReturnData];
+    return [localFromConfig];
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav81") {
+    if (CommonMockAllow.MockKey === "s1") {
         let LocalFrom = StartFunc({
-            inFolderName: "Masters",
-            inFileName: "Items.json",
-            inItemName: "ItemNames",
+            inFolderName: "SimpleQuestions",
+            inFileName: "OnUI.json",
+            inItemName: "AllowNumberOnly",
             inScreenName: "Create",
-            inDataPK: 416
+            NewColumnName:"ss",
+            inDataPK: 19
         });
 
         console.log("LocalFrom : ", LocalFrom);
