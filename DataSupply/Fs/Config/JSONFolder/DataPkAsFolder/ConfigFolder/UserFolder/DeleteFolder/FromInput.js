@@ -4,7 +4,7 @@ let CommongetDirectories = require("../getDirectories");
 let fs = require("fs-extra");
 let CommonMockAllow = require("../../../../../../../MockAllow.json");
 
-let StartFunc = ({ inFolderName, inDataPK }) => {
+let StartFunc = async ({ inFolderName, inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalFolderName = inFolderName;
 
@@ -21,22 +21,26 @@ let StartFunc = ({ inFolderName, inDataPK }) => {
         return LocalReturnData;
     };
 
-    let LocalFromCommongetDirectories = CommongetDirectories.AsObjects({ inFolderName, inDataPK });
+    let LocalFromCommongetDirectories = await CommongetDirectories.AsObjects({ inFolderName, inDataPK });
 
-    console.log("LocalFromCommongetDirectories : ", LocalFromCommongetDirectories);
-    
+    if (Object.keys(LocalFromCommongetDirectories) > 0) {
+        LocalReturnData.KReason = "Files are inside this folder!";
+        return await LocalReturnData;
+    };
+
     try {
-        // fs.mkdirSync(LocalReturnData.FolderPath, {
-        //     recursive: true
-        // });
+        fs.rm(LocalReturnData.FolderPath, {
+            recursive: true
+        });
 
         LocalReturnData.KTF = true;
-        LocalReturnData.KResult = "Created in Config";
-        LocalReturnData.ConfigFolderCreated = true;
+        LocalReturnData.KResult = "Deleted in Config";
+        LocalReturnData.ConfigFolderDeleted = true;
     } catch (error) {
         LocalReturnData.KReason = error;
     };
-    return LocalReturnData;
+
+    return await LocalReturnData;
 };
 
 if (CommonMockAllow.AllowMock) {

@@ -67,23 +67,10 @@ let AsObjects = async ({ inFolderName, inDataPK }) => {
     let LocalRemoveUndefined = result.filter(element => element !== undefined);
 
     LocalRemoveUndefined.forEach(element => {
-        //  console.log("element --------: ", element);
-
         LocalReturnObject[element.FileName] = element;
     });
 
     return await LocalReturnObject;
 };
-
-let LocalMockFunc = async () => {
-    let LocalData = await AsObjects({
-        inDataPK: 1022,
-        inFolderName: "Masters"
-    });
-
-    console.log('LocalData : ', LocalData);
-};
-
-// LocalMockFunc().then();
 
 module.exports = { AsObjects };
