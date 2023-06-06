@@ -1,19 +1,20 @@
 let CommonFromCheck = require("../Check");
 let CommonDisplayJsonFile = require("../DisplayJsonFile/CreateFile");
 let CommonReturnDataJsonFile = require("../ReturnDataJsonFile/CreateFile");
-
 let fs = require("fs-extra");
 let CommonMockAllow = require("../../../../../../../../MockAllow.json");
 
-let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
-    let LocalinDataPK = inDataPK;
-    let LocalFolderName = inFolderName;
+let StartFunc = ({ FolderName, NewFileName, DataPK }) => {
+
+    let LocalinDataPK = DataPK;
+    let LocalFolderName = FolderName;
+    let localFileName = NewFileName;
 
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
     let LocalFromCommonFromCheck = LocalCreateFolder({
         inDataPK: LocalinDataPK,
-        inFileNameOnly,
+        inFileNameOnly: localFileName,
         inFolderName: LocalFolderName
     });
 
@@ -22,13 +23,13 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     if (LocalFromCommonFromCheck.KTF) {
         CommonDisplayJsonFile.StartFunc({
             inDataPK: LocalinDataPK,
-            inFileNameOnly,
+            inFileNameOnly: localFileName,
             inFolderName: LocalFolderName
         });
 
         CommonReturnDataJsonFile.StartFunc({
             inDataPK: LocalinDataPK,
-            inFileNameOnly,
+            inFileNameOnly: localFileName,
             inFolderName: LocalFolderName
         });
     };
@@ -54,7 +55,7 @@ let LocalCreateFolder = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     if (LocalFromCommonFromCheck.KTF) {
         LocalReturnData.KTF = false;
         LocalReturnData.AlreadrPresent = true;
-        
+
 
         return LocalReturnData;
     };
@@ -73,10 +74,11 @@ let LocalCreateFolder = ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav61") {
+    if (CommonMockAllow.MockKey === "S") {
         let LocalFrom = StartFunc({
-            inFolderName: "Transactions",
-            inDataPK: 416
+            FolderName: "SimpleQuestions",
+            NewFileName: "WWW",
+            DataPK: 19
         });
 
         console.log("LocalFrom : ", LocalFrom);
