@@ -66,7 +66,7 @@
     "isDate": false,
     "isDropdown": false,
     "isToggle": false,
-    "ShowInTable": false,
+    "ShowInTable": true,
     "LocalStoageRefKey": "",
     "TextAlign": "Left",
     "ShowTotal": false,
