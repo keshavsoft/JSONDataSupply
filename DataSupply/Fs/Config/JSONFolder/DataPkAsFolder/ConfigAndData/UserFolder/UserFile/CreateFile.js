@@ -5,32 +5,33 @@ let CommonDataFolder = require("../../../DataFolder/UserFolder/UserJsonFile/Push
 let CommonMockAllow = require("../../../../../../../MockAllow.json");
 let path = require("path");
 
-let StartFunc = ({ inFolderName, inNewFileName, inDataPK }) => {
-    let LocalFileName = inNewFileName;
-    let LocalFileNameOnly = path.parse(LocalFileName).name;
+let StartFunc = ({ FolderName, NewFileName, DataPK }) => {
+    let LocalFolderName = FolderName;
+    let LocalFileNameOnly = path.parse(NewFileName).name;
+    let localDataPK = DataPK;
 
     let localFromConfig = CommonConfigFolder.StartFunc({
-        inFolderName,
-        inFileNameOnly: LocalFileNameOnly,
-        inDataPK
+        FolderName: LocalFolderName,
+        NewFileName: LocalFileNameOnly,
+        DataPK: localDataPK
     });
 
     let localFromData = CommonDataFolder.CreateFileWithData({
-        inFolderName,
+        inFolderName:LocalFolderName,
         inFileNameOnly: LocalFileNameOnly,
         inData: {},
-        inDataPK
+        inDataPK:localDataPK
     });
 
     return [localFromConfig, localFromData];
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav71") {
+    if (CommonMockAllow.MockKey === "S1") {
         let LocalFrom = StartFunc({
-            inFolderName: "Masters",
-            inFileName: "Items.json",
-            inDataPK: 416
+            FolderName: "SimpleQuestions",
+            NewFileName: "RRWWW",
+            DataPK: 19
         });
 
         console.log("LocalFrom : ", LocalFrom);
