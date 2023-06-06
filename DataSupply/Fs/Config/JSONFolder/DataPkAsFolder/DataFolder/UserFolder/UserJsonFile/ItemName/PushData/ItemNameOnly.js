@@ -19,6 +19,11 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) 
     LocalReturnData = { ...LocalFromCommonFromCheck };
     LocalReturnData.KTF = false;
 
+    
+    if (LocalFromCommonFromCheck.KTFFromRoot===false) {
+        return LocalReturnData;
+    };
+
     if (LocalFromCommonFromCheck.KTF) {
         return LocalReturnData;
     };
