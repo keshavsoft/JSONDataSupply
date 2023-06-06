@@ -6,8 +6,6 @@ let CommonSupplyJson = require("../../../../../../../../../../../../Fix/Json/Sup
 let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inNewColumnName }) => {
     let LocalinDataPK = inDataPK;
 
-    console.log("aaaaaaaaaaaa : ", inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inNewColumnName);
-
     let LocalFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -37,7 +35,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
 
     LocalNewColumn.DataAttribute = inNewColumnName;
     LocalNewColumn.DisplayName = inNewColumnName;
-
+    
     LocalNewData[LocalinItemName][LocalinScreenName].TableColumns.push(LocalNewColumn);
 
     LocalFromUpdate = CommonFromPushData.StartFuncNoSync({

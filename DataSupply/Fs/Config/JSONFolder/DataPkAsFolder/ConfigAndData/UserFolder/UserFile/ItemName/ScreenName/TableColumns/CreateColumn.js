@@ -5,7 +5,7 @@ let CommonMockAllow = require("../../../../../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK, inNewColumnName }) => {
     let LocalFileName = inFileName;
-    console.log("aaaaaaaaaaaa : ", inFolderName, inFileName, inItemName, inScreenName, inDataPK, inNewColumnName);
+    
     let localFromConfig = CommonConfigFolder.StartFunc({
         inFolderName,
         inFileNameOnly: LocalFileName,
