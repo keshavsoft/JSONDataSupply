@@ -41,27 +41,15 @@ let AsObject = async ({ inDataPK }) => {
         LocalReturnObject.Folders[element.FolderName] = element;
     });
 
-
-    // console.log("result : ", result);
     return await LocalReturnObject;
 };
 
-let LocalMockFunc = async () => {
-    let LocalData = await AsObject({ inDataPK: 20 });
-    //console.log("LocalData : ", LocalData);
-
-    console.log("LocalData : ", LocalData.Folders.Masters.Files.Items.Items.ItemName.Screens.Create);
-    console.log("LocalData : ", LocalData);
-
-};
-
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "KesahavMock") {
-
-        console.log("bbbbbbbbbbb");
+    if (CommonMockAllow.MockKey === "K71") {
+        AsObject({ inDataPK:CommonMockAllow.DataPK }).then(PromiseData => {
+            console.log("PromiseData : ", PromiseData);
+        });
     };
-
-
 };
 
 // LocalMockFunc().then();

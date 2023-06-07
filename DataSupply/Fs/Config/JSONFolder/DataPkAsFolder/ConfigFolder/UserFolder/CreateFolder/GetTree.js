@@ -1,36 +1,13 @@
-let CommonFromCheck = require("../Check");
-let CommongetDirectories = require("../getDirectories");
+let CommongetDirectories = require("../../getDirectories");
 
-let fs = require("fs-extra");
 let CommonMockAllow = require("../../../../../../../MockAllow.json");
 
-let StartFunc = async ({ inFolderName, inDataPK }) => {
+let StartFunc = async ({ inDataPK }) => {
     let LocalinDataPK = inDataPK;
-    let LocalFolderName = inFolderName;
 
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
-    let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
-        inDataPK: LocalinDataPK,
-        inFolderName: LocalFolderName
-    });
-    // console.log("jjjjj---:",LocalFromCommonFromCheck);
-
-    LocalReturnData = { ...LocalFromCommonFromCheck };
-
-    if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = "Folder not found..!";
-
-        return LocalReturnData;
-    };
-
-    let LocalFromCommongetDirectories = await CommongetDirectories.AsObjects({ inFolderName, inDataPK });
-    // console.log("llllll---:", LocalFromCommongetDirectories);
-
-    if (Object.keys(LocalFromCommongetDirectories) > 0) {
-        LocalReturnData.KReason = "Files are inside this folder!";
-        return await LocalReturnData;
-    };
+    let LocalFromCommongetDirectories = await CommongetDirectories.AsObject({ inDataPK: LocalinDataPK });
 
     LocalReturnData.JsonData = LocalFromCommongetDirectories;
     LocalReturnData.KTF = true;
@@ -39,13 +16,13 @@ let StartFunc = async ({ inFolderName, inDataPK }) => {
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav32") {
-        let LocalFrom = StartFunc({
+    if (CommonMockAllow.MockKey === "K712") {
+        StartFunc({
             inFolderName: "Transactions",
-            inDataPK: 416
+            inDataPK: CommonMockAllow.DataPK
+        }).then(PromiseData => {
+            console.log("PromiseData : ", PromiseData.JsonData.Folders);
         });
-
-        console.log("LocalFrom : ", LocalFrom);
     };
 };
 // localMockFunc();
