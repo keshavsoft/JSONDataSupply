@@ -46,15 +46,9 @@ let AsObject = async ({ inDataPK }) => {
 
 if (CommonMockAllow.AllowMock) {
     if (CommonMockAllow.MockKey === "K91") {
-        // let LocalFromStart = StartFunc({ inDataPK: CommonMockAllow.DataPK });
-        // console.log("LocalFromStart : ", LocalFromStart);
-
         AsObject({ inDataPK: CommonMockAllow.DataPK }).then(PromiseData => {
-
-            console.log("PromiseData : ", PromiseData);
-
+            console.log("PromiseData : ", PromiseData.Folders.Transactions);
         });
-
     };
 };
 

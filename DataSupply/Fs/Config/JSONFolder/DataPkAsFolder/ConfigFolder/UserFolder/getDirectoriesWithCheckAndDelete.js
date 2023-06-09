@@ -1,6 +1,7 @@
 let CommonFromUserFileAsFolder = require("./UserFileAsFolder/AsTreeWithCheckAndDelete");
 const fs = require("fs");
 let CommonFromCheck = require("./Check");
+let CommonMockAllow = require("../../../../../../MockAllow.json");
 
 let AsArray = async ({ inFolderName, inDataPK }) => {
     let LocalDataPK = inDataPK;

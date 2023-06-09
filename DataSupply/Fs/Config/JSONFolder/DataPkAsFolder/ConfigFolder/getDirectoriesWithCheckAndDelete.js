@@ -45,12 +45,11 @@ let AsObject = async ({ inDataPK }) => {
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "KesahavMock") {
-
-        console.log("bbbbbbbbbbb");
+    if (CommonMockAllow.MockKey === "K91") {
+        AsObject({ inDataPK: CommonMockAllow.DataPK }).then(PromiseData => {
+            console.log("PromiseData : ", PromiseData.Folders.Transactions);
+        });
     };
-
-
 };
 
 // LocalMockFunc().then();

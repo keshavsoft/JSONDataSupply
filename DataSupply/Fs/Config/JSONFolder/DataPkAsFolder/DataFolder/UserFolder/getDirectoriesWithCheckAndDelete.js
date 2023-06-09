@@ -42,7 +42,7 @@ let AsObjects = async ({ inFolderName, inDataPK }) => {
 
         if (LoopInsideFile.KTF) {
             return await {
-                FileName: file,
+                FileName: path.parse(file).name,
                 Items: LoopInsideFile.JsonData
             };
             //return await LoopInsideFile.JsonData;
