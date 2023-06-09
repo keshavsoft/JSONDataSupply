@@ -9,19 +9,20 @@ let LocalFixTableColumnForPk = ({ inTableColumnObject }) => {
     inTableColumnObject.CreateNew = false;
 };
 
-let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inScreenName }) => {
+let StartFuncNoSync = ({ DataPk, FolderName, FileName, ItemName, NewScreenName }) => {
     let LocalNewColumnObject = CommonSupplyJson.TableColumn();
     let LocalNewTableInfoObject = CommonSupplyJson.TableInfo();
-    let localinDataPK = inDataPK;
-    let localinFolderName = inFolderName;
-    let localinFileNameOnly = inFileNameOnly;
-    let localinItemName = inItemName;
+    let localinDataPK = DataPk;
+    let localinFolderName = FolderName;
+    let localinFileNameOnly = FileName;
+    let localinItemName = ItemName;
+    let localNewScreenName = NewScreenName;
 
     let LocalFromCheck = CommonCheck.StartFuncNoSync({
         inFolderName: localinFolderName,
         inFileNameOnly: localinFileNameOnly,
         inItemName: localinItemName,
-        inScreenName,
+        inScreenName: localNewScreenName,
         inDataPK: localinDataPK
     });
 
@@ -41,10 +42,10 @@ let StartFuncNoSync = ({ inDataPK, inFolderName, inFileNameOnly, inItemName, inS
 
     LocalFixTableColumnForPk({ inTableColumnObject: LocalNewColumnObject });
 
-    localNewJsonData[localinItemName][inScreenName] = {};
-    localNewJsonData[localinItemName][inScreenName].TableColumns = [];
-    localNewJsonData[localinItemName][inScreenName].TableInfo = LocalNewTableInfoObject;
-    localNewJsonData[localinItemName][inScreenName].TableColumns.push(LocalNewColumnObject);
+    localNewJsonData[localinItemName][localNewScreenName] = {};
+    localNewJsonData[localinItemName][localNewScreenName].TableColumns = [];
+    localNewJsonData[localinItemName][localNewScreenName].TableInfo = LocalNewTableInfoObject;
+    localNewJsonData[localinItemName][localNewScreenName].TableColumns.push(LocalNewColumnObject);
 
     let localpush = localPushDataJsonData.StartFuncNoSync({
         inFolderName: localinFolderName,
