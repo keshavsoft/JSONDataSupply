@@ -1,6 +1,7 @@
 let CommonFromUserFileAsFolder = require("./UserJsonFile/AsTreeWithCheckAndDelete");
 const fs = require("fs");
 let CommonFromCheck = require("./Check");
+let path = require("path");
 
 let AsArray = async ({ inFolderName, inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -35,7 +36,7 @@ let AsObjects = async ({ inFolderName, inDataPK }) => {
     const result = await Promise.all(LocalArray.map(async (file) => {
         let LoopInsideFile = await CommonFromUserFileAsFolder.AsObjects({
             inFolderName: LocalFolderName,
-            inFileNameOnly: file,
+            inFileNameOnly: path.parse(file).name,
             inDataPK: LocalDataPK
         });
 
