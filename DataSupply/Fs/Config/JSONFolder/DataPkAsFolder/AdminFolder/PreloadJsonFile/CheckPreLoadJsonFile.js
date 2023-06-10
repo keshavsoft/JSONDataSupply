@@ -3,7 +3,6 @@ let CommonFromCheck = require("../Check");
 
 let MockAllowFunc = require("../../../../../../MockAllow.json")
 
-
 let ForExistence = ({ DataPK }) => {
     let LocalinDataPK = DataPK;
     let LocalFileName = "Preload";
@@ -15,11 +14,9 @@ let ForExistence = ({ DataPK }) => {
     let LocalReturnData = { ...LocalFromCommonFromCheck };
     LocalReturnData.KTF = false;
 
-    LocalReturnData.DirPath = LocalFromCommonFromCheck.DirPath;
     LocalReturnData.PreloadJsonPath = `${LocalFromCommonFromCheck.DirPath}/${LocalFileName}.json`;
 
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
@@ -27,7 +24,7 @@ let ForExistence = ({ DataPK }) => {
         if (fs.statSync(LocalReturnData.PreloadJsonPath)) {
             LocalReturnData.KTF = true;
         } else {
-            // LocalReturnData.KReason = "File not found!";
+            LocalReturnData.KReason = "File not found!";
         }
     } catch (error) {
         LocalReturnData.KReason = "File not found!";
