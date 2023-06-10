@@ -31,12 +31,12 @@ let StartFunc = ({ FolderName, FileName, ItemName, NewScreenName, DataPK }) => {
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "K04") {
+    if (CommonMockAllow.MockKey === "K1616") {
         let LocalMockData = require("./CreateScreenMock.json");
 
         let LocalFrom = StartFunc({
             ...LocalMockData,
-            inDataPK: CommonMockAllow.DataPK
+            DataPK: CommonMockAllow.DataPK
         });
 
         console.log("LocalFrom : ", LocalFrom[0]);
