@@ -16,7 +16,7 @@ let ForExistence = ({ inDataPK }) => {
             LocalReturnData.KReason = "File not found!";
         }
     } catch (error) {
-        LocalReturnData.KReason = error;
+        LocalReturnData.KReason = "Admin folder not found!";
     };
 
     return LocalReturnData;
