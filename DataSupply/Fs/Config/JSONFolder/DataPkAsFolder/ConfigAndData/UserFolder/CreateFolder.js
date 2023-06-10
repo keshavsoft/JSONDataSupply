@@ -3,6 +3,7 @@ let CommonDataFolder = require("../../DataFolder/UserFolder/CreateFolder/FromInp
 let CommonMockAllow = require("../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inDataPK }) => {
+    // return "From DAL";
     let localFromConfig = CommonConfigFolder.StartFunc({
         inFolderName,
         inDataPK
@@ -17,6 +18,8 @@ let StartFunc = ({ inFolderName, inDataPK }) => {
 };
 
 if (CommonMockAllow.AllowMock) {
+    return "From DAL";
+
     if (CommonMockAllow.MockKey === "Keshav34") {
         let LocalFrom = StartFunc({
             inFolderName: "Masters",
