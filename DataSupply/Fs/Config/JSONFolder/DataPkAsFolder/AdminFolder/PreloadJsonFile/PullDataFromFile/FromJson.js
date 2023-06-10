@@ -22,9 +22,6 @@ let StartFunc = ({ DataPK }) => {
 
     LocalReturnData.FolderdPath = `${LocalFromCommonFromCheck.DirPath}/${LocalFileName}.json`;
 
-    console.log("LocalReturnData", LocalReturnData);
-
-
     try {
         let rawdata = fs.readFileSync(LocalReturnData.FolderdPath);
         LocalReturnData.JsonData = JSON.parse(rawdata);
