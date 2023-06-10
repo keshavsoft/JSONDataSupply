@@ -3,23 +3,28 @@ let CommonConfigFolderReturnDataJsonFile = require("../../../../../ConfigFolder/
 
 let CommonMockAllow = require("../../../../../../../../../MockAllow.json");
 
-let StartFunc = ({ FolderName, FileName, ItemName, NewScreenName, inDataPK }) => {
-    let LocalFileName = FileName;
+let StartFunc = ({ FolderName, FileName, ItemName, NewScreenName, DataPK }) => {
+    let LocalFolderName = FolderName;
+    let LocalFile = FileName;
+    let LocalItemName = ItemName;
+    let LocalNewScreenName = NewScreenName;
+    let LocalDataPK = DataPK;
+
 
     let localFromConfig = CommonConfigFolder.StartFuncNoSync({
-        inFolderName: FolderName,
-        inFileNameOnly: LocalFileName,
-        inItemName: ItemName,
-        inScreenName: NewScreenName,
-        inDataPK
+        FolderName: LocalFolderName,
+        FileName: LocalFile,
+        ItemName: LocalItemName,
+        NewScreenName: LocalNewScreenName,
+        DataPk: LocalDataPK
     });
 
     let localFromConfigReturnData = CommonConfigFolderReturnDataJsonFile.StartFuncNoSync({
-        inFolderName: FolderName,
-        inFileNameOnly: LocalFileName,
-        inItemName: ItemName,
-        inScreenName: NewScreenName,
-        inDataPK
+        inFolderName: LocalFolderName,
+        inFileNameOnly: LocalFile,
+        inItemName: LocalItemName,
+        inScreenName: LocalNewScreenName,
+        inDataPK: LocalDataPK
     });
 
     return [localFromConfig, localFromConfigReturnData];
