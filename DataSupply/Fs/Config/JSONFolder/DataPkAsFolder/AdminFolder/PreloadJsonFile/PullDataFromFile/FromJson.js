@@ -1,24 +1,32 @@
 let fs = require("fs");
 let CommonFromCheck = require("../../Check");
 
+let MockAllowFunc = require("../../../../../../../MockAllow.json")
+
 let StartFunc = ({ DataPK }) => {
     let LocalinDataPK = DataPK;
-    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+    let LocalReturnData;
+    let LocalFileName = "Preload";
 
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
         inDataPK: LocalinDataPK
     });
-    console.log("LocalFromCommonFromCheck:",LocalFromCommonFromCheck);
 
     if (LocalFromCommonFromCheck.KTF === false) {
         LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
-    LocalReturnData.FirmDetailsPath = LocalFromCommonFromCheck.DirPath;
+    LocalReturnData = { ...LocalFromCommonFromCheck };
+    LocalReturnData.KTF = false;
+
+    LocalReturnData.FolderdPath = `${LocalFromCommonFromCheck.DirPath}/${LocalFileName}.json`;
+
+    console.log("LocalReturnData", LocalReturnData);
+
 
     try {
-        let rawdata = fs.readFileSync(LocalReturnData.FirmDetailsPath);
+        let rawdata = fs.readFileSync(LocalReturnData.FolderdPath);
         LocalReturnData.JsonData = JSON.parse(rawdata);
         LocalReturnData.KTF = true;
     } catch (error) {
@@ -28,11 +36,12 @@ let StartFunc = ({ DataPK }) => {
     return LocalReturnData;
 };
 
-let LocalMockFroStartFunc = async () => {
-    let result = await StartFunc({ DataPK: 2023 });
-    console.log("result : ", result);
+if (MockAllowFunc.AllowMock) {
+    if (MockAllowFunc.MockKey === "S1") {
+        let result = StartFunc({ DataPK: 2023 });
+        console.log("result : ", result);
+    };
 };
 
-LocalMockFroStartFunc().then();
 
 module.exports = { StartFunc };
