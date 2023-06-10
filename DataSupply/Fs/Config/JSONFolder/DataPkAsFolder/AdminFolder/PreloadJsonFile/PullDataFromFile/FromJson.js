@@ -22,9 +22,6 @@ let StartFunc = ({ DataPK }) => {
 
     LocalReturnData.FolderdPath = `${LocalFromCommonFromCheck.DirPath}/${LocalFileName}.json`;
 
-    console.log("LocalReturnData", LocalReturnData);
-
-
     try {
         let rawdata = fs.readFileSync(LocalReturnData.FolderdPath);
         LocalReturnData.JsonData = JSON.parse(rawdata);
@@ -37,8 +34,8 @@ let StartFunc = ({ DataPK }) => {
 };
 
 if (MockAllowFunc.AllowMock) {
-    if (MockAllowFunc.MockKey === "S1") {
-        let result = StartFunc({ DataPK: 2023 });
+    if (MockAllowFunc.MockKey === "K1024") {
+        let result = StartFunc({ DataPK: 1024 });
         console.log("result : ", result);
     };
 };
