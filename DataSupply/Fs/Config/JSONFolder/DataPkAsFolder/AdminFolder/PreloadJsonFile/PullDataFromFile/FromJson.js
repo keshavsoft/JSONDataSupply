@@ -38,7 +38,7 @@ let StartFunc = ({ DataPK }) => {
 
 if (MockAllowFunc.AllowMock) {
     if (MockAllowFunc.MockKey === "S1") {
-        let result = StartFunc({ DataPK: 2023 });
+        let result = StartFunc({ DataPK: MockAllowFunc.DataPK });
         console.log("result : ", result);
     };
 };
