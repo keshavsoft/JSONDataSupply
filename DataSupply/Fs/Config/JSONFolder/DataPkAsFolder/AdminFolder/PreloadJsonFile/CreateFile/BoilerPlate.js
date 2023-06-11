@@ -1,29 +1,27 @@
 let fs = require("fs");
-let CommonFromCheck = require("../Check");
+let CommonFromCheck = require("../CheckPreLoadJsonFile");
 
-let MockAllowFunc = require("../../../../../../MockAllow.json")
+let MockAllowFunc = require("../../../../../../../MockAllow.json");
 
 let ForExistence = ({ DataPK }) => {
     let LocalinDataPK = DataPK;
-    let LocalFileName = "Preload";
 
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
-        inDataPK: LocalinDataPK
+        DataPK: LocalinDataPK
     });
 
     let LocalReturnData = { ...LocalFromCommonFromCheck };
     LocalReturnData.KTF = false;
 
-    LocalReturnData.PreloadJsonPath = `${LocalFromCommonFromCheck.DirPath}/${LocalFileName}.json`;
-
-    if (LocalFromCommonFromCheck.KTF === false) {
+    if (LocalFromCommonFromCheck.KTF) {
+        LocalReturnData = "File already present!";
         return LocalReturnData;
     };
 
     try {
-        fs.statSync(LocalReturnData.PreloadJsonPath);
-
+        fs.writeFileSync(LocalReturnData.PreloadJsonPath, JSON.stringify({}));
         LocalReturnData.KTF = true;
+        LocalReturnData.PreloadJsonCreated = true;
     } catch (error) {
         LocalReturnData.KReason = "File not found!";
     };
@@ -32,7 +30,7 @@ let ForExistence = ({ DataPK }) => {
 };
 
 if (MockAllowFunc.AllowMock) {
-    if (MockAllowFunc.MockKey === "K12") {
+    if (MockAllowFunc.MockKey === "K11") {
         let result = ForExistence({ DataPK: MockAllowFunc.DataPK });
         console.log("result : ", result);
     };

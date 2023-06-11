@@ -10,11 +10,8 @@ let ForExistence = ({ inDataPK }) => {
     LocalReturnData.DirPath = `${GlobalDataPath}/${LocalinDataPK}/${LocalFolderName}`
 
     try {
-        if (fs.statSync(LocalReturnData.DirPath).isDirectory()) {
-            LocalReturnData.KTF = true;
-        } else {
-            LocalReturnData.KReason = "File not found!";
-        }
+        fs.statSync(LocalReturnData.DirPath).isDirectory();
+        LocalReturnData.KTF = true;
     } catch (error) {
         LocalReturnData.KReason = "Admin folder not found!";
     };
