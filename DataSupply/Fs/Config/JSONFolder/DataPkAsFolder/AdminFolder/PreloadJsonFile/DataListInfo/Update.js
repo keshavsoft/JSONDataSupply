@@ -1,11 +1,11 @@
-let CommonCheckConfig = require("./CheckJsonConfig");
+let CommonCheck = require("./CheckDataListInfo");
 let CommonPullDataFromFile = require("../PullDataFromFile/FromJson");
 let CommonPushDataToFile = require("../PushDataToFile/ToJson");
 
 let MockAllowFunc = require("../../../../../../../MockAllow.json")
 
 let StartFunc = ({ DataPK, KeyName, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ UserFolderName, inFolderName, inJsonFileName }) => ({ UserFolderName, inFolderName, inJsonFileName }))(BodyAsJson);
+    const LocalDataToUpdate = (({ DatalistID }) => ({ DatalistID }))(BodyAsJson);
 
     let LocalinDataPK = DataPK;
     let LocalKeyName = KeyName;
@@ -21,16 +21,14 @@ let StartFunc = ({ DataPK, KeyName, BodyAsJson }) => {
         return LocalReturnData;
     };
 
-    let localCommonCheckConfig = CommonCheckConfig.StartFunc({ DataPK: LocalinDataPK, KeyName: LocalKeyName });
+    let localCommonCheckConfig = CommonCheck.StartFunc({ DataPK: LocalinDataPK, KeyName: LocalKeyName });
 
     if ((localCommonCheckConfig.KTF) === false) {
         LocalReturnData.KReason = localCommonCheckConfig.KReason;
         return LocalReturnData;
     };
 
-    LocalReturnData.JsonData[LocalKeyName].JsonConfig.UserFolderName = LocalDataToUpdate.UserFolderName;
-    LocalReturnData.JsonData[LocalKeyName].JsonConfig.inFolderName = LocalDataToUpdate.inFolderName;
-    LocalReturnData.JsonData[LocalKeyName].JsonConfig.inJsonFileName = LocalDataToUpdate.inJsonFileName;
+    LocalReturnData.JsonData[LocalKeyName].DataListInfo.DatalistID = LocalDataToUpdate.DatalistID;
 
     let LocalFromUpdate = CommonPushDataToFile.StartFunc({
         DataPK: LocalinDataPK,
@@ -46,14 +44,12 @@ let StartFunc = ({ DataPK, KeyName, BodyAsJson }) => {
 };
 
 if (MockAllowFunc.AllowMock) {
-    if (MockAllowFunc.MockKey === "SV1") {
+    if (MockAllowFunc.MockKey === "SV5") {
         let result = StartFunc({
             DataPK: MockAllowFunc.DataPK,
             KeyName: "Masters-Accounts",
             BodyAsJson: {
-                UserFolderName: "SSS",
-                inFolderName: "SRee",
-                inJsonFileName: "skv.json"
+                DatalistID: "SSS"
             }
         });
         console.log("result : ", result);
