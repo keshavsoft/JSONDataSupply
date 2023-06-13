@@ -18,7 +18,7 @@ let StartFunc = ({ DataPK, KeyName }) => {
         return LocalReturnData;
     };
 
-    LocalReturnData.JsonData = LocalReturnData.JsonData[LocalKeyName];
+    // LocalReturnData.JsonData = LocalReturnData.JsonData[LocalKeyName];
 
     LocalReturnData.KTF = true;
 

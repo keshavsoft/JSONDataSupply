@@ -1,4 +1,3 @@
-let CommonFromJson = require("../../PullDataFromFile/FromJson");
 let CommonPushDataToFile = require("../../PushDataToFile/ToJson");
 let CommonCheckKey = require("../PullData/FromKeys");
 
@@ -21,22 +20,13 @@ let StartFunc = ({ DataPK, fromKeyName, inNewKeyName }) => {
         return LocalReturnData;
     };
 
-    let LocalFromCommonFromJson = CommonFromJson.StartFunc({
-        DataPK: LocalinDataPK
-    });
+    LocalReturnData = LocalFromCommonCheckKey.JsonData;
 
-    if ((LocalFromCommonFromJson.KTF === false)) {
-        LocalReturnData.KReason = LocalFromCommonFromJson.KReason
-        return LocalReturnData;
-    };
-
-    LocalReturnData = LocalFromCommonFromJson.JsonData;
-
-    LocalReturnData[inNewKeyName] = LocalFromCommonFromJson.JsonData[LocalfromKeyName];
+    LocalReturnData[inNewKeyName] = LocalFromCommonCheckKey.JsonData[LocalfromKeyName];
 
     let localupdata = CommonPushDataToFile.StartFunc({
         DataPK: LocalinDataPK,
-        inOriginalData: LocalFromCommonFromJson.JsonData,
+        inOriginalData: LocalFromCommonCheckKey.JsonData,
         inDataToUpdate: LocalReturnData
     });
     if (localupdata.KTF) {
@@ -47,7 +37,7 @@ let StartFunc = ({ DataPK, fromKeyName, inNewKeyName }) => {
 };
 
 if (MockAllowFunc.AllowMock) {
-    if (MockAllowFunc.MockKey === "S9") {
+    if (MockAllowFunc.MockKey === "K13") {
         let result = StartFunc({
             DataPK: MockAllowFunc.DataPK,
             fromKeyName: "Masters-Accounts",
@@ -56,6 +46,5 @@ if (MockAllowFunc.AllowMock) {
         console.log("result : ", result);
     };
 };
-
 
 module.exports = { StartFunc };
