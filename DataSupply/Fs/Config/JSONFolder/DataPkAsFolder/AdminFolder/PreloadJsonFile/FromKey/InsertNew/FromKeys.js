@@ -1,45 +1,36 @@
-let CommonCheckPreLoadJsonFile = require("../../CheckPreLoadJsonFile");
+let CommonCheckKey = require("../CheckKey");
 let commomTemplate = require("../../../../../../../../Fix/Adimin/PreloadJsonFile/Template.json")
 let CommonPushDataToFile = require("../../PushDataToFile/ToJson");
-let MockAllowFunc = require("../../../../../../../../MockAllow.json")
+let MockAllowFunc = require("../../../../../../../../MockAllow.json");
 
 let StartFunc = ({ DataPK, inNewKeyName }) => {
     let LocalinDataPK = DataPK;
     let LocalinNewKeyName = inNewKeyName;
     let localcommomTemplate = commomTemplate;
 
-    console.log("localcommomTemplate:",localcommomTemplate);
 
-    let LocalFromPreLoadJsonFile = CommonCheckPreLoadJsonFile.ForExistence({
-        DataPK: LocalinDataPK
+    let LocalPullDataFromFile = CommonCheckKey.StartFunc({
+        DataPK: LocalinDataPK,
+        KeyName: LocalinNewKeyName
     });
 
-    let LocalReturnData = { ...LocalFromPreLoadJsonFile };
+    let LocalReturnData = { ...LocalPullDataFromFile };
     LocalReturnData.KTF = false;
 
-    if ((LocalFromPreLoadJsonFile.KTF) === false) {
-
+    if (LocalPullDataFromFile.KTF) {
+        LocalReturnData.KReason = `Key : ${LocalinNewKeyName} already found in PreloadJsonPath!`
         return LocalReturnData;
     };
+    LocalReturnData.JsonData[LocalinNewKeyName] = localcommomTemplate;
 
-
-    LocalReturnData.CreatedLog = LocalinNewKeyName;
-    LocalReturnData.CreatedLog[LocalinNewKeyName] = {};
-
-    LocalReturnData.CreatedLog[LocalinNewKeyName][localcommomTemplate]
-    console.log("LocalReturnData:", LocalReturnData);
-
-
-    // LocalReturnData[inNewKeyName] = LocalFromCommonCheckKey.JsonData[LocalfromKeyName];
-
-    // let localupdata = CommonPushDataToFile.StartFunc({
-    //     DataPK: LocalinDataPK,
-    //     inOriginalData: LocalFromCommonCheckKey.JsonData,
-    //     inDataToUpdate: LocalReturnData
-    // });
-    // if (localupdata.KTF) {
-    //     LocalReturnData.KTF = true;
-    // };
+    let localupdata = CommonPushDataToFile.StartFunc({
+        DataPK: LocalinDataPK,
+        inOriginalData: LocalPullDataFromFile.JsonData,
+        inDataToUpdate: LocalReturnData.JsonData
+    });
+    if (localupdata.KTF) {
+        LocalReturnData.KTF = true;
+    };
 
     return LocalReturnData;
 };
