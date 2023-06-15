@@ -1,5 +1,5 @@
 {
-    "AllowMock": false,
- "MockKey": "---",
+    "AllowMock": true,
+ "MockKey": "Jatin15",
     "DataPK": 316
 }

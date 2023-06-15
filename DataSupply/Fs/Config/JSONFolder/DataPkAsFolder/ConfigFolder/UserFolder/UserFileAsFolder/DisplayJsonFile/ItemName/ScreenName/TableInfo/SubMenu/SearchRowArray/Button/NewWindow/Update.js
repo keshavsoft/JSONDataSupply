@@ -1,8 +1,9 @@
 let CommonPullDataFromConfig = require("../../../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../../../PushData/FromFoldFile");
 
-let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAsJson }) => {
+let CommonMockAllow = require("../../../../../../../../../../../../../../../MockAllow.json");
 
+let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAsJson }) => {
     const LocalDataToUpdate = (({ KTF, SvgPlus, ColClass, SvgPlusLarge, NewWindow, Table }) => ({ KTF, SvgPlus, ColClass, SvgPlusLarge, NewWindow, Table }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
@@ -49,16 +50,18 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAs
     return await LocalReturnObject;
 };
 
-// UpdateKeys({
-//     DataPK: 16, folderName: "Masters", FileName: "Customers.json", ItemName: "CustomersName", ScreenName: "Create",
-//     DataAttribute: "pk",
-//     BodyAsJson: {
-//         DisplayName: "ppppppppppp"
-//     }
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+if (CommonMockAllow.AllowMock) {
+    if (CommonMockAllow.MockKey === "Jatin15") {
+        let LocalMockData = require("./Update.json");
 
+        Update({
+            ...LocalMockData,
+            DataPK: CommonMockAllow.DataPK
+        }).then(PromiseData => {
+            console.log("PromiseData", PromiseData);
+        });
+    };
+};
 
 module.exports = {
     Update
