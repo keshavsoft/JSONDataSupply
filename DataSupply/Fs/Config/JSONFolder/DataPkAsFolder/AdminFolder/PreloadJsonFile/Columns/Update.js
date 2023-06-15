@@ -4,14 +4,54 @@ let CommonPushDataToFile = require("../PushDataToFile/ToJson");
 
 let MockAllowFunc = require("../../../../../../../MockAllow.json")
 
-let StartFunc = ({ DataPK, KeyName, BodyAsJson }) => {
+let StartFunc = ({ DataPK, KeyName, inArrayAsString }) => {
+    // const LocalDataToUpdate = (({ AccountName, pk }) => ({ AccountName, pk }))(BodyAsJson);
+
+    let LocalinDataPK = DataPK;
+    let LocalKeyName = KeyName;
+    let LocalArraytoInsert = inArrayAsString.split(",");
+
+    let LocalFromCommonFromCheck = CommonPullDataFromFile.StartFunc({
+        DataPK: LocalinDataPK
+    });
+
+    let LocalReturnData = { ...LocalFromCommonFromCheck };
+    LocalReturnData.KTF = false;
+
+    if (LocalFromCommonFromCheck.KTF === false) {
+        return LocalReturnData;
+    };
+
+    let localCommonCheckConfig = CommonCheckColumn.StartFunc({ DataPK: LocalinDataPK, KeyName: LocalKeyName });
+
+    if ((localCommonCheckConfig.KTF) === false) {
+        LocalReturnData.KReason = localCommonCheckConfig.KReason;
+        return LocalReturnData;
+    };
+
+    // LocalReturnData.JsonData[LocalKeyName].Columns.push(localBodyAsJson);
+    LocalReturnData.JsonData[LocalKeyName].Columns = LocalArraytoInsert;
+
+    let LocalFromUpdate = CommonPushDataToFile.StartFunc({
+        DataPK: LocalinDataPK,
+        inOriginalData: LocalFromCommonFromCheck.JsonData,
+        inDataToUpdate: LocalReturnData.JsonData
+    });
+    if (LocalFromUpdate.KTF) {
+        LocalReturnData.KTF = true;
+    };
+
+
+    return LocalReturnData;
+};
+
+let StartFunc_keshav_15Jun2023 = ({ DataPK, KeyName, BodyAsJson }) => {
     // const LocalDataToUpdate = (({ AccountName, pk }) => ({ AccountName, pk }))(BodyAsJson);
 
     let LocalinDataPK = DataPK;
     let LocalKeyName = KeyName;
     let localBodyAsJson = BodyAsJson;
     const propertyNames = Object.values(localBodyAsJson);
-
 
     let LocalFromCommonFromCheck = CommonPullDataFromFile.StartFunc({
         DataPK: LocalinDataPK
@@ -48,18 +88,18 @@ let StartFunc = ({ DataPK, KeyName, BodyAsJson }) => {
 };
 
 if (MockAllowFunc.AllowMock) {
-    if (MockAllowFunc.MockKey === "SV3") {
+    if (MockAllowFunc.MockKey === "Jatin15") {
+        let LockMockData = require("./Update.json");
+
         let result = StartFunc({
             DataPK: MockAllowFunc.DataPK,
-            KeyName: "Masters-Accounts",
-            BodyAsJson: {
-                AccountName: "SSS",
-                pk: "SRee"
-            }
+            ...LockMockData
         });
-        console.log("result : ", result);
+
+        console.log("result : ", result.JsonData['Masters-Items'].Columns);
+        console.log("22222 : ", result.JsonData['Masters-Items'].Columns.toString());
+
     };
 };
-
 
 module.exports = { StartFunc };
