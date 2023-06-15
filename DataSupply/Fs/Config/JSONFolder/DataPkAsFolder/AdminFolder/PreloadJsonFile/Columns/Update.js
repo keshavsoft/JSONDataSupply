@@ -5,10 +5,13 @@ let CommonPushDataToFile = require("../PushDataToFile/ToJson");
 let MockAllowFunc = require("../../../../../../../MockAllow.json")
 
 let StartFunc = ({ DataPK, KeyName, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ AccountName, pk }) => ({ AccountName, pk }))(BodyAsJson);
+    // const LocalDataToUpdate = (({ AccountName, pk }) => ({ AccountName, pk }))(BodyAsJson);
 
     let LocalinDataPK = DataPK;
     let LocalKeyName = KeyName;
+    let localBodyAsJson = BodyAsJson;
+    const propertyNames = Object.values(localBodyAsJson);
+
 
     let LocalFromCommonFromCheck = CommonPullDataFromFile.StartFunc({
         DataPK: LocalinDataPK
@@ -28,8 +31,8 @@ let StartFunc = ({ DataPK, KeyName, BodyAsJson }) => {
         return LocalReturnData;
     };
 
-    LocalReturnData.JsonData[LocalKeyName].Columns[0] = LocalDataToUpdate.AccountName;
-    LocalReturnData.JsonData[LocalKeyName].Columns[1] = LocalDataToUpdate.pk;
+    // LocalReturnData.JsonData[LocalKeyName].Columns.push(localBodyAsJson);
+    LocalReturnData.JsonData[LocalKeyName].Columns = propertyNames;
 
     let LocalFromUpdate = CommonPushDataToFile.StartFunc({
         DataPK: LocalinDataPK,
