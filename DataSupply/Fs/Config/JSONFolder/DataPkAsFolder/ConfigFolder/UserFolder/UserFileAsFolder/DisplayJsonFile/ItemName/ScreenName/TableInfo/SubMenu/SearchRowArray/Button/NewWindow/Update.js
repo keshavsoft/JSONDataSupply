@@ -44,7 +44,7 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAs
             inFileNameWithExtension: FileName,
             inDataPK: LocalinDataPK,
             inDataToUpdate: LocalNewData,
-            inOriginalData: LocalFromPullData.JsonData
+            inOriginalData: LocalFromCheck.JsonData
         });
 
         if (LocalFromUpdate.KTF) {
