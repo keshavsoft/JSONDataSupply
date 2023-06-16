@@ -5,11 +5,11 @@ let CommonPushDataToFile = require("../PushDataToFile/ToJson");
 let MockAllowFunc = require("../../../../../../../MockAllow.json")
 
 let StartFunc = ({ DataPK, KeyName, inArrayAsString }) => {
-    // const LocalDataToUpdate = (({ AccountName, pk }) => ({ AccountName, pk }))(BodyAsJson);
 
     let LocalinDataPK = DataPK;
     let LocalKeyName = KeyName;
-    let LocalArraytoInsert = inArrayAsString.split(",");
+    let localinArrayAsString = inArrayAsString.Columns;
+    let LocalArraytoInsert = localinArrayAsString.split(",");
 
     let LocalFromCommonFromCheck = CommonPullDataFromFile.StartFunc({
         DataPK: LocalinDataPK
@@ -88,7 +88,7 @@ let StartFunc_keshav_15Jun2023 = ({ DataPK, KeyName, BodyAsJson }) => {
 };
 
 if (MockAllowFunc.AllowMock) {
-    if (MockAllowFunc.MockKey === "Jatin15") {
+    if (MockAllowFunc.MockKey === "SV1") {
         let LockMockData = require("./Update.json");
 
         let result = StartFunc({
