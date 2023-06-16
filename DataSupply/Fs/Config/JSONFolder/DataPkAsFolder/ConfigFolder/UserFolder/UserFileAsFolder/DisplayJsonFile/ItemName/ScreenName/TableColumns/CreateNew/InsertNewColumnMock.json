@@ -1,8 +1,9 @@
 {
-    "inFolderName": "Masters",
-    "inFileNameOnly": "Items",
-    "inItemName": "ItemNames",
-    "inScreenName": "Create",
-    "inDataPK": 316,
-    "inNewColumnName": "Rate"
+    "FolderName": "Transactions",
+    "FileName": "GST-SALES",
+    "ItemName": "GST-SALE",
+    "ScreenName": "Create",
+    "DataPK": 2023,
+    "NewColumnName": "vaasu"
 }
+

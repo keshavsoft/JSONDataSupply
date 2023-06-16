@@ -3,13 +3,14 @@ let CommonCheckTableColumns = require("./CheckNewColumn");
 let CommonMockAllow = require("../../../../../../../../../../../../MockAllow.json");
 let CommonSupplyJson = require("../../../../../../../../../../../../Fix/Json/SupplyJson");
 
-let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inNewColumnName }) => {
-    let LocalinDataPK = inDataPK;
+let StartFunc = ({ FolderName, FileName, ItemName, ScreenName, DataPK, NewColumnName }) => {
+    let LocalinDataPK = DataPK;
 
-    let LocalFolderName = inFolderName;
-    let LocalinFileNameOnly = inFileNameOnly;
-    let LocalinItemName = inItemName;
-    let LocalinScreenName = inScreenName;
+    let LocalFolderName = FolderName;
+    let LocalinFileNameOnly = FileName;
+    let LocalinItemName = ItemName;
+    let LocalinScreenName = ScreenName;
+    let LocalNewColumnName = NewColumnName;
 
     let LocalReturnObject = { KTF: false, KReason: "" };
 
@@ -19,7 +20,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
         inItemName: LocalinItemName,
         inScreenName: LocalinScreenName,
         inDataPK: LocalinDataPK,
-        inNewColumnName
+        inNewColumnName: LocalNewColumnName
     });
 
     LocalReturnObject = { ...LocalFromCheck };
@@ -33,9 +34,9 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
     let LocalNewData = JSON.parse(JSON.stringify(LocalFromCheck.JsonData));
     let LocalNewColumn = CommonSupplyJson.TableColumn();
 
-    LocalNewColumn.DataAttribute = inNewColumnName;
-    LocalNewColumn.DisplayName = inNewColumnName;
-    
+    LocalNewColumn.DataAttribute = LocalNewColumnName;
+    LocalNewColumn.DisplayName = LocalNewColumnName;
+
     LocalNewData[LocalinItemName][LocalinScreenName].TableColumns.push(LocalNewColumn);
 
     LocalFromUpdate = CommonFromPushData.StartFuncNoSync({
@@ -54,7 +55,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey = "K5") {
+    if (CommonMockAllow.MockKey = "SSV1") {
         let LocalMockData = require("./InsertNewColumnMock.json");
         let LocalFromStart = StartFunc(LocalMockData);
         console.log("-------- : ", LocalFromStart);
