@@ -5,14 +5,14 @@ let CommonMockAllow = require("../../../../../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK, inNewColumnName }) => {
     let LocalFileName = inFileName;
-    
+
     let localFromConfig = CommonConfigFolder.StartFunc({
-        inFolderName,
-        inFileNameOnly: LocalFileName,
-        inItemName,
-        inScreenName,
-        inNewColumnName,
-        inDataPK
+        FolderName: inFolderName,
+        FileName: LocalFileName,
+        ItemName: inItemName,
+        ScreenName: inScreenName,
+        NewColumnName: inNewColumnName,
+        DataPK: inDataPK
     });
 
     return [localFromConfig];
