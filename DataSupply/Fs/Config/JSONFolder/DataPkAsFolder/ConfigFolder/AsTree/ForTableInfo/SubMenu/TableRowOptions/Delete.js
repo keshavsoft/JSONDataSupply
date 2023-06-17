@@ -78,7 +78,11 @@ let AsObject = async ({ inDataPK }) => {
                                     delete ValueForScreens.SubTableInfo;
                                     delete ValueForScreens.TableColumnsObject;
                                     delete ValueForScreens.ReturnDataJsonContent;
-                                   
+                                    let LoopInsideTableRowOptions = ValueForScreens.TableInfo.TableRowOptions.Delete;
+
+                                    ValueForScreens.TableInfo = {};
+                                    ValueForScreens.TableInfo.TableRowOptions = {};
+                                    ValueForScreens.TableInfo.TableRowOptions.Delete = LoopInsideTableRowOptions;
                                     // delete ValueForScreens.TableInfo;
                                 }
                             );
@@ -98,7 +102,7 @@ if (CommonMockAllow.AllowMock) {
         AsObject({
             inDataPK: CommonMockAllow.DataPK
         }).then(FromPromise => {
-            console.log("FromPromise : ", FromPromise);
+            console.log("FromPromise : ", FromPromise.Folders.Trans.Files.PAYMENTS.Items["BANK-CASH-DEPOSITS"].Screens.Show.TableInfo.TableRowOptions);
         });
     };
 };
