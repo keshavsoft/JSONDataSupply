@@ -66,8 +66,6 @@ let AsObject = async ({ inDataPK }) => {
 
     let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
 
-    CommonDeleteWithNoChildCheck.StartFunc({ inData: LocalFromCommon });
-
     Object.entries(LocalFromCommon.Folders).forEach(
         ([KeyForFolder, ValueForFolder]) => {
             Object.entries(ValueForFolder.Files).forEach(
@@ -96,7 +94,7 @@ let AsObject = async ({ inDataPK }) => {
 
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav5") {
+    if (CommonMockAllow.MockKey === "TABLE") {
         AsObject({
             inDataPK: CommonMockAllow.DataPK
         }).then(FromPromise => {
