@@ -1,0 +1,14 @@
+{
+    "Firm": {
+        "FirmName": "",
+        "FromDate": "01-04-2021",
+        "ToDate": "31-03-2022",
+        "Config": {
+            "Ui": {
+                "Login": {
+                    "RedirectPage": "/JSONApi/Html/UserData/Menu/AsCards/Files.html"
+                }
+            }
+        }
+    }
+}
