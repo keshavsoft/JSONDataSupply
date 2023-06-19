@@ -3,6 +3,8 @@ let commomTemplate = require("../../../../../../../../Fix/Adimin/PreloadJsonFile
 let CommonPushDataToFile = require("../../PushDataToFile/ToJson");
 let MockAllowFunc = require("../../../../../../../../MockAllow.json");
 
+let CommonCreatefile = require("../../CreateFile/BoilerPlate");
+
 let StartFunc = ({ DataPK, inNewKeyName }) => {
     let LocalinDataPK = DataPK;
     let LocalinNewKeyName = inNewKeyName;
@@ -13,19 +15,28 @@ let StartFunc = ({ DataPK, inNewKeyName }) => {
         DataPK: LocalinDataPK,
         KeyName: LocalinNewKeyName
     });
+    if ((LocalPullDataFromFile.KTF) === false) {
+        CommonCreatefile.ForExistence({ DataPK: LocalinDataPK });
+    };
 
-    let LocalReturnData = { ...LocalPullDataFromFile };
+    let localpulldata = CommonCheckKey.StartFunc({
+        DataPK: LocalinDataPK,
+        KeyName: LocalinNewKeyName
+    });
+
+    let LocalReturnData = { ...localpulldata };
     LocalReturnData.KTF = false;
 
-    if (LocalPullDataFromFile.KTF) {
+    if (localpulldata.KTF) {
         LocalReturnData.KReason = `Key : ${LocalinNewKeyName} already found in PreloadJsonPath!`
         return LocalReturnData;
     };
+    console.log("LocalReturnData.JsonData:", LocalReturnData.JsonData);
     LocalReturnData.JsonData[LocalinNewKeyName] = localcommomTemplate;
 
     let localupdata = CommonPushDataToFile.StartFunc({
         DataPK: LocalinDataPK,
-        inOriginalData: LocalPullDataFromFile.JsonData,
+        inOriginalData: localpulldata.JsonData,
         inDataToUpdate: LocalReturnData.JsonData
     });
     if (localupdata.KTF) {
@@ -34,6 +45,7 @@ let StartFunc = ({ DataPK, inNewKeyName }) => {
 
     return LocalReturnData;
 };
+
 
 if (MockAllowFunc.AllowMock) {
     if (MockAllowFunc.MockKey === "SV1") {
