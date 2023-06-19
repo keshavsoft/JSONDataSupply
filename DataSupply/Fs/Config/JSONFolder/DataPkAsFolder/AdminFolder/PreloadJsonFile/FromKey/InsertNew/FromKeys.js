@@ -2,7 +2,7 @@ let CommonCheckKey = require("../CheckKey");
 let commomTemplate = require("../../../../../../../../Fix/Adimin/PreloadJsonFile/Template.json")
 let CommonPushDataToFile = require("../../PushDataToFile/ToJson");
 let MockAllowFunc = require("../../../../../../../../MockAllow.json");
-
+let commonCheckPreLoadJsonFile = require("../../CheckPreLoadJsonFile");
 let StartFunc = ({ DataPK, inNewKeyName }) => {
     let LocalinDataPK = DataPK;
     let LocalinNewKeyName = inNewKeyName;
@@ -16,7 +16,11 @@ let StartFunc = ({ DataPK, inNewKeyName }) => {
     let LocalReturnData = { ...LocalPullDataFromFile };
     LocalReturnData.KTF = false;
 
-    if ((LocalPullDataFromFile.KTF) === false) {
+    let localcommonCheckPreLoadJsonFile = commonCheckPreLoadJsonFile.ForExistence({ DataPK: LocalinDataPK });
+
+    if ((localcommonCheckPreLoadJsonFile.KTF) === false) {
+        LocalReturnData.KReason = `Preload.Json file not found!`
+
         return LocalReturnData;
     };
 
