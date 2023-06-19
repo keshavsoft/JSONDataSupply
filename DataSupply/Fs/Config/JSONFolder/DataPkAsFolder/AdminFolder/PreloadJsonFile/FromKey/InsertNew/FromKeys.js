@@ -2,7 +2,7 @@ let CommonCheckKey = require("../CheckKey");
 let commomTemplate = require("../../../../../../../../Fix/Adimin/PreloadJsonFile/Template.json")
 let CommonPushDataToFile = require("../../PushDataToFile/ToJson");
 let MockAllowFunc = require("../../../../../../../../MockAllow.json");
-let commonCheckPreLoadJsonFile = require("../../CheckPreLoadJsonFile");
+
 let StartFunc = ({ DataPK, inNewKeyName }) => {
     let LocalinDataPK = DataPK;
     let LocalinNewKeyName = inNewKeyName;
@@ -16,13 +16,11 @@ let StartFunc = ({ DataPK, inNewKeyName }) => {
     let LocalReturnData = { ...LocalPullDataFromFile };
     LocalReturnData.KTF = false;
 
-    let localcommonCheckPreLoadJsonFile = commonCheckPreLoadJsonFile.ForExistence({ DataPK: LocalinDataPK });
-
-    if ((localcommonCheckPreLoadJsonFile.KTF) === false) {
-        LocalReturnData.KReason = `Preload.Json file not found!`
-
+    if ((LocalPullDataFromFile.KTF) === false) {
+        LocalReturnData.KReason = LocalPullDataFromFile.KReason;
         return LocalReturnData;
     };
+
 
     if (LocalPullDataFromFile.KTF) {
         LocalReturnData.KReason = `Key : ${LocalinNewKeyName} already found in PreloadJsonPath!`
@@ -43,7 +41,7 @@ let StartFunc = ({ DataPK, inNewKeyName }) => {
 };
 
 if (MockAllowFunc.AllowMock) {
-    if (MockAllowFunc.MockKey === "SSV1") {
+    if (MockAllowFunc.MockKey === "ssv") {
         let result = StartFunc({
             DataPK: MockAllowFunc.DataPK,
             inNewKeyName: "Masters-Accountsss"
