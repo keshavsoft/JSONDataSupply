@@ -13,9 +13,12 @@ let StartFunc = ({ DataPK, inNewKeyName }) => {
         DataPK: LocalinDataPK,
         KeyName: LocalinNewKeyName
     });
-
     let LocalReturnData = { ...LocalPullDataFromFile };
     LocalReturnData.KTF = false;
+
+    if ((LocalPullDataFromFile.KTF) === false) {
+        return LocalReturnData;
+    };
 
     if (LocalPullDataFromFile.KTF) {
         LocalReturnData.KReason = `Key : ${LocalinNewKeyName} already found in PreloadJsonPath!`
@@ -36,7 +39,7 @@ let StartFunc = ({ DataPK, inNewKeyName }) => {
 };
 
 if (MockAllowFunc.AllowMock) {
-    if (MockAllowFunc.MockKey === "SV1") {
+    if (MockAllowFunc.MockKey === "SSV1") {
         let result = StartFunc({
             DataPK: MockAllowFunc.DataPK,
             inNewKeyName: "Masters-Accountsss"
