@@ -14,6 +14,7 @@ let StartFunc = ({ DataPK, KeyName }) => {
     LocalReturnData.KTF = false;
 
     if (LocalFromCommonFromCheck.KTF === false) {
+        LocalReturnData.KTFFromRoot = false;
         return LocalReturnData;
     };
 
