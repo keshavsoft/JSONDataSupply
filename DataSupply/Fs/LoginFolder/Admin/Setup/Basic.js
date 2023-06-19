@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
 let CommonAbsolutePath = require("../../../DataPath");
 let CommonCreateFolders = require("../CreateFolders/Basic");
-let CommonCheck = require("../../Check/ForFolder");
+let CommonCheck = require("../../../Config/JSONFolder/DataPkAsFolder/Check");
 
 let StartFunc = async ({ inUserPK }) => {
     let LocalReturnData = { KTF: false, KReason: "" };
