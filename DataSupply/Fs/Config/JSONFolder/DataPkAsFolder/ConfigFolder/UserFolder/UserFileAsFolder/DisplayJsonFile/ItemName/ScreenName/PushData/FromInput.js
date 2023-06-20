@@ -9,6 +9,11 @@ let LocalFixTableColumnForPk = ({ inTableColumnObject }) => {
     inTableColumnObject.CreateNew = false;
 };
 
+let LocalFixTableInfo = ({ inTableInfo }) => {
+    inTableInfo.SearchRowArray.Button.NewWindow.KTF = true;
+    inTableInfo.SearchRowArray.Button.NewWindow.DisplayObject.NewWindow = true;
+};
+
 let StartFuncNoSync = ({ DataPk, FolderName, FileName, ItemName, NewScreenName }) => {
     let LocalNewColumnObject = CommonSupplyJson.TableColumn();
     let LocalNewTableInfoObject = CommonSupplyJson.TableInfo();
@@ -41,6 +46,7 @@ let StartFuncNoSync = ({ DataPk, FolderName, FileName, ItemName, NewScreenName }
     let localNewJsonData = JSON.parse(JSON.stringify(LocalFromCheck.JsonData));
 
     LocalFixTableColumnForPk({ inTableColumnObject: LocalNewColumnObject });
+    LocalFixTableInfo({ inTableInfo: LocalNewTableInfoObject });
 
     localNewJsonData[localinItemName][localNewScreenName] = {};
     localNewJsonData[localinItemName][localNewScreenName].TableColumns = [];
