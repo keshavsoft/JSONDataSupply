@@ -160,12 +160,12 @@
                 }
             },
             "NewWindow": {
-                "KTF": false,
+                "KTF": true,
                 "DisplayObject": {
                     "ColClass": "md-1",
                     "SvgPlus": false,
                     "SvgPlusLarge": false,
-                    "NewWindow": false,
+                    "NewWindow": true,
                     "Table": false
                 }
             },
