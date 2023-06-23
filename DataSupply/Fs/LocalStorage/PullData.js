@@ -4,7 +4,7 @@ let fs = require("fs");
 let CommonScreens = require("../Data/Screens/PullData");
 
 let ReturnDataFromJson = async ({ inUserPK }) => {
-    if (inUserPK > 0) { 
+    if (inUserPK > 0) {
         let LocalReturnData;
         let LocalDataFromCommonCreate = await CommonCreate.CreateFileAsync({ inUserPK });
         let LocalDataFromJSON;
@@ -24,7 +24,7 @@ let ReturnDataFromJson = async ({ inUserPK }) => {
 
 let LocalFromDisplayConfig = async ({ inDataToPrepare, inUserPK }) => {
     let LocalReturnData = {};
-    
+
     Object.entries(inDataToPrepare).forEach(
         async ([key, value]) => {
             LocalJsonConfig = {};
@@ -42,7 +42,7 @@ let LocalFromDisplayConfig = async ({ inDataToPrepare, inUserPK }) => {
             });
         }
     );
-    
+
     return await LocalReturnData;
 };
 
