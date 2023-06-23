@@ -55,12 +55,4 @@ let FolderIsEmpty = ({ inDataPK }) => {
     return LocalReturnData;
 };
 
-let MockFunc = () => {
-    let CheckData = ForExistence({ inDataPK: 1024 });
-    console.log("CheckData---", CheckData);
-};
-// MockFunc();
-
-//console.log("ForExistence : ", ForExistence({ inDataPK: 16 }));
-
 module.exports = { ForExistence, FolderIsEmpty };

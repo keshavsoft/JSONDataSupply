@@ -23,14 +23,23 @@ let StartFunc = async ({ inDataPK }) => {
     return await LocalReturnData;
 };
 
-let MockFunc = () => {
-    StartFunc({
-        inDataPK: 1024
-    }).then((PromiseData) => {
-        console.log("PromiseData--", Object.keys(PromiseData));
-    })
+let StartFuncNoSync = ({ inDataPK }) => {
+    let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+
+    let CommonFromFileCheck = CommonFromCheck.StartFunc({ inDataPK });
+
+    LocalReturnData = { ...CommonFromFileCheck };
+    LocalReturnData.KTF = false;
+
+    if (CommonFromFileCheck.KTF === false) {
+        return LocalReturnData;
+    };
+
+    let LocalDataFromJSON = fs.readFileSync(CommonFromFileCheck.ReportFilePath);
+    LocalReturnData.JsonData = JSON.parse(LocalDataFromJSON);
+    LocalReturnData.KTF = true;
+
+    return LocalReturnData;
 };
-// MockFunc();
 
-
-module.exports = { StartFunc }
+module.exports = { StartFunc, StartFuncNoSync }

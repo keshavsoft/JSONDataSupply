@@ -27,14 +27,4 @@ let StartFunc = ({ inDataPK }) => {
 
 };
 
-
-let MockFunc = () => {
-
-    let CheckFile = StartFunc({ inDataPK: 1024 });
-    console.log("CheckFile--", CheckFile);
-};
-// MockFunc();
-
-//console.log("ForExistence : ", ForExistence({ inDataPK: 16 }));
-
 module.exports = { StartFunc };
