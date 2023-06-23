@@ -34,7 +34,7 @@ if (CommonMock.AllowMock) {
     if (CommonMock.MockKey === 'KR24') {
         let LocalFrom = StartFunc({
             inDataPK: CommonMock.DataPK,
-            inReportKey: "BankWithdrawals"
+            inReportKey: "Purchases"
         });
         console.log("-----------aaaaaa : ", LocalFrom.FromNeededColumns[0]);
     };
