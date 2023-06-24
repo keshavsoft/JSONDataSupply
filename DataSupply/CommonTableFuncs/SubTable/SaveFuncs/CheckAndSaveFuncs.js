@@ -15,8 +15,12 @@ let CommonSaveFuncs = require("../../BeforeSaveFuncs/SaveFuncs");
 
 let LocalPrepareObjectToSave = ({ inConfigDataColumns, inPostData, inUserPK }) => {
     let LocalObject = {};
+    
+    let LocalInsertOnlyColumns = inConfigDataColumns.filter(element => {
+        return element.Insert;
+    });
 
-    LocalObject = InsertDefaultValueBeforeSave({ inDisplayColumns: inConfigDataColumns, inPostData });
+    LocalObject = InsertDefaultValueBeforeSave({ inDisplayColumns: LocalInsertOnlyColumns, inPostData });
     LocalObject = CommonSaveFuncs.LocalTransformObjectBeforeSaving({ inDisplayColumns: inConfigDataColumns, inObjectToInsert: LocalObject });
     LocalObject = CommonSaveFuncs.InsertUserInfoWithDateStamp({ inObjectToInsert: LocalObject, inUserPK });
 
@@ -86,7 +90,7 @@ let Save = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData, inInsertKe
 
 let LocalSaveOnly = async ({ inJsonConfig, inOriginalData, inItemName, inPostData, inUserPK, inInsertKey, inPK }) => {
     let LocalReturnObject = { KTF: false, kPK: 0 };
-    
+
     try {
         let LocalDataToBeInserted = JSON.parse(JSON.stringify(inOriginalData));
         let LocalDataWithKey = LocalDataToBeInserted[inItemName];
