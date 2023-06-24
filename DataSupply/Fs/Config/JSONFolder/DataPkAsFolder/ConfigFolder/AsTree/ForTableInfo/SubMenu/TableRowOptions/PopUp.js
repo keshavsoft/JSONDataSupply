@@ -3,6 +3,7 @@ let CommonMockAllow = require("../../../../../../../../../MockAllow.json");
 
 let AsObject = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
+    let LocalKeyNeeded = "PopUp";
 
     let LocalFromCommon = await CommonFromgetDirectories.AsObject({ inDataPK: LocalDataPK });
 
@@ -14,16 +15,14 @@ let AsObject = async ({ inDataPK }) => {
                         ([KeyForItems, ValueForItems]) => {
                             Object.entries(ValueForItems.Screens).forEach(
                                 ([KeyForScreens, ValueForScreens]) => {
-                                    // delete ValueForScreens.SubTableColumnsObject;
                                     delete ValueForScreens.SubTableInfo;
                                     delete ValueForScreens.TableColumnsObject;
                                     delete ValueForScreens.ReturnDataJsonContent;
-                                    let LoopInsideTableRowOptions = ValueForScreens.TableInfo.TableRowOptions.Show;
+                                    let LoopInsideTableRowOptions = ValueForScreens.TableInfo.TableRowOptions[LocalKeyNeeded];
 
                                     ValueForScreens.TableInfo = {};
                                     ValueForScreens.TableInfo.TableRowOptions = {};
-                                    ValueForScreens.TableInfo.TableRowOptions.Show = LoopInsideTableRowOptions;
-                                    // delete ValueForScreens.TableInfo;
+                                    ValueForScreens.TableInfo.TableRowOptions[LocalKeyNeeded] = LoopInsideTableRowOptions;
                                 }
                             );
                         }
@@ -36,14 +35,12 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalFromCommon;
 };
 
-
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "SSV") {
+    if (CommonMockAllow.MockKey === "TABLE") {
         AsObject({
             inDataPK: CommonMockAllow.DataPK
         }).then(FromPromise => {
-            
-            console.log("FromPromise : ", FromPromise.Folders.Transactions.Files.JOURNALS.Items.JOURNAL.Screens.Alter.TableInfo);
+            console.log("FromPromise : ", FromPromise.Folders.Trans.Files.PAYMENTS.Items["BANK-CASH-DEPOSITS"].Screens.Show.TableInfo.TableRowOptions);
         });
     };
 };
