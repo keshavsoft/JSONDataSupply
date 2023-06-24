@@ -21,7 +21,7 @@ exports.SubTableDelete = async ({ inFolderName, inFileNameWithExtension, inItemN
             inFileNameWithExtension: LocalFileNameWithExtension,
             inDataPK: LocalDataPK
         });
-     //   console.log("bbbbbb", LocalCommonFromData);
+        //   console.log("bbbbbb", LocalCommonFromData);
 
         if (LocalCommonFromData.KTF === false) {
             LocallReturnData.KReason = LocalCommonFromData.KReason;
@@ -52,6 +52,7 @@ exports.SubTableDelete = async ({ inFolderName, inFileNameWithExtension, inItemN
 
         if ((LocalJsonPK in LocalUpdatedData[LocalItemName][MainRowPK][InsertKey]) === false) {
             LocallReturnData.KReason = `${LocalJsonPK} : not found in ${LocalItemName}.${MainRowPK}.${InsertKey}!`;
+            LocallReturnData.KTF = false;
             return await LocallReturnData;
         };
 
