@@ -1,4 +1,3 @@
-let _ = require("lodash");
 let CommonGroupBy = require("./GroupByFuncs/GroupBy");
 let CommonPostGroupBy = require("./GroupByFuncs/PostGroupBy");
 let CommonVouchersConsiderStartFunc = require("./VouchersConsider/StartFunc");
@@ -18,7 +17,10 @@ let FromVouchersConsiderOnly = async ({ inLedgerAutoJsonWithItemName, inUserPK }
         LocalGroupByAsFloat = inLedgerAutoJsonWithItemName.ReportConfig.GroupBy.GroupByAsFloat;
     };
 
-    LocalReturnArray = await DataFromVouchersConsider({ inVouchersConsider: LocalVouchersConsider, inUserPK });
+    LocalReturnArray = await DataFromVouchersConsider({
+        inVouchersConsider: LocalVouchersConsider,
+        inUserPK
+    });
 
     if (LocalGroupByKTF) {
         LocalReturnArray = CommonGroupBy.SingleColumnAndMultipleDataRetruned({

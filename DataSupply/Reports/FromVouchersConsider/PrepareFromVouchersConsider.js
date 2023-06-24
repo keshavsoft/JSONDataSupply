@@ -1,6 +1,6 @@
-let GlobalReportsPullDataOnly = require("../CommonFuncs/PullDataOnly");
 let GlobalCommonPullData = require("../../Fs/Reports/PullData");
 let GlobalPullDataFromVouchersConsiderOnly = require("../CommonFuncs/PullDataFromVouchersConsiderOnly");
+let CommonMock = require("../../MockAllow.json");
 
 let PrepareLedgerAutoJsonWithItemName = ({ inLedgerName, inUserPK }) => {
     let LocalLedgerAutoJson = GlobalCommonPullData.ReturnDataFromJson({ inUserPK });
@@ -30,6 +30,14 @@ let ReturnAsTable = async ({ inLedgerName, inUserPK }) => {
     //resolve({ KTF: true, KMessage: "", "DataFromServer": LocalDataNeeded });
 
     return await LocalReturnObject;
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'KR24') {
+        ReturnAsTable({ inLedgerName: "BankWithdrawals", inUserPK: CommonMock.DataPK }).then(PromiseData => {
+            console.log("PromiseData : ", PromiseData);
+        });
+    };
 };
 
 module.exports = { ReturnAsTable };

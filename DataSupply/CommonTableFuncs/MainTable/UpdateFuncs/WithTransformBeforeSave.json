@@ -1,0 +1,18 @@
+{
+    "JsonConfig": {
+        "inFolderName": "Transactions",
+        "inJsonFileName": "BANK-WITHDRAWALS.json"
+    },
+    "ItemConfig": {
+        "inItemName": "BANK-WITHDRAWAL",
+        "inScreenName": "Alter"
+    },
+    "InsertKey": "",
+    "MainRowPK": "",
+    "pk": "2",
+    "inDataToUpdate": {
+        "BillNumber": "2",
+        "Date": "",
+        "AccountCode": "STATE BANK OF INDIA"
+    }
+}
