@@ -54,10 +54,6 @@ let StartFunc = () => {
     return LocalReturnData;
 };
 
-let mockFunc = () => {
-    AsAsync();
-};
-// mockFunc();
 
 module.exports = {
     StartFunc
