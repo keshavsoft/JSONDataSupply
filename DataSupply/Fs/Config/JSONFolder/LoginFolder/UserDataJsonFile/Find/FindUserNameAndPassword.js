@@ -4,7 +4,9 @@ let StartFunc = ({ inUserName, inPassWord }) => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
     localCommonFromJson = CommonFromFromJson.StartFunc();
+
     LocalReturnData = { ...localCommonFromJson };
+    LocalReturnData.KTF = false;
 
     if (localCommonFromJson.KTF === false) {
         return LocalReturnData;
@@ -16,16 +18,20 @@ let StartFunc = ({ inUserName, inPassWord }) => {
     };
 
     let LocalValuesArray = Object.values(localCommonFromJson.JsonData);
+
     const search = element => element.UserName === inUserName && element.PassWord === inPassWord;
     let LocalFindIndex = LocalValuesArray.findIndex(search);
+
+    if (LocalFindIndex === -1) {
+        LocalReturnData.KReason = "UserName and password not found..";
+        return LocalReturnData;
+    };
+
     let LocalKeysArray = Object.keys(localCommonFromJson.JsonData);
     LocalReturnData.kPK = LocalKeysArray[LocalFindIndex];
+    LocalReturnData.KTF = true;
 
-    if (LocalReturnData.kPK > 0) {
-        LocalReturnData.KTF = true;
-    };
     return LocalReturnData;
-
 };
 
 let mockFunc = () => {

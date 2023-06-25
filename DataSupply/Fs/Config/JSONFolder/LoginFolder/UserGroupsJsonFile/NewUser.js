@@ -33,6 +33,8 @@ let StartFunc = async ({ UserName, PassWord, FirmName }) => {
         LocalReturnData.KTF = false;
 
         if (LocalFromCommonFind.KTF) {
+            delete LocalReturnData.JsonData;
+            LocalReturnData.KReason = "User combination already found in UserGroupsjson";
             return LocalReturnData;
         };
 
@@ -42,6 +44,7 @@ let StartFunc = async ({ UserName, PassWord, FirmName }) => {
         LocalReturnData.KTF = false;
 
         if (LocalFromCommonUserDataJson.KTF === false) {
+            delete LocalReturnData.JsonData;
             LocalReturnData.KReason = "Not found in user file";
             return LocalReturnData;
         };
@@ -67,8 +70,17 @@ let StartFunc = async ({ UserName, PassWord, FirmName }) => {
             inDataToUpdate: LocalAlterdData
         });
 
-        console.log('LocalFromPush : error : ', LocalFromPush);
+        LocalReturnData = { ...LocalFromCommonUserDataJson };
+        LocalReturnData.KTF = false;
 
+        if (LocalFromPush.KTF === false) {
+            return LocalReturnData;
+        };
+
+        delete LocalReturnData.JsonData;
+        LocalReturnData.KTF = true;
+
+        return LocalReturnData;
     } catch (error) {
         console.log('DataSupply : error : ', error);
         LocalReturnData.KReason = error;
