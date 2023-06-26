@@ -17,5 +17,25 @@
 			"};"
 		],
 		"description": "Log output to console"
+	},
+	"Mock Template Function with Promise Then": {
+		"scope": "javascript,typescript",
+		"prefix": "KMockPromise",
+		"body": [
+			"if (CommonMock.AllowMock) {",
+			"	if (CommonMock.MockKey === '$1') {",
+			"		let LocalMockData = require('./import.json');",
+			"",
+			"		StartFunc({",
+			"			inDataPK: CommonMock.DataPK,",
+			"			...LocalMockData",
+			"		}).then(PromiseData => {",
+			"			console.log('PromiseData : ', PromiseData);",
+			"           $0",
+			"		});",
+			"	};",
+			"};"
+		],
+		"description": "Log output to console"
 	}
 }

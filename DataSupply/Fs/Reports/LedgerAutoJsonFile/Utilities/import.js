@@ -3,6 +3,8 @@ let CommonToLedgerJson = require("../../../Config/JSONFolder/DataPkAsFolder/Repo
 let CommonMock = require("../../../../MockAllow.json");
 
 let StartFunc = async ({ DataPK, ToName, ReportConfigObject }) => {
+
+let CommonMock = require("../../../../MockAllow.json");
     let localDataPk = DataPK;
     let localToName = ToName;
     let localReportConficObject = ReportConfigObject;
