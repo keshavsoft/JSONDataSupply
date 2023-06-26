@@ -2,7 +2,6 @@ let _ = require("lodash");
 
 let CommonPullDataTransformData = require("../../../../../../../../../PullData/TransformData");
 
-let CommonDisplayPullDataNew = require("../../../../../PullData/FromConfig");
 let CommonReOrder = require("../../../../../../../../../CommonTableFuncs/TableFuncs/ReOrder");
 
 let CommonFilesPullData = require("../../../../../Items/PullData/FromDataFolder/Pull");
@@ -11,6 +10,7 @@ let CommonFromReports = require("../../../../../../../../../Reports/CommonFuncs/
 let CommonMock = require("../../../../../../../../../MockAllow.json");
 
 let CommonConfig = require("../../../../Items/Screens/PullData/FromDisplayJson/ReturnAsJson");
+let CommonTableColumnsTweak = require("./TableColumnsTweak/KeepKpColumn");
 
 let LocalPrepareTableConfig = async ({ inJsonConfig, inItemConfig, inUserPK }) => {
     let LocalDisplayDataNeeded;
@@ -29,6 +29,39 @@ let LocalPrepareTableConfig = async ({ inJsonConfig, inItemConfig, inUserPK }) =
         LocalDisplayDataNeeded = LocalDisplayData.DataFromServer;
 
         if (LocalDisplayDataNeeded !== undefined) {
+            LocalReturnObject.TableColumns = CommonTableColumnsTweak.StartFunc({
+                inTableColumns: LocalDisplayDataNeeded.TableColumns,
+                inTableInfo: LocalDisplayDataNeeded.TableInfo
+            });
+            
+            LocalReturnObject.TableInfo = LocalDisplayDataNeeded.TableInfo;
+            LocalReturnObject.JoinTables = LocalDisplayDataNeeded.JoinTables;
+        };
+    };
+
+    return await LocalReturnObject;
+};
+
+let LocalPrepareTableConfig_Keshav_26Jun = async ({ inJsonConfig, inItemConfig, inUserPK }) => {
+    let LocalDisplayDataNeeded;
+    let LocalReturnObject = {
+        TableColumns: [],
+        TableInfo: {},
+        JoinTables: []
+    };
+
+    let LocalDisplayData = await CommonConfig.FromJsonItemConfig({
+        inJsonConfig, inItemConfig,
+        inDataPK: inUserPK
+    });
+
+    if (LocalDisplayData.KTF) {
+        LocalDisplayDataNeeded = LocalDisplayData.DataFromServer;
+
+        if (LocalDisplayDataNeeded !== undefined) {
+            let LocalPkColumn = LocalDisplayDataNeeded.TableColumns.find(element => element.DataAttribute === "pk");
+            LocalPkColumn.ShowInTable = true;
+            console.log("aaaaaaa : ", LocalDisplayDataNeeded.TableColumns);
             LocalReturnObject.TableColumns = LocalDisplayDataNeeded.TableColumns.filter(element => element.ShowInTable);
 
             LocalReturnObject.TableColumns = CommonReOrder.StartFunc({
