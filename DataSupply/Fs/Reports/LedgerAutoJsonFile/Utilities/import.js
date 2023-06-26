@@ -1,13 +1,12 @@
 let CommonFromLedgerJson = require("../../../Config/JSONFolder/DataPkAsFolder/ReportsFolder/LedgerAutoJsonFile/PullDataFromFile/FromJson");
 let CommonToLedgerJson = require("../../../Config/JSONFolder/DataPkAsFolder/ReportsFolder/LedgerAutoJsonFile/PushDataFromFile/FromJson");
+let CommonMock = require("../../../../MockAllow.json");
 
-let StartFunc = async ({ DataPK, ToName, ReportConficObject }) => {
+let StartFunc = async ({ DataPK, ToName, ReportConfigObject }) => {
     let localDataPk = DataPK;
     let localToName = ToName;
-    let localReportConficObject = ReportConficObject;
-    // console.log("-----------:", localToName);
+    let localReportConficObject = ReportConfigObject;
     let LocalReturnData = { KTF: false };
-
 
     let localFromData = await CommonFromLedgerJson.StartFunc({ inDataPK: localDataPk });
 
@@ -41,6 +40,20 @@ let StartFunc = async ({ DataPK, ToName, ReportConficObject }) => {
     };
 
     return await LocalReturnData;
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'SSV1') {
+        let LocalMockData = require('./import.json');
+         StartFunc({
+            DataPK: CommonMock.DataPK,
+            ToName: LocalMockData.ToName,
+            ReportConfigObject: LocalMockData.ReportConfigObject
+        }).then(promiseData=>{
+            console.log("promiseData:", promiseData);
+
+        })
+    };
 };
 
 module.exports = {
