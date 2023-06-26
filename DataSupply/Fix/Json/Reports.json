@@ -1,0 +1,935 @@
+    {
+        "VouchersConsider": [
+            {
+                "pk": 30,
+                "ItemName": "",
+                "ColumnNameToPick": "",
+                "JoinTables": [
+                    {
+                        "JT1": {
+                            "JsonConfig": {
+                                "UserFolderName": "",
+                                "inFolderName": "Masters",
+                                "inJsonFileName": "Accounts.json"
+                            },
+                            "DataPulled": []
+                        }
+                    }
+                ],
+                "Columns": [
+                    {
+                        "pk": 1,
+                        "Name": [
+                            "InvGrid.Amount",
+                            "FinGrid.Amount"
+                        ],
+                        "DisplayColumn": "Credit",
+                        "TransformType": "ObjectToArrayMultipleColumnsGroupByAndEvalPositive",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": true,
+                        "DefaultValue": "{{VoucherSign}}",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 2,
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "TransformTF": false
+                    },
+                    {
+                        "pk": 4,
+                        "Name": "BillNumber",
+                        "DisplayColumn": "BillNumber",
+                        "TransformType": "EquationFromDefaultValue",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "{{VoucherName}} - {{BillNumber}}",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 8,
+                        "Name": "Date",
+                        "DisplayColumn": "DateDisplay",
+                        "TransformType": "DateFromyyyyMMddToddMMyyyy",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 9,
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "TransformTF": false
+                    },
+                    {
+                        "pk": 10,
+                        "Name": "AccountCode",
+                        "DisplayColumn": "AccountCode",
+                        "TransformType": "",
+                        "JoinTable": "JT1",
+                        "PullKey": "Accounts",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "",
+                        "TransformTF": false
+                    }
+                ],
+                "JoinTablesColumns": [
+                    {
+                        "pk": 30,
+                        "Name": "AccountName",
+                        "DisplayColumn": "AccountName",
+                        "TransformType": "",
+                        "ConsiderJoinTable": true,
+                        "JoinTable": "JT1",
+                        "PullKey": "Accounts",
+                        "JoinFromCondition": "AccountCode",
+                        "JoinToCondition": "pk"
+                    }
+                ],
+                "FolderName": "Transactions",
+                "FileName": "RECEIPTS.json",
+                "ColumnName": "",
+                "Active": false,
+                "ItemNameConsider": false,
+                "FromFolder": true,
+                "ReportConfig": {
+                    "GroupBy": {
+                        "KTF": false,
+                        "ColumnName": "",
+                        "ColumnsDataFreezed": [],
+                        "ColumnsToGroupByAsFloat": []
+                    }
+                }
+            },
+            {
+                "pk": 40,
+                "ItemName": "GST-PURCHASE",
+                "ColumnNameToPick": "InvGrid",
+                "JoinTables": [
+                    {
+                        "JT1": {
+                            "JsonConfig": {
+                                "UserFolderName": "",
+                                "inFolderName": "Masters",
+                                "inJsonFileName": "Accounts.json"
+                            },
+                            "DataPulled": []
+                        }
+                    }
+                ],
+                "Columns": [
+                    {
+                        "pk": 1,
+                        "Name": "InvGrid.Amount",
+                        "DisplayColumn": "Credit",
+                        "TransformType": "FromNegativeAndEval",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "{{VoucherSign}}",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 2,
+                        "Name": "InvGrid.Amount",
+                        "DisplayColumn": "Debit",
+                        "TransformType": "FromPositiveAndEval",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "{{VoucherSign}}",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 4,
+                        "Name": "BillNumber",
+                        "DisplayColumn": "BillNumber",
+                        "TransformType": "EquationFromDefaultValue",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "{{VoucherName}} - {{BillNumber}}",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 8,
+                        "Name": "Date",
+                        "DisplayColumn": "DateDisplay",
+                        "TransformType": "DateFromyyyyMMddToddMMyyyy",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 9,
+                        "Name": "Date",
+                        "DisplayColumn": "Date",
+                        "TransformType": "DateFromddMMyyyy",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 10,
+                        "Name": "InvGrid.InvGridAccountCode",
+                        "DisplayColumn": "AccountCode",
+                        "TransformType": "",
+                        "JoinTable": "JT1",
+                        "PullKey": "Accounts",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "",
+                        "TransformTF": false
+                    }
+                ],
+                "JoinTablesColumns": [
+                    {
+                        "pk": 30,
+                        "Name": "AccountName",
+                        "DisplayColumn": "AccountName",
+                        "TransformType": "",
+                        "ConsiderJoinTable": true,
+                        "JoinTable": "JT1",
+                        "PullKey": "Accounts",
+                        "JoinFromCondition": "AccountCode",
+                        "JoinToCondition": "pk"
+                    }
+                ],
+                "FolderName": "Transactions",
+                "FileName": "GST-PURCHASES.json",
+                "ColumnName": "",
+                "Active": true,
+                "ItemNameConsider": true,
+                "FromFolder": false,
+                "ReportConfig": {
+                    "GroupBy": {
+                        "KTF": false,
+                        "ColumnName": "",
+                        "ColumnsDataFreezed": [],
+                        "ColumnsToGroupByAsFloat": []
+                    }
+                }
+            },
+            {
+                "pk": 50,
+                "ItemName": "",
+                "ColumnNameToPick": "FinGrid",
+                "JoinTables": [
+                    {
+                        "JT1": {
+                            "JsonConfig": {
+                                "UserFolderName": "",
+                                "inFolderName": "Masters",
+                                "inJsonFileName": "Accounts.json"
+                            },
+                            "DataPulled": []
+                        }
+                    }
+                ],
+                "Columns": [
+                    {
+                        "pk": 1,
+                        "Name": "FinGrid.Amount",
+                        "DisplayColumn": "Credit",
+                        "TransformType": "FromNegativeAndEval",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "{{VoucherSign}}",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 2,
+                        "Name": "FinGrid.Amount",
+                        "DisplayColumn": "Debit",
+                        "TransformType": "FromPositiveAndEval",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "{{VoucherSign}}",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 4,
+                        "Name": "BillNumber",
+                        "DisplayColumn": "BillNumber",
+                        "TransformType": "EquationFromDefaultValue",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "{{VoucherName}} - {{BillNumber}} - {{FinGrid.Description}}",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 8,
+                        "Name": "Date",
+                        "DisplayColumn": "DateDisplay",
+                        "TransformType": "DateFromyyyyMMddToddMMyyyy",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 9,
+                        "Name": "Date",
+                        "DisplayColumn": "Date",
+                        "TransformType": "DateFromddMMyyyy",
+                        "JoinTable": "",
+                        "PullKey": "",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "",
+                        "TransformTF": true
+                    },
+                    {
+                        "pk": 10,
+                        "Name": "FinGrid.FinGridAccountCode",
+                        "DisplayColumn": "AccountCode",
+                        "TransformType": "",
+                        "JoinTable": "JT1",
+                        "PullKey": "Accounts",
+                        "JoinFromCondition": "",
+                        "JoinToCondition": "",
+                        "ConsiderJoinTable": false,
+                        "DefaultValue": "",
+                        "TransformTF": false
+                    }
+                ],
+                "JoinTablesColumns": [
+                    {
+                        "pk": 30,
+                        "Name": "AccountName",
+                        "DisplayColumn": "AccountName",
+                        "TransformType": "",
+                        "ConsiderJoinTable": true,
+                        "JoinTable": "JT1",
+                        "PullKey": "Accounts",
+                        "JoinFromCondition": "AccountCode",
+                        "JoinToCondition": "pk"
+                    }
+                ],
+                "FolderName": "Transactions",
+                "FileName": "RECEIPTS.json",
+                "ColumnName": "",
+                "Active": false,
+                "ItemNameConsider": false,
+                "FromFolder": true,
+                "ReportConfig": {
+                    "GroupBy": {
+                        "KTF": false,
+                        "ColumnName": "",
+                        "ColumnsDataFreezed": [],
+                        "ColumnsToGroupByAsFloat": []
+                    }
+                }
+            }
+        ],
+        "TableColumns": [
+            {
+                "pk": 1,
+                "DisplayName": "AccountName",
+                "DataAttribute": "AccountName",
+                "CreateNew": true,
+                "Insert": true,
+                "ShowInTable": true,
+                "ParentClasses": {
+                    "Parent1Class": "col-md-2",
+                    "Parent2Class": "col-md-4",
+                    "Parent3Class": "col-md-12"
+                },
+                "DefaultValue": "",
+                "DefaultValueCreate": {
+                    "ControlType": "Number",
+                    "Type": "Max",
+                    "StartValue": 16
+                },
+                "KDataset": {
+                    "HTMLControlType": "",
+                    "SaveCheck": {
+                        "Validate": true,
+                        "Type": "Unique"
+                    },
+                    "OrderNumber": null
+                },
+                "SaveOnEnter": true,
+                "Widths": {
+                    "px": "75",
+                    "OrderNumber": null
+                },
+                "isDate": false,
+                "isToggle": false,
+                "TextAlign": "",
+                "OrderNumber": "1",
+                "KDatasetStuff": {},
+                "HtmlAttributes": {},
+                "ShowTotal": false,
+                "EnterToServer": false,
+                "ServerSide": {
+                    "DefaultValueCreate": {},
+                    "DefaultValueShow": {},
+                    "SaveCheck": {},
+                    "DefaultShowData": {},
+                    "TransformBeforeSave": {},
+                    "EnterToServer": {}
+                },
+                "DisplayType": {},
+                "KDataAttributes": {},
+                "Footer": {
+                    "Show": {
+                        "Balance": {}
+                    }
+                }
+            },
+            {
+                "pk": 2,
+                "DisplayName": "DateDisplay",
+                "DataAttribute": "DateDisplay",
+                "CreateNew": true,
+                "Insert": true,
+                "ShowInTable": true,
+                "ParentClasses": {
+                    "Parent1Class": "col-md-2",
+                    "Parent2Class": "col-md-4",
+                    "Parent3Class": "col-md-12"
+                },
+                "DefaultValue": "",
+                "DefaultValueCreate": {
+                    "ControlType": "Number",
+                    "Type": "Max",
+                    "StartValue": 16
+                },
+                "KDataset": {
+                    "HTMLControlType": "",
+                    "SaveCheck": {
+                        "Validate": true,
+                        "Type": "Unique"
+                    },
+                    "OrderNumber": null
+                },
+                "SaveOnEnter": true,
+                "Widths": {
+                    "px": "75",
+                    "OrderNumber": null
+                },
+                "isDate": false,
+                "isToggle": false,
+                "TextAlign": "",
+                "OrderNumber": 1,
+                "KDatasetStuff": {},
+                "HtmlAttributes": {},
+                "ShowTotal": false,
+                "EnterToServer": false,
+                "ServerSide": {
+                    "DefaultValueCreate": {},
+                    "DefaultValueShow": {},
+                    "SaveCheck": {},
+                    "DefaultShowData": {},
+                    "TransformBeforeSave": {},
+                    "EnterToServer": {}
+                },
+                "DisplayType": {},
+                "KDataAttributes": {},
+                "Footer": {
+                    "Show": {
+                        "Balance": {}
+                    }
+                }
+            },
+            {
+                "pk": 4,
+                "DisplayName": "Description",
+                "DataAttribute": "BillNumber",
+                "CreateNew": true,
+                "Insert": true,
+                "ShowInTable": true,
+                "ParentClasses": {
+                    "Parent1Class": "col-md-2",
+                    "Parent2Class": "col-md-4",
+                    "Parent3Class": "col-md-12"
+                },
+                "DefaultValue": "",
+                "DefaultValueCreate": {
+                    "ControlType": "Number",
+                    "Type": "Max",
+                    "StartValue": 16
+                },
+                "KDataset": {
+                    "HTMLControlType": "Number",
+                    "SaveCheck": {
+                        "Validate": true,
+                        "Type": "Unique"
+                    }
+                },
+                "SaveOnEnter": true,
+                "Widths": {
+                    "px": "200",
+                    "OrderNumber": null
+                },
+                "isDate": false,
+                "isToggle": false,
+                "TextAlign": "",
+                "OrderNumber": 10,
+                "KDatasetStuff": {},
+                "HtmlAttributes": {},
+                "ShowTotal": false,
+                "EnterToServer": false,
+                "ServerSide": {
+                    "DefaultValueCreate": {},
+                    "DefaultValueShow": {},
+                    "SaveCheck": {},
+                    "DefaultShowData": {},
+                    "TransformBeforeSave": {},
+                    "EnterToServer": {}
+                },
+                "DisplayType": {},
+                "KDataAttributes": {},
+                "Footer": {
+                    "Show": {
+                        "Balance": {}
+                    }
+                }
+            },
+            {
+                "pk": 5,
+                "DisplayName": "Credit",
+                "DataAttribute": "Credit",
+                "CreateNew": true,
+                "Insert": true,
+                "ShowInTable": true,
+                "ParentClasses": {
+                    "Parent1Class": "col-md-2",
+                    "Parent2Class": "col-md-4",
+                    "Parent3Class": "col-md-12"
+                },
+                "DefaultValue": "",
+                "DefaultValueCreate": {
+                    "ControlType": "Number",
+                    "Type": "Max",
+                    "StartValue": 16
+                },
+                "KDataset": {
+                    "HTMLControlType": "Number",
+                    "SaveCheck": {
+                        "Validate": true,
+                        "Type": "Unique"
+                    }
+                },
+                "SaveOnEnter": true,
+                "Widths": {
+                    "px": "50",
+                    "OrderNumber": null
+                },
+                "isDate": false,
+                "isToggle": false,
+                "TextAlign": "Right",
+                "OrderNumber": 15,
+                "ShowTotal": true,
+                "KDatasetStuff": {},
+                "HtmlAttributes": {},
+                "EnterToServer": false,
+                "ServerSide": {
+                    "DefaultValueCreate": {},
+                    "DefaultValueShow": {},
+                    "SaveCheck": {},
+                    "DefaultShowData": {},
+                    "TransformBeforeSave": {},
+                    "EnterToServer": {}
+                },
+                "DisplayType": {
+                    "IsIndianFormat": true,
+                    "OrderNumber": null
+                },
+                "KDataAttributes": {},
+                "Footer": {
+                    "Show": {
+                        "Balance": {
+                            "ShowTF": true,
+                            "Columns": "{{Credit}}-{{Debit}}"
+                        }
+                    }
+                }
+            },
+            {
+                "pk": 6,
+                "DisplayName": "Debit",
+                "DataAttribute": "Debit",
+                "CreateNew": true,
+                "Insert": true,
+                "ShowInTable": true,
+                "ParentClasses": {
+                    "Parent1Class": "col-md-2",
+                    "Parent2Class": "col-md-4",
+                    "Parent3Class": "col-md-12"
+                },
+                "DefaultValue": "",
+                "DefaultValueCreate": {
+                    "ControlType": "Number",
+                    "Type": "Max",
+                    "StartValue": 16
+                },
+                "KDataset": {
+                    "HTMLControlType": "Number",
+                    "SaveCheck": {
+                        "Validate": true,
+                        "Type": "Unique"
+                    }
+                },
+                "SaveOnEnter": true,
+                "Widths": {
+                    "px": "50",
+                    "OrderNumber": null
+                },
+                "isDate": false,
+                "isToggle": false,
+                "TextAlign": "Right",
+                "OrderNumber": 20,
+                "ShowTotal": true,
+                "KDatasetStuff": {},
+                "HtmlAttributes": {},
+                "EnterToServer": false,
+                "ServerSide": {
+                    "DefaultValueCreate": {},
+                    "DefaultValueShow": {},
+                    "SaveCheck": {},
+                    "DefaultShowData": {},
+                    "TransformBeforeSave": {},
+                    "EnterToServer": {}
+                },
+                "DisplayType": {
+                    "IsIndianFormat": true,
+                    "OrderNumber": null
+                },
+                "KDataAttributes": {},
+                "Footer": {
+                    "Show": {
+                        "Balance": {
+                            "ShowTF": true,
+                            "Columns": "{{Debit}}-{{Credit}}"
+                        }
+                    }
+                }
+            },
+            {
+                "pk": 8,
+                "DisplayName": "Date",
+                "DataAttribute": "Date",
+                "CreateNew": true,
+                "Insert": true,
+                "ShowInTable": false,
+                "ParentClasses": {
+                    "Parent1Class": "col-md-2",
+                    "Parent2Class": "col-md-4",
+                    "Parent3Class": "col-md-12"
+                },
+                "DefaultValue": "",
+                "DefaultValueCreate": {
+                    "ControlType": "Number",
+                    "Type": "Max",
+                    "StartValue": 16
+                },
+                "KDataset": {
+                    "HTMLControlType": "Date",
+                    "SaveCheck": {
+                        "Validate": true,
+                        "Type": "Unique"
+                    },
+                    "OrderNumber": null
+                },
+                "SaveOnEnter": true,
+                "Widths": {
+                    "px": "75",
+                    "OrderNumber": null
+                },
+                "isDate": false,
+                "isToggle": false,
+                "TextAlign": "",
+                "OrderNumber": 1,
+                "KDatasetStuff": {},
+                "HtmlAttributes": {},
+                "ShowTotal": false,
+                "EnterToServer": false,
+                "ServerSide": {
+                    "DefaultValueCreate": {},
+                    "DefaultValueShow": {},
+                    "SaveCheck": {},
+                    "DefaultShowData": {},
+                    "TransformBeforeSave": {},
+                    "EnterToServer": {}
+                },
+                "DisplayType": {},
+                "KDataAttributes": {},
+                "Footer": {
+                    "Show": {
+                        "Balance": {}
+                    }
+                }
+            }
+        ],
+        "TableInfo": {
+            "SearchRowArray": {
+                "Label": {
+                    "KTF": true,
+                    "DisplayObject": {
+                        "DisplayText": "Ledger",
+                        "ColClass": "md-6 col-sm-12 col-12"
+                    }
+                },
+                "Search": {
+                    "KTF": false,
+                    "DisplayObject": {
+                        "DisplayText": "Reports Search",
+                        "ColClass": "md-4 col-sm-8 col-12"
+                    }
+                },
+                "SearchWithEnter": {
+                    "KTF": true,
+                    "DisplayObject": {
+                        "DisplayText": "SearchWithEnter",
+                        "ColClass": "md-4 col-sm-4 col-12"
+                    }
+                },
+                "Button": {
+                    "PrintToPrinter": {
+                        "Double": false,
+                        "DisplayObject": {
+                            "ColClass": "md-2"
+                        }
+                    },
+                    "TableBulk": {
+                        "Show": {
+                            "KTF": false,
+                            "DisplayObject": {
+                                "ColClass": "md-2"
+                            }
+                        },
+                        "Update": {
+                            "KTF": false,
+                            "DisplayObject": {
+                                "ColClass": "md-2"
+                            }
+                        }
+                    },
+                    "NewWindow": {
+                        "WithApi": {
+                            "DisplayObject": {
+                                "ColClass": ""
+                            },
+                            "KTF": false
+                        },
+                        "WithApiNew": {
+                            "DisplayObject": {
+                                "ColClass": ""
+                            },
+                            "KTF": false
+                        },
+                        "ApiToServer": {
+                            "DisplayObject": {
+                                "ColClass": "md-1"
+                            },
+                            "KTF": false
+                        }
+                    }
+                }
+            },
+            "DataAttributes": {
+                "QueryName": "",
+                "JsonItemName": "",
+                "JsonType": "Transactions",
+                "InsertKey": ""
+            },
+            "Vertical": {
+                "VerticalCreate": {
+                    "save": false,
+                    "saveNew": false,
+                    "saveNewReturnData": false,
+                    "saveFromKeyAsTree": false
+                }
+            },
+            "TableRowOptions": {
+                "Copy": {
+                    "KTF": false
+                },
+                "Delete": {
+                    "RowDelete": false,
+                    "JSON": false,
+                    "RowDeleteJSON": false,
+                    "RowDeleteInPopUp": {},
+                    "DeleteForKeyAsTree": false
+                },
+                "Edit": {
+                    "RowEdit": false,
+                    "RowEditWithUi": false,
+                    "RowEditForJSON": false
+                },
+                "CreateNew": {
+                    "RowCreateNew": false
+                },
+                "Show": {
+                    "RowShow": false,
+                    "RowDetails": false,
+                    "RowShowAll": false,
+                    "KeyAsTree": false
+                },
+                "InvGrid": {
+                    "RowInvGrid": false
+                },
+                "BarcodePrint": {
+                    "SVJP": false
+                },
+                "BillSave": {
+                    "Edit": false
+                },
+                "Design": false
+            },
+            "Footer": {
+                "Show": {
+                    "Balance": {
+                        "ShowTF": true,
+                        "Columns": "{{Credit}}-{{Debit}}"
+                    }
+                }
+            },
+            "FooterType": {
+                "CreateNew": false,
+                "CreateNewRow": {
+                    "Style": "display:none",
+                    "Show": true
+                },
+                "ShowTotals": true,
+                "ShowBalance": true
+            },
+            "ShowFooter": true,
+            "ParentClasses": {
+                "Parent1Class": "col-md-8",
+                "Parent2Class": "col-md-4",
+                "Parent3Class": "col-md-12"
+            },
+            "DataAttributesFromTableInfo": false,
+            "DataAttributesFromTableDataRow": true
+        },
+        "DisplayColumns": {
+            "Date": "",
+            "CustomerCode": "",
+            "RefNo": "B.F.",
+            "Credit": 0,
+            "Debit": 0
+        },
+        "ColumnsConfig": {
+            "layer": 1,
+            "columns": [
+                {
+                    "DataAttribute": "Date",
+                    "ColumnDefaults": {
+                        "DisplayName": "Date",
+                        "Width": 10
+                    }
+                },
+                {
+                    "DataAttribute": "RefNo",
+                    "ColumnDefaults": {
+                        "DisplayName": "RefNo",
+                        "Width": 30
+                    }
+                },
+                {
+                    "DataAttribute": "Amount",
+                    "ColumnDefaults": {
+                        "DisplayName": "Amount",
+                        "Width": 10,
+                        "TextAlign": "Right",
+                        "ShowTotal": "Yes",
+                        "ShowBalanceTF": "Yes",
+                        "ShowBalance": {
+                            "REC WEIGHT": "M",
+                            "PAID WEIGHT": "P"
+                        }
+                    }
+                }
+            ]
+        },
+        "FilterColumns": [
+            {
+                "DataAttribute": "Date",
+                "DisplayDataAttribute": "FromDate",
+                "DataType": "Date"
+            },
+            {
+                "DataAttribute": "Date",
+                "DisplayDataAttribute": "ToDate",
+                "DataType": "Date"
+            },
+            {
+                "DataAttribute": "CustomerCode",
+                "DisplayDataAttribute": "CustomerCode",
+                "DataType": "CustomerCode"
+            }
+        ],
+        "DisplayColumnsToUI": {
+            "Date": "",
+            "RefNo": "",
+            "Amount": 0,
+            "Credit": 0,
+            "Debit": 0
+        },
+        "DisplayColumnsTransform": [
+            {
+                "ColumnName": "Date",
+                "ColumnNameTransform": "DateForSort",
+                "TransformType": "Moment"
+            }
+        ],
+        "ColumnsTransformBeforeUIS": [
+            {
+                "ColumnName": "Amount",
+                "ColumnNameTransform": "Amount",
+                "TransformType": "IndianAmount"
+            }
+        ],
+        "OrderByColumns": [
+            "Date"
+        ]
+    }
