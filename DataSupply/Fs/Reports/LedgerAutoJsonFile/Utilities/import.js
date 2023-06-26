@@ -1,6 +1,8 @@
 let CommonFromLedgerJson = require("../../../Config/JSONFolder/DataPkAsFolder/ReportsFolder/LedgerAutoJsonFile/PullDataFromFile/FromJson");
 let CommonToLedgerJson = require("../../../Config/JSONFolder/DataPkAsFolder/ReportsFolder/LedgerAutoJsonFile/PushDataFromFile/FromJson");
 
+let CommonMock = require("../../../../MockAllow.json");
+
 let StartFunc = async ({ DataPK, ToName, ReportConficObject }) => {
     let localDataPk = DataPK;
     let localToName = ToName;
