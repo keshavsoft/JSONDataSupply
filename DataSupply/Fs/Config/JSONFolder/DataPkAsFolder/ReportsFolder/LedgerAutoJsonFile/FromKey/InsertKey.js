@@ -3,13 +3,13 @@ let CommonReports = require("../../../../../../../Fix/Json/Reports.json");
 let CommonToLedgerJson = require("../PushDataFromFile/FromJson");
 let CommonCheckKey = require("./CheckKey");
 
-let StartFunc = async ({ DataPK, ToInsertKeyName, }) => {
+let StartFunc = async ({ DataPK, NewReportName, }) => {
     let localDataPk = DataPK;
-    let localToInsertKeyName = ToInsertKeyName;
+    let localNewReportName = NewReportName;
 
     let localFromData = await CommonCheckKey.StartFunc({
         inDataPK: localDataPk,
-        inReportKey: localToInsertKeyName
+        inReportKey: localNewReportName
     });
 
     let LocalReturnData = { ...localFromData };
@@ -20,11 +20,11 @@ let StartFunc = async ({ DataPK, ToInsertKeyName, }) => {
         return await LocalReturnData;
     };
 
-    localFromData.JsonData[ToInsertKeyName] = CommonReports;
+    localFromData.JsonData[localNewReportName] = CommonReports;
 
     let jvarLocalPushData = await CommonToLedgerJson.StartFunc({
         inOriginalData: localFromData.JsonData,
-        inDataToUpdate: localFromData.JsonData,
+        inDataToUpdate: LocalReturnData.JsonData,
         inDataPK: localDataPk
     });
     if (jvarLocalPushData.KTF) {
