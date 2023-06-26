@@ -38,45 +38,10 @@ let StartFunc = async ({ DataPK, ToName, ReportConficObject }) => {
 
         };
         return await LocalReturnData;
-
-
-
     };
 
-
     return await LocalReturnData;
-
 };
-let localMockFunc = () => {
-    StartFunc({
-        DataPK: 1022,
-        ToName: "Group3",
-        ReportConficObject: {
-            "VouchersConsider": [
-                {
-                    "pk": 32,
-                    "ItemName": "",
-                    "ColumnNameToPick": "",
-                    "JoinTables": [
-                        {
-                            "JT1": {
-                                "JsonConfig": {
-                                    "UserFolderName": "",
-                                    "inFolderName": "Masters",
-                                    "inJsonFileName": "Accounts.json"
-                                },
-                                "DataPulled": []
-                            }
-                        }
-                    ]
-                }]
-        }
-    }).then((promiseData) => {
-        console.log("");
-    });
-};
-
-// localMockFunc();
 
 module.exports = {
     StartFunc
