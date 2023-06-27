@@ -26,6 +26,9 @@ let StartFuncNoAsync = ({ FolderName, FileName, ItemName, NewData, DataPK }) => 
         return LocalReturnData;
     };
 
+    if (LocalFromCommonFromCheck.KTF) {
+        return LocalReturnData;
+    };
 
     let LocalNewData = JSON.parse(JSON.stringify(LocalFromCommonFromCheck.JsonData));
 
@@ -48,13 +51,13 @@ let StartFuncNoAsync = ({ FolderName, FileName, ItemName, NewData, DataPK }) => 
     return LocalReturnData;
 };
 if (MockFunc.AllowMock) {
-    if (MockFunc.MockKey === "") {
+    if (MockFunc.MockKey === "LLU") {
         let localData = StartFuncNoAsync({
             DataPK: MockFunc.DataPK,
-            FolderName,
-            FileName,
-            ItemName,
-            NewData
+            FolderName:"Masters",
+            FileName:"Items",
+            ItemName:"ItemName1",
+            NewData:"jjjj"
         });
         console.log("localData:", localData);
 
