@@ -14,16 +14,14 @@ let AsObject = async ({ inDataPK }) => {
                         ([KeyForItems, ValueForItems]) => {
                             Object.entries(ValueForItems.Screens).forEach(
                                 ([KeyForScreens, ValueForScreens]) => {
-                                    // delete ValueForScreens.SubTableColumnsObject;
                                     delete ValueForScreens.SubTableInfo;
                                     delete ValueForScreens.TableColumnsObject;
                                     delete ValueForScreens.ReturnDataJsonContent;
-                                    let LoopInsideTableRowOptions = ValueForScreens.TableInfo.TableRowOptions.Delete;
+                                    let LoopInsideTableRowOptions = ValueForScreens.TableInfo.TableRowOptions.Edit;
 
                                     ValueForScreens.TableInfo = {};
                                     ValueForScreens.TableInfo.TableRowOptions = {};
-                                    ValueForScreens.TableInfo.TableRowOptions.Delete = LoopInsideTableRowOptions;
-                                    // delete ValueForScreens.TableInfo;
+                                    ValueForScreens.TableInfo.TableRowOptions.Edit = LoopInsideTableRowOptions;
                                 }
                             );
                         }
