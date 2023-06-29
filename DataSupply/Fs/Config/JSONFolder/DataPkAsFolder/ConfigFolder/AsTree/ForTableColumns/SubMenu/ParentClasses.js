@@ -41,6 +41,7 @@ let AsObject = async ({ inDataPK }) => {
                                     ([ColumnKey, ColumnValue]) => {
                                         LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
                                             DataAttribute: ColumnValue.DataAttribute,
+                                            DisplayName: ColumnValue.DisplayName,
                                             Parent1Class: ColumnValue.ParentClasses.Parent1Class,
                                             Parent2Class: ColumnValue.ParentClasses.Parent2Class,
                                             Parent3Class: ColumnValue.ParentClasses.Parent3Class,
