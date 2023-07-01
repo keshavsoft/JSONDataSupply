@@ -17,6 +17,7 @@ let AsObject = async ({ inDataPK }) => {
                                     delete ValueForScreens.SubTableInfo;
                                     delete ValueForScreens.TableColumnsObject;
                                     delete ValueForScreens.ReturnDataJsonContent;
+                                    delete ValueForScreens.SubTableColumnsObject;
                                     let LoopInsideTableRowOptions = ValueForScreens.TableInfo.TableRowOptions.Edit.RowEdit;
 
                                     ValueForScreens.TableInfo = {};
