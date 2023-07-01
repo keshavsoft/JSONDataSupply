@@ -2,15 +2,15 @@ let _ = require("lodash");
 let CommonPullDataFromConfig = require("../../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../../PushData/FromFoldFile");
 
-let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName,BodyAsJson }) => {
+let MockFunc = require("../../../../../../../../../../../../../../MockAllow.json");
+
+let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, BodyAsJson }) => {
 
     const LocalDataToUpdate = (({ RowEdit }) => ({ RowEdit }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
-    let inJsonConfig = { inFolderName: FolderName, inJsonFileName: FileName }
     let LocalItemName = ItemName;
     let LocalScreenName = ScreenName;
-    let LocalFindColumnObject;
     let LocalFromUpdate;
     let LocalReturnObject = { KTF: false };
 
@@ -47,15 +47,22 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName,BodyAsJ
     return await LocalReturnObject;
 };
 
-// UpdateKeys({
-//     DataPK: 16, folderName: "Masters", FileName: "Customers.json", ItemName: "CustomersName", ScreenName: "Create",
-//     DataAttribute: "pk",
-//     BodyAsJson: {
-//         DisplayName: "ppppppppppp"
-//     }
-// }).then(p => {
-//     console.log("pppp : ", p);
-// });
+if (MockFunc.AllowMock) {
+    if (MockFunc.AllowMock === "") {
+        UpdateKeys({
+            DataPK: 16, folderName: "Masters", FileName: "Customers.json", ItemName: "CustomersName", ScreenName: "Create",
+            DataAttribute: "pk",
+            BodyAsJson: {
+                RowEdit: true
+            }
+        }).then(p => {
+            console.log("pppp : ", p);
+        });
+
+    };
+};
+
+
 
 
 module.exports = {

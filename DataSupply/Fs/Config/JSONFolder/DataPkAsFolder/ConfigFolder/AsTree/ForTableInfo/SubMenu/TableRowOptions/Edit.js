@@ -17,11 +17,12 @@ let AsObject = async ({ inDataPK }) => {
                                     delete ValueForScreens.SubTableInfo;
                                     delete ValueForScreens.TableColumnsObject;
                                     delete ValueForScreens.ReturnDataJsonContent;
-                                    let LoopInsideTableRowOptions = ValueForScreens.TableInfo.TableRowOptions.Edit;
+                                    let LoopInsideTableRowOptions = ValueForScreens.TableInfo.TableRowOptions.Edit.RowEdit;
 
                                     ValueForScreens.TableInfo = {};
                                     ValueForScreens.TableInfo.TableRowOptions = {};
-                                    ValueForScreens.TableInfo.TableRowOptions.Edit = LoopInsideTableRowOptions;
+                                    ValueForScreens.TableInfo.TableRowOptions.Edit = {};
+                                    ValueForScreens.TableInfo.TableRowOptions.Edit.RowEdit = LoopInsideTableRowOptions;
                                 }
                             );
                         }
