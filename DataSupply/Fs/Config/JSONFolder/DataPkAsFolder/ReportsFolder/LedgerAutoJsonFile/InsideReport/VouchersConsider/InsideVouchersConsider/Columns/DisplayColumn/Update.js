@@ -5,7 +5,7 @@ let CommonFromPushData = require("../../../../../PushDataFromFile/FromJson");
 
 
 let StartFunc = async ({ inDataPK, ReportName, voucherconsiderpk, columnpk, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ Name,DisplayColumn, TransformType, DefaultValue, ConsiderJoinTable, TransformTF }) => ({ Name,DisplayColumn, TransformType, DefaultValue, ConsiderJoinTable, TransformTF }))(BodyAsJson);
+    const LocalDataToUpdate = (({ Name,DisplayColumn, TransformType, DefaultValue }) => ({ Name,DisplayColumn, TransformType, DefaultValue }))(BodyAsJson);
     let LocalinDataPK = inDataPK;
     let localReportName = ReportName;
     let localvoucherconsiderpk = parseInt(voucherconsiderpk);
@@ -34,12 +34,9 @@ let StartFunc = async ({ inDataPK, ReportName, voucherconsiderpk, columnpk, Body
                 let LocalColumnObject = _.find(LocalFindColumnObject.Columns, localFindColumn);
 
                 LocalColumnObject.Name = LocalDataToUpdate.Name;
-
                 LocalColumnObject.DisplayColumn = LocalDataToUpdate.DisplayColumn;
                 LocalColumnObject.TransformType = LocalDataToUpdate.TransformType;
                 LocalColumnObject.DefaultValue = LocalDataToUpdate.DefaultValue;
-                LocalColumnObject.ConsiderJoinTable = LocalDataToUpdate.ConsiderJoinTable;
-                LocalColumnObject.TransformTF = LocalDataToUpdate.TransformTF;
 
 
                 LocalFromUpdate = await CommonFromPushData.StartFunc({
