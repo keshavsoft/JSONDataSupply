@@ -14,7 +14,7 @@ let CommonFuns = {
                 LocalColumnsSorted.forEach(LoopItemColumn => {
                     if (LoopItemColumn.hasOwnProperty("DisplayColumn")) {
                         localLoopObject[LoopItemColumn.DisplayColumn] = LoopItem[LoopItemColumn.Name];
-                        console.log("aaaaaaaa : ", LoopItemColumn.DisplayColumn, LoopItemColumn.TransformTF);
+                        
                         if (LoopItemColumn.hasOwnProperty("TransformTF")) {
                             if (LoopItemColumn.TransformTF) {
                                 LocalValueFromTransform = CommonFuns.SubFuncs.TransformType({
@@ -40,9 +40,6 @@ let CommonFuns = {
     SubFuncs: {
         TransformType: ({ inLoopItemColumn, inLoopItemData }) => {
             let LocalReturnValue = inLoopItemData[inLoopItemColumn.Name];
-
-            console.log("LocalReturnValue.TransformTF : ", LocalReturnValue);
-
 
             switch (inLoopItemColumn.TransformType) {
                 case "EquationFromDefaultValue":
