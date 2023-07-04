@@ -3,6 +3,8 @@ let _ = require("lodash");
 let CommonPullDataFromConfig = require("../../../PullDataFromFile/FromJson");
 let CommonFromPushData = require("../../../PushDataFromFile/FromJson");
 
+let MockFunc = require("../../../../../../../../../MockAllow.json");
+
 let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
     const LocalDataToUpdate = (({ FolderName, FromFolder }) => ({ FolderName, FromFolder }))(BodyAsJson);
     let LocalinDataPK = DataPK;
@@ -49,16 +51,21 @@ let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 
     return await LocalReturnObject;
 };
-let MockFunc = () => {
-    Update({
-        DataPK: 1024,
-        ItemName: "StockBalances",
-        voucher: "20"
-    }).then((PromiseData) => {
-        console.log("PromiseData--", Object.keys(PromiseData));
-    })
+if (MockFunc.AllowMock) {
+    if (MockFunc.MockKey === "PP") {
+        Update({
+            DataPK: MockFunc.DataPK,
+            ItemName: "Purchases",
+            voucher: "30",
+            BodyAsJson: { FolderName: "Trans", FromFolder: false }
+
+        }).then((PromiseData) => {
+            console.log("PromiseData--", Object.keys(PromiseData));
+        })
+
+    };
+
 };
-// MockFunc();
 
 module.exports = {
     Update
