@@ -24,6 +24,21 @@ let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
     };
     let LocalNewData = JSON.parse(JSON.stringify(LocalFromPullData.JsonData));
 
+    if ((LocalReportName in LocalNewData) === false) {
+        LocalReturnObject.KReason = `ReportName:${LocalReportName} not found !`
+        return LocalReturnObject;
+    };
+    let LocalFilterObject = {};
+    LocalFilterObject.pk = LocalVouchersConsiderPk;
+
+    LocalFindColumnObject = _.find(LocalNewData[LocalReportName].VouchersConsider, LocalFilterObject);
+
+
+    if ((voucher in LocalFindColumnObject) === false) {
+        LocalReturnObject.KReason = `ReportName:${voucher} not found !`
+        return LocalReturnObject;
+    };
+
     if (LocalReportName in LocalNewData) {
         if ("VouchersConsider" in LocalNewData[LocalReportName]) {
             let LocalFilterObject = {};
