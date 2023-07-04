@@ -35,12 +35,14 @@ let LocalBuildJsonData = ({ inJsonData }) => {
             value.VouchersConsider.forEach(element => {
                 //   LocalReturnObject.Reports[key].VouchersConsider[element.pk] = { Active: element.Active };
                 LocalReturnObject.Reports[key].VouchersConsider[element.pk] = {
-                    FolderName:element.FolderName,
-                    FileName:element.FileName,
-                    ItemName:element.ItemName,
+                    FolderName: element.FolderName,
+                    FileName: element.FileName,
+                    ItemName: element.ItemName,
                     FromFolder: element.FromFolder,
                     ItemNameConsider: element.ItemNameConsider,
-                    JsonFileConsider: element.JsonFileConsider };
+                    JsonFileConsider: element.JsonFileConsider,
+                    Active: element.Active
+                };
 
                 //  LocalReturnObject.Reports[key].VouchersConsider[element.pk] = { ...element };
             });
