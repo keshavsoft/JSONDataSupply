@@ -51,6 +51,21 @@ let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 
     return await LocalReturnObject;
 };
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'SR4') {
+        let LocalMockData = require('./Update.json');
+
+        StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
+};
+
 if (MockFunc.AllowMock) {
     if (MockFunc.MockKey === "PP") {
         Update({

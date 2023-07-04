@@ -24,7 +24,7 @@
 		"body": [
 			"if (CommonMock.AllowMock) {",
 			"	if (CommonMock.MockKey === '$1') {",
-			"		let LocalMockData = require('./import.json');",
+			"		let LocalMockData = require('./$TM_FILENAME_BASE.json');",
 			"",
 			"		StartFunc({",
 			"			inDataPK: CommonMock.DataPK,",
