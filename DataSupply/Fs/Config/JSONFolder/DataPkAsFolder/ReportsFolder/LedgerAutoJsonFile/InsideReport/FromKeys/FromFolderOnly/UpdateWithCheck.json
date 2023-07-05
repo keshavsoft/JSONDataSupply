@@ -1,0 +1,9 @@
+{
+    "DataPK": 1022,
+    "ItemName": "Purchases",
+    "voucher": "30",
+    "BodyAsJson": {
+        "FolderName": "Trans",
+        "FromFolder": false
+    }
+}

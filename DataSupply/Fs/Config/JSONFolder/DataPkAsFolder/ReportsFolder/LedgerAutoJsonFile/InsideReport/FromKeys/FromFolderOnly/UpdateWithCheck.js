@@ -24,6 +24,21 @@ let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
     };
     let LocalNewData = JSON.parse(JSON.stringify(LocalFromPullData.JsonData));
 
+    if ((LocalReportName in LocalNewData) === false) {
+        LocalReturnObject.KReason = `ReportName:${LocalReportName} not found !`
+        return LocalReturnObject;
+    };
+    let LocalFilterObject = {};
+    LocalFilterObject.pk = LocalVouchersConsiderPk;
+
+    LocalFindColumnObject = _.find(LocalNewData[LocalReportName].VouchersConsider, LocalFilterObject);
+
+
+    if ((voucher in LocalFindColumnObject) === false) {
+        LocalReturnObject.KReason = `ReportName:${voucher} not found !`
+        return LocalReturnObject;
+    };
+
     if (LocalReportName in LocalNewData) {
         if ("VouchersConsider" in LocalNewData[LocalReportName]) {
             let LocalFilterObject = {};
@@ -53,11 +68,11 @@ let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'SV05') {
+    if (CommonMock.MockKey === 'SR4') {
         let LocalMockData = require('./Update.json');
 
-        Update({
-            DataPK: CommonMock.DataPK,
+        StartFunc({
+            inDataPK: CommonMock.DataPK,
             ...LocalMockData
         }).then(PromiseData => {
             console.log('PromiseData : ', PromiseData);
@@ -65,6 +80,7 @@ if (CommonMock.AllowMock) {
         });
     };
 };
+
 
 module.exports = {
     StartFunc
