@@ -53,11 +53,11 @@ let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'SR4') {
+    if (CommonMock.MockKey === 'SV05') {
         let LocalMockData = require('./Update.json');
 
-        StartFunc({
-            inDataPK: CommonMock.DataPK,
+        Update({
+            DataPK: CommonMock.DataPK,
             ...LocalMockData
         }).then(PromiseData => {
             console.log('PromiseData : ', PromiseData);

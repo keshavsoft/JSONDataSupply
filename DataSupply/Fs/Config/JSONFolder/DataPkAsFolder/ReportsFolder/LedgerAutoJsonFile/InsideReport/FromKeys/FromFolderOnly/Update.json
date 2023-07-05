@@ -1,0 +1,8 @@
+{
+    "ItemName": "Purchases",
+    "voucher": "40",
+    "BodyAsJson": {
+        "FolderName": "Trans",
+        "FromFolder": false
+    }
+}
