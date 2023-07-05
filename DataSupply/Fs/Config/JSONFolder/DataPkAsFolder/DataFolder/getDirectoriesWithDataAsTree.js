@@ -15,20 +15,18 @@ let StartFunc = ({ inDataPK }) => {
     let LocalDataPath = `${LocalFromCommonFromCheck.DirPath}`;
     let LocalReturnObject = {};
 
-    fs.readdirSync(LocalDataPath).filter(function (RootFolder) {
+    fs.readdirSync(LocalDataPath).forEach((RootFolder) => {
         if (fs.statSync(LocalDataPath + '/' + RootFolder).isDirectory()) {
             LocalReturnObject[RootFolder] = {};
 
-            fs.readdirSync(LocalDataPath + '/' + RootFolder).filter(function (FileInFolder) {
+            fs.readdirSync(LocalDataPath + '/' + RootFolder).forEach((FileInFolder) => {
                 LocalReturnObject[RootFolder][FileInFolder] = {};
 
                 if (fs.statSync(`${LocalDataPath}/${RootFolder}/${FileInFolder}`).isFile()) {
-                    LocalReturnObject[RootFolder] = {};
-
                     let rawdata = fs.readFileSync(`${LocalDataPath}/${RootFolder}/${FileInFolder}`);
                     let student = JSON.parse(rawdata);
 
-                    LocalReturnObject[RootFolder] = student;
+                    LocalReturnObject[RootFolder][FileInFolder] = student;
                 };
             });
         };
@@ -57,9 +55,9 @@ let AsObject = async ({ inDataPK }) => {
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "K91") {
+    if (CommonMockAllow.MockKey === "K05") {
         let PromiseData = StartFunc({ inDataPK: CommonMockAllow.DataPK });
-        console.log("PromiseData : ", PromiseData.Masters.Products);
+        console.log("PromiseData : ", Object.keys(PromiseData.Masters), Object.keys(PromiseData), Object.keys(PromiseData.Trans));
     };
 };
 
