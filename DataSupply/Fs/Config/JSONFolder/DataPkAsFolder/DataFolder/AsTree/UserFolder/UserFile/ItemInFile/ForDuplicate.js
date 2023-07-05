@@ -2,6 +2,7 @@ let Path = require("path");
 let CommonFromFilesgetDirectories = require("../../../../UserFolder/getDirectories");
 let CommonFromgetDirectories = require("../../ForDuplicate");
 let CommonFromgetData = require("../../../../UserFolder/UserJsonFile/PullDataFromFile/FromFolderAndFile");
+let CommonMock = require("../../../../../../../../../MockAllow.json");
 
 let StartFunc = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -41,11 +42,17 @@ let StartFunc = async ({ inDataPK }) => {
     return LocalArray;
 
 };
-let LocalMockFunc = async () => {
-    let LocalData = await StartFunc({ inDataPK: 1022 });
-    // console.log("LocalData : ", LocalData.Folders);
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'KKVR') {
+
+        StartFunc({
+            inDataPK: CommonMock.DataPK
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
 };
 
-// LocalMockFunc();
 
 module.exports = { StartFunc };
