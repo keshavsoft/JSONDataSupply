@@ -1,0 +1,10 @@
+{
+    "ItemName": "Purchases",
+    "voucher": "40",
+    "BodyAsJson": {
+        "FolderName": "Trans",
+        "FileName": "GST-PURCHASES.json",
+        "ItemName": "GST-PURCHASE",
+        "Active": false
+    }
+}

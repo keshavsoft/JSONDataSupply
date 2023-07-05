@@ -3,8 +3,10 @@ let _ = require("lodash");
 let CommonPullDataFromConfig = require("../../../PullDataFromFile/FromJson");
 let CommonFromPushData = require("../../../PushDataFromFile/FromJson");
 
+let CommonMock = require("../../../../../../../../../MockAllow.json");
+
 let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ FolderName, FileName, Active }) => ({ FolderName, FileName, Active }))(BodyAsJson);
+    const LocalDataToUpdate = (({ FolderName, FileName, ItemName, Active }) => ({ FolderName, FileName, ItemName, Active }))(BodyAsJson);
     let LocalinDataPK = DataPK;
     let LocalReportName = ItemName;
     let LocalVouchersConsiderPk = parseInt(voucher);
@@ -28,12 +30,10 @@ let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
             LocalFilterObject.pk = LocalVouchersConsiderPk;
             LocalFindColumnObject = _.find(LocalNewData[LocalReportName].VouchersConsider, LocalFilterObject);
 
-            console.log("ooooooo---", LocalFindColumnObject.FolderName, LocalDataToUpdate.FolderName);
-
             LocalFindColumnObject.FolderName = LocalDataToUpdate.FolderName;
             LocalFindColumnObject.FileName = LocalDataToUpdate.FileName;
+            LocalFindColumnObject.ItemName = LocalDataToUpdate.ItemName;
             LocalFindColumnObject.Active = LocalDataToUpdate.Active;
-
 
             LocalFromUpdate = await CommonFromPushData.StartFunc({
                 inDataPK: LocalinDataPK,
@@ -53,16 +53,19 @@ let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 
     return await LocalReturnObject;
 };
-let MockFunc = () => {
-    Update({
-        DataPK: 1024,
-        ItemName: "StockBalances",
-        voucher: "20"
-    }).then((PromiseData) => {
-        console.log("PromiseData--", Object.keys(PromiseData));
-    })
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'MVM') {
+        let LocalMockData = require('./Update.json');
+
+        Update({
+            DataPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
 };
-// MockFunc();
 
 module.exports = {
     Update
