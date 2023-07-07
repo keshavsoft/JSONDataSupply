@@ -3,12 +3,13 @@ let _ = require("lodash");
 let CommonPullDataFromConfig = require("../../../PullDataFromFile/FromJson");
 let CommonFromPushData = require("../../../PushDataFromFile/FromJson");
 
-let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
-    console.log(" ", DataPK, ItemName, voucher, BodyAsJson);
-    const LocalDataToUpdate = (({ FolderName, FileName, ItemNameConsider }) => ({ FolderName, FileName, ItemNameConsider }))(BodyAsJson);
+let CommonMock = require("../../../../../../../../../MockAllow.json");
+
+let StartFunc = async ({ DataPK, ReportName, VoucherPk, Active }) => {
+
     let LocalinDataPK = DataPK;
-    let LocalReportName = ItemName;
-    let LocalVouchersConsiderPk = parseInt(voucher);
+    let LocalReportName = ReportName;
+    let LocalVouchersConsiderPk = parseInt(VoucherPk);
 
     let LocalFromUpdate;
     let LocalReturnObject = { KTF: false };
@@ -29,12 +30,7 @@ let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
             LocalFilterObject.pk = LocalVouchersConsiderPk;
             LocalFindColumnObject = _.find(LocalNewData[LocalReportName].VouchersConsider, LocalFilterObject);
 
-            console.log("ooooooo---", LocalFindColumnObject.FolderName, LocalDataToUpdate.FolderName);
-
-            // LocalFindColumnObject.ItemNameConsider = LocalDataToUpdate.ItemNameConsider;
-            // LocalFindColumnObject.FromFolder = LocalDataToUpdate.FromFolder;
-            LocalFindColumnObject.ItemNameConsider = LocalDataToUpdate.ItemNameConsider;
-
+            LocalFindColumnObject.Active = Active;
 
             LocalFromUpdate = await CommonFromPushData.StartFunc({
                 inDataPK: LocalinDataPK,
@@ -50,21 +46,23 @@ let Update = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 
         };
     };
-
-
     return await LocalReturnObject;
 };
-let MockFunc = () => {
-    Update({
-        DataPK: 1024,
-        ItemName: "StockBalances",
-        voucher: "20"
-    }).then((PromiseData) => {
-        console.log("PromiseData--", Object.keys(PromiseData));
-    })
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'NM') {
+        let LocalMockData = require('./Update.json');
+
+        StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
 };
-// MockFunc();
 
 module.exports = {
-    Update
+    StartFunc
 };
