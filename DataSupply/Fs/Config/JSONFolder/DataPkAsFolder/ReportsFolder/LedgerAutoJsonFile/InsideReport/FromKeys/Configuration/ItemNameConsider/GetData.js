@@ -22,7 +22,6 @@ let StartFunc = async ({ inDataPK }) => {
 
     return await LocalReturnData;
 
-
 };
 
 let LocalBuildJsonData = ({ inJsonData }) => {
@@ -39,7 +38,7 @@ let LocalBuildJsonData = ({ inJsonData }) => {
                     FolderName: element.FolderName,
                     FileName: element.FileName,
                     ItemName: element.ItemName,
-                    Active: element.Active
+                    ItemNameConsider: element.ItemNameConsider
                 };
 
             });
