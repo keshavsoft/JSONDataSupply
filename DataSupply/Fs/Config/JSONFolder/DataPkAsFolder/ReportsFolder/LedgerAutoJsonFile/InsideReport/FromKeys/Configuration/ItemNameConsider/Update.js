@@ -5,10 +5,10 @@ let CommonFromPushData = require("../../../../PushDataFromFile/FromJson");
 
 let CommonMock = require("../../../../../../../../../../MockAllow.json");
 
-let Update = async ({ DataPK, VoucherPk, voucher, FolderName, FileName, ItemName, ItemNameConsider }) => {
+let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemName, ItemNameConsider }) => {
     
     let LocalinDataPK = DataPK;
-    let LocalReportName = voucher;
+    let LocalReportName = ReportName;
     let LocalVouchersConsiderPk = parseInt(VoucherPk);
 
     let LocalFromUpdate;
