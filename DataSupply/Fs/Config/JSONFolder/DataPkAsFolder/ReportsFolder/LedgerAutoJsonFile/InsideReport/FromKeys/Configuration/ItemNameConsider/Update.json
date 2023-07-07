@@ -1,5 +1,5 @@
 {
-    "voucher": "Purchases",
+    "ReportName": "Purchases",
     "VoucherPk": "40",
     "FolderName": "Trans",
     "FileName": "GST-PURCHASES.json",
