@@ -2,7 +2,7 @@ let _ = require("lodash");
 
 let CommonCheckPk = require("../../CheckPk");
 
-// let CommonToUpdata = require("./Update");
+let CommonToUpdata = require("./Update");
 let CommonItemCheck = require("../../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/CheckItemName");
 
 let CommonMock = require("../../../../../../../../../../../MockAllow.json");
@@ -39,11 +39,25 @@ let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemN
     LocalReturnObject = { ...localCommonCheck };
     LocalReturnObject.KTF = false
 
+    LocalFromUpdate = await CommonToUpdata.Update({
+        DataPK: LocalinDataPK,
+        VoucherPk: LocalVouchersConsiderPk,
+        ReportName: LocalReportName,
+        FolderName,
+        FileName,
+        ItemName,
+        ItemNameConsider
+    });
+    if (LocalFromUpdate.KTF) {
+        LocalReturnObject.KTF = true;
+    };
+
     return await LocalReturnObject;
+
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'MVN') {
+    if (CommonMock.MockKey === 'SSVM') {
         let LocalMockData = require('./Update.json');
 
         Update({
