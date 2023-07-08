@@ -11,7 +11,6 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
     };
 
     if (LocalDataPK > 0) {
-        let LocalFromCommonFromPullData;
         let LocalFolderName = inFolderName;
         let LocalFileNameWithExtension = inFileNameWithExtension;
         let LocalItemName = inItemName;
@@ -23,7 +22,6 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
         });
 
         if (LocalFromCommonFromCheck.KTF === false) {
-            LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
             return await LocalReturnObject;
         };
 

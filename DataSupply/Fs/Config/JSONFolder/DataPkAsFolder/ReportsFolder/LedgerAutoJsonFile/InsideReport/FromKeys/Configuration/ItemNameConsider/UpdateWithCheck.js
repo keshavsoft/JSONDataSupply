@@ -1,6 +1,7 @@
 let _ = require("lodash");
 
-let CommonPullDataFromConfig = require("../../../../PullDataFromFile/FromJson");
+let CommonPullDataFromConfig = require("..");
+
 let CommonToUpdata = require("./Update");
 let CommonCheck = require("../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/ItemNameAsFolder/Check");
 
@@ -82,28 +83,15 @@ let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemN
     let localFileName = FileName;
     let localItemName = ItemName;
 
-    let LocalFromPullData = await CommonPullDataFromConfig.StartFunc({
-        inDataPK: LocalinDataPK
+    let LocalFromPullData = CommonPullDataFromConfig.StartFunc({
+        inDataPK: LocalinDataPK,
+        ReportName: LocalReportName
     });
 
     let LocalReturnObject = { ...LocalFromPullData };
     LocalReturnObject.KTF = false
 
     if (LocalFromPullData.KTF === false) {
-        return LocalReturnObject;
-    };
-
-    if ((LocalReportName in LocalReturnObject.JsonData) === false) {
-        LocalReturnObject.KReason = ` ReportName : ${LocalReportName} not found !`
-        return LocalReturnObject;
-    };
-
-    let LocalFilterObject = {};
-    LocalFilterObject.pk = LocalVouchersConsiderPk;
-    LocalFindColumnObject = _.find(LocalReturnObject.JsonData[LocalReportName].VouchersConsider, LocalFilterObject);
-
-    if ((LocalFindColumnObject.pk === LocalVouchersConsiderPk) === false) {
-        LocalReturnObject.KReason = ` VouchersConsiderPk : ${LocalVouchersConsiderPk} not found !`
         return LocalReturnObject;
     };
 
@@ -114,10 +102,20 @@ let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemN
         inDataPK: LocalinDataPK
     });
 
-    if (localCommonCheck.KTF === false) {
-        LocalReturnObject.KReason = localCommonCheck.KReason;
+    LocalReturnObject = { ...localCommonCheck };
+    LocalReturnObject.KTF = false
 
+    if (localCommonCheck.KTF === false) {
         return await LocalReturnObject;
+    };
+
+    let LocalFilterObject = {};
+    LocalFilterObject.pk = LocalVouchersConsiderPk;
+    LocalFindColumnObject = _.find(LocalReturnObject.JsonData[LocalReportName].VouchersConsider, LocalFilterObject);
+
+    if ((LocalFindColumnObject.pk === LocalVouchersConsiderPk) === false) {
+        LocalReturnObject.KReason = ` VouchersConsiderPk : ${LocalVouchersConsiderPk} not found !`
+        return LocalReturnObject;
     };
 
     LocalFromUpdate = await CommonToUpdata.Update({
@@ -145,7 +143,7 @@ if (CommonMock.AllowMock) {
             DataPK: CommonMock.DataPK,
             ...LocalMockData
         }).then(PromiseData => {
-            console.log('PromiseData : ', PromiseData);
+            console.log('PromiseData : ', PromiseData.KTF);
 
         });
     };

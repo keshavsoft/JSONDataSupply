@@ -9,8 +9,9 @@ let StartFunc = ({ inDataPK }) => {
     let CommonFromFolderCheck = CommonAbsolutePath.ForExistence({ inDataPK });
 
     if (CommonFromFolderCheck.KTF === false) {
-        LocalReturnData.KReason = CommonFromFolderCheck.KReason;
+        return LocalReturnData;
     };
+
     LocalReturnData.ReportFilePath = `${CommonFromFolderCheck.ReportsPath}/${LocalJsonFile}`;
 
     try {

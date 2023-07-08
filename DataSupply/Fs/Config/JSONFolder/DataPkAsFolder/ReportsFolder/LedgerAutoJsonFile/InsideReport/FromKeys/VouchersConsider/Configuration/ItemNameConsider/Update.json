@@ -1,0 +1,8 @@
+{
+    "ReportName": "LedgerForPrint",
+    "VoucherPk": "10",
+    "FolderName": "Trans",
+    "FileName": "GST-PURCHASE-DC",
+    "ItemName": "GST-RETAIL-PDC",
+    "ItemNameConsider": false
+}
