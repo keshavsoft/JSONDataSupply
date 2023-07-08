@@ -1,9 +1,9 @@
 let _ = require("lodash");
 
-let CommonPullDataFromConfig = require("../../../../PullDataFromFile/FromJson");
-// let CommonFromPushData = require("../../../../PushDataFromFile/FromJson");
+let CommonPullDataFromConfig = require("../../../../../PullDataFromFile/FromJson");
+let CommonFromPushData = require("../../../../../PushDataFromFile/FromJson");
 
-// let CommonMock = require("../../../../../../../../../../MockAllow.json");
+let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 
 let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemName, ItemNameConsider }) => {
     
@@ -35,11 +35,11 @@ let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemN
             LocalFindColumnObject.ItemName = ItemName;
             LocalFindColumnObject.ItemNameConsider = ItemNameConsider;
 
-            // LocalFromUpdate = await CommonFromPushData.StartFunc({
-            //     inDataPK: LocalinDataPK,
-            //     inDataToUpdate: LocalNewData,
-            //     inOriginalData: LocalFromPullData.JsonData
-            // });
+            LocalFromUpdate = await CommonFromPushData.StartFunc({
+                inDataPK: LocalinDataPK,
+                inDataToUpdate: LocalNewData,
+                inOriginalData: LocalFromPullData.JsonData
+            });
 
             if (LocalFromUpdate.KTF) {
                 LocalReturnObject.KTF = true;
@@ -49,24 +49,22 @@ let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemN
 
         };
     };
-
-
     return await LocalReturnObject;
 };
 
-// if (CommonMock.AllowMock) {
-//     if (CommonMock.MockKey === 'MVM') {
-//         let LocalMockData = require('./Update.json');
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'MVM') {
+        let LocalMockData = require('./Update.json');
 
-//         Update({
-//             DataPK: CommonMock.DataPK,
-//             ...LocalMockData
-//         }).then(PromiseData => {
-//             console.log('PromiseData : ', PromiseData);
+        Update({
+            DataPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
 
-//         });
-//     };
-// };
+        });
+    };
+};
 
 module.exports = {
     Update
