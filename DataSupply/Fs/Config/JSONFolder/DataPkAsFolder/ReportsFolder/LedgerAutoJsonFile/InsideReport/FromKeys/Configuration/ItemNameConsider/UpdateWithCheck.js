@@ -72,8 +72,8 @@ let Update1 = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, Item
     return await LocalReturnObject;
 
 };
-let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemName, ItemNameConsider }) => {
 
+let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemName, ItemNameConsider }) => {
     let LocalinDataPK = DataPK;
     let LocalReportName = ReportName;
     let LocalVouchersConsiderPk = parseInt(VoucherPk);
@@ -119,7 +119,7 @@ let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemN
 
         return await LocalReturnObject;
     };
-    
+
     LocalFromUpdate = await CommonToUpdata.Update({
         DataPK: LocalinDataPK,
         VoucherPk: LocalVouchersConsiderPk,
