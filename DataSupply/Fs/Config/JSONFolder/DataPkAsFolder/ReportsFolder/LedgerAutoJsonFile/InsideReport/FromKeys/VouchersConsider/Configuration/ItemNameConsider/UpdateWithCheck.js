@@ -37,7 +37,11 @@ let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemN
     });
 
     LocalReturnObject = { ...localCommonCheck };
-    LocalReturnObject.KTF = false
+    LocalReturnObject.KTF = false;
+    
+    if (localCommonCheck.KTF === false) {
+        return LocalReturnObject;
+    };
 
     LocalFromUpdate = await CommonToUpdata.Update({
         DataPK: LocalinDataPK,
