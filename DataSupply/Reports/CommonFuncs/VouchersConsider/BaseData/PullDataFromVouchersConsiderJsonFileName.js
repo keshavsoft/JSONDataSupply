@@ -14,6 +14,24 @@ const StartFunc = async ({ inVouchersConsiderLine, inUserPK }) => {
 
     if ("FromFolder" in inVouchersConsiderLine) {
         if (inVouchersConsiderLine.FromFolder) {
+            LocalFromLoopFunc = await CommonFolderIncludeAllFiles.AsArray({
+                inFolderName: LocalFolderName,
+                inDataPK: inUserPK
+            });
+
+            if (LocalFromLoopFunc.KTF) {
+                LocalReturnObject.KTF = true;
+                LocalReturnObject.KResult = LocalFromLoopFunc.ReturnArray;
+            } else {
+                LocalReturnObject.KReason = LocalFromLoopFunc.KReason;
+            };
+
+            return;
+        };
+    };
+
+    if ("FromFolder" in inVouchersConsiderLine) {
+        if (inVouchersConsiderLine.FromFolder) {
             if ("FolderConfig" in inVouchersConsiderLine) {
                 if ("ConsiderFilesArray" in inVouchersConsiderLine.FolderConfig) {
                     LocalFromLoopFunc = await CommonFolderIncludeAllFiles.AsArray({
