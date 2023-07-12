@@ -26,7 +26,7 @@ const StartFunc = async ({ inVouchersConsiderLine, inUserPK }) => {
                 LocalReturnObject.KReason = LocalFromLoopFunc.KReason;
             };
 
-            return;
+            return await LocalReturnObject;
         };
     };
 
