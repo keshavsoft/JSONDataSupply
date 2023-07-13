@@ -29,6 +29,7 @@ let StartFunc = async ({ inDataPK, ReportName, FolderName, FileName, ItemName })
         LocalReturnData.KReason = LocalFromMax.KReason;
         return await LocalReturnData;
     };
+    LocalReturnData.MaxPk = LocalFromMax.MaxPk + 1
 
     let localVouchersConsiderJsonData = VouchersConsiderJsonData;
 
