@@ -2,7 +2,8 @@ let _ = require("lodash");
 
 let CommonPullDataFromConfig = require("../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../PushData/FromFoldFile");
-let CommonMock= require("../../../../../../../../../../../../../MockAllow.json")
+
+let CommonMock= require("../../../../../../../../../../../../../MockAllow.json");
 
 let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAttribute, BodyAsJson }) => {
     console.log("BodyAsJson", BodyAsJson);
@@ -58,15 +59,16 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'Satish') {
+    if (CommonMock.MockKey === 'Kes') {
         let LocalMockData = require('./Update.json');
 
         Update({
-            DataPK: CommonMock.DataPK,
+            inDataPK: CommonMock.DataPK,
             ...LocalMockData
-        }).then((promiseData) => {
-            console.log("promiseData: ", promiseData);
-        })
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+           
+        });
     };
 };
 
