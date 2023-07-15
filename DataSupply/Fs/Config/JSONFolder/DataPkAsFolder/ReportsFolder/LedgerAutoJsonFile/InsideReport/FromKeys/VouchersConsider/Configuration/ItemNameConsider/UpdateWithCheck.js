@@ -13,7 +13,7 @@ let Update = async ({ DataPK, VoucherPk, ReportName, FolderName, FileName, ItemN
     let LocalVouchersConsiderPk = parseInt(VoucherPk);
     let LocalFromUpdate;
     let localFolderName = FolderName;
-    let localFileName = FileName;
+    let localFileName = FileName.split('.')[0];
     let localItemName = ItemName;
 
     let LocalFromPullData = CommonCheckPk.StartFunc({
