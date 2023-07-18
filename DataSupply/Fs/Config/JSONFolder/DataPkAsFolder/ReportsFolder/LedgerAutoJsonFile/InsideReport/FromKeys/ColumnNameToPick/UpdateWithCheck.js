@@ -1,6 +1,6 @@
-let CommonPullDataFromConfig = require("../../../../../../../../Config/Folders/Files/Items/Check");
-let CommonFromPushData = require("./Update");
-
+let CommonCheck         =    require("../../../../../DataFolder/UserFolder/UserJsonFile/ItemName/Check");
+let CommonFromPushData  =    require("./Update");
+let CommonMock          =    require("../../../../../../../../../MockAllow.json");
 
 let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 
@@ -13,18 +13,27 @@ let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
     let localGridName = BodyAsJson.ColumnNameToPick;
 
     let LocalFromUpdate;
-    let LocalReturnObject = { KTF: false };
 
-    let LocalFromPullData = await CommonPullDataFromConfig.StartFunc({
-        inDataPK: LocalinDataPK
+    let LocalCommonCheck = await CommonCheck.StartFunc({
+        inDataPK: LocalinDataPK,
+        inFolderName: localFolderName,
+        inFileNameOnly: localFileName,
+        inItemName: localItemName
     });
 
-    if (LocalFromPullData.KTF === false) {
-        LocalReturnObject.KReason = LocalFromPullData.KReason;
+    let LocalReturnObject = { ...LocalCommonCheck };
+    LocalReturnObject.KTF = false;
+
+    if (LocalCommonCheck.KTF === false) {
         return LocalReturnObject;
     };
-    let LocalNewData = JSON.parse(JSON.stringify(LocalFromPullData.JsonData));
+    Object.entries(LocalReturnObject.JsonData[localItemName]).forEach(([key, value]) => {
 
+        if (localGridName in value === false) {
+            LocalReturnObject.KReason = `Grid Name : ${localGridName} Not found ! `;
+            return LocalReturnObject;
+        };
+    });
 
     LocalFromUpdate = await CommonFromPushData.Update({
         DataPK: LocalinDataPK,
@@ -39,11 +48,11 @@ let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 
 };
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === '') {
+    if (CommonMock.MockKey === 'SVN') {
         let LocalMockData = require('./UpdateWithCheck.json');
 
         StartFunc({
-            inDataPK: CommonMock.DataPK,
+            DataPK: CommonMock.DataPK,
             ...LocalMockData
         }).then(PromiseData => {
             console.log('PromiseData : ', PromiseData);
@@ -52,16 +61,6 @@ if (CommonMock.AllowMock) {
     };
 };
 
-let MockFunc = () => {
-    Update({
-        DataPK: 1024,
-        ItemName: "StockBalances",
-        voucher: "20"
-    }).then((PromiseData) => {
-        console.log("PromiseData--", Object.keys(PromiseData));
-    })
-};
-// MockFunc();
 
 module.exports = {
     StartFunc

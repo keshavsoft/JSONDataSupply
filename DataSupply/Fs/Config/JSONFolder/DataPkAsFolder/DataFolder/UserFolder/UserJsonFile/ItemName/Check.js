@@ -13,12 +13,18 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
         inDataPK: LocalinDataPK
     });
 
-     LocalReturnData = { ...LocalFromCommonFromCheck };
-     LocalReturnData.KTF=false;
+    LocalReturnData = { ...LocalFromCommonFromCheck };
+    LocalReturnData.KTF = false;
 
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KTFFromRoot=false;
-     
+        LocalReturnData.KTFFromRoot = false;
+
+        return LocalReturnData;
+    };
+
+    if (inItemName in LocalReturnData.JsonData === false) {
+        LocalReturnData.KReason = `Item Name : ${inItemName} Not found ! `;
+
         return LocalReturnData;
     };
 
