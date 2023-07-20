@@ -1,6 +1,7 @@
-let CommonCheck         =    require("../../../../../DataFolder/UserFolder/UserJsonFile/ItemName/Check");
-let CommonFromPushData  =    require("./Update");
-let CommonMock          =    require("../../../../../../../../../MockAllow.json");
+const path = require('path');
+let CommonCheck = require("../../../../../DataFolder/UserFolder/UserJsonFile/ItemName/Check");
+let CommonFromPushData = require("./Update");
+let CommonMock = require("../../../../../../../../../MockAllow.json");
 
 let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
 
@@ -10,6 +11,7 @@ let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
     let localFolderName = BodyAsJson.FolderName;
     let localFileName = BodyAsJson.FileName;
     let localItemName = BodyAsJson.ItemName;
+    let localFileNameOnly = path.parse(localFileName).name;
     let localGridName = BodyAsJson.ColumnNameToPick;
 
     let LocalFromUpdate;
@@ -17,7 +19,7 @@ let StartFunc = async ({ DataPK, ItemName, voucher, BodyAsJson }) => {
     let LocalCommonCheck = await CommonCheck.StartFunc({
         inDataPK: LocalinDataPK,
         inFolderName: localFolderName,
-        inFileNameOnly: localFileName,
+        inFileNameOnly: localFileNameOnly,
         inItemName: localItemName
     });
 
