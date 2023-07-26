@@ -1,5 +1,6 @@
 let CommonFromCheck = require("../Check");
 let _ = require("lodash");
+let CommonMock = require("../../../../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
     let LocalinFolderName = inFolderName;
@@ -144,24 +145,17 @@ let ReturnAsArrayWithPKSortByPKDes = ({ inFolderName, inFileNameOnly, inItemName
     return LocalReturnData;
 };
 
-// console.log("ForExistence----- : ", ReturnAsArrayWithPKSortByPK({
-//     inFolderName: "Transactions",
-//     inFileNameOnly: "GST-SALES",
-//     inItemName: "FERTLIZERS-GST--SALES",
-//     inDataPK: 1024
-// }).JsonData[0]);
 
-let LocalMockFunc = () => {
-    let LocalFromStartFunc = StartFunc({
-        inFolderName: "QrCodes",
-        inFileNameOnly: "Generate",
-        inItemName: "Barcodes",
-        inDataPK: 901
-    });
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'KKS') {
+        let LocalMockData = require('./FromFolderFileItemName.json');
 
-    console.log("LocalFromStartFunc : ", LocalFromStartFunc);
+        let LocalData = StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        });
+        console.log("LocalData:",LocalData);
+    };
 };
-
-// LocalMockFunc();
 
 module.exports = { StartFunc, ReturnAsArrayWithPK };
