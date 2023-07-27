@@ -1,0 +1,8 @@
+{
+    "ReportName": "PurchasesDate",
+    "DataAttribute": "AccountName",
+    "BodyAsJson": {
+        "Widths": "66",
+        "OrderNumber":null
+    }
+}
