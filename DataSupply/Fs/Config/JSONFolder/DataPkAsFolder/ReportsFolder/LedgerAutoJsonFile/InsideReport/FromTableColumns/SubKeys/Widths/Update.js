@@ -5,7 +5,7 @@ let CommonMock = require("../../../../../../../../../../MockAllow.json");
 
 
 let StartFunc = async ({ inDataPK, ReportName, DataAttribute, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ Widths, OrderNumber }) => ({ Widths, OrderNumber }))(BodyAsJson);
+    const LocalDataToUpdate = (({ px }) => ({ px }))(BodyAsJson);
     let LocalinDataPK = inDataPK;
     let localReportName = ReportName;
     let localDataAttribute = DataAttribute;
@@ -32,8 +32,7 @@ let StartFunc = async ({ inDataPK, ReportName, DataAttribute, BodyAsJson }) => {
     let localFindColumn = {};
     localFindColumn.DataAttribute = localDataAttribute
     let LocalColumnObject = _.find(LocalReturnData.JsonData[localReportName].TableColumns, localFindColumn);
-    LocalColumnObject.Widths = LocalDataToUpdate.Widths;
-    LocalColumnObject.OrderNumber = LocalDataToUpdate.OrderNumber;
+    LocalColumnObject.Widths.px = LocalDataToUpdate.px;
 
     LocalFromUpdate = await CommonFromPushData.StartFunc({
         inDataPK: LocalinDataPK,
@@ -50,7 +49,7 @@ let StartFunc = async ({ inDataPK, ReportName, DataAttribute, BodyAsJson }) => {
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === '556') {
+    if (CommonMock.MockKey === '8889') {
         let LocalMockData = require('./Update.json');
 
         StartFunc({
