@@ -32,10 +32,4 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     return LocalReturnData;
 };
 
-// console.log("ForExistence : ", StartFunc({
-//     inFolderName: "Masters",
-//     inFileNameOnly: "Customers",
-//     inDataPK: 16
-// }));
-
 module.exports = { StartFunc };
