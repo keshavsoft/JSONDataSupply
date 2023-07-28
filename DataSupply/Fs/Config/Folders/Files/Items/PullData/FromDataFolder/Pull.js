@@ -45,6 +45,14 @@ let AsArrayWithPK = async ({ inJsonConfig, inItemName, inDataPK }) => {
             inJsonConfig, inUserPK: LocalDataPK
         });
 
+        LocalReturnObject = { ...LocalDataFromJSON };
+        LocalReturnObject.KTF = false;
+
+        if (inItemName in LocalDataFromJSON === false) {
+            LocalReturnObject.KReason = "Item not found...";
+            return await LocalReturnObject;
+        };
+
         if (inItemName in LocalDataFromJSON) {
             LocalReturnData = LocalDataFromJSON[inItemName];
         };
