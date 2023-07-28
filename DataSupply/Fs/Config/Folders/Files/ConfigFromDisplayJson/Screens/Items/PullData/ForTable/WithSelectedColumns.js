@@ -1,10 +1,13 @@
 let _ = require("lodash");
+let path = require("path");
 
 let CommonPullDataTransformData = require("../../../../../../../../../PullData/TransformData");
 
-let CommonReOrder = require("../../../../../../../../../CommonTableFuncs/TableFuncs/ReOrder");
+// let CommonFilesPullData = require("../../../../../Items/PullData/FromDataFolder/Pull");
 
-let CommonFilesPullData = require("../../../../../Items/PullData/FromDataFolder/Pull");
+
+let CommonFilesPullData = require("../../../../../../../JSONFolder/DataPkAsFolder/DataFolder/UserFolder/UserJsonFile/ItemName/PullData/FromFolderFileItemName");
+
 let CommonFromReports = require("../../../../../../../../../Reports/CommonFuncs/VouchersConsider/Transform");
 
 let CommonMock = require("../../../../../../../../../MockAllow.json");
@@ -33,41 +36,6 @@ let LocalPrepareTableConfig = async ({ inJsonConfig, inItemConfig, inUserPK }) =
                 inTableColumns: LocalDisplayDataNeeded.TableColumns,
                 inTableInfo: LocalDisplayDataNeeded.TableInfo
             });
-            
-            LocalReturnObject.TableInfo = LocalDisplayDataNeeded.TableInfo;
-            LocalReturnObject.JoinTables = LocalDisplayDataNeeded.JoinTables;
-        };
-    };
-
-    return await LocalReturnObject;
-};
-
-let LocalPrepareTableConfig_Keshav_26Jun = async ({ inJsonConfig, inItemConfig, inUserPK }) => {
-    let LocalDisplayDataNeeded;
-    let LocalReturnObject = {
-        TableColumns: [],
-        TableInfo: {},
-        JoinTables: []
-    };
-
-    let LocalDisplayData = await CommonConfig.FromJsonItemConfig({
-        inJsonConfig, inItemConfig,
-        inDataPK: inUserPK
-    });
-
-    if (LocalDisplayData.KTF) {
-        LocalDisplayDataNeeded = LocalDisplayData.DataFromServer;
-
-        if (LocalDisplayDataNeeded !== undefined) {
-            let LocalPkColumn = LocalDisplayDataNeeded.TableColumns.find(element => element.DataAttribute === "pk");
-            LocalPkColumn.ShowInTable = true;
-            console.log("aaaaaaa : ", LocalDisplayDataNeeded.TableColumns);
-            LocalReturnObject.TableColumns = LocalDisplayDataNeeded.TableColumns.filter(element => element.ShowInTable);
-
-            LocalReturnObject.TableColumns = CommonReOrder.StartFunc({
-                inTableColumns: LocalReturnObject.TableColumns,
-                inTableInfo: LocalDisplayDataNeeded.TableInfo
-            });
 
             LocalReturnObject.TableInfo = LocalDisplayDataNeeded.TableInfo;
             LocalReturnObject.JoinTables = LocalDisplayDataNeeded.JoinTables;
@@ -77,14 +45,16 @@ let LocalPrepareTableConfig_Keshav_26Jun = async ({ inJsonConfig, inItemConfig, 
     return await LocalReturnObject;
 };
 
-let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inColumns, inTableInfo }) => {
+let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inColumns, inTableInfo, inFolderName, inFileName, inItemName }) => {
     let LocalItemName = inItemConfig.inItemName;
+    let LocalinFileNameOnly = path.parse(inFileName).name;
+
     let LocalReturnData;
 
-    let LocalData = await CommonFilesPullData.AsArrayWithPK({
-        inJsonConfig,
-        inItemName: LocalItemName,
-        inDataPK: inDataPk
+    let LocalData = CommonFilesPullData.ReturnAsArrayWithPK({
+        inDataPK: inDataPk,
+        inFolderName, inFileNameOnly: LocalinFileNameOnly,
+        inItemName
     });
 
     if (LocalData.KTF) {
@@ -100,33 +70,19 @@ let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inCol
                     return element;
                 });
 
-                // LocalReturnData = CommonFromReports.Transform({
-                //     inColumns: LocalTransformedColumns,
-                //     inData: LocalData
-                // });
-
-                //console.log("LocalData : ", LocalData);
                 LocalReturnData = CommonFromReports.Transform({
                     inColumns: LocalTransformedColumns,
                     inData: LocalData.ArrayData
                 });
-                //console.log("LocalReturnData : ", LocalReturnData);
-
             };
         };
+
         try {
-
-
-            // let LocalColumnsArray = inColumns.map(element => return element.DataAttribute);
             let LocalColumnsArray = _.map(inColumns, 'DataAttribute');
 
             LocalReturnData = _.map(LocalReturnData, LoopItem => {
                 return _.pick(LoopItem, LocalColumnsArray);
             });
-
-
-            console.log("LocalColumnsArray : ");
-
         } catch (error) {
             console.log("error : ", error);
         };
@@ -136,7 +92,7 @@ let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inCol
 };
 
 let LocalSubFuncs = {
-    CreateArrayElement: async ({ inDisplayDataNeeded, inJsonConfig, inItemConfig, inDataPk }) => {
+    CreateArrayElement: async ({ inDisplayDataNeeded, inJsonConfig, inItemConfig, inDataPk, inFolderName, inFileName, inItemName }) => {
         let LocalReturnArrayObject = { HTMLControlType: "MainTable", KData: {} };
 
         LocalReturnArrayObject.KData.TableColumns = inDisplayDataNeeded.TableColumns;
@@ -147,15 +103,19 @@ let LocalSubFuncs = {
         LocalReturnArrayObject.KData.TableInfo.DataAttributes.JsonConfig = JSON.stringify(inJsonConfig);
         LocalReturnArrayObject.KData.TableInfo.DataAttributes.ItemConfig = JSON.stringify(inItemConfig);
 
-        LocalReturnArrayObject.KData.TableData = await LocalSubFuncs.SubFuncs.ForTableData({ inDisplayDataNeeded, inJsonConfig, inItemConfig, inDataPk });
+        LocalReturnArrayObject.KData.TableData = await LocalSubFuncs.SubFuncs.ForTableData({
+            inDisplayDataNeeded,
+            inJsonConfig, inItemConfig, inDataPk, inFolderName, inFileName, inItemName
+        });
 
         return await LocalReturnArrayObject;
     },
     SubFuncs: {
-        ForTableData: async ({ inDisplayDataNeeded, inJsonConfig, inItemConfig, inDataPk }) => {
+        ForTableData: async ({ inDisplayDataNeeded, inJsonConfig, inItemConfig, inDataPk, inFolderName, inFileName, inItemName }) => {
             let LocalData = await LocalPrepareTableData({
                 inJsonConfig, inItemConfig, inDataPk,
-                inColumns: inDisplayDataNeeded.TableColumns, inTableInfo: inDisplayDataNeeded.TableInfo
+                inColumns: inDisplayDataNeeded.TableColumns, inTableInfo: inDisplayDataNeeded.TableInfo,
+                inFolderName, inFileName, inItemName
             });
 
             let LocalDataFromTransformToUi = CommonPullDataTransformData.FromTransformToUi({
@@ -183,19 +143,15 @@ let StartFunc = async ({ inFolderName, inFileName, inItemName, inScreenName, inD
         inItemConfig.inItemName = inItemName;
         inItemConfig.inScreenName = inScreenName;
 
-        //     let LocalScreenName = inItemConfig.inScreenName;
-        // let LocalItemName = inItemConfig.inItemName;
-
-        // let LocalFolderName = inJsonConfig.inFolderName;
-        // let LocalFileNameWithExtension = inJsonConfig.inJsonFileName;
-
         let LocalDisplayDataNeeded = await LocalPrepareTableConfig({ inJsonConfig, inItemConfig, inUserPK: inDataPk });
 
         LocalReturnArrayObject = await LocalSubFuncs.CreateArrayElement({
             inDisplayDataNeeded: LocalDisplayDataNeeded,
             inJsonConfig, inItemConfig,
-            inDataPk
+            inDataPk,
+            inFolderName, inFileName, inItemName
         });
+
         LocalDataFromServer.push(LocalReturnArrayObject);
 
         LocalReturnObject.KTF = true;
