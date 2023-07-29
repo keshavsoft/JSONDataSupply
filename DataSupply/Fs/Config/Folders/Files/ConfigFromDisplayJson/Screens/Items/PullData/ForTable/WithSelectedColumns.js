@@ -58,7 +58,7 @@ let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inCol
     });
 
     if (LocalData.KTF) {
-        LocalReturnData = LocalData.ArrayData;
+        LocalReturnData = LocalData.JsonData;
 
         if ("TableInfoServerSide" in inTableInfo) {
             if (inTableInfo.TableInfoServerSide.TransformFromReports) {
