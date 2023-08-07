@@ -6,6 +6,8 @@ let CommonFilesPullData = require("../../Fs/Config/Folders/Files/PullData/FromDa
 let CommonFilesPushData = require("../../Fs/Config/Folders/Files/PushData/ToData");
 let CommonSaveFuncs = require("../../SaveFuncs");
 
+let CommonMock = require("../../MockAllow.json");
+
 let LocalUpdateRow = ({ inOriginalData, inPostData }) => {
     Object.entries(inPostData).forEach(
         ([key, value]) => {
@@ -14,7 +16,15 @@ let LocalUpdateRow = ({ inOriginalData, inPostData }) => {
     );
 };
 
-let WithTransformBeforeSave = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData, inRowPK, inSubTableKey, inSubTableRowPK }) => {
+let WithTransformBeforeSave = async ({ JsonConfig, ItemConfig, UserPK, DataToUpdate, MainRowPK, InsertKey, SubTableRowPK }) => {
+    let inJsonConfig = JsonConfig;
+    let inItemConfig = ItemConfig;
+    let inUserPK = UserPK;
+    let inPostData = DataToUpdate;
+    let inRowPK = MainRowPK;
+    let inSubTableKey = InsertKey;
+    let inSubTableRowPK = SubTableRowPK;
+
     let LocalReturnObject = { KTF: false, kPK: 0 };
     let LocalUserData;
     let LocalUserDataWithItemName;
@@ -94,27 +104,20 @@ let WithTransformBeforeSave = async ({ inJsonConfig, inItemConfig, inUserPK, inP
     return await LocalReturnObject;
 };
 
-let MockFuncWithTransformBeforeSave = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData, inRowPK, inSubTableKey, inSubTableRowPK }) => {
-    return await WithTransformBeforeSave({ inJsonConfig, inItemConfig, inUserPK, inPostData, inRowPK, inSubTableKey, inSubTableRowPK });
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === '---') {
+        let LocalMockData = require('./Update.json');
+
+        WithTransformBeforeSave({
+            UserPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
 };
 
-// MockFuncWithTransformBeforeSave({
-//     inJsonConfig: {
-//         inFolderName: "Transactions",
-//         inJsonFileName: "GST-SALES.json"
-//     },
-//     inItemConfig: {
-//         inItemName: "GST-SALE",
-//         inScreenName: "Alter"
-//     },
-//     inUserPK: 1024,
-//     inPostData: {
-//         ProductCode: 16,
-//     },
-//     inRowPK: 42786,
-//     inSubTableKey: "InvGrid",
-//     inSubTableRowPK: 40977
-// }).then(p => { console.log(p); });
 
 module.exports = {
     WithTransformBeforeSave
