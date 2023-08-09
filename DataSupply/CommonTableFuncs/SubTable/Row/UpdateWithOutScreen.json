@@ -12,11 +12,7 @@
     "MainRowPK": "1",
     "SubTableRowPK": "1",
     "inDataToUpdate": {
-        "sno": 1,
-        "InvGridAccountCode": 709,
-        "ProductCode": 2476,
-        "Qty": 166666666,
-        "Amount": 400001,
-        "UnitRate": 40000
+        "sno": 1666666,
+        "Qty": 16666666
     }
 }
