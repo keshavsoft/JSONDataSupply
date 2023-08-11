@@ -69,19 +69,13 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, in
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
-    // let LocalFromCommonFromCheck = CommonFromPullDataFromFile.StartFunc({
-    //     inFolderName: LocalinFolderName,
-    //     inFileNameOnly: LocalinFileNameOnly,
-    //     inDataPK: LocalinDataPK
-    // });
-
     let LocalFromCommonFromCheck = CommonCheck.StartFunc({
         inFolderName: LocalinFolderName,
         inFileNameOnly: LocalinFileNameOnly,
         inItemName: LocalinItemName,
         inDataPK: LocalinDataPK
     });
-    
+
     LocalReturnData = { ...LocalFromCommonFromCheck };
     LocalReturnData.KTF = false;
 
@@ -89,12 +83,11 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, in
         return LocalReturnData;
     };
 
-    // if (LocalinItemName in LocalFromCommonFromCheck.JsonData === false) {
-    //     LocalReturnData.KReason = `Item Name : ${LocalinItemName} already found!`;
-    //     return LocalReturnData;
-    // };
-
     let LocalNewPk = LocalGeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
+
+    if ("pk" in inDataToInsert === false) {
+        inDataToInsert.pk = LocalNewPk;
+    };
 
     LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPk] = inDataToInsert;
 
