@@ -1,0 +1,13 @@
+{
+    "inJsonConfig": {
+        "inFolderName": "Transactions",
+        "inJsonFileName": "Gurudwara.json"
+    },
+    "inItemConfig": {
+        "inItemName": "Orders"
+    },
+    "inPostData": {
+        "k2": "kskskskssk"
+    },
+    "inJsonPK": 1
+}
