@@ -1,0 +1,17 @@
+{
+    "JsonConfig": {
+        "inFolderName": "Transactions",
+        "inJsonFileName": "Gurudwara.json"
+    },
+    "ItemConfig": {
+        "inItemName": "Orders"
+    },
+    "inDataToUpdate": {
+        "CashAmount": 16,
+        "GSTData": {
+            "CGST": 111
+        }
+    },
+    "MainRowPK": 1,
+    "InsertKey": "CheckOutData"
+}
