@@ -34,7 +34,7 @@ let ReturnAsTable = async ({ inLedgerName, inUserPK }) => {
 
 if (CommonMock.AllowMock) {
     if (CommonMock.MockKey === 'KR24') {
-        ReturnAsTable({ inLedgerName: "BankWithdrawals", inUserPK: CommonMock.DataPK }).then(PromiseData => {
+        ReturnAsTable({ inLedgerName: "Ledger", inUserPK: CommonMock.DataPK }).then(PromiseData => {
             console.log("PromiseData : ", PromiseData);
         });
     };

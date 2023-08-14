@@ -45,8 +45,7 @@ let LocalPrepareTableConfig = async ({ inJsonConfig, inItemConfig, inUserPK }) =
     return await LocalReturnObject;
 };
 
-let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inColumns, inTableInfo, inFolderName, inFileName, inItemName }) => {
-    let LocalItemName = inItemConfig.inItemName;
+let LocalPrepareTableData = async ({ inDataPk, inColumns, inTableInfo, inFolderName, inFileName, inItemName }) => {
     let LocalinFileNameOnly = path.parse(inFileName).name;
 
     let LocalReturnData;
@@ -72,7 +71,7 @@ let LocalPrepareTableData = async ({ inJsonConfig, inItemConfig, inDataPk, inCol
 
                 LocalReturnData = CommonFromReports.Transform({
                     inColumns: LocalTransformedColumns,
-                    inData: LocalData.ArrayData
+                    inData: LocalData.JsonData
                 });
             };
         };
@@ -105,15 +104,15 @@ let LocalSubFuncs = {
 
         LocalReturnArrayObject.KData.TableData = await LocalSubFuncs.SubFuncs.ForTableData({
             inDisplayDataNeeded,
-            inJsonConfig, inItemConfig, inDataPk, inFolderName, inFileName, inItemName
+            inDataPk, inFolderName, inFileName, inItemName
         });
 
         return await LocalReturnArrayObject;
     },
     SubFuncs: {
-        ForTableData: async ({ inDisplayDataNeeded, inJsonConfig, inItemConfig, inDataPk, inFolderName, inFileName, inItemName }) => {
+        ForTableData: async ({ inDisplayDataNeeded, inDataPk, inFolderName, inFileName, inItemName }) => {
             let LocalData = await LocalPrepareTableData({
-                inJsonConfig, inItemConfig, inDataPk,
+                inDataPk,
                 inColumns: inDisplayDataNeeded.TableColumns, inTableInfo: inDisplayDataNeeded.TableInfo,
                 inFolderName, inFileName, inItemName
             });
