@@ -24,7 +24,6 @@ let WithTransformBeforeSave = async ({ JsonConfig, ItemConfig, UserPK, inDataToU
     let LocalReturnObject = { KTF: false, kPK: 0 };
     let LocalUserData;
     let LocalUserDataWithItemName;
-    let LocalConfigData;
     let LocalUpdatedData;
 
     if ((inUserPK > 0) === false) {
@@ -33,41 +32,38 @@ let WithTransformBeforeSave = async ({ JsonConfig, ItemConfig, UserPK, inDataToU
     };
 
     LocalUserData = await CommonFilesPullData.AsJsonAsync({ inJsonConfig, inUserPK });
-    LocalConfigData = await CommonDisplayPullData.AsReturnObject({ inJsonConfig, inItemConfig, inDataPK: inUserPK });
 
-    if (LocalConfigData.KTF) {
-        LocalUpdatedData = JSON.parse(JSON.stringify(LocalUserData));
-        LocalUserDataWithItemName = LocalUpdatedData[inItemConfig.inItemName];
+    LocalUpdatedData = JSON.parse(JSON.stringify(LocalUserData));
+    LocalUserDataWithItemName = LocalUpdatedData[inItemConfig.inItemName];
 
-        if ((inRowPK in LocalUserDataWithItemName) === false) {
-            LocalReturnObject.KReason = `SubTableColumns not found in Config`;
-            return await LocalReturnObject;
-        };
+    if ((inRowPK in LocalUserDataWithItemName) === false) {
+        LocalReturnObject.KReason = `SubTableColumns not found in Config`;
+        return await LocalReturnObject;
+    };
 
-        if ((inSubTableKey in LocalUserDataWithItemName[inRowPK]) === false) {
-            LocalReturnObject.KReason = `inSubTableKey : ${inSubTableKey} in not found in PK : ${inRowPK}`;
-            return await LocalReturnObject;
-        };
+    if ((inSubTableKey in LocalUserDataWithItemName[inRowPK]) === false) {
+        LocalReturnObject.KReason = `inSubTableKey : ${inSubTableKey} in not found in PK : ${inRowPK}`;
+        return await LocalReturnObject;
+    };
 
-        if ((inSubTableRowPK in LocalUserDataWithItemName[inRowPK][inSubTableKey]) === false) {
-            LocalReturnObject.KReason = `inSubTableRowPK : ${inSubTableRowPK} in not found in PK : ${inSubTableKey}`;
-            return await LocalReturnObject;
-        };
+    if ((inSubTableRowPK in LocalUserDataWithItemName[inRowPK][inSubTableKey]) === false) {
+        LocalReturnObject.KReason = `inSubTableRowPK : ${inSubTableRowPK} in not found in PK : ${inSubTableKey}`;
+        return await LocalReturnObject;
+    };
 
-        LocalUpdateRow({
-            inOriginalData: LocalUserDataWithItemName[inRowPK][inSubTableKey][inSubTableRowPK],
-            inPostData: inPostData
-        });
+    LocalUpdateRow({
+        inOriginalData: LocalUserDataWithItemName[inRowPK][inSubTableKey][inSubTableRowPK],
+        inPostData: inPostData
+    });
 
-        let PromiseData = await CommonFilesPushData.AsAsync({
-            inJsonConfig,
-            inUserPK, inOriginalData: LocalUserData,
-            inDataToUpdate: LocalUpdatedData
-        });
+    let PromiseData = await CommonFilesPushData.AsAsync({
+        inJsonConfig,
+        inUserPK, inOriginalData: LocalUserData,
+        inDataToUpdate: LocalUpdatedData
+    });
 
-        if (PromiseData.KTF === true) {
-            LocalReturnObject.KTF = true;
-        };
+    if (PromiseData.KTF === true) {
+        LocalReturnObject.KTF = true;
     };
 
     return await LocalReturnObject;
