@@ -57,7 +57,10 @@ let AsObject = async ({ inDataPK }) => {
 if (CommonMockAllow.AllowMock) {
     if (CommonMockAllow.MockKey === "K05") {
         let PromiseData = StartFunc({ inDataPK: CommonMockAllow.DataPK });
-        console.log("PromiseData : ", Object.keys(PromiseData.Masters), Object.keys(PromiseData), Object.keys(PromiseData.Trans));
+        //   console.log("PromiseData : ", Object.keys(PromiseData.Masters), Object.keys(PromiseData), Object.keys(PromiseData.Trans));
+
+        console.log("PromiseData : ", PromiseData.Masters);
+
     };
 };
 
