@@ -1,3 +1,6 @@
+import PurchasesKeysJson from "./PurchasesKeys.json" assert {type: 'json'};
+import QrCodeKeysJson from "./QrCodeKeys.json" assert {type: 'json'};
+
 let async = require("async");
 
 let _ = require("lodash");
@@ -17,13 +20,13 @@ let StartFunc = async ({ inPurchasePK, inDataPk }) => {
     Object.seal(LocalReturnObject);
 
     let LocalGetKey = "VouchersName";
-    let LocalToFolderName = "QrCodes";
-    let LocalToFileName = "Generate";
-    let LocalToItemName = "Barcodes";
+    let LocalToFolderName = QrCodeKeysJson.inFolderName;
+    let LocalToFileName = QrCodeKeysJson.inFileNameOnly;
+    let LocalToItemName = QrCodeKeysJson.inItemName;
 
     let LocalPurchasesData = CommonDataFolder.StartFunc({
-        inFolderName: "Purchases",
-        inFileNameOnly: "Vouchers",
+        inFolderName: PurchasesKeysJson.inFolderName,
+        inFileNameOnly: PurchasesKeysJson.inFileNameOnly,
         inDataPK: localDatapk
     });
 
