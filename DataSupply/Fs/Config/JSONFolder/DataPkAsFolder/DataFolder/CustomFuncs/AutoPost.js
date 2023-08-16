@@ -6,7 +6,7 @@ let StartFunc = async ({ inClientName, inPurchasePK, inDataPk }) => {
     switch (inClientName) {
         case "Maguva":
             let LocalFromMaguva = await CommonMaguva.StartFunc({ inPurchasePK, inDataPk });
-
+            console.log("ddddddddddd : ", LocalFromMaguva);
             return await LocalFromMaguva;
             break;
 

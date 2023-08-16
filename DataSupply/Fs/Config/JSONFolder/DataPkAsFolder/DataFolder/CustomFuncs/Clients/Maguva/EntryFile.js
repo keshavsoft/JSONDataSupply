@@ -7,7 +7,7 @@ let CommonDataFolderPushData = require("../../../../DataFolder/UserFolder/UserJs
 let CommonFromQrCodes = require("./FromQrCodes");
 
 let CommonMock = require("../../../../../../../../MockAllow.json");
-let StartFunc = ({ inPurchasePK, inDataPk }) => {
+let StartFunc = async ({ inPurchasePK, inDataPk }) => {
 
     let localDatapk = inDataPk;
     let LocalCheckFunc = CommonCheckFunc.StartFunc({ inPurchasePK, inDataPk });
@@ -19,7 +19,7 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
         return LocalReturnObject;
     };
 
-    Object.seal(LocalReturnObject);
+    // Object.seal(LocalReturnObject);
 
     let LocalPurchasePK = LocalReturnObject.PurchasePk;
     let LocalSupplierName = LocalPurchasePK.SupplierName;
@@ -62,14 +62,17 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
     }, err => {
         if (err) console.error(err.message);
     });
+
     let QrCodesAfter = LocalAfterPost({ inDataPk: localDatapk });
-    console.log("QrCodesBefore", QrCodesBefore);
-    console.log("QrCodesAfter", QrCodesAfter);
 
     LocalReturnObject.KTF = true;
-    LocalReturnObject.QrCodesRaised = parseInt(parseInt(QrCodesAfter) - parseInt(QrCodesBefore));
-console.log("--uuu--:",LocalReturnObject.QrCodesRaised);
-    return LocalReturnObject;
+    // LocalReturnObject.QrCodesRaised = parseInt(parseInt(QrCodesAfter) - parseInt(QrCodesBefore));
+
+    LocalReturnObject.QrCodesRaised = QrCodesAfter - QrCodesBefore;
+    delete LocalReturnObject.PurchasePk;
+    delete LocalReturnObject.KResult;
+
+    return await LocalReturnObject;
 };
 
 let LocalBeforePost = ({ inDataPk }) => {
