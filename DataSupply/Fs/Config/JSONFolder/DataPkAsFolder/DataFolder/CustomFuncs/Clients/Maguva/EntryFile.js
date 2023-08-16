@@ -4,6 +4,7 @@ let _ = require("lodash");
 let CommonCheckFunc = require("./CheckFunc")
 
 let CommonDataFolderPushData = require("../../../../DataFolder/UserFolder/UserJsonFile/ItemName/PushData/FromFolderFileItemName");
+let CommonFromQrCodes = require("./FromQrCodes");
 
 let CommonMock = require("../../../../../../../../MockAllow.json");
 let StartFunc = ({ inPurchasePK, inDataPk }) => {
@@ -25,10 +26,7 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
     let LocalBillNumber = LocalPurchasePK.BillNumber;
     let LocalAliasName = LocalPurchasePK.AliasName;
 
-    // if (("Qty" in LocalPurchasePK.InvGrid) === false) {
-    //     LocalReturnObject.KReason = "No Data in Inv Grid";
-    //     return LocalReturnObject;
-    // };
+    let QrCodesBefore = LocalBeforePost({ inDataPk: localDatapk });
 
     async.forEachOf(LocalPurchasePK.InvGrid, (InvGridvalue, InvGridkey) => {
         if ("Qty" in InvGridvalue) {
@@ -61,40 +59,41 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
                 };
             });
         };
-
-        //  LocalReturnObject.KResult.push(key);
     }, err => {
         if (err) console.error(err.message);
     });
-    LocalReturnObject.KTF = true;
+    let QrCodesAfter = LocalAfterPost({ inDataPk: localDatapk });
+    console.log("QrCodesBefore", QrCodesBefore);
+    console.log("QrCodesAfter", QrCodesAfter);
 
+    LocalReturnObject.KTF = true;
+    LocalReturnObject.QrCodesRaised = parseInt(parseInt(QrCodesAfter) - parseInt(QrCodesBefore));
+console.log("--uuu--:",LocalReturnObject.QrCodesRaised);
     return LocalReturnObject;
 };
 
-// if (CommonMock.AllowMock) {
-//     if (CommonMock.MockKey === 'haiii') {
-//         let LocalMockData = require('./EntryFile.json');
+let LocalBeforePost = ({ inDataPk }) => {
+    let localDatapk = inDataPk;
+    let LocalQrCodeData = CommonFromQrCodes.StartFunc({ inDataPk: localDatapk });
+    return Object.keys(LocalQrCodeData.JsonData).length;
+};
 
-//         StartFunc({
-//             inDataPk: CommonMock.DataPK,
-//             ...LocalMockData
-//         }).then(PromiseData => {
-//             console.log('PromiseData : ', PromiseData);
+let LocalAfterPost = ({ inDataPk }) => {
+    let localDatapk = inDataPk;
+    let LocalQrCodeData = CommonFromQrCodes.StartFunc({ inDataPk: localDatapk });
+    return Object.keys(LocalQrCodeData.JsonData).length;
 
-//         });
-//     };
-// };
-
+};
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'haiii') {
+    if (CommonMock.MockKey === 'hello') {
         let LocalMockData = require('./EntryFile.json');
 
         let Output = StartFunc({
             inDataPk: CommonMock.DataPK,
             ...LocalMockData
         });
-        console.log('Output : ', Output);
+        // console.log('Output : ', Output);
 
     };
 };
