@@ -10,13 +10,15 @@ let CommonMock = require("../../../../../../../../MockAllow.json");
 
 let StartFunc = async ({ inPurchasePK, inDataPk }) => {
     let localDatapk = inDataPk;
+
     let LocalCheckFunc = CommonCheckFunc.StartFunc({ inPurchasePK, inDataPk });
+
     let LocalReturnObject = {
         ...LocalCheckFunc
     };
 
     LocalReturnObject.KTF = false;
-    
+
     if (LocalCheckFunc.KTF === false) {
         return LocalReturnObject;
     };
@@ -24,16 +26,13 @@ let StartFunc = async ({ inPurchasePK, inDataPk }) => {
     // Object.seal(LocalReturnObject);
 
     let LocalPurchasePK = LocalReturnObject.PurchasePk;
-    let LocalSupplierName = LocalPurchasePK.SupplierName;
-    let LocalBillNumber = LocalPurchasePK.BillNumber;
-    let LocalAliasName = LocalPurchasePK.AliasName;
 
     let QrCodesBefore = LocalBeforePost({ inDataPk: localDatapk });
 
-    async.forEachOf(LocalPurchasePK.InvGrid, (InvGridvalue, InvGridkey) => {
-        if ("Qty" in InvGridvalue) {
+    async.forEachOf(LocalPurchasePK.ItemsInOrder, (InvGridvalue, InvGridkey) => {
+        if ("Pcs" in InvGridvalue) {
 
-            async.times(InvGridvalue.Qty, (n) => {
+            async.times(InvGridvalue.Pcs, (n) => {
                 let LocalFromCommonDataFolderPushData = CommonDataFolderPushData.StartFuncNoAsync({
                     inFolderName: "QrCodes",
                     inFileNameOnly: "Generate",
@@ -45,11 +44,9 @@ let StartFunc = async ({ inPurchasePK, inDataPk }) => {
                         ProductAliasName: "",
                         SalePrice: InvGridvalue.MRP,
                         PercentageValueAddition: InvGridvalue.PercentageValueAddition,
-                        UserDescription: `${LocalAliasName}-${inPurchasePK}-${InvGridkey}-${InvGridvalue.Qty}`,
+                        UserDescription: `${inPurchasePK}-${InvGridkey}-${InvGridvalue.Qty}`,
                         InventorySerial: InvGridkey,
-                        PurchasePk: inPurchasePK,
-                        SupplierName: LocalSupplierName,
-                        BillNumber: LocalBillNumber,
+                        PurchasePk: inPurchasePK
                     }
                 });
 
