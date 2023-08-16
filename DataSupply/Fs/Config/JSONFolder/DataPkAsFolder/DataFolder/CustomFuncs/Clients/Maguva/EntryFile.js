@@ -13,6 +13,11 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
     let LocalReturnObject = {
         ...LocalCheckFunc
     };
+    LocalReturnObject.KTF = false;
+    if (LocalCheckFunc.KTF === false) {
+        LocalReturnObject.KReason = LocalCheckFunc.KReason;
+        return LocalReturnObject;
+    };
 
     Object.seal(LocalReturnObject);
 
@@ -20,6 +25,11 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
     let LocalSupplierName = LocalPurchasePK.SupplierName;
     let LocalBillNumber = LocalPurchasePK.BillNumber;
     let LocalAliasName = LocalPurchasePK.AliasName;
+
+    if (("Qty" in LocalPurchasePK.InvGrid) === false) {
+        LocalReturnObject.KReason = "No Data in Inv Grid";
+        return LocalReturnObject;
+    };
 
     async.forEachOf(LocalPurchasePK.InvGrid, (InvGridvalue, InvGridkey) => {
         async.times(InvGridvalue.Qty, (n) => {
@@ -61,32 +71,32 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
     return LocalReturnObject;
 };
 
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'haii') {
+        let LocalMockData = require('./EntryFile.json');
+
+        StartFunc({
+            inDataPk: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
+};
+
+
 // if (CommonMock.AllowMock) {
 //     if (CommonMock.MockKey === 'Hai') {
 //         let LocalMockData = require('./EntryFile.json');
 
-//         StartFunc({
+//         let Output = StartFunc({
 //             inDataPk: CommonMock.DataPK,
 //             ...LocalMockData
-//         }).then(PromiseData => {
-//             console.log('PromiseData : ', PromiseData);
-
 //         });
+//         console.log('Output : ', Output);
+
 //     };
 // };
-
-
-if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'Hai') {
-        let LocalMockData = require('./EntryFile.json');
-
-        let Output = StartFunc({
-            inDataPk: CommonMock.DataPK,
-            ...LocalMockData
-        });
-        console.log('Output : ', Output);
-
-    };
-};
 
 module.exports = { StartFunc };
