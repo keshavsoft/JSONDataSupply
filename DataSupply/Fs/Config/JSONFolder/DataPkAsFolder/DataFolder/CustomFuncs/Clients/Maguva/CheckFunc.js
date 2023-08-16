@@ -19,6 +19,10 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
         LocalReturnObject.KReason = "";
         return LocalReturnObject;
     };
+    // if ((inPurchasePK in LocalQrCodeData.JsonData) === false ) {
+    //     LocalReturnObject.KReason = "inPurchasePK not Found";
+    //     return LocalReturnObject;
+    // };
 
     if ((Object.values(LocalQrCodeData.JsonData).map(e => e.PurchasePk).find(e => e === inPurchasePK) === undefined) === false) {
         LocalReturnObject.KReason = "QrCodes already raised!";
