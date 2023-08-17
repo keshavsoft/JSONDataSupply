@@ -48,7 +48,7 @@ let StartFunc = async ({ inPurchasePK, inDataPk }) => {
                     }
                 });
 
-                LocalReturnObject.KResult.push(LocalFromCommonDataFolderPushData);
+                // LocalReturnObject.KResult.push(LocalFromCommonDataFolderPushData);
             }, err => {
                 if (err) {
                     console.log(err);
@@ -86,15 +86,29 @@ let LocalAfterPost = ({ inDataPk }) => {
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'hello') {
+    if (CommonMock.MockKey === 'hello1') {
         let LocalMockData = require('./EntryFile.json');
 
         let Output = StartFunc({
             inDataPk: CommonMock.DataPK,
             ...LocalMockData
         });
-        // console.log('Output : ', Output);
+        console.log('Output : ', Output);
 
+    };
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'hell') {
+        let LocalMockData = require('./EntryFile.json');
+
+        StartFunc({
+            inDataPk: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+           
+        });
     };
 };
 

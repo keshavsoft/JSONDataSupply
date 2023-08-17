@@ -23,7 +23,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
     };
 
     if (inItemName in LocalReturnData.JsonData === false) {
-        LocalReturnData.KReason = `Item Name : ${inItemName} Not found ! `;
+        LocalReturnData.KReason = `Item Name : ${inItemName} not found in ${LocalinFolderName}>${LocalinFileNameOnly}.json`;
 
         return LocalReturnData;
     };

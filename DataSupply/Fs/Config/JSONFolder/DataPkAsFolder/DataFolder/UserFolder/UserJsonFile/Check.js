@@ -6,13 +6,11 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalinFileNameOnly = inFileNameOnly;
 
     let LocalinDataPK = inDataPK;
-    // let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistenceOfUserFolder({
         inFolderName: LocalinFolderName,
         inDataPK: LocalinDataPK
     });
-    // console.log("aaaaaaaaaaaaa: ", LocalFromCommonFromCheck);
     let LocalReturnData = { ...LocalFromCommonFromCheck };
 
     LocalReturnData.KTF = false;
@@ -27,7 +25,7 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
         if (fs.existsSync(LocalReturnData.UserJsonFilePath)) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = "Json File name not found in Data Folder";
+            LocalReturnData.KReason = `Json File name : ${LocalinFileNameOnly} not found in Data Folder : ${LocalinFolderName}`;
         }
     } catch (error) {
         LocalReturnData.KReason = error;
@@ -35,11 +33,5 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
     return LocalReturnData;
 };
-
-// console.log("ForExistence : ", ForExistence({
-//     inFolderName: "Masters",
-//     inFileNameOnly: "Customers",
-//     inDataPK: 16
-// }));
 
 module.exports = { ForExistence };
