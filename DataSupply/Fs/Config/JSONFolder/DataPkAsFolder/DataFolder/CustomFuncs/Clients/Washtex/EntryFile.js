@@ -10,8 +10,12 @@ let CommonMock = require("../../../../../../../../MockAllow.json");
 
 let StartFunc = async ({ inPurchasePK, inDataPk }) => {
     let localDatapk = inDataPk;
+    let LocalinPurchasePk = inPurchasePK;
 
-    let LocalCheckFunc = CommonCheckFunc.StartFunc({ inPurchasePK, inDataPk });
+    let LocalCheckFunc = CommonCheckFunc.StartFunc({
+        inPurchasePK: LocalinPurchasePk,
+        inDataPk: localDatapk
+    });
 
     let LocalReturnObject = {
         ...LocalCheckFunc
@@ -32,12 +36,15 @@ let StartFunc = async ({ inPurchasePK, inDataPk }) => {
     async.forEachOf(LocalPurchasePK.ItemsInOrder, (InvGridvalue, InvGridkey) => {
         if ("Pcs" in InvGridvalue) {
             async.times(InvGridvalue.Pcs, (n) => {
-                let LocalFromCommonDataFolderPushData = CommonDataFolderPushData.StartFuncNoAsync({
+                CommonDataFolderPushData.StartFuncNoAsync({
                     inFolderName: "QrCodes",
                     inFileNameOnly: "Generate",
                     inItemName: "Barcodes",
                     inDataPK: localDatapk,
                     inDataToInsert: {
+                        GenerateReference: {
+                            ReferncePk: LocalinPurchasePk
+                        },
                         ...InvGridvalue,
                         BookingData: {
                             CustomerData: LocalPurchasePK.CustomerData,
@@ -47,8 +54,6 @@ let StartFunc = async ({ inPurchasePK, inDataPk }) => {
                         }
                     }
                 });
-
-                // LocalReturnObject.KResult.push(LocalFromCommonDataFolderPushData);
             }, err => {
                 if (err) {
                     console.log(err);
@@ -99,7 +104,7 @@ if (CommonMock.AllowMock) {
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'hell') {
+    if (CommonMock.MockKey === 'K19') {
         let LocalMockData = require('./EntryFile.json');
 
         StartFunc({
@@ -107,7 +112,7 @@ if (CommonMock.AllowMock) {
             ...LocalMockData
         }).then(PromiseData => {
             console.log('PromiseData : ', PromiseData);
-           
+
         });
     };
 };

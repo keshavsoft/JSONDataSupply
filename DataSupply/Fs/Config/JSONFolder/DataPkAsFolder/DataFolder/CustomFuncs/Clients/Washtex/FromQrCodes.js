@@ -1,7 +1,7 @@
 let CommonPullDataFromItem = require("../../../../DataFolder/UserFolder/UserJsonFile/ItemName/PullData/FromFolderFileItemName");
 let QrCodeKeysJson = require("./QrCodeKeys.json");
-let StartFunc = ({ inDataPk }) => {
 
+let StartFunc = ({ inDataPk }) => {
     let localDatapk = inDataPk;
 
     let LocalToFolderName = QrCodeKeysJson.inFolderName;
@@ -14,6 +14,7 @@ let StartFunc = ({ inDataPk }) => {
         inItemName: LocalToItemName,
         inDataPK: localDatapk
     });
+
    return LocalQrCodeData;
 };
 
