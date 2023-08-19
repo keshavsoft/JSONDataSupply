@@ -6,13 +6,15 @@ let StartFunc = async () => {
     let LocalFromFolderCheck = await CommonFolderPath.StartFunc();
 
     LocalReturnData = { ...LocalFromFolderCheck };
-
-   // LocalReturnData.FolderPath = LocalFromFolderCheck.FolderPath;
     LocalReturnData.FilePath = `${LocalReturnData.FolderPath}/UserData.json`;
+    LocalReturnData.KTF = false;
+    
+    if (LocalFromFolderCheck.KTF === false) {
+        LocalReturnData.ErrorFrom = __dirname;
+        return LocalReturnData;
+    };
 
-    //console.log(LocalFromFolderCheck);
     if (LocalFromFolderCheck.KTF) {
-        // console.log("Entered");
         if (fs.existsSync(LocalReturnData.FilePath)) {
             LocalReturnData.KTF = true;
         } else {
