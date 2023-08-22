@@ -1,26 +1,21 @@
 const fs = require("fs-extra");
 let CommonAbsolutePath = require("../../../DataPath");
-let CommonCreateFolders = require("../CreateFolders/Basic");
+
+let CommonMock = require("../../../../MockAllow.json");
 
 let StartFunc = async ({ inUserPK }) => {
     let LocalReturnData = { KTF: false, KReason: "" };
     try {
-        let LocalReturnFromCreateFolder;
-
         let GlobalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp({});
         let LocalFolderPath = `${GlobalDataPath}/${inUserPK}`
-        let LocalFromPath = `${GlobalDataPath}/TemplateDatas/ForTally`;
+        let LocalFromPath = `${GlobalDataPath}/TemplateDatas/ForLaundry/3016`;
 
         if (fs.existsSync(LocalFolderPath)) {
             LocalReturnData.KReason = "Data is already present on the server";
         } else {
-            LocalReturnFromCreateFolder = await CommonCreateFolders.StartFunc({ inFolderPath: LocalFolderPath });
-            
-            if (LocalReturnFromCreateFolder.KTF) {
-                fs.copySync(LocalFromPath, LocalFolderPath);
+            fs.copySync(LocalFromPath, LocalFolderPath);
 
-                LocalReturnData.KTF = true;
-            };
+            LocalReturnData.KTF = true;
         };
     } catch (error) {
         console.log("error : ", error);
@@ -28,5 +23,17 @@ let StartFunc = async ({ inUserPK }) => {
 
     return await LocalReturnData;
 };
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K22') {
+        let LocalMockData = require('./Cleaning.json');
 
+        StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
+};
 module.exports = { StartFunc };
