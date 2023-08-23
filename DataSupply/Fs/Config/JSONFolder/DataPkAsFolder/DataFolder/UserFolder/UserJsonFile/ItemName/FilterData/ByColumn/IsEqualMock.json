@@ -1,7 +1,11 @@
 {
-    "inFileNameOnly": "Bills",
-    "inFolderName": "Sales",
-    "inItemName": "BillsQrCode",
-    "inColumnName": "pk",
-    "inValueToCheck": 1301
+    "inFileNameOnly": "Generate",
+    "inFolderName": "QrCodes",
+    "inItemName": "Barcodes",
+    "inColumnName": "GenerateReference['ReferncePk']",
+    "inValueToCheck": {
+        "GenerateReference": {
+            "ReferncePk": "2"
+        }
+    }
 }

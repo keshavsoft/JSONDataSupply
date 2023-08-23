@@ -38,10 +38,10 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inColumnName, inVal
             ...LocalFromCommonFromFromFolderFileItemName.JsonData[LoopItem]
         };
     });
-
-    LocalReturnData.JsonData = LocalTotalArray.filter(element => {
-        return element[inColumnName] === inValueToCheck;
-    });
+    LocalReturnData.JsonData = _.filter(LocalTotalArray,inValueToCheck);
+    // LocalReturnData.JsonData = LocalTotalArray.filter(element => {
+    //     return element[inColumnName] === inValueToCheck;
+    // });
 
     // console.log("LocalTotalArray : ", LocalTotalArray);
 
@@ -52,7 +52,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inColumnName, inVal
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "Keshav5") {
+    if (CommonMockAllow.MockKey === "hell") {
         let LocalMockData = require("./IsEqualMock.json");
 
         let LocalFromStartFunc = StartFunc({
