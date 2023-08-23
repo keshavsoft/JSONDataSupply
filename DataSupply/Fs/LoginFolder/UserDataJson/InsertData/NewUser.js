@@ -4,9 +4,12 @@ let CommonEmail = require("../../../../../common/Jwt/Email");
 let CommonUtilityFuncs = require("../../../../UtilityFuncs/BackupToMail");
 let CommonUpdate = require("../Update");
 let CommonFind = require("../Find/UserName");
+let CommonMock = require("../../../../MockAllow.json");
+
 const toNumbers = arr => arr.map(Number);
 
 let StartFunc = async ({ inUserName, inPassword }) => {
+    console.log("kkkk::", inUserName, inPassword);
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
     let LocalFromfileData = await CommonPullData.StartFunc();
 
@@ -207,5 +210,18 @@ let WithUerNameAndEmailOnly = async ({ inUserName, inEmail }) => {
 
     return await LocalReturnData;
 };
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'SSSV') {
+        let LocalMockData = require('./NewUser.json');
+
+        StartFunc({
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+        });
+    };
+};
+
 
 module.exports = { StartFunc, WithEmail, WithUerNameAndEmailOnly };
