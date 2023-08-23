@@ -1,5 +1,7 @@
 let CommonPullData = require("../../../../../DataSupply/Fs/LoginFolder/UserDataJson/PullData/FromFile");
 let CommonPushData = require("../../../../../DataSupply/Fs/LoginFolder/UserDataJson/PushData//ToJsonFile");
+let CommonMock = require("../../../../MockAllow.json");
+
 
 let WithDataPk = async ({ inDataPk, inUserName, inPassword }) => {
 
@@ -36,6 +38,18 @@ let WithDataPk = async ({ inDataPk, inUserName, inPassword }) => {
 
     return await LocalReturnData;
 
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'VV') {
+        let LocalMockData = require('./NewUserWithPK.json');
+
+        WithDataPk({
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+        });
+    };
 };
 
 
