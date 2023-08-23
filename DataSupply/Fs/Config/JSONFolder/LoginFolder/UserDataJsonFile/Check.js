@@ -10,13 +10,14 @@ let ForExistence = () => {
 
     LocalReturnData = { ...LocalFromCheck };
     LocalReturnData.JsonFileName = "UserData.json";
+    LocalReturnData.KTF = false;
 
     LocalReturnData.UserDataJsonFilePath = `${LocalReturnData.LoginFolderPath}/${LocalReturnData.JsonFileName}`;
 
     // LocalReturnData.JsonFileName = LocalFromCheck.JsonFileName;
     // LocalReturnData.UserDataJsonFilePath = LocalFromCheck.UserDataJsonFilePath;
 
-    if (LocalReturnData.KTF === false) {
+    if (LocalFromCheck.KTF === false) {
         return LocalReturnData;
     };
 

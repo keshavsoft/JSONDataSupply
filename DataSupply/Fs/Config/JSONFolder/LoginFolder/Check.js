@@ -4,13 +4,13 @@ let CommonFromCheck = require("../Check");
 let ForExistence = () => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
-    let LocalFromCheck = CommonFromCheck.ForExistence();
+    let LocalFromCheck = CommonFromCheck.ForJSONFolderExistence();
     LocalReturnData = { ...LocalFromCheck };
-    // LocalReturnData.JSONFolderPath = LocalFromCheck.JSONFolderPath;
+    LocalReturnData.KTF = false;
 
-    LocalReturnData.LoginFolderPath = `${LocalReturnData.JSONFolderPath}/Login`;
+    LocalReturnData.LoginFolderPath = `${LocalReturnData.KDataJSONFolderPath}/Login`;
 
-    if (LocalReturnData.KTF === false) {
+    if (LocalFromCheck.KTF === false) {
         return LocalReturnData;
     };
 

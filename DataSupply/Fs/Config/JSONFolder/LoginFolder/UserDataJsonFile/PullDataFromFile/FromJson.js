@@ -1,12 +1,14 @@
 let fs = require("fs");
 let CommonFromCheck = require("../Check");
 
+let CommonMock = require("../../../../../../MockAllow.json");
+
 let StartFunc = () => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
     let LocalFromCheck = CommonFromCheck.ForExistence();
     LocalReturnData = { ...LocalFromCheck };
-
+    LocalReturnData.KTF = false;
     // LocalReturnData.JsonFileName = LocalFromCheck.JsonFileName;
     // LocalReturnData.UserDataJsonFilePath = LocalFromCheck.UserDataJsonFilePath;
 
@@ -32,6 +34,14 @@ let StartFunc = () => {
     };
 
     return LocalReturnData;
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K1') {
+        let LocalData = StartFunc();
+
+        console.log('LocalData : ', LocalData);
+    };
 };
 
 // let LocalMockForExistence = StartFunc();
