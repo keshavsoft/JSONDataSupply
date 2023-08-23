@@ -1,5 +1,5 @@
 let CommonCheck = require("../Check");
-
+let CommonMock = require("../../../../../../../../MockAllow.json");
 let fs = require("fs-extra");
 
 let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK }) => {
@@ -30,7 +30,13 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
         inDataPK
     });
 
-    if ((localFrominToFileName.KTF)===false) {
+    // if ((localFrominToFileName.KTF) === false) {
+    //     LocalReturnData.KReason = `FileName : ${inToFileName} already present in Config Folder...`;
+
+    //     return await LocalReturnData;
+    // };
+
+    if (localFrominToFileName.KTF) {
         LocalReturnData.KReason = `FileName : ${inToFileName} already present in Config Folder...`;
 
         return await LocalReturnData;
@@ -46,33 +52,23 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inToFileName, inDataPK })
     };
 
 
-    // try {
-    //     fs.copySync(localFromCommonCheck.FolderPath, localFrominToFileName.FolderPath);
-    //     LocalReturnData.KTF = true;
-
-    //     return await LocalReturnData;
-    // } catch (error) {
-
-    // };
-
-    // fs.copy('/path/to/source', '/path/to/destination', function (err) {
-    //     if (err) return console.error(err)
-    //     console.log('success!')
-    // });
 
 };
 
-let localMockFunc = async () => {
-    let localdata = await StartFunc({
-        inFolderName: "Transactions",
-        inFileNameOnly: "GST-SALES",
-        inToFileName: "GST-SALES4",
-        inDataPK: "1022"
-    });
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'GST') {
+        let LocalMockData = require('./DuplicateUserFolder.json');
 
-    console.log("localdata", localdata);
+        StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
 };
 
-// localMockFunc();
+
 
 module.exports = { StartFunc };
