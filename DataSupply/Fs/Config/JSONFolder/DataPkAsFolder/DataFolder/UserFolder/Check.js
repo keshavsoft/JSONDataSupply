@@ -4,15 +4,18 @@ let CommonFromCheck = require("../Check");
 let ForExistenceOfUserFolder = ({ inFolderName, inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
+    if (inFolderName === "") {
+        LocalReturnData.KReason = "FolderName cannot be empty!";
+        return LocalReturnData;
+    }
     let LocalFromCommonFromCheck = CommonFromCheck.ForExistenceOfDataFolder({ inDataPK: LocalinDataPK });
     // console.log("ttttttttttttt : ", LocalFromCommonFromCheck);
-    LocalReturnData.KDataPath = LocalFromCommonFromCheck.KDataPath;
-    LocalReturnData.KDataJSONFolderPath = LocalFromCommonFromCheck.KDataJSONFolderPath;
-    LocalReturnData.DataPKPath = LocalFromCommonFromCheck.DataPKPath;
-    LocalReturnData.DirPath = LocalFromCommonFromCheck.DirPath;
+    LocalReturnData = {
+        ...LocalFromCommonFromCheck
+    }
+    LocalReturnData.KTF = false;
 
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
