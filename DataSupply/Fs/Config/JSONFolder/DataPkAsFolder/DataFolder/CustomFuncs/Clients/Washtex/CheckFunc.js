@@ -7,6 +7,7 @@ let StartFunc = ({ inPurchasePK, inDataPk }) => {
     let LocalReturnObject = {};
 
     let localDatapk = inDataPk;
+    
     let LocalPurchasesData = CommonFromPurchase.StartFunc({ inDataPk: localDatapk });
     let LocalQrCodeData = CommonFromQrCodes.StartFunc({ inDataPk: localDatapk });
 

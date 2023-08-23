@@ -1,12 +1,13 @@
 let PurchasesKeysJson = require("./PurchasesKeys.json");
 let CommonDataFolder = require("../../../../DataFolder/UserFolder/UserJsonFile/PullDataFromFile/FromFolderAndFile");
 
-let StartFunc = ({ inDataPk }) => {
+let StartFunc = ({ inDataPk, inFileNameOnly }) => {
     let localDatapk = inDataPk;
+    let LocalFileNameOnly = inFileNameOnly;
 
     let LocalPurchasesData = CommonDataFolder.StartFunc({
         inFolderName: PurchasesKeysJson.inFolderName,
-        inFileNameOnly: PurchasesKeysJson.inFileNameOnly,
+        inFileNameOnly: LocalFileNameOnly,
         inDataPK: localDatapk
     });
 
