@@ -26,7 +26,7 @@ let StartFunc = () => {
             return LocalReturnData;
         };
         LocalReturnData.KTF = true;
-        LocalReturnData.JsonData = LocalJsonData.data;
+        LocalReturnData.JsonData = LocalJsonData;
 
 
     } catch (error) {
