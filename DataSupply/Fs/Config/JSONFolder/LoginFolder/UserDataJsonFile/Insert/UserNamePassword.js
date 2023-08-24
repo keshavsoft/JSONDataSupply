@@ -11,9 +11,14 @@ let StartFunc = ({ inUserName, inPassword }) => {
     if (LocalPullData.KTF === false) {
         return LocalReturnObject;
     };
+
+    if (LocalFunc({ inUserName, inJsonData: LocalReturnObject.JsonData.data }) === false) {
+        return LocalReturnObject;
+    };
+
     let localArray = Object.keys(LocalReturnObject.JsonData.data);
     let numberArray = localArray.map(Number);
-    let localMaxNumber = Math.max(...numberArray) + 1;
+    let localMaxNumber = Math.max(...numberArray, 0) + 1;
 
     LocalReturnObject.JsonData.data[localMaxNumber] = {}
     LocalReturnObject.JsonData.data[localMaxNumber].UserName = inUserName;
@@ -30,15 +35,33 @@ let StartFunc = ({ inUserName, inPassword }) => {
     return LocalReturnObject;
 };
 
+const LocalFunc = ({ inUserName, inJsonData }) => {
+
+    let localValue = Object.values(inJsonData);
+
+    const result = localValue.find(({ UserName }) => UserName === inUserName);
+
+    if (result === undefined) {
+        return true;
+    };
+
+    if (result.length > 0) {
+        return true;
+
+    };
+    return false;
+
+};
+
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === '55') {
+    if (CommonMock.MockKey === '88') {
         let LocalMockData = require('./UserNamePassword.json');
 
         let LocalData = StartFunc({
             inDataPK: CommonMock.DataPK,
             ...LocalMockData
         });
-        console.log('LocalData : ', LocalData);
+        // console.log('LocalData : ', LocalData);
 
     };
 };
