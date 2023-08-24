@@ -12,6 +12,10 @@ let StartFunc = ({ inUserName, inPassword }) => {
         return LocalReturnObject;
     };
 
+    if (inUserName === "" || inPassword === "") {
+        return LocalReturnObject;
+    };
+
     if (LocalFunc({ inUserName, inJsonData: LocalReturnObject.JsonData.data }) === false) {
         return LocalReturnObject;
     };
@@ -29,7 +33,7 @@ let StartFunc = ({ inUserName, inPassword }) => {
         inDataToUpdate: LocalReturnObject.JsonData
     });
     if (localPushData.KTF) {
-        LocalReturnObject.KTF
+        LocalReturnObject.KTF = true;
     };
 
     return LocalReturnObject;
@@ -61,7 +65,7 @@ if (CommonMock.AllowMock) {
             inDataPK: CommonMock.DataPK,
             ...LocalMockData
         });
-        // console.log('LocalData : ', LocalData);
+        console.log('LocalData : ', LocalData);
 
     };
 };
