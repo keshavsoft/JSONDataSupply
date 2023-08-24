@@ -1,12 +1,12 @@
 const fs = require("fs-extra");
-// let CommonAbsolutePath = require("../../../DataPath");
 
 let CommonMock = require("../../../../../../../../MockAllow.json");
-let CommonInsert = require("../../../Insert/UserNamePassword");
-let CommonWithOutCreation = require("../WithOutCreation/Cleaning");
+let CommonFind = require("../../../Find/Find");
 
-let StartFunc = ({ inUserName, inPassword }) => {
-    let LocalPullData = CommonInsert.StartFunc({ inUserName, inPassword });
+let StartFunc = ({ inDataPK }) => {
+    let LocalDataPK = inDataPK;
+
+    let LocalPullData = CommonFind.StartFunc({ inDataPK: LocalDataPK });
 
     let LocalReturnObject = { ...LocalPullData };
     LocalReturnObject.KTF = false;
@@ -14,19 +14,22 @@ let StartFunc = ({ inUserName, inPassword }) => {
     if (LocalPullData.KTF === false) {
         return LocalReturnObject;
     };
-   
-    let LocalNewPk = LocalReturnObject.NewDataPk;
 
-    let LocalFromCreation = CommonWithOutCreation.StartFunc({ inDataPK: LocalNewPk });
+    try {
+        let GlobalDataPath = LocalReturnObject.KDataJSONFolderPath;
+        let LocalFolderPath = `${GlobalDataPath}/${LocalDataPK}`
+        let LocalFromPath = `${GlobalDataPath}/TemplateDatas/ForLaundry/3016`;
 
-    LocalReturnObject = { ...LocalFromCreation };
-    LocalReturnObject.KTF = false;
+        if (fs.existsSync(LocalFolderPath)) {
+            LocalReturnObject.KReason = "Data is already present on the server";
+        } else {
+            fs.copySync(LocalFromPath, LocalFolderPath);
 
-    if (LocalFromCreation.KTF === false) {
-        return LocalReturnObject;
+            LocalReturnObject.KTF = true;
+        };
+    } catch (error) {
+        console.log("error : ", error);
     };
-
-    LocalReturnObject.KTF = true;
 
     return LocalReturnObject;
 };
@@ -53,12 +56,9 @@ let StartFunc = ({ inUserName, inPassword }) => {
 // };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'K2') {
-        let LocalMockData = require('./Cleaning.json');
-
+    if (CommonMock.MockKey === 'K24') {
         let LocalData = StartFunc({
-            inDataPK: CommonMock.DataPK,
-            ...LocalMockData
+            inDataPK: CommonMock.DataPK
         });
         console.log('LocalData : ', LocalData);
 

@@ -5,18 +5,19 @@ let StartFunc = ({ inDataPK }) => {
 
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
 
-    localCommonFromJson = CommonFromFromJson.StartFunc();
+    let localCommonFromJson = CommonFromFromJson.StartFunc();
+    LocalReturnData = { ...localCommonFromJson };
+    LocalReturnData.KTF = false;
 
     if (localCommonFromJson.KTF === false) {
-        LocalReturnData.KReason = localCommonFromJson.KReason
         return LocalReturnData;
     };
 
-    if (localInDataPK in localCommonFromJson.JsonData) {
+    if (localInDataPK in localCommonFromJson.JsonData.data) {
         LocalReturnData.KTF = true;
     };
-    return LocalReturnData;
 
+    return LocalReturnData;
 };
 
 let mockFunc = () => {
