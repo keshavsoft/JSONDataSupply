@@ -38,6 +38,17 @@ let StartFunc = async ({ inPurchasePK, inFileNameOnly, inDataPk }) => {
     async.forEachOf(LocalPurchasePK.ItemsInOrder, (InvGridvalue, InvGridkey) => {
         if ("Pcs" in InvGridvalue) {
             async.times(InvGridvalue.Pcs, (n) => {
+                let LoopInsideAddOn = [];
+
+                Object.entries(LocalPurchasePK.AddOnData).forEach(
+                    ([key, value]) => {
+                        LoopInsideAddOn.push({
+                            ...value,
+                            pk: key
+                        })
+                    }
+                );
+
                 CommonDataFolderPushData.StartFuncNoAsync({
                     inFolderName: "QrCodes",
                     inFileNameOnly: "Generate",
@@ -52,7 +63,9 @@ let StartFunc = async ({ inPurchasePK, inFileNameOnly, inDataPk }) => {
                         BookingData: {
                             CustomerData: LocalPurchasePK.CustomerData,
                             OrderData: LocalPurchasePK.OrderData,
-                            AddOnData: LocalPurchasePK.AddOnData,
+                            AddOnData: LoopInsideAddOn.filter(element => {
+                                return element.AddOnItemSerial === InvGridvalue.ItemSerial;
+                            }),
                             CheckOutData: LocalPurchasePK.CheckOutData
                         }
                     }

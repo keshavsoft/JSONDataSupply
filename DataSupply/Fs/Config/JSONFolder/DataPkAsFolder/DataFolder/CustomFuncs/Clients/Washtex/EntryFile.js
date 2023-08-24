@@ -36,6 +36,17 @@ let StartFunc = async ({ inPurchasePK, inDataPk }) => {
     async.forEachOf(LocalPurchasePK.ItemsInOrder, (InvGridvalue, InvGridkey) => {
         if ("Pcs" in InvGridvalue) {
             async.times(InvGridvalue.Pcs, (n) => {
+                let LoopInsideAddOn = [];
+
+                Object.entries(LocalPurchasePK.AddOnData).forEach(
+                    ([key, value]) => {
+                        LoopInsideAddOn.push({
+                            ...value,
+                            pk: key
+                        })
+                    }
+                );
+
                 CommonDataFolderPushData.StartFuncNoAsync({
                     inFolderName: "QrCodes",
                     inFileNameOnly: "Generate",
@@ -49,7 +60,9 @@ let StartFunc = async ({ inPurchasePK, inDataPk }) => {
                         BookingData: {
                             CustomerData: LocalPurchasePK.CustomerData,
                             OrderData: LocalPurchasePK.OrderData,
-                            AddOnData: LocalPurchasePK.AddOnData,
+                            AddOnData: LoopInsideAddOn.filter(element => {
+                                return element.AddOnItemSerial === InvGridvalue.ItemSerial;
+                            }),
                             CheckOutData: LocalPurchasePK.CheckOutData
                         }
                     }
@@ -104,7 +117,7 @@ if (CommonMock.AllowMock) {
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'K19') {
+    if (CommonMock.MockKey === 'K11') {
         let LocalMockData = require('./EntryFile.json');
 
         StartFunc({
