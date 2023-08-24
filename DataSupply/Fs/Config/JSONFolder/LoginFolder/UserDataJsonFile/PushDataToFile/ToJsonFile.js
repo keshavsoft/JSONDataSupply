@@ -6,7 +6,8 @@ let StartFunc = ({ inOriginalData, inDataToUpdate }) => {
     let LocalFromCheck = CommonCheckForFile.ForExistence();
 
     if (LocalFromCheck.KTF) {
-        LocalReturnData.FilePath = LocalFromCheck.FilePath;
+        // LocalReturnData.FilePath = LocalFromCheck.FilePath;
+        LocalReturnData.FilePath = LocalFromCheck.UserDataJsonFilePath;
         LocalCheckBeforeInsert({ inOriginalData, inDataToUpdate });
 
         try {
