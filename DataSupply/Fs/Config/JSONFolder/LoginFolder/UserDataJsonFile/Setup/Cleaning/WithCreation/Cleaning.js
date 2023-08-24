@@ -14,6 +14,8 @@ let StartFunc = ({ inUserName, inPassword }) => {
         return LocalReturnObject;
     };
 
+    LocalReturnObject.KTF = true;
+    
     return LocalReturnObject;
 };
 
