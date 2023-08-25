@@ -12,6 +12,7 @@ let StartFunc = ({ inDataPK }) => {
     LocalReturnObject.KTF = false;
 
     if (LocalPullData.KTF === false) {
+        delete LocalReturnObject.JsonData;
         return LocalReturnObject;
     };
 

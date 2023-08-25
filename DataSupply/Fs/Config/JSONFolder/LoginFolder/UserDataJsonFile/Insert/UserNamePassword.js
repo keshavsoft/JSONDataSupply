@@ -9,6 +9,7 @@ let StartFunc = ({ inUserName, inPassword }) => {
     LocalReturnObject.KTF = false;
 
     if (LocalPullData.KTF === false) {
+        delete LocalReturnObject.JsonData;
         return LocalReturnObject;
     };
 
