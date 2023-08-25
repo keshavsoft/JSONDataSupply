@@ -26,6 +26,7 @@ let StartFunc = ({ inDataPK }) => {
             fs.copySync(LocalFromPath, LocalFolderPath);
 
             LocalReturnObject.KTF = true;
+            delete LocalReturnObject.JsonData;
         };
     } catch (error) {
         console.log("error : ", error);

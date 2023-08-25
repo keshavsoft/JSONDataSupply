@@ -36,6 +36,7 @@ let StartFunc = ({ inUserName, inPassword }) => {
     if (localPushData.KTF) {
         LocalReturnObject.KTF = true;
         LocalReturnObject.NewDataPk = localMaxNumber;
+        delete LocalReturnObject.JsonData;
     };
 
     return LocalReturnObject;
