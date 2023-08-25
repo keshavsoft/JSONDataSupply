@@ -33,7 +33,7 @@ exports.SendEmail = async ({ inUserName, inJWToken, inToEmail }) => {
 
     const LocalRootPath = path.resolve("./");
     const pathParts = LocalRootPath.split(path.sep);
-    console.log("pathParts : ", pathParts);
+    // console.log("pathParts : ", pathParts);
     mailOptions.to = inToEmail;
     //mailOptions.text = inJWToken;
     //mailOptions.text = `http://localhost:4148/JsonDemo/Html/pages/EmailValidation.html?UserName=${inUserName}&FromEmail=${inToEmail}&KToken=${inJWToken}`;
@@ -46,7 +46,7 @@ exports.SendEmail = async ({ inUserName, inJWToken, inToEmail }) => {
     let info = await transportLive.sendMail(mailOptions);
 
     console.log('Message sent successfully!');
-    console.log(nodemailer.getTestMessageUrl(info));
+    // console.log(nodemailer.getTestMessageUrl(info));
     transportLive.close();
 
     if (info.response) {

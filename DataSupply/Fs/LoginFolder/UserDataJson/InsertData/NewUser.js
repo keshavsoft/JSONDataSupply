@@ -182,8 +182,11 @@ let WithUerNameAndEmailOnly = async ({ inUserName, inEmail }) => {
                 });
 
                 if (LocalFromUtilityFuncs.KTF) {
-                    //fs.writeFileSync(LocalFilePath, JSON.stringify(LocalUserDataJson));
-                    CommonUpdate.EmailSent({ inUserPk: LocalReturnData.kPK });
+                    let LocalFromEmailSent = await CommonUpdate.EmailSent({ inUserPk: LocalReturnData.kPK });
+
+                    if (LocalFromEmailSent.KTF) {
+                        LocalReturnData.EmailSent = true;
+                    };
                 } else {
                     LocalReturnData.KReason = LocalFromUtilityFuncs.KError;
                 }

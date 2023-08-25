@@ -6,21 +6,29 @@ let CommonPushData = require("./PushData/ToJsonFile");
 let EmailSent = async ({ inUserPk }) => {
     let LocalFromCommonPullData = await CommonPullData.StartFunc();
 
-    if (LocalFromCommonPullData.KTF) {
-        let LocalNewData = JSON.parse(JSON.stringify(LocalFromCommonPullData.JsonData));
+    let LocalReturnData = { ...LocalFromCommonPullData };
+    LocalReturnData.KTF = false;
 
-        if (inUserPk in LocalNewData.data) {
-            LocalNewData.data[inUserPk].SentEmailForVerification = {
-                Sent: true,
-                KDT: new Date()
-            };
-
-            let LocalFromCommonPushData = await CommonPushData.StartFunc({
-                inDataToUpdate: LocalNewData,
-                inOriginalData: LocalFromCommonPullData.JsonData
-            });
-        };
+    if (LocalFromCommonPullData.KTF === false) {
+        return await LocalReturnData;
     };
+
+    let LocalNewData = JSON.parse(JSON.stringify(LocalFromCommonPullData.JsonData));
+
+    if (inUserPk in LocalNewData.data) {
+        LocalNewData.data[inUserPk].SentEmailForVerification = {
+            Sent: true,
+            KDT: new Date()
+        };
+
+        let LocalFromCommonPushData = await CommonPushData.StartFunc({
+            inDataToUpdate: LocalNewData,
+            inOriginalData: LocalFromCommonPullData.JsonData
+        });
+    };
+
+    LocalReturnData.KTF = true;
+    return await LocalReturnData;
 };
 
 let SetupDone = async ({ inUserPk }) => {
