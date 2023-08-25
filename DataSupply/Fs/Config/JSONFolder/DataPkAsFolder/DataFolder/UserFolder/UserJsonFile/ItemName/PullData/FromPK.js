@@ -1,4 +1,5 @@
 let CommonFromCheck = require("./FromFolderFileItemName");
+let CommonMock = require("../../../../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inJsonPk }) => {
     let LocalinFolderName = inFolderName;
@@ -27,10 +28,23 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inJsonPk 
 
     LocalReturnData.JsonData = LocalFromCommonFromCheck.JsonData[inJsonPk];
     LocalReturnData.JsonData.pk = inJsonPk;
-    
+
     LocalReturnData.KTF = true;
 
     return LocalReturnData;
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K25') {
+        let LocalMockData = require('./FromPK.json');
+
+        let LocalData = StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        });
+        console.log('LocalData : ', LocalData);
+
+    };
 };
 
 module.exports = { StartFunc };
