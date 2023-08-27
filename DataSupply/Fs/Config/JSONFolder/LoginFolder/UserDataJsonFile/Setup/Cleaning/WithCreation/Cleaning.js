@@ -1,6 +1,7 @@
 let CommonMock = require("../../../../../../../../MockAllow.json");
 let CommonInsert = require("../../../Insert/UserNamePassword");
 let CommonWithOutCreation = require("../WithOutCreation/Cleaning");
+let CommonFind = require("../../../Find/UserCredentialsWithFolderCheck")
 
 let StartFunc = ({ inUserName, inPassword }) => {
     let LocalPullData = CommonInsert.StartFunc({ inUserName, inPassword });
@@ -9,6 +10,14 @@ let StartFunc = ({ inUserName, inPassword }) => {
     LocalReturnObject.KTF = false;
 
     if (LocalPullData.KTF === false) {
+        let LocalFromFind = CommonFind.StartFunc({ inUserName, inPassWord: inPassword });
+
+        if (LocalFromFind.KTF && LocalFromFind.DataPkFolderFound) {
+            delete LocalReturnObject.JsonData;
+            LocalReturnObject.UserAndDataPkFolderFound = true;
+            LocalReturnObject.kPK = LocalFromFind.kPK;
+        };
+
         return LocalReturnObject;
     };
 

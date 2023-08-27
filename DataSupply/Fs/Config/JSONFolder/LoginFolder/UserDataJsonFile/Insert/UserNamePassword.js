@@ -17,7 +17,8 @@ let StartFunc = ({ inUserName, inPassword }) => {
         return LocalReturnObject;
     };
 
-    if (LocalFunc({ inUserName, inJsonData: LocalReturnObject.JsonData.data }) === false) {
+    if (LocalFuncUserNameNotFound({ inUserName, inJsonData: LocalReturnObject.JsonData.data }) === false) {
+        LocalReturnObject.UserNameFound = true;
         return LocalReturnObject;
     };
 
@@ -43,8 +44,7 @@ let StartFunc = ({ inUserName, inPassword }) => {
     return LocalReturnObject;
 };
 
-const LocalFunc = ({ inUserName, inJsonData }) => {
-
+const LocalFuncUserNameNotFound = ({ inUserName, inJsonData }) => {
     let localValue = Object.values(inJsonData);
 
     const result = localValue.find(({ UserName }) => UserName === inUserName);
@@ -53,12 +53,7 @@ const LocalFunc = ({ inUserName, inJsonData }) => {
         return true;
     };
 
-    if (result.length > 0) {
-        return true;
-
-    };
     return false;
-
 };
 
 if (CommonMock.AllowMock) {
