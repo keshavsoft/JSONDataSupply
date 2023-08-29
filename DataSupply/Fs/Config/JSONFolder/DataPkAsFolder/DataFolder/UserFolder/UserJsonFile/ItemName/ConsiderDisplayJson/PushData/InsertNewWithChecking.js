@@ -46,7 +46,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inScreenName,
         inDataPK: LocalinDataPK,
         inObjectToInsert: inDataToInsert
     });
-    
+
     if (LocalFromCheck.KTF === false) {
         LocalReturnData.KReason = LocalFromCheck.KReason;
         return await LocalReturnData;
@@ -65,7 +65,11 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inScreenName,
         return await LocalReturnData;
     };
 
-    let LocalObjectToSave = { ...LocalObjectToSaveFromConfig.JsonData, ...inDataToInsert };
+    let LocalObjectToSave = {
+        ...LocalObjectToSaveFromConfig.JsonData, ...inDataToInsert,
+        DateTime: new Date(),
+        UserPK: LocalinDataPK
+    };
     //console.log("ssssssss : ", inDataToInsert, LocalObjectToSave);
     let LocalFromCommonFromPushDataToFile = await CommonFromPushData.StartFunc({
         inFolderName: LocalinFolderName,
