@@ -2,6 +2,7 @@ let CommonDefaultValue = require("../../../../../../../../../../ToUi/CalculateDe
 let CommonDisplayPullData = require("../../../../../../Items/Screens/Config/FromDisplayJson/PullData");
 let CommonFilesPullData = require("../../../../../../Items/PullData/FromDataFolder/Pull");
 let CommonReOrder = require("../../../../../../../../../../CommonTableFuncs/TableFuncs/ReOrder");
+let CommonMock = require("../../../../../../../../../../MockAllow.json");
 
 let LocalPrepareVertical1 = ({ inJsonConfig, inItemConfig, inDisplayData, inUserData }) => {
     let LocalReturnArrayObject = { HTMLControlType: "Vertical", KData: {} };
@@ -141,6 +142,20 @@ let ShowWithDataPK = async ({ inJsonConfig, inItemConfig, inDataPK }) => {
         } catch (error) {
             console.log("error--------- : ", error);
         };
+    };
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'va') {
+        let LocalMockData = require('./Fromjson.json');
+
+        ShowWithDataPK({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+           
+        });
     };
 };
 
