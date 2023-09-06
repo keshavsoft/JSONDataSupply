@@ -3,6 +3,8 @@ const fs = require("fs");
 let CommonFromCheck = require("./Check");
 let path = require("path");
 
+let CommonMock = require("../../../../../../MockAllow.json");
+
 let AsArray = async ({ inFolderName, inDataPK }) => {
     let LocalDataPK = inDataPK;
     let LocalFolderName = inFolderName;
@@ -60,6 +62,20 @@ let AsObjects = async ({ inFolderName, inDataPK }) => {
     });
 
     return await LocalReturnObject;
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K6') {
+        let LocalMockData = require('./AsObjects.json');
+
+        AsObjects({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        }).then(PromiseData => {
+            console.log('PromiseData : ', PromiseData);
+
+        });
+    };
 };
 
 module.exports = { AsObjects };
