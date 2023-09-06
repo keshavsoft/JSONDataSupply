@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require('path')
 let CommonFromCheck = require("./Check");
 let CommonMockAllow = require("../../../../../MockAllow.json");
 let CommonFromUserFolder = require("./UserFolder/getDirectoriesWithCheckAndDelete");
@@ -20,13 +21,14 @@ let StartFunc = ({ inDataPK }) => {
             LocalReturnObject[RootFolder] = {};
 
             fs.readdirSync(LocalDataPath + '/' + RootFolder).forEach((FileInFolder) => {
-                LocalReturnObject[RootFolder][FileInFolder] = {};
+                let FileInFolderWithOutExtension = path.parse(FileInFolder).name;
+                LocalReturnObject[RootFolder][FileInFolderWithOutExtension] = {};
 
                 if (fs.statSync(`${LocalDataPath}/${RootFolder}/${FileInFolder}`).isFile()) {
                     let rawdata = fs.readFileSync(`${LocalDataPath}/${RootFolder}/${FileInFolder}`);
                     let student = JSON.parse(rawdata);
 
-                    LocalReturnObject[RootFolder][FileInFolder] = student;
+                    LocalReturnObject[RootFolder][FileInFolderWithOutExtension] = student;
                 };
             });
         };
