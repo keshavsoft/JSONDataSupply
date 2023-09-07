@@ -3,11 +3,11 @@ let CommonFromFolderFileItemName = require("../../FromFolderFileItemName");
 let _ = require("lodash");
 let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 
-let StartFunc = ({ FolderName, FileNameOnly, ItemName, DataPk, FilterString }) => {
+let StartFunc = ({ FolderName, FileNameOnly, ItemName, DataPk, MapString }) => {
     let LocalinFolderName = FolderName;
     let LocalinFileNameOnly = FileNameOnly;
     let LocalinItemName = ItemName;
-    let localinFilterString = FilterString;
+    let localinMapString = MapString;
 
     let LocalinDataPK = DataPk;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
@@ -22,13 +22,18 @@ let StartFunc = ({ FolderName, FileNameOnly, ItemName, DataPk, FilterString }) =
     if (LocalFromCommonFromCheck.KTF === false) {
         return LocalReturnData;
     };
-    // value.CustomerData.CustomerName === "Keshav"
-    // LocalReturnData.JsonData = Object.keys(Object.fromEntries(Object.entries(LocalFromCommonFromCheck.JsonData).filter(([key, value]) =>{
-    //     console.log(eval(localinFilterString));
+    LocalReturnData.JsonData = Object.values(LocalFromCommonFromCheck.JsonData).map(p => eval(`p.${localinMapString}`)).reduce((map, item) => {
+        if (!map[item]) {
+            map[item] = 1;
+        } else {
+            map[item]++;
+        }
+        return map;
+    }, {})
 
-    // } ))).length
+    // Local = Object.values(LocalFromCommonFromCheck.JsonData).map(p => eval(`p.${localinMapString}`))
 
-    LocalReturnData.JsonData = Object.keys(Object.fromEntries(Object.entries(LocalFromCommonFromCheck.JsonData).filter(([key, value]) => eval(localinFilterString)))).length
+    // LocalReturnData.JsonData = Object.keys(Object.fromEntries(Object.entries(LocalFromCommonFromCheck.JsonData).filter(([key, value]) => eval(localinFilterString)))).length
 
 
     // LocalReturnData.JsonData[LocalMaxPk] = LocalFromCommonFromCheck.JsonData[LocalMaxPk]
@@ -38,8 +43,8 @@ let StartFunc = ({ FolderName, FileNameOnly, ItemName, DataPk, FilterString }) =
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'SREE5') {
-        let LocalMockData = require('./FilterFromInputs.json');
+    if (CommonMock.MockKey === 'KKSV') {
+        let LocalMockData = require('./GroupBy.json');
 
         let LocalData = StartFunc({
             DataPk: CommonMock.DataPK,
