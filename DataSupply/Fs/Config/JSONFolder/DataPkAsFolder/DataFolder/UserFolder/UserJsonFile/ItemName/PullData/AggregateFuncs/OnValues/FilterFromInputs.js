@@ -28,8 +28,10 @@ let StartFunc = ({ FolderName, FileNameOnly, ItemName, DataPk, FilterString }) =
 
     // } ))).length
 
-    LocalReturnData.JsonData = Object.keys(Object.fromEntries(Object.entries(LocalFromCommonFromCheck.JsonData).filter(([key, value]) => eval(localinFilterString)))).length
+//    LocalReturnData.JsonData = Object.keys(Object.fromEntries(Object.entries(LocalFromCommonFromCheck.JsonData).filter(([key, value]) => eval(localinFilterString)))).length
 
+
+    LocalReturnData.JsonData = Object.fromEntries(Object.entries(LocalFromCommonFromCheck.JsonData).filter(([key, value]) => eval(localinFilterString)));
 
     // LocalReturnData.JsonData[LocalMaxPk] = LocalFromCommonFromCheck.JsonData[LocalMaxPk]
     LocalReturnData.KTF = true;
