@@ -1,7 +1,7 @@
-let CommonFromPullDataFromFile = require("../../PullDataFromFile/FromFolderAndFile");
-let CommonFromPushDataToFile = require("../../PushDataToFile/FolderAndFile");
+let CommonFromPullDataFromFile = require("../../../PullDataFromFile/FromFolderAndFile");
+let CommonFromPushDataToFile = require("../../../PushDataToFile/FolderAndFile");
 
-let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert, inpk }) => {
+let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert, inpk }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -27,7 +27,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
 
     LocalFromCommonFromCheck.JsonData[LocalinItemName][inpk] = inDataToInsert;
 
-    let LocalFromPush = await CommonFromPushDataToFile.InsertToJson({
+    let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
         inFolderName: LocalinFolderName,
         inFileNameOnly: LocalinFileNameOnly,
         inDataPK: LocalinDataPK,
@@ -37,7 +37,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
 
     LocalReturnData.KTF = true;
 
-    return await LocalReturnData;
+    return LocalReturnData;
 };
 
 module.exports = { StartFunc };

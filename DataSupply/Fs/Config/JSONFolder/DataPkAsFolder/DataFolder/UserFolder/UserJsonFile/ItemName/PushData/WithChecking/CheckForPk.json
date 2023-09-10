@@ -1,0 +1,9 @@
+{
+    "inFolderName": "Sales",
+    "inFileNameOnly": "Bills",
+    "inItemName": "BillsQrCode",
+    "inDataToInsert": {
+        "UnitRate": 681,
+        "pk": 316
+    }
+}

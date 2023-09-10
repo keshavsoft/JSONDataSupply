@@ -1,7 +1,9 @@
-let CommonFromPushData = require("./FromFolderFileItemNameWithpk");
-let CommonFromPullData = require("../PullData/FromFolderFileItemName");
+let CommonFromPushData = require("../ToPk/EntryFile");
+let CommonFromPullData = require("../../PullData/FromFolderFileItemName");
 
-let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert }) => {
+let CommonMock = require("../../../../../../../../../../MockAllow.json");
+
+let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inDataPK }) => {
 
     const LocalDataObject = (({ pk }) => ({ pk }))(inDataToInsert)
 
@@ -24,21 +26,22 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
     LocalReturnData = { ...LocalFromCommonFromPullData };
     LocalReturnData.KTF = false;
 
-    if (LocalFromCommonFromCheck.KTF === false) {
-        return await LocalReturnData;
+    if (LocalFromCommonFromPullData.KTF === false) {
+        delete LocalReturnData.JsonData;
+        return LocalReturnData;
     };
 
     let LocalNewData = JSON.parse(JSON.stringify(LocalFromCommonFromPullData.JsonData));
 
     if (localpk in LocalNewData) {
         LocalReturnData.KReason = `${localpk} Already Found !`;
-
-        return await LocalReturnData;
+        delete LocalReturnData.JsonData;
+        
+        return LocalReturnData;
     };
 
     if ((localpk in LocalNewData) === false) {
-
-        let LocalFromCommonFromPushDataToFile = await CommonFromPushData.StartFunc({
+        let LocalFromCommonFromPushDataToFile = CommonFromPushData.StartFunc({
             inFolderName: LocalinFolderName,
             inFileNameOnly: LocalinFileNameOnly,
             inItemName: LocalinItemName,
@@ -49,21 +52,28 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
 
         if (LocalFromCommonFromPushDataToFile.KTF === false) {
             LocalReturnData.KReason = LocalFromCommonFromPushDataToFile.KReason;
-            return await LocalReturnData;
+            return LocalReturnData;
         };
 
         LocalReturnData.KTF = true;
         LocalReturnData.NewRowPK = localpk;
+        delete LocalReturnData.JsonData;
     };
 
-    return await LocalReturnData;
+    return LocalReturnData;
 };
 
-// console.log("ForExistence----- : ", ReturnAsArrayWithPKSortByPK({
-//     inFolderName: "Transactions",
-//     inFileNameOnly: "GST-SALES",
-//     inItemName: "FERTLIZERS-GST--SALES",
-//     inDataPK: 1024
-// }).JsonData[0]);
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K13') {
+        let LocalMockData = require('./CheckForPk.json');
+
+        let LocalData = StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        });
+        console.log('LocalData : ', LocalData);
+
+    };
+};
 
 module.exports = { StartFunc };

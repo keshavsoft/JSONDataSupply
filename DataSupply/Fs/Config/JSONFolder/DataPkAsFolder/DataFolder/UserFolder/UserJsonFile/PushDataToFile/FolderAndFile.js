@@ -35,7 +35,6 @@ let InsertToJson = async ({ inFolderName, inFileNameOnly, inOriginalData, inData
     return await LocalReturnData;
 };
 
-
 let InsertToJsonNoAsync = ({ inFolderName, inFileNameOnly, inOriginalData, inDataToUpdate, inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirCreate: "", DataFolder: true };
