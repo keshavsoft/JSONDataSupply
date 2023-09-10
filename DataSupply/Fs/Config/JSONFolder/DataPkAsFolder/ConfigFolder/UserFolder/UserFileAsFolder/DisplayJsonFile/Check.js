@@ -21,7 +21,6 @@ let ForExistence = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     LocalReturnData.DisplayJsonPath = `${LocalFromCommonFromCheck.JsonFilePath}/${LocalFileName}`;
 
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 

@@ -12,10 +12,15 @@ let CommonFromReports = require("../../../../../../../../../Reports/CommonFuncs/
 
 let CommonMock = require("../../../../../../../../../MockAllow.json");
 
-let CommonConfig = require("../../../../Items/Screens/PullData/FromDisplayJson/ReturnAsJson");
+// let CommonConfig = require("../../../../Items/Screens/PullData/FromDisplayJson/ReturnAsJson");
+
+// let CommonConfig = require("../../../../Items/Screens/PullData/FromDisplayJson/NoSync");
+
+let CommonConfig = require("../../../../../../../JSONFolder/DataPkAsFolder/ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/PullData/NoSync");
+
 let CommonTableColumnsTweak = require("./TableColumnsTweak/KeepKpColumn");
 
-let LocalPrepareTableConfig = async ({ inJsonConfig, inItemConfig, inUserPK }) => {
+let LocalPrepareTableConfig = ({ inJsonConfig, inItemConfig, inUserPK }) => {
     let LocalDisplayDataNeeded;
     let LocalReturnObject = {
         TableColumns: [],
@@ -23,26 +28,37 @@ let LocalPrepareTableConfig = async ({ inJsonConfig, inItemConfig, inUserPK }) =
         JoinTables: []
     };
 
-    let LocalDisplayData = await CommonConfig.FromJsonItemConfig({
-        inJsonConfig, inItemConfig,
+    let LocalDisplayData = CommonConfig.StartFunc({
+        inFolderName: inJsonConfig.inFolderName,
+        inFileNameWithExtension: inJsonConfig.inJsonFileName,
+        inItemName: inItemConfig.inItemName,
+        inScreenName: inItemConfig.inScreenName,
         inDataPK: inUserPK
     });
 
-    if (LocalDisplayData.KTF) {
-        LocalDisplayDataNeeded = LocalDisplayData.DataFromServer;
+    LocalReturnObject = { ...LocalDisplayData };
+    LocalReturnObject.KTF = false;
 
-        if (LocalDisplayDataNeeded !== undefined) {
-            LocalReturnObject.TableColumns = CommonTableColumnsTweak.StartFunc({
-                inTableColumns: LocalDisplayDataNeeded.TableColumns,
-                inTableInfo: LocalDisplayDataNeeded.TableInfo
-            });
-
-            LocalReturnObject.TableInfo = LocalDisplayDataNeeded.TableInfo;
-            LocalReturnObject.JoinTables = LocalDisplayDataNeeded.JoinTables;
-        };
+    if (LocalDisplayData.KTF === false) {
+        return LocalReturnObject;
     };
 
-    return await LocalReturnObject;
+    LocalDisplayDataNeeded = LocalDisplayData.JsonData;
+
+    if (LocalDisplayDataNeeded !== undefined) {
+        LocalReturnObject.TableColumns = CommonTableColumnsTweak.StartFunc({
+            inTableColumns: LocalDisplayDataNeeded.TableColumns,
+            inTableInfo: LocalDisplayDataNeeded.TableInfo
+        });
+
+        LocalReturnObject.TableInfo = LocalDisplayDataNeeded.TableInfo;
+        LocalReturnObject.JoinTables = LocalDisplayDataNeeded.JoinTables;
+
+        delete LocalReturnObject.JsonData;
+        LocalReturnObject.KTF = true;
+    };
+
+    return LocalReturnObject;
 };
 
 let LocalPrepareTableData = async ({ inDataPk, inColumns, inTableInfo, inFolderName, inFileName, inItemName }) => {
@@ -142,7 +158,14 @@ let StartFunc = async ({ inFolderName, inFileName, inItemName, inScreenName, inD
         inItemConfig.inItemName = inItemName;
         inItemConfig.inScreenName = inScreenName;
 
-        let LocalDisplayDataNeeded = await LocalPrepareTableConfig({ inJsonConfig, inItemConfig, inUserPK: inDataPk });
+        let LocalDisplayDataNeeded = LocalPrepareTableConfig({ inJsonConfig, inItemConfig, inUserPK: inDataPk });
+
+        LocalReturnObject = { ...LocalDisplayDataNeeded };
+        LocalReturnObject.KTF = false;
+
+        if (LocalDisplayDataNeeded.KTF === false) {
+            return await LocalReturnObject;
+        };
 
         LocalReturnArrayObject = await LocalSubFuncs.CreateArrayElement({
             inDisplayDataNeeded: LocalDisplayDataNeeded,
@@ -155,6 +178,8 @@ let StartFunc = async ({ inFolderName, inFileName, inItemName, inScreenName, inD
 
         LocalReturnObject.KTF = true;
         LocalReturnObject.DataFromServer = LocalDataFromServer;
+        delete LocalReturnObject.TableColumns;
+        delete LocalReturnObject.TableInfo;
     };
 
     return await LocalReturnObject;

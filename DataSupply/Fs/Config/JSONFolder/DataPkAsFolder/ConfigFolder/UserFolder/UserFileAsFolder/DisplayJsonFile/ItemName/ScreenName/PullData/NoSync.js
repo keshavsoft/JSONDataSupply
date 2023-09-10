@@ -1,6 +1,6 @@
-let CommonFromCheck = require("../Check");
+let CommonFromCheck = require("../../PullData/NoSync");
 
-let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
+let StartFunc = ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
     let LocalDataPK = inDataPK;
 
     let LocalReturnObject = {
@@ -15,24 +15,24 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inSc
         let LocalinItemName = inItemName;
         let LocalinScreenName = inScreenName;
 
-        LocalFromCommonFromCheck = await CommonFromCheck.StartFunc({
+        LocalFromCommonFromCheck = CommonFromCheck.StartFunc({
             inFolderName: LocalFolderName,
             inFileNameWithExtension: LocalFileNameWithExtension,
             inItemName: LocalinItemName,
             inScreenName: LocalinScreenName,
             inDataPK: LocalDataPK
         });
-      //  console.log("bbbbbbbbbbb--- : ", LocalFromCommonFromCheck);
+        //  console.log("bbbbbbbbbbb--- : ", LocalFromCommonFromCheck);
         if (LocalFromCommonFromCheck.KTF === false) {
             LocalReturnObject.KReason = LocalFromCommonFromCheck.KReason;
-            return await LocalReturnObject;
+            return LocalReturnObject;
         };
 
         LocalReturnObject.JsonData = LocalFromCommonFromCheck.JsonData[LocalinScreenName];
         LocalReturnObject.KTF = true;
     };
 
-    return await LocalReturnObject;
+    return LocalReturnObject;
 };
 
 module.exports = {

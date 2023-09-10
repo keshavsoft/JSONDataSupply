@@ -1,0 +1,10 @@
+{
+    "inJsonConfig":{
+"inFolderName": "Masters",
+"inJsonFileName":"CRM.json"
+    },
+    "inItemConfig":{
+        "inItemName":"CustomerNames",
+        "inScreenName":"Create"
+    }
+}

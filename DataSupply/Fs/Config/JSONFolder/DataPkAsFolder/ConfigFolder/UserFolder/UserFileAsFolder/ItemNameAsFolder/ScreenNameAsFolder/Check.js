@@ -1,4 +1,3 @@
-let path = require("path");
 let CommonFromCheck = require("../Check");
 let fs = require("fs");
 

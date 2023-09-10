@@ -21,7 +21,6 @@ let StartFunc = async ({ inFolderName, inFileNameWithExtension, inItemName, inDa
         });
 
         if (LocalFromCommonFromPullData.KTF === false) {
-            LocalReturnObject.KReason = LocalFromCommonFromPullData.KReason;
             return await LocalReturnObject;
         };
         //   console.log("LocalFromCommonFromPullData22222222 : ", LocalFromCommonFromPullData.JsonData);

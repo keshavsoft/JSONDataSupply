@@ -1,7 +1,9 @@
-let CommonCheck = require("../Check");
+let CommonCheck = require("../../../Check");
+let path = require("path");
 let fs = require("fs");
+let CommonMock = require("../../../../../../../MockAllow.json");
 
-let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
+let StartFunc = ({ inFolderName, inFileNameWithExtension, inDataPK }) => {
     let LocalDataPK = inDataPK;
 
     let LocalReturnObject = {
@@ -13,13 +15,12 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
         let LocalDataFromCommonCreate;
         let LocalDataFromJSON;
         let LocalFolderName = inFolderName;
-        let LocalFileNameOnly = inFileNameOnly;
+        let LocalFileNameWithExtension = inFileNameWithExtension;
         let LocalFilePath;
 
-        LocalDataFromCommonCreate = CommonCheck.ForExistence({
+        LocalDataFromCommonCreate = CommonCheck.ForFile({
             inFolderName: LocalFolderName,
-            inFileNameOnly: LocalFileNameOnly,
-            inDataPK: LocalDataPK
+            inFileNameWithExtension: LocalFileNameWithExtension, inUserPK: LocalDataPK
         });
 
         LocalReturnObject = { ...LocalDataFromCommonCreate };
@@ -29,7 +30,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
             return LocalReturnObject;
         };
 
-        LocalFilePath = LocalDataFromCommonCreate.DisplayJsonPath
+        LocalFilePath = LocalDataFromCommonCreate.FilePath
         LocalDataFromJSON = fs.readFileSync(LocalFilePath);
         LocalReturnObject.JsonData = JSON.parse(LocalDataFromJSON);
 
@@ -37,6 +38,19 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     };
 
     return LocalReturnObject;
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K10') {
+        let LocalMockData = require('./NoSync.json');
+
+        let LocalData = StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        });
+        console.log('LocalData : ', LocalData);
+
+    };
 };
 
 module.exports = {

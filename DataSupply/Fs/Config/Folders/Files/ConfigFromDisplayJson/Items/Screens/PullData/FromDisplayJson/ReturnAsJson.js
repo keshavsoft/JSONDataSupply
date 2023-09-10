@@ -1,5 +1,7 @@
 let CommonPullData = require("../../../../../PullData/FromConfig");
 
+let CommonPullDataFromConfigFolder = require("../../../../../PullData/FromConfigFolder/FromDisplayJson/AsJson");
+
 let FromJsonItemConfig = async ({ inJsonConfig, inItemConfig, inDataPK }) => {
     let LocalReturnObject = { KTF: false, DirCreate: "", CreatedLog: {} };
 
@@ -55,22 +57,6 @@ let FromFoldFileItemScreen = async ({ inFolderName, inFileNameWithExtension, inI
 
     return await LocalReturnObject;
 };
-
-let MockFuncFromFolderFile = async () => {
-    return await ReturnArray({
-        inJsonConfig: {
-            inFolderName: "Masters",
-            inJsonFileName: "Customers.json"
-        },
-        inItemConfig: {
-            inItemName: "CustomerNames",
-            inScreenName: "Create"
-        },
-        inDataPK: 1018
-    });
-};
-
-// MockFuncFromFolderFile().then(p => { console.log("p:", p) })
 
 module.exports = {
     FromJsonItemConfig,

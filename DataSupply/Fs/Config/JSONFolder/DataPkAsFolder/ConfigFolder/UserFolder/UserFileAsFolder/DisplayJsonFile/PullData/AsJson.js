@@ -62,7 +62,6 @@ let FromFoldFile = async ({ inFolderName, inFileNameWithExtension, inDataPK }) =
         });
 
         if (LocalDataFromCommonCreate.KTF === false) {
-            LocalReturnObject.KReason = LocalDataFromCommonCreate.KReason;
             return await LocalReturnObject;
         };
 
