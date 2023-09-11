@@ -24,7 +24,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inD
     LocalReturnData = { ...LocalFromCommonFromPullData };
     LocalReturnData.KTF = false;
 
-    if (LocalFromCommonFromCheck.KTF === false) {
+    if (LocalFromCommonFromPullData.KTF === false) {
         return await LocalReturnData;
     };
 
