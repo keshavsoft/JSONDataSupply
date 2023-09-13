@@ -22,7 +22,9 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
         return LocalReturnData;
     };
-    let localMaxNumber = Math.max(...(Object.keys(LocalReturnData.JsonData).map(Number)), 0)
+    let obj = Object.keys(LocalReturnData.JsonData).map(Number);
+    const isNumber = obj.filter(n => !isNaN(n));
+    let localMaxNumber = Math.max(...isNumber, 0)
     LocalReturnData.Max = localMaxNumber + 1;
     LocalReturnData.KTF = true;
 
