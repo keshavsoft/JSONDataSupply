@@ -1,4 +1,7 @@
-let CommonDataSupply = require(".././../DataSupply/Fs/Data/Items/PullData");
+//let CommonDataSupply = require(".././../DataSupply/Fs/Data/Items/PullData");
+
+let CommonDataSupply = require("../Fs/Config/JSONFolder/DataPkAsFolder/DataFolder/UserFolder/UserJsonFile/ItemName/PullData/FromFolderFileItemName");
+
 let _ = require("lodash");
 
 let LocalSwitchFunc = ({ inUserData, inColumnData, inObjectToInsert, inUserPK }) => {
@@ -37,21 +40,46 @@ let LocalSwitchFunc = ({ inUserData, inColumnData, inObjectToInsert, inUserPK })
                         inItemName: LocalItemName
                     };
 
-                    let LocalDataToCheck = CommonDataSupply.ReturnDataFromJsonWithItemName({
-                        inJsonConfig: LocalJsonConfig,
-                        inItemConfig: LocalItemConfig, inUserPK
+                    // let LocalDataToCheck = CommonDataSupply.ReturnDataFromJsonWithItemName({
+                    //     inJsonConfig: LocalJsonConfig,
+                    //     inItemConfig: LocalItemConfig, inUserPK
+                    // });
+
+                    let LocalDataToCheck = CommonDataSupply.StartFunc({
+                        inFolderName: LocalFolderName,
+                        inFileNameOnly: LocalFileName,
+                        inItemName: LocalItemName,
+                        inDataPK: inUserPK
                     });
 
+                    LocalRetTf = { ...LocalDataToCheck };
+                    LocalRetTf.KTF = false;
+
+                    if (LocalDataToCheck.KTF === false) {
+                        delete LocalRetTf.JsonData;
+                        return LocalRetTf;
+                    };
+
                     LocalPresentInDataCheckReturn = LocalSubFuncs.PresentInData.StartFunc({
-                        inDataToCheck: LocalDataToCheck,
+                        inDataToCheck: LocalDataToCheck.JsonData,
                         inColumnData, inObjectToInsert
                     });
+                    
+                    LocalRetTf = { ...LocalPresentInDataCheckReturn };
+                    LocalRetTf.KTF = false;
+
+                    if (LocalPresentInDataCheckReturn.KTF) {
+                        LocalRetTf.KTF = true;
+                        return LocalRetTf;
+                    };
+
                     //console.log("LocalPresentInDataCheckReturn : ", LocalPresentInDataCheckReturn);
                     if (LocalPresentInDataCheckReturn.KTF === false) {
+                        delete LocalRetTf.JsonData; ``
                         LocalRetTf.KTF = false;
                         LocalRetTf.KReason += `Unique, ${LocalPresentInDataCheckReturn.KReason} `;
                     };
-                }
+                };
 
                 break;
             default:
@@ -136,12 +164,13 @@ let ServerSideCheck = ({ inItemConfig, inUserData, inConfigData, inObjectToInser
         let LocalReturnTFArray = LocalColumnsFoundInData.map((LoopItemColumn) => {
             let LoopInsideDataAttribute = LoopItemColumn.DataAttribute;
             if (Object.keys(inObjectToInsert).includes(LoopInsideDataAttribute)) {
-                return LocalSwitchFunc({
+                let jVarInsideFromSwitch = LocalSwitchFunc({
                     inUserData: inUserData[LocalItemName],
                     inColumnData: LoopItemColumn,
                     inObjectToInsert, inUserPK
                 });
 
+                return jVarInsideFromSwitch;
             };
         });
 

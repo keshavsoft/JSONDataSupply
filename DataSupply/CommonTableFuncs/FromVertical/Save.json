@@ -1,0 +1,15 @@
+{
+    "JsonConfig": {
+        "inFolderName": "ToFactory",
+        "inJsonFileName": "Kakinada.json"
+    },
+    "ItemConfig": {
+        "inItemName": "QrCodeDetails",
+        "inScreenName": "Create"
+    },
+    "inDataToSave": {
+        "pk": 333333,
+        "Description": "",
+        "ItemName": "M Shirt DW"
+    }
+}

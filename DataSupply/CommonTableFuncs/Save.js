@@ -18,6 +18,7 @@ let Save = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData }) => {
     let LocalConfigDataColumns;
     let LocalObject = {};
     let LocalFromServerSideCheck;
+
     if (inUserPK > 0) {
         LocalUserData = await CommonFilesPullData.AsJsonAsync({ inJsonConfig, inUserPK });
         LocalConfigData = await CommonDisplayPullData.AsJsonAsync({ inJsonConfig, inItemConfig, inDataPK: inUserPK });
@@ -40,20 +41,26 @@ let Save = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData }) => {
             inConfigData: LocalConfigData, inObjectToInsert: LocalObject, inUserPK
         });
 
+        LocalReturnObject = { ...LocalFromServerSideCheck };
+        LocalReturnObject.KTF = false;
+
         if (LocalFromServerSideCheck.KTF === false) {
-            return await LocalFromServerSideCheck;
+            return await LocalReturnObject;
         };
 
-        if (LocalFromServerSideCheck.KTF) {
-            LocalFromSaveOnly = await SaveOnly({ inJsonConfig, inOriginalData: LocalUserData, inItemName: inItemConfig.inItemName, inPostData: LocalObject, inUserPK });
+        LocalFromSaveOnly = await SaveOnly({ inJsonConfig, inOriginalData: LocalUserData, inItemName: inItemConfig.inItemName, inPostData: LocalObject, inUserPK });
+        LocalReturnObject = { ...LocalFromSaveOnly };
+        LocalReturnObject.KTF = false;
 
-            if (LocalFromSaveOnly.KTF) {
-                LocalReturnObject.KTF = true;
-                // LocalReturnObject.kPK = LocalFromSaveOnly.kPK;
-                LocalReturnObject.kPK = LocalFromSaveOnly.NewRowPK;
-
-            }
+        if (LocalFromSaveOnly.KTF === false) {
+            delete LocalReturnObject.JsonData;
+            return await LocalReturnObject;
         };
+
+        LocalReturnObject.KTF = true;
+        // LocalReturnObject.kPK = LocalFromSaveOnly.kPK;
+        LocalReturnObject.kPK = LocalFromSaveOnly.NewRowPK;
+        delete LocalReturnObject.JsonData;
     };
 
     return await LocalReturnObject;
