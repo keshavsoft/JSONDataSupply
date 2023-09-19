@@ -1,0 +1,13 @@
+{
+    "folderName": "Masters",
+    "FileName": "Customers",
+    "ItemName": "CustomerName",
+    "ScreenName": "Create",
+    "DataAttribute": "pk",
+    "BodyAsJson": {
+        "CustomDataList": false,
+        "onkeypress": false,
+        "EnterOnClient": false,
+        "ClientEval": "-"
+    }
+}
