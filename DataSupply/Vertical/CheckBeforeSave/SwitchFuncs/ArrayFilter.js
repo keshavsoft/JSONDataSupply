@@ -5,7 +5,10 @@ let CommonDataSupply = require("../../../Fs/Config/JSONFolder/DataPkAsFolder/Dat
 let _ = require("lodash");
 
 let StartFunc = ({ inUserData, inColumnData, inObjectToInsert, inUserPK }) => {
-    let LocalFilterCondition = "parseInt(element[0]) === inObjectToInsert.pk && element[1].GenerateReference.FileNameOnly==='Kakinada'";
+    let LocalRetTf = { KTF: false, KReason: "From SwitchFunc ArrayFilter" };
+
+    // let LocalFilterCondition = "parseInt(element[0]) === inObjectToInsert.pk && element[1].GenerateReference.FileNameOnly==='Kakinada'";
+    let LocalFilterCondition = "element[0] === inObjectToInsert.pk && element[1].GenerateReference.FileNameOnly==='Kakinada'";
 
     let LocalPresentInDataCheckReturn;
     let LocalFolderName = inColumnData.ServerSide.DefaultShowData.FolderName;
@@ -30,11 +33,15 @@ let StartFunc = ({ inUserData, inColumnData, inObjectToInsert, inUserPK }) => {
     let LocalReturnArray = LocalObjectToArray({ inObject: LocalDataToCheck.JsonData });
 
     let LocalFilteredArray = LocalReturnArray.filter(element => {
-       // return parseInt(element[0]) === inObjectToInsert.pk;
-       return eval(LocalFilterCondition);
+        // return parseInt(element[0]) === inObjectToInsert.pk;
+        return eval(LocalFilterCondition);
     });
+    if (LocalFilteredArray.length === 0) {
+        return LocalRetTf;
+    };
+    LocalRetTf.KTF = true;
+    return LocalRetTf;
 
-    console.log("LocalReturnArray : ", LocalReturnArray);
     // LocalPresentInDataCheckReturn = LocalSubFuncs.PresentInData.StartFunc({
     //     inDataToCheck: LocalDataToCheck.JsonData,
     //     inColumnData, inObjectToInsert

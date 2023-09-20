@@ -70,7 +70,7 @@ let StartFunc = ({ inUserData, inColumnData, inObjectToInsert, inUserPK }) => {
 
                 break;
             case "ArrayFilter":
-                CommonArrayFilter.StartFunc({ inUserData, inColumnData, inObjectToInsert, inUserPK });
+                return CommonArrayFilter.StartFunc({ inUserData, inColumnData, inObjectToInsert, inUserPK });
 
                 break;
             default:
