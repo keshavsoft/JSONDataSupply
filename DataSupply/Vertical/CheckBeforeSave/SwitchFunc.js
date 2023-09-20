@@ -70,7 +70,8 @@ let StartFunc = ({ inUserData, inColumnData, inObjectToInsert, inUserPK }) => {
 
                 break;
             case "ArrayFilter":
-                return CommonArrayFilter.StartFunc({ inUserData, inColumnData, inObjectToInsert, inUserPK });
+                let LocalFilterString = inColumnData.ServerSide.DefaultShowData.FilterString;
+                return CommonArrayFilter.StartFunc({ inUserData, inColumnData, inObjectToInsert, inUserPK, inFilterCondition: LocalFilterString });
 
                 break;
             default:
