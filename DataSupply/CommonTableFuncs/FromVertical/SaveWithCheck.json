@@ -1,15 +1,15 @@
 {
     "JsonConfig": {
         "inFolderName": "ToFactory",
-        "inJsonFileName": "Kakinada.json"
+        "inJsonFileName": "Vzm.json"
     },
     "ItemConfig": {
         "inItemName": "QrCodeDetails",
         "inScreenName": "Create"
     },
     "inDataToSave": {
-        "pk": 1,
+        "pk": "4",
         "Description": "",
-        "ItemName": "M Shirt DW"
+        "ItemName": "H Pillow Covers DW"
     }
 }
