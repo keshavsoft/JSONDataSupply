@@ -1,0 +1,6 @@
+{
+    "FolderName": "Transactions",
+    "FileNameOnly": "kakinada",
+    "ItemName": "Orders",
+    "FilterString": "value.CustomerData.CustomerName === 'Sreenivas'"
+}
