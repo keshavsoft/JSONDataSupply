@@ -1,0 +1,7 @@
+{
+    "FolderName": "QrCodes",
+    "FileNameOnly": "Generate",
+    "ItemName": "Barcodes",
+    "MapString": "GenerateReference.ReferncePk",
+    "FilterString": "value.GenerateReference.FileNameOnly === 'Vzm'"
+}
