@@ -1,10 +1,6 @@
 {
-    "inJsonConfig":{
-        "inFolderName": "Masters",
-        "inJsonFileName": "CRM.json"
-
-    }, "inItemConfig":{
-        "inItemName": "Items",
-        "inScreenName": "Create"
-    }
+    "inFolderName": "Transactions",
+    "inFileName": "JOURNALS.json",
+    "inItemName": "JOURNAL",
+    "inScreenName": "Create"
 }

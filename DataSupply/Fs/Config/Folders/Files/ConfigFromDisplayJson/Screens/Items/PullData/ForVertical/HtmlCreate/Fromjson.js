@@ -103,7 +103,10 @@ let LocalPrepareTables = ({ inDisplayData }) => {
     return LocalArray;
 };
 
-let ShowWithDataPK = async ({ inJsonConfig, inItemConfig, inDataPK }) => {
+let ShowWithDataPK = async ({ inFolderName, inFileName, inItemName, inScreenName, inDataPK }) => {
+
+    let inJsonConfig = { inFolderName, inJsonFileName: inFileName };
+    let inItemConfig = { inItemName, inScreenName };
     let LocalSubTableArray = [];
     let LocalItemName = inItemConfig.inItemName;
     let LocalReturnObject = { KTF: false, DataFromServer: [] };
@@ -146,7 +149,7 @@ let ShowWithDataPK = async ({ inJsonConfig, inItemConfig, inDataPK }) => {
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'va') {
+    if (CommonMock.MockKey === 'KKKSS') {
         let LocalMockData = require('./Fromjson.json');
 
         ShowWithDataPK({
@@ -154,7 +157,6 @@ if (CommonMock.AllowMock) {
             ...LocalMockData
         }).then(PromiseData => {
             console.log('PromiseData : ', PromiseData);
-           
         });
     };
 };
