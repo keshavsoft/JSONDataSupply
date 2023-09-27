@@ -1,7 +1,7 @@
 {
     "JsonConfig": {
         "inFolderName": "ToFactory",
-        "inJsonFileName": "Vzm.json"
+        "inJsonFileName": "Kakinada.json"
     },
     "ItemConfig": {
         "inItemName": "QrCodeDetails",
@@ -10,6 +10,19 @@
     "inDataToSave": {
         "pk": "4",
         "Description": "",
-        "ItemName": "H Pillow Covers DW"
+        "ItemName": "H Pillow Covers DW",
+        "Category": "Household",
+        "ItemNamePk": "11",
+        "WashType": "DryWash",
+        "WashTypePk": "11",
+        "locationPk": "2",
+        "location": "ANF",
+        "Pcs": "1",
+        "Rate": "80",
+        "DisPer": "0",
+        "AddOn": "0-0",
+        "DeliveryDateTime": "2023-10-04T11:19",
+        "Total": "80",
+        "VoucherRef": "1"
     }
 }
