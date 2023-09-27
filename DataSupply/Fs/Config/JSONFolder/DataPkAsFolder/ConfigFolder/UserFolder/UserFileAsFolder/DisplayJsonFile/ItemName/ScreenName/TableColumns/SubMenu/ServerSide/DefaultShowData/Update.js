@@ -27,6 +27,12 @@ let Update = async ({ DataPK, folderName, FileName, ItemName, ScreenName, DataAt
         if (LocalScreenName in LocalNewData[LocalItemName]) {
             if (LocalJsonTableColumnsKey in LocalNewData[LocalItemName][LocalScreenName]) {
                 LocalFindColumnObject = _.find(LocalNewData[LocalItemName][LocalScreenName].TableColumns, { DataAttribute });
+                if ("ServerSide" in LocalFindColumnObject === false) {
+                    LocalFindColumnObject.ServerSide = {};
+                };
+                if ("DefaultShowData" in LocalFindColumnObject.ServerSide === false) {
+                    LocalFindColumnObject.ServerSide.DefaultShowData = {};
+                };
                 LocalFindColumnObject.ServerSide.DefaultShowData.FolderName = LocalDataToUpdate.FolderName;
                 LocalFindColumnObject.ServerSide.DefaultShowData.FileName = LocalDataToUpdate.FileName;
                 LocalFindColumnObject.ServerSide.DefaultShowData.ItemName = LocalDataToUpdate.ItemName;

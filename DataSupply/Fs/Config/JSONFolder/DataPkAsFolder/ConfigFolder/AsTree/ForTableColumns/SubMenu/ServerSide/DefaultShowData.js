@@ -41,13 +41,27 @@ let AsObject = async ({ inDataPK }) => {
                                     ([ColumnKey, ColumnValue]) => {
                                         LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
                                             DataAttribute: ColumnValue.DataAttribute,
-                                            DisplayName: ColumnValue.DisplayName,
-                                            FolderName: ColumnValue.ServerSide.DefaultShowData.FolderName,
-                                            FileName: ColumnValue.ServerSide.DefaultShowData.FileName,
-                                            ItemName: ColumnValue.ServerSide.DefaultShowData.ItemName,
-                                            CheckColumnName: ColumnValue.ServerSide.DefaultShowData.CheckColumnName,
-                                            FilterString: ColumnValue.ServerSide.DefaultShowData.FilterString,
+                                            DisplayName: ColumnValue.DisplayName
                                         };
+
+                                        if ("ServerSide" in ColumnValue) {
+                                            if ("DefaultShowData" in ColumnValue.ServerSide) {
+                                                LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].FolderName = ColumnValue.ServerSide.DefaultShowData.FolderName;
+                                                LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].FileName = ColumnValue.ServerSide.DefaultShowData.FileName;
+                                                LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].ItemName = ColumnValue.ServerSide.DefaultShowData.ItemName;
+                                                LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].CheckColumnName = ColumnValue.ServerSide.DefaultShowData.CheckColumnName;
+                                                LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey].FilterString = ColumnValue.ServerSide.DefaultShowData.FilterString;
+                                            }
+                                        }
+                                        // LoopInsideFile.Files[FileKey].Items[ItemKey].Screens[ScreenKey].TableColumnsObject[ColumnKey] = {
+                                        //     DataAttribute: ColumnValue.DataAttribute,
+                                        //     DisplayName: ColumnValue.DisplayName,
+                                        //     FolderName: ColumnValue.ServerSide.DefaultShowData.FolderName,
+                                        //     FileName: ColumnValue.ServerSide.DefaultShowData.FileName,
+                                        //     ItemName: ColumnValue.ServerSide.DefaultShowData.ItemName,
+                                        //     CheckColumnName: ColumnValue.ServerSide.DefaultShowData.CheckColumnName,
+                                        //     FilterString: ColumnValue.ServerSide.DefaultShowData.FilterString,
+                                        // };
                                     }
                                 );
                             }
