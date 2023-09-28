@@ -196,17 +196,20 @@ let ServerSideCheck = ({ inItemConfig, inUserData, inConfigData, inObjectToInser
                     inColumnData: LoopItemColumn,
                     inObjectToInsert, inUserPK
                 });
+                delete jVarInsideFromSwitch.JsonData;
+                console.log("jVarInsideFromSwitch", jVarInsideFromSwitch);
 
                 return jVarInsideFromSwitch;
             };
         });
 
         let LocalFindTF = _.find(LocalReturnTFArray, { "KTF": false });
+        console.log('Loc', LocalFindTF);
 
         if (LocalFindTF === undefined === false) {
+            delete LocalFindTF.JsonData;
             return LocalFindTF;
         };
-
         return LocalRetTf;
     } catch (error) {
         console.log("error : ", error);

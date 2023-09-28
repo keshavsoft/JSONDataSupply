@@ -1,15 +1,28 @@
 {
     "JsonConfig": {
         "inFolderName": "ToFactory",
-        "inJsonFileName": "Kakinada.json"
+        "inJsonFileName": "Vzm.json"
     },
     "ItemConfig": {
         "inItemName": "QrCodeDetails",
         "inScreenName": "Create"
     },
     "inDataToSave": {
-        "pk": 1,
+        "pk": "2",
         "Description": "",
-        "ItemName": "M Shirt DW"
+        "ItemName": "W Shirt DW",
+        "Category": "Women",
+        "ItemNamePk": "5",
+        "WashType": "DryWash",
+        "WashTypePk": "5",
+        "locationPk": "1",
+        "location": "GDF",
+        "Pcs": "2",
+        "Rate": "100",
+        "DisPer": "0",
+        "AddOn": "0-0",
+        "DeliveryDateTime": "2023-10-05T14:07:56",
+        "Total": "200",
+        "VoucherRef": "2"
     }
 }

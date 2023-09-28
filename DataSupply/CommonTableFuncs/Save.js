@@ -42,6 +42,7 @@ let Save = async ({ inJsonConfig, inItemConfig, inUserPK, inPostData }) => {
         });
 
         LocalReturnObject = { ...LocalFromServerSideCheck };
+        console.log('LocalReturnObject',LocalReturnObject);
         LocalReturnObject.KTF = false;
 
         if (LocalFromServerSideCheck.KTF === false) {

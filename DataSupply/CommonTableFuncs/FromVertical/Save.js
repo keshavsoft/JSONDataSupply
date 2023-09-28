@@ -50,7 +50,7 @@ let CheckAndSave = async ({ JsonConfig, ItemConfig, inDataPK, inDataToSave }) =>
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'K19') {
+    if (CommonMock.MockKey === 'K6') {
         let LocalMockData = require('./Save.json');
 
         CheckAndSave({
