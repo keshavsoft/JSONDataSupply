@@ -71,8 +71,11 @@ let StartFunc = ({ inUserData, inColumnData, inObjectToInsert, inUserPK }) => {
                 break;
             case "ArrayFilter":
                 let LocalFilterString = inColumnData.ServerSide.DefaultShowData.FilterString;
-                return CommonArrayFilter.StartFunc({ inUserData, inColumnData, inObjectToInsert, inUserPK, inFilterCondition: LocalFilterString });
-
+                let LocalFromArrayFilter = CommonArrayFilter.StartFunc({ inUserData, inColumnData, inObjectToInsert, inUserPK, inFilterCondition: LocalFilterString });
+                LocalRetTf = {...LocalFromArrayFilter}
+                delete LocalRetTf.JsonData;
+                // return CommonArrayFilter.StartFunc({ inUserData, inColumnData, inObjectToInsert, inUserPK, inFilterCondition: LocalFilterString });
+console.log("LocalRetTf",LocalRetTf);
                 break;
             default:
                 break;
