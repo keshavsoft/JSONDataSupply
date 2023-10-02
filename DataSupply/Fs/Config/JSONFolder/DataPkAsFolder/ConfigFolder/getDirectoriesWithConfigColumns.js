@@ -44,8 +44,10 @@ let AsObject = async ({ inDataPK }) => {
     return await LocalReturnObject;
 };
 
+
+
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "K2") {
+    if (CommonMockAllow.MockKey === "K4") {
         AsObject({ inDataPK: CommonMockAllow.DataPK }).then(PromiseData => {
             let k1 = Object.entries(PromiseData.Folders)
             let k2 = k1.map((element) => {
@@ -75,7 +77,7 @@ if (CommonMockAllow.AllowMock) {
             let k8 = k7.map((element) => {
                 return Object.values(element);
             });
-            
+
             let k9 = k8.flat(1).map((element) => {
                 return element.TableColumnsObject;
             });
@@ -84,7 +86,11 @@ if (CommonMockAllow.AllowMock) {
                 return Object.values(element);
             });
 
-            console.log("PromiseData : ", k10.flat(1).length);
+            let k11 = k10.flat(1).map((element) => {
+                return element.ServerSide.DefaultShowData;
+            });
+
+            console.log("PromiseData : ", k11);
         });
     };
 };
