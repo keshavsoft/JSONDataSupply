@@ -37,60 +37,59 @@ let AsObject = async ({ inDataPK }) => {
         };
     }));
 
-    result.forEach(element => {
-        LocalReturnObject.Folders[element.FolderName] = element;
+    // result.forEach(element => {
+    //     LocalReturnObject.Folders[element.FolderName] = element;
+    // });
+
+    // let k1 = Object.entries(PromiseData.Folders);
+
+    // let k2 = result.map((element) => {
+    //     return element[1]
+    // });
+
+    let k3 = result.map((element) => {
+        return element.Files
     });
 
-    return await LocalReturnObject;
+    let k4 = k3.map((element) => {
+        return Object.values(element);
+    });
+
+    let k5 = k4.flat(1).map((element) => {
+        return element.Items;
+    });
+
+    let k6 = k5.map((element) => {
+        return Object.values(element);
+    });
+
+    let k7 = k6.flat(1).map((element) => {
+        return element.Screens;
+    });
+
+    let k8 = k7.map((element) => {
+        return Object.values(element);
+    });
+
+    let k9 = k8.flat(1).map((element) => {
+        return element.TableColumnsObject;
+    });
+
+    let k10 = k9.map((element) => {
+        return Object.values(element);
+    });
+
+    let k11 = k10.flat(1).map((element) => {
+        return element.ServerSide.DefaultShowData;
+    });
+
+    return await k11;
 };
 
-
-
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "K4") {
+    if (CommonMockAllow.MockKey === "K2") {
         AsObject({ inDataPK: CommonMockAllow.DataPK }).then(PromiseData => {
-            let k1 = Object.entries(PromiseData.Folders)
-            let k2 = k1.map((element) => {
-                return element[1]
-            });
-
-            let k3 = k2.map((element) => {
-                return element.Files
-            });
-
-            let k4 = k3.map((element) => {
-                return Object.values(element);
-            });
-
-            let k5 = k4.flat(1).map((element) => {
-                return element.Items;
-            });
-
-            let k6 = k5.map((element) => {
-                return Object.values(element);
-            });
-
-            let k7 = k6.flat(1).map((element) => {
-                return element.Screens;
-            });
-
-            let k8 = k7.map((element) => {
-                return Object.values(element);
-            });
-
-            let k9 = k8.flat(1).map((element) => {
-                return element.TableColumnsObject;
-            });
-
-            let k10 = k9.map((element) => {
-                return Object.values(element);
-            });
-
-            let k11 = k10.flat(1).map((element) => {
-                return element.ServerSide.DefaultShowData;
-            });
-
-            console.log("PromiseData : ", k11);
+            console.log("PromiseData : ", PromiseData);
         });
     };
 };
