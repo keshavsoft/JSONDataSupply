@@ -45,24 +45,46 @@ let AsObject = async ({ inDataPK }) => {
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "K911") {
+    if (CommonMockAllow.MockKey === "K2") {
         AsObject({ inDataPK: CommonMockAllow.DataPK }).then(PromiseData => {
             let k1 = Object.entries(PromiseData.Folders)
             let k2 = k1.map((element) => {
                 return element[1]
-            })
-            let k3 = k2.map((element) => {
-                return element.Files
-            })
-            let k4 = Object.entries(k3).map((element) => {
-                return element[1]
             });
 
-            let k5 = k4.map((element) => {
-                return element.Items
-            })
+            let k3 = k2.map((element) => {
+                return element.Files
+            });
 
-            console.log("PromiseData : ", k5);
+            let k4 = k3.map((element) => {
+                return Object.values(element);
+            });
+
+            let k5 = k4.flat(1).map((element) => {
+                return element.Items;
+            });
+
+            let k6 = k5.map((element) => {
+                return Object.values(element);
+            });
+
+            let k7 = k6.flat(1).map((element) => {
+                return element.Screens;
+            });
+
+            let k8 = k7.map((element) => {
+                return Object.values(element);
+            });
+            
+            let k9 = k8.flat(1).map((element) => {
+                return element.TableColumnsObject;
+            });
+
+            let k10 = k9.map((element) => {
+                return Object.values(element);
+            });
+
+            console.log("PromiseData : ", k10.flat(1).length);
         });
     };
 };
