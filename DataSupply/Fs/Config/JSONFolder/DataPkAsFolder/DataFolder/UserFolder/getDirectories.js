@@ -1,5 +1,6 @@
 const fs = require("fs");
 let CommonFromCheck = require("./Check");
+let CommonMock = require("../../../../../../MockAllow.json");
 
 let AsArray = ({ inFolderName, inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -20,5 +21,19 @@ let AsArray = ({ inFolderName, inDataPK }) => {
         return file;
     });
 };
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'SS12') {
+
+        let LocalData = AsArray({
+            inDataPK: CommonMock.DataPK,
+            inFolderName:"Masters"
+        });
+        console.log('LocalData : ', LocalData);
+
+    };
+};
+
+
 
 module.exports = { AsArray };
