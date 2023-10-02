@@ -1,6 +1,7 @@
 let CommonCheck = require("../../Check");
 let CommonFromPushDataToFile = require("../../../PushDataToFile/FolderAndFile");
 let CommonMock = require("../../../../../../../../../../MockAllow.json");
+let CheckConfigColumns = require("../../../../../../ConfigFolder/getDirectoriesWithConfigColumns")
 
 let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inJsonPk }) => {
     let LocalinFolderName = inFolderName;
@@ -22,31 +23,42 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inJ
         return LocalReturnData;
     };
 
-
     if ((inJsonPk in LocalFromCommonFromCheck.JsonData[LocalinItemName]) === false) {
         LocalReturnData.KReason = `RowPK : ${inJsonPk} is not found in data!`;
         return LocalReturnData;
     };
 
-    delete LocalFromCommonFromCheck.JsonData[LocalinItemName][inJsonPk];
+    let localConfigColumns = await CheckConfigColumns.ServerSideAsArray({ inDataPK: LocalinDataPK });
 
-    let LocalFromPush = await CommonFromPushDataToFile.InsertToJson({
-        inFolderName: LocalinFolderName,
-        inFileNameOnly: LocalinFileNameOnly,
-        inDataPK: LocalinDataPK,
-        inDataToUpdate: LocalFromCommonFromCheck.JsonData,
-        inOriginalData: ""
-    });
+    let lcoalFilterData = localConfigColumns.filter((element) =>
+        element.FolderName === LocalinFolderName &&
+        element.FileName === inFileNameOnly &&
+        element.ItemName === inItemName &&
+        element.CheckColumnName === 'pk'
+    );
+    console.log("lcoalFilterData::", lcoalFilterData);
 
-    if (LocalFromPush.KTF === true) {
-        LocalReturnData.KTF = true;
-    };
+
+
+    // delete LocalFromCommonFromCheck.JsonData[LocalinItemName][inJsonPk];
+
+    // let LocalFromPush = await CommonFromPushDataToFile.InsertToJson({
+    //     inFolderName: LocalinFolderName,
+    //     inFileNameOnly: LocalinFileNameOnly,
+    //     inDataPK: LocalinDataPK,
+    //     inDataToUpdate: LocalFromCommonFromCheck.JsonData,
+    //     inOriginalData: ""
+    // });
+
+    // if (LocalFromPush.KTF === true) {
+    //     LocalReturnData.KTF = true;
+    // };
 
     return await LocalReturnData;
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === '22222') {
+    if (CommonMock.MockKey === 'KVS') {
         let LocalMockData = require('./DeletePk.json');
 
         StartFunc({
@@ -54,7 +66,7 @@ if (CommonMock.AllowMock) {
             ...LocalMockData
         }).then(PromiseData => {
             console.log('PromiseData : ', PromiseData);
-           
+
         });
     };
 };

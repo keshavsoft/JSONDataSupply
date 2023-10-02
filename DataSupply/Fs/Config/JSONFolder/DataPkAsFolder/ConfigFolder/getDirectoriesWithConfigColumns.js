@@ -18,7 +18,7 @@ let StartFunc = ({ inDataPK }) => {
     });
 };
 
-let AsObject = async ({ inDataPK }) => {
+let ServerSideAsArray = async ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
     let LocalReturnObject = {};
     LocalReturnObject.Folders = {};
@@ -83,12 +83,14 @@ let AsObject = async ({ inDataPK }) => {
         return element.ServerSide.DefaultShowData;
     });
 
-    return await k11;
+    const result1 = k11.filter((word) => typeof word === "undefined" == false);
+
+    return await result1;
 };
 
 if (CommonMockAllow.AllowMock) {
-    if (CommonMockAllow.MockKey === "K2") {
-        AsObject({ inDataPK: CommonMockAllow.DataPK }).then(PromiseData => {
+    if (CommonMockAllow.MockKey === "") {
+        ServerSideAsArray({ inDataPK: CommonMockAllow.DataPK }).then(PromiseData => {
             console.log("PromiseData : ", PromiseData);
         });
     };
@@ -96,4 +98,4 @@ if (CommonMockAllow.AllowMock) {
 
 // LocalMockFunc().then();
 
-module.exports = { AsObject };
+module.exports = { ServerSideAsArray };
