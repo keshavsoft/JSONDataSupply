@@ -29,6 +29,8 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
     };
 
     if (inItemName in LocalReturnData.JsonData) {
+        LocalReturnData.JsonDataFromItem = LocalReturnData.JsonData[inItemName];
+
         LocalReturnData.KTF = true;
     };
 
