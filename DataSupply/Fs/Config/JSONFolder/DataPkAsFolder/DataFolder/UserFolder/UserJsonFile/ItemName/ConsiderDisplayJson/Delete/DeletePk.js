@@ -29,14 +29,14 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inJ
     };
 
     let localConfigColumns = await CheckConfigColumns.ServerSideAsArray({ inDataPK: LocalinDataPK });
-
+    console.log("localConfigColumns::", localConfigColumns);
     let lcoalFilterData = localConfigColumns.filter((element) =>
-        element.FolderName === LocalinFolderName &&
-        element.FileName === inFileNameOnly &&
-        element.ItemName === inItemName &&
-        element.CheckColumnName === 'pk'
+        element.ToDeleteConfig.FolderName === LocalinFolderName &&
+        element.ToDeleteConfig.FileName === inFileNameOnly &&
+        element.ToDeleteConfig.ItemName === inItemName &&
+        element.ToDeleteConfig.CheckColumnName === 'pk'
     );
-    console.log("lcoalFilterData::", lcoalFilterData);
+    // console.log("lcoalFilterData::", lcoalFilterData);
 
 
 
@@ -58,7 +58,7 @@ let StartFunc = async ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inJ
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'KVS') {
+    if (CommonMock.MockKey === 'K2') {
         let LocalMockData = require('./DeletePk.json');
 
         StartFunc({

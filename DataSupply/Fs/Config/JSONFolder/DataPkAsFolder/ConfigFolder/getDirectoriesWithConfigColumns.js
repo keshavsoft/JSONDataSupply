@@ -37,18 +37,12 @@ let ServerSideAsArray = async ({ inDataPK }) => {
         };
     }));
 
-    // result.forEach(element => {
-    //     LocalReturnObject.Folders[element.FolderName] = element;
-    // });
-
-    // let k1 = Object.entries(PromiseData.Folders);
-
-    // let k2 = result.map((element) => {
-    //     return element[1]
-    // });
-
     let k3 = result.map((element) => {
-        return element.Files
+        // console.log("element : ", element);
+        // element.Files.Items.Screens.TableColumnsObject.DataConfig = {};
+        // element.Files.Items.Screens.TableColumnsObject.DataConfig.FolderName = element;
+
+        return element.Files;
     });
 
     let k4 = k3.map((element) => {
@@ -80,12 +74,13 @@ let ServerSideAsArray = async ({ inDataPK }) => {
     });
 
     let k11 = k10.flat(1).map((element) => {
-        return element.ServerSide.DefaultShowData;
+        return {
+            DataConfig: { ...element.DataConfig },
+            ToDeleteConfig: { ...element.ServerSide.DefaultShowData }
+        };
     });
 
-    const result1 = k11.filter((word) => typeof word === "undefined" == false);
-
-    return await result1;
+    return await k11;
 };
 
 if (CommonMockAllow.AllowMock) {

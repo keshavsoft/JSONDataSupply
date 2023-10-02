@@ -44,6 +44,13 @@ let AsObjects = async ({ inFolderName, inFileNameOnly, inDataPK }) => {
 
                         ScreenValue.TableColumns.forEach(LoopTableColumn => {
                             LocalScreenObject.TableColumnsObject[LoopTableColumn.DataAttribute] = LoopTableColumn;
+
+                            LocalScreenObject.TableColumnsObject[LoopTableColumn.DataAttribute].DataConfig = {};
+                            LocalScreenObject.TableColumnsObject[LoopTableColumn.DataAttribute].DataConfig.FolderName = LocalFolderName;
+                            LocalScreenObject.TableColumnsObject[LoopTableColumn.DataAttribute].DataConfig.FileNameOnly = LocalFileNameOnly;
+                            LocalScreenObject.TableColumnsObject[LoopTableColumn.DataAttribute].DataConfig.ItemName = key;
+                            LocalScreenObject.TableColumnsObject[LoopTableColumn.DataAttribute].DataConfig.ScreenName = ScreenKey;
+                            LocalScreenObject.TableColumnsObject[LoopTableColumn.DataAttribute].DataConfig.ColumnName = LoopTableColumn.DataAttribute;
                         });
 
                         if ("SubTableColumns" in ScreenValue) {
