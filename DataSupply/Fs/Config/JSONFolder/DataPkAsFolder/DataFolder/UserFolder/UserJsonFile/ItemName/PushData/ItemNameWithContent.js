@@ -1,5 +1,6 @@
 let CommonFromPullDataFromFile = require("../../PullDataFromFile/FromFolderAndFile");
 let CommonFromPushDataToFile = require("../../PushDataToFile/FolderAndFile");
+let CommonMock = require("../../../../../../../../../MockAllow.json");
 
 let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inItemNameContent }) => {
     let LocalinFolderName = inFolderName;
@@ -45,11 +46,17 @@ let StartFuncNoAsync = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, in
     return LocalReturnData;
 };
 
-// console.log("ForExistence----- : ", ReturnAsArrayWithPKSortByPK({
-//     inFolderName: "Transactions",
-//     inFileNameOnly: "GST-SALES",
-//     inItemName: "FERTLIZERS-GST--SALES",
-//     inDataPK: 1024
-// }).JsonData[0]);
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K10') {
+        let LocalMockData = require('./ItemNameWithContent.json');
+
+          let LocalData = StartFuncNoAsync({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        });
+            console.log('LocalData : ', LocalData);
+           
+    };
+};
 
 module.exports = { StartFuncNoAsync };
