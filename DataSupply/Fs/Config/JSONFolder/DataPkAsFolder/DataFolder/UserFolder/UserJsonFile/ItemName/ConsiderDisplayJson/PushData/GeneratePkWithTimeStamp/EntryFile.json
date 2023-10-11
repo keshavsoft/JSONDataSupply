@@ -2,9 +2,11 @@
     "inFolderName": "ToFactory",
     "inFileNameOnly": "Kakinada",
     "inItemName": "QrCodeDetails",
+    "inScreenname": "Create",
     "inDataToInsert": {
         "pk": "",
-        "ItemName": "",
-        "VoucherRef": ""
+        "ItemName": "saree",
+        "VoucherRef": "05",
+        "ItemNamePk": "pppppppppp"
     }
 }

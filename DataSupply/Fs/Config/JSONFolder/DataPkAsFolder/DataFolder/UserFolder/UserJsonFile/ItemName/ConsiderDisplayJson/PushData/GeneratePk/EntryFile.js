@@ -1,11 +1,6 @@
 let CommonFromPullDataFromFile = require("../../../../PullDataFromFile/FromFolderAndFile");
 let CommonFromConfigFolder = require("../../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/PullData/NoSync");
-let CommonFromServerSideChecks = require("../../ServerSideChecks/CheckBeforeSaveNosync");
-
-// let CommonFromPushData = require("../../PushData/FromFolderFileItemName");
-let CommonFromPushData = require("../../../PushData/FromFolderFileItemName");
-
-// let CommonFromPushDatclsaToFile = require("../../../PushDataToFile/FolderAndFile");
+let CommonFromPushDataToFile = require("../../../../PushDataToFile/FolderAndFile");
 let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 
 const toNumbers = arr => arr.map(Number);
@@ -60,24 +55,13 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDat
         ...inDataToInsert
     };
 
-    let LocalFromCheck = CommonFromServerSideChecks.ServerSideCheckNoSync({
-        inItemName: LocalinItemName,
-        inUserData: LocalFromCommonFromCheck.JsonData,
-        inConfigTableColumns: LocalFromCommonFromConfigFolder.JsonData.TableColumns,
-        inDataPK: LocalinDataPK,
-        inObjectToInsert: inDataToInsert
-    });
-
-    if (LocalFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCheck.KReason;
-        return LocalReturnData;
-    };
 
     LocalNewPK = GeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
+    LocalNewObject.pk = LocalNewPK;
 
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPK] = inDataToInsert;
+    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPK] = LocalNewObject;
 
-    let LocalFromPush = CommonFromPushData.StartFuncNoAsync({
+    let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
         inFolderName: LocalinFolderName,
         inFileNameOnly: LocalinFileNameOnly,
         inDataPK: LocalinDataPK,
@@ -123,7 +107,7 @@ let LocalFuncPrepareObject = ({ inFolderName, inFileNameWithExtension, inItemNam
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'K11') {
+    if (CommonMock.MockKey === 'KCC') {
         let LocalMockData = require('./EntryFile.json');
 
         let LocalData = StartFunc({

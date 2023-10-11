@@ -1,6 +1,8 @@
-let CommonFromPullDataFromFile = require("../../../PullDataFromFile/FromFolderAndFile");
-let CommonFromPushDataToFile = require("../../../PushDataToFile/FolderAndFile");
-let CommonMock = require("../../../../../../../../../../MockAllow.json");
+let CommonFromPullDataFromFile = require("../../../../PullDataFromFile/FromFolderAndFile");
+let CommonFromConfigFolder = require("../../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/PullData/NoSync");
+let CommonFromPushDataToFile = require("../../../../PushDataToFile/FolderAndFile");
+let CommonTimeStamp = require("./TimeStamp");
+let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 
 const toNumbers = arr => arr.map(Number);
 
@@ -15,10 +17,11 @@ let GeneratePk = ({ inDataWithKey }) => {
     return LocalNewPk;
 };
 
-let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert }) => {
+let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDataPK, inDataToInsert }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
+    let LocalinScreenname = inScreenname;
     let LocalNewPK;
 
     let LocalinDataPK = inDataPK;
@@ -40,9 +43,26 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToI
         return LocalReturnData;
     };
 
-    LocalNewPK = GeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
+    let LocalNewObject = LocalFuncPrepareObject({
+        inFolderName: LocalinFolderName,
+        inFileNameWithExtension: `${LocalinFileNameOnly}.json`,
+        inItemName: LocalinItemName,
+        inScreenName: LocalinScreenname,
+        inDataPK: LocalinDataPK
+    });
 
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPK] = inDataToInsert;
+    LocalNewObject = {
+        ...LocalNewObject,
+        ...inDataToInsert
+    };
+
+
+    LocalNewPK = GeneratePk({ inDataWithKey: LocalFromCommonFromCheck.JsonData[LocalinItemName] });
+    LocalNewObject.pk = LocalNewPK;
+
+    let localInsertData = CommonTimeStamp.StartFunc({ inDataToInsert: LocalNewObject });
+
+    LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPK] = localInsertData;
 
     let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
         inFolderName: LocalinFolderName,
@@ -51,6 +71,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToI
         inDataToUpdate: LocalFromCommonFromCheck.JsonData,
         inOriginalData: ""
     });
+
     console.log("LocalFromPush : ", LocalFromPush);
     LocalReturnData.KTF = true;
     LocalReturnData.NewPk = LocalNewPK;
@@ -59,8 +80,37 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToI
     return LocalReturnData;
 };
 
+let LocalFuncPrepareObject = ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
+    let LocalinFolderName = inFolderName;
+    let LocalinItemName = inItemName;
+    let LocalinScreenname = inScreenName;
+    let LocalinDataPK = inDataPK;
+    let LocalReturnObject = {};
+
+    let LocalFromCommonFromConfigFolder = CommonFromConfigFolder.StartFunc({
+        inFolderName: LocalinFolderName,
+        inFileNameWithExtension,
+        inItemName: LocalinItemName,
+        inScreenName: LocalinScreenname,
+        inDataPK: LocalinDataPK
+    });
+
+    if (LocalFromCommonFromConfigFolder.KTF === false) {
+        return LocalReturnData;
+    };
+
+    let LocalTableColumns = LocalFromCommonFromConfigFolder.JsonData.TableColumns;
+    let LocalInsertFilter = LocalTableColumns.filter(element => element.Insert);
+
+    LocalInsertFilter.forEach(element => {
+        LocalReturnObject[element.DataAttribute] = element.DefaultValue;
+    });
+
+    return LocalReturnObject;
+};
+
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'K10') {
+    if (CommonMock.MockKey === 'KCqC') {
         let LocalMockData = require('./EntryFile.json');
 
         let LocalData = StartFunc({
