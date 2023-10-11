@@ -47,7 +47,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDat
         return LocalReturnData;
     };
 
-    let LocalFromCommonFromConfigFolder = CommonFromConfigFolder.StartFunc({
+    let LocalNewObject = LocalFuncPrepareObject({
         inFolderName: LocalinFolderName,
         inFileNameWithExtension: `${LocalinFileNameOnly}.json`,
         inItemName: LocalinItemName,
@@ -55,11 +55,10 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDat
         inDataPK: LocalinDataPK
     });
 
-    if (LocalFromCommonFromConfigFolder.KTF === false) {
-        return LocalReturnData;
+    LocalNewObject = {
+        ...LocalNewObject,
+        ...inDataToInsert
     };
-
-
 
     let LocalFromCheck = CommonFromServerSideChecks.ServerSideCheckNoSync({
         inItemName: LocalinItemName,
@@ -94,8 +93,37 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDat
     return LocalReturnData;
 };
 
+let LocalFuncPrepareObject = ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK }) => {
+    let LocalinFolderName = inFolderName;
+    let LocalinItemName = inItemName;
+    let LocalinScreenname = inScreenName;
+    let LocalinDataPK = inDataPK;
+    let LocalReturnObject = {};
+
+    let LocalFromCommonFromConfigFolder = CommonFromConfigFolder.StartFunc({
+        inFolderName: LocalinFolderName,
+        inFileNameWithExtension,
+        inItemName: LocalinItemName,
+        inScreenName: LocalinScreenname,
+        inDataPK: LocalinDataPK
+    });
+
+    if (LocalFromCommonFromConfigFolder.KTF === false) {
+        return LocalReturnData;
+    };
+
+    let LocalTableColumns = LocalFromCommonFromConfigFolder.JsonData.TableColumns;
+    let LocalInsertFilter = LocalTableColumns.filter(element => element.Insert);
+
+    LocalInsertFilter.forEach(element => {
+        LocalReturnObject[element.DataAttribute] = element.DefaultValue;
+    });
+
+    return LocalReturnObject;
+};
+
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'KKSSK') {
+    if (CommonMock.MockKey === 'K11') {
         let LocalMockData = require('./EntryFile.json');
 
         let LocalData = StartFunc({
