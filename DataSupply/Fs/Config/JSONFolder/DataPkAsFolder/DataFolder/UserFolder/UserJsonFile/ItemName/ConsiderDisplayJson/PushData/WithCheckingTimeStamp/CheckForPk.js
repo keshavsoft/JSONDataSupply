@@ -1,6 +1,7 @@
 let CommonFromPullDataFromFile = require("../../../../PullDataFromFile/FromFolderAndFile");
 let CommonFromConfigFolder = require("../../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/PullData/NoSync");
 let CommonFromPushDataToFile = require("../../../../PushDataToFile/FolderAndFile");
+let ComonTimestamp = require("./TimeStamp");
 let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 
 
@@ -49,11 +50,13 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDat
     if (localpk in LocalFromCommonFromCheck.JsonData[LocalinItemName]) {
         LocalReturnData.KReason = `${localpk} Already Found !`;
         delete LocalReturnData.JsonData;
-        
+
         return LocalReturnData;
     };
 
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][localpk] = LocalNewObject;
+    let localDataInsert = ComonTimestamp.StartFunc({ inDataToInsert: LocalNewObject });
+
+    LocalFromCommonFromCheck.JsonData[LocalinItemName][localpk] = localDataInsert;
 
     let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
         inFolderName: LocalinFolderName,
@@ -101,7 +104,7 @@ let LocalFuncPrepareObject = ({ inFolderName, inFileNameWithExtension, inItemNam
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'SSC') {
+    if (CommonMock.MockKey === 'UFO') {
         let LocalMockData = require('./CheckForPk.json');
 
         let LocalData = StartFunc({
