@@ -1,10 +1,10 @@
 {
-    "inFolderName": "ToFactory",
-    "inFileNameOnly": "Kakinada",
+    "inFolderName": "StockTaking",
+    "inFileNameOnly": "12-10-23",
     "inItemName": "QrCodeDetails",
     "inScreenname": "Create",
     "inDataToInsert": {
-        "pk": "78",
+        "pk": "79",
         "ItemName": "saree",
         "VoucherRef": "05",
         "ItemNamePk": "pppppppppp"
