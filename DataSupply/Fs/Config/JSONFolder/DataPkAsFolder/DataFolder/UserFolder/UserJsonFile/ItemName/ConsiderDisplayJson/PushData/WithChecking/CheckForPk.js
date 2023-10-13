@@ -1,6 +1,8 @@
 let CommonFromPullDataFromFile = require("../../../../PullDataFromFile/FromFolderAndFile");
 let CommonFromConfigFolder = require("../../../../../../../ConfigFolder/UserFolder/UserFileAsFolder/DisplayJsonFile/ItemName/ScreenName/PullData/NoSync");
 let CommonFromPushDataToFile = require("../../../../PushDataToFile/FolderAndFile");
+let CommongetDirectoriesWithDataAsTree = require("../../../../../../getDirectoriesWithDataAsTree");
+
 let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 
 
@@ -49,7 +51,23 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDat
     if (localpk in LocalFromCommonFromCheck.JsonData[LocalinItemName]) {
         LocalReturnData.KReason = `${localpk} Already Found !`;
         delete LocalReturnData.JsonData;
-        
+
+        return LocalReturnData;
+    };
+
+    let LocalFromServerSide = LocalFuncConfigColumns({
+        inFolderName: LocalinFolderName,
+        inFileNameWithExtension: `${LocalinFileNameOnly}.json`,
+        inItemName: LocalinItemName,
+        inScreenName: LocalinScreenname,
+        inDataPK: LocalinDataPK,
+        InDataToInsert: LocalNewObject
+    });
+
+    let LocalLocalFromServerSideFilter = LocalFromServerSide.includes(false);
+
+    if (LocalLocalFromServerSideFilter) {
+        LocalReturnData.KReason = "FromServerSide"
         return LocalReturnData;
     };
 
@@ -63,7 +81,6 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDat
         inOriginalData: ""
     });
 
-    console.log("LocalFromPush : ", LocalFromPush);
     LocalReturnData.KTF = true;
     LocalReturnData.NewPk = localpk;
     LocalReturnData.NewPkJsonData = LocalFromCommonFromCheck.JsonData[LocalinItemName][localpk];
@@ -100,8 +117,49 @@ let LocalFuncPrepareObject = ({ inFolderName, inFileNameWithExtension, inItemNam
     return LocalReturnObject;
 };
 
+let LocalFuncConfigColumns = ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK, InDataToInsert }) => {
+    let LocalinFolderName = inFolderName;
+    let LocalinItemName = inItemName;
+    let LocalinScreenname = inScreenName;
+    let LocalinDataPK = inDataPK;
+    let LocalReturnObject = {};
+
+    let LocalFromCommonFromConfigFolder = CommonFromConfigFolder.StartFunc({
+        inFolderName: LocalinFolderName,
+        inFileNameWithExtension,
+        inItemName: LocalinItemName,
+        inScreenName: LocalinScreenname,
+        inDataPK: LocalinDataPK
+    });
+
+    if (LocalFromCommonFromConfigFolder.KTF === false) {
+        return LocalReturnData;
+    };
+
+    let LocalFromCommongetDirectoriesWithDataAsTree = CommongetDirectoriesWithDataAsTree.StartFunc({ inDataPK });
+
+    let LocalTableColumns = LocalFromCommonFromConfigFolder.JsonData.TableColumns;
+    let LocalInsertFilter = LocalTableColumns.filter(element => element.ServerSide.SaveCheck.Validate);
+
+    let LocalReturnArray = LocalInsertFilter.map(element => {
+        let LoopFolderName = element.ServerSide.DefaultShowData.FolderName;
+        let LoopFileName = element.ServerSide.DefaultShowData.FileName;
+        let LoopItemName = element.ServerSide.DefaultShowData.ItemName;
+        let LoopInsideValueTocheck = InDataToInsert[element.DataAttribute];
+
+        let LoopInsideFilter = LocalFromCommongetDirectoriesWithDataAsTree[LoopFolderName][LoopFileName][LoopItemName][LoopInsideValueTocheck];
+        if (typeof LoopInsideFilter === "undefined") {
+            return false;
+        };
+        return true;
+    });
+
+    return LocalReturnArray;
+};
+
+
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'SSC') {
+    if (CommonMock.MockKey === 'K15') {
         let LocalMockData = require('./CheckForPk.json');
 
         let LocalData = StartFunc({
