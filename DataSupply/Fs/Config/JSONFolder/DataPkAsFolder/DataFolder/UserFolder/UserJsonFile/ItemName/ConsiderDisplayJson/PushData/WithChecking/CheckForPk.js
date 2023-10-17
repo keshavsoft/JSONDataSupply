@@ -6,11 +6,11 @@ let CommongetDirectoriesWithDataAsTree = require("../../../../../../getDirectori
 let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 
 
-let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenname, inDataPK, inDataToInsert }) => {
+let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inDataToInsert }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
-    let LocalinScreenname = inScreenname;
+    let LocalinScreenname = inScreenName;
     const LocalDataObject = (({ pk }) => ({ pk }))(inDataToInsert)
     let localpk = LocalDataObject.pk
 

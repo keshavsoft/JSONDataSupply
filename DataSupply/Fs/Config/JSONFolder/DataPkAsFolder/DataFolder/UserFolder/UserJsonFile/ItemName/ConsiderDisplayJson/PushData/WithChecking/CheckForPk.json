@@ -2,11 +2,11 @@
     "inFolderName": "StockTaking",
     "inFileNameOnly": "12-10-23",
     "inItemName": "QrCodeDetails",
-    "inScreenname": "Create",
+    "inScreenName": "Create",
     "inDataToInsert": {
-        "pk": "79",
-        "ItemName": "saree",
-        "VoucherRef": "05",
-        "ItemNamePk": "pppppppppp"
+        "pk": "1",
+        "ProductName": "NIGHTHY",
+        "SalePrice": "581",
+        "VoucherRef": "1"
     }
 }
