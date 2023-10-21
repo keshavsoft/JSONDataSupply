@@ -1,0 +1,7 @@
+{
+    "FolderName": "QrCodes",
+    "FileNameOnly": "Generate",
+    "ItemName": "Barcodes",
+    "FilterString": "(new Date(value.BookingData.OrderData.Currentdateandtime)).toLocaleDateString() === `${(new Date()).toLocaleDateString()}`"
+    
+}
