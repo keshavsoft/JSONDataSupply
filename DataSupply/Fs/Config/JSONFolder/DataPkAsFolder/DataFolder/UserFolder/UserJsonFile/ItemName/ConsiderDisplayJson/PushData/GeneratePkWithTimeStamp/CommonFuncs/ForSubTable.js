@@ -1,4 +1,8 @@
 function getDifferenceInDays(date1, date2) {
+    const LocalHoursDiff = date1-date2;
+    return LocalHoursDiff / (1000 * 60 * 60);
+
+    console.log("-----------",LocalHoursDiff);
     const diffInMs = Math.abs(date2 - date1);
     return diffInMs / (1000 * 60 * 60);
 }
@@ -23,7 +27,7 @@ let LocalFuncForConfigColumns = ({ inTableColumns, inMainKey, inDataToInsert, in
 
         console.log("arr : ", maxDate, dateDiffHours);
 
-        if (dateDiffHours > LocalFilterString) {
+        if (dateDiffHours < LocalFilterString) {
             return {
                 KInfo: `Maximum Date : ${maxDate}, HoursDiff : ${dateDiffHours}`,
                 DisplayName: element.DisplayName,
@@ -92,28 +96,51 @@ let LocalFuncForConfigColumns1 = ({ inTableColumns, inMainKey, inDataToInsert, i
 
 let StartFunc = ({ inConfigData, inDataToInsert, inDirectoriesWithDataAsTree }) => {
     let LocalConfigData = inConfigData;
+    let k2=[];
+    if ("SubTableColumns" in LocalConfigData) {
+        let LocalSubTableColumns = LocalConfigData.SubTableColumns;
 
-    let LocalSubTableColumns = LocalConfigData.SubTableColumns;
+        k2 = Object.entries(LocalSubTableColumns).map(
+            ([key, value]) => {
+                if (key in inDataToInsert) {
 
-    let k2 = Object.entries(LocalSubTableColumns).map(
-        ([key, value]) => {
-            if (key in inDataToInsert) {
+                    let k1 = LocalFuncForConfigColumns({
+                        inTableColumns: value.TableColumns,
+                        inMainKey: key,
+                        inDataToInsert: inDataToInsert[key], inDirectoriesWithDataAsTree
+                    });
 
-                let k1 = LocalFuncForConfigColumns({
-                    inTableColumns: value.TableColumns,
-                    inMainKey: key,
-                    inDataToInsert: inDataToInsert[key], inDirectoriesWithDataAsTree
-                });
+                    // return { [key]: k1 };
 
-                // return { [key]: k1 };
+                    return { MainKey: key, SubTableColumns: k1 };
+                };
 
-                return { MainKey: key, SubTableColumns: k1 };
-            };
+                return { MainKey: key, SubTableColumns: [] };
+                // return { [key]: {} };
+            }
+        );
+    }
+    // let LocalSubTableColumns = LocalConfigData.SubTableColumns;
 
-            return { MainKey: key, SubTableColumns: [] };
-            // return { [key]: {} };
-        }
-    );
+    // let k2 = Object.entries(LocalSubTableColumns).map(
+    //     ([key, value]) => {
+    //         if (key in inDataToInsert) {
+
+    //             let k1 = LocalFuncForConfigColumns({
+    //                 inTableColumns: value.TableColumns,
+    //                 inMainKey: key,
+    //                 inDataToInsert: inDataToInsert[key], inDirectoriesWithDataAsTree
+    //             });
+
+    //             // return { [key]: k1 };
+
+    //             return { MainKey: key, SubTableColumns: k1 };
+    //         };
+
+    //         return { MainKey: key, SubTableColumns: [] };
+    //         // return { [key]: {} };
+    //     }
+    // );
 
     return k2;
 };

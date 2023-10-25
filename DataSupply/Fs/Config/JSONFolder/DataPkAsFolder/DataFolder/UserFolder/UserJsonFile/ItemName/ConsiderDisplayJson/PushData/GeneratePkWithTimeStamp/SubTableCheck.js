@@ -181,7 +181,7 @@ if (CommonMock.AllowMock) {
             inDataPK: CommonMock.DataPK,
             ...LocalMockData
         });
-        console.log('LocalData : ', LocalData.ServerSideCheck[0].SubTableColumns);
+        console.log('LocalData : ', JSON.stringify(LocalData));
 
     };
 };
