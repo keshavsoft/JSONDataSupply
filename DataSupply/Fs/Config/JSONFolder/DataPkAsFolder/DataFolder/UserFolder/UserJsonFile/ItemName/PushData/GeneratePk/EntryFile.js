@@ -51,7 +51,6 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToI
         inDataToUpdate: LocalFromCommonFromCheck.JsonData,
         inOriginalData: ""
     });
-    console.log("LocalFromPush : ", LocalFromPush);
     LocalReturnData.KTF = true;
     LocalReturnData.NewPk = LocalNewPK;
     LocalReturnData.NewPkJsonData = LocalFromCommonFromCheck.JsonData[LocalinItemName][LocalNewPK];
