@@ -4,6 +4,7 @@ let CommonFromPushDataToFile = require("../../../../PushDataToFile/FolderAndFile
 let CommonTimeStamp = require("./TimeStamp");
 let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 let CommongetDirectoriesWithDataAsTree = require("../../../../../../getDirectoriesWithDataAsTree");
+let CommonForSubTable = require("./CommonFuncs/ForSubTable");
 
 const toNumbers = arr => arr.map(Number);
 
@@ -50,7 +51,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
         inItemName: LocalinItemName,
         inScreenName: LocalinScreenname,
         inDataPK: LocalinDataPK,
-        inDataToInsert: inDataToInsert
+        inDataToInsert
     });
 
     LocalNewObject = {
@@ -67,13 +68,28 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
         inItemName: LocalinItemName,
         inScreenName: LocalinScreenname,
         inDataPK: LocalinDataPK,
-        InDataToInsert: LocalNewObject
+        inDataToInsert: LocalNewObject
     });
-    console.log("LocalFromServerSide--------------------------",LocalFromServerSide);
+    // console.log("LocalFromServerSide--------------------------", LocalFromServerSide[0].SubTableColumns);
 
-    let LocalLocalFromServerSideFilter = LocalFromServerSide.filter(element => element.ServerSideCheck === false);
+    // let LocalLocalFromServerSideFilter = LocalFromServerSide.filter(element => element.ServerSideCheck === false);
 
-    if (LocalLocalFromServerSideFilter.length>0) {
+    // let LocalLocalFromServerSideFilter = LocalFromServerSide.filter(element => {
+    //     let LoopInsideSubTable = element.SubTableColumns.filter(element => element.ServerSideCheck);
+    //     console.log("LoopInsideSubTable--------------------------", LoopInsideSubTable);
+
+    //     if (LoopInsideSubTable.length === 0) {
+    //         return false;
+    //     };
+
+    //     return true;
+    // });
+
+    let LocalLocalFromServerSideFilter = LocalFromServerSide.filter(element => element.SubTableColumns.filter(element => element.ServerSideCheck).length > 0);
+
+    console.log("1111111111111", LocalLocalFromServerSideFilter);
+
+    if (LocalLocalFromServerSideFilter.length > 0) {
         LocalReturnData.KReason = "FromServerSide"
         LocalReturnData.ServerSideCheck = LocalLocalFromServerSideFilter
         return LocalReturnData;
@@ -117,12 +133,6 @@ let LocalFuncPrepareObject = ({ inFolderName, inFileNameWithExtension, inItemNam
         return LocalReturnData;
     };
 
-    LocalFuncForSubTableColumns({ 
-        inConfigData: LocalFromCommonFromConfigFolder.JsonData,
-        inDataPK,
-        inDataToInsert
-    });
-
     let LocalTableColumns = LocalFromCommonFromConfigFolder.JsonData.TableColumns;
     let LocalInsertFilter = LocalTableColumns.filter(element => element.Insert);
 
@@ -133,12 +143,11 @@ let LocalFuncPrepareObject = ({ inFolderName, inFileNameWithExtension, inItemNam
     return LocalReturnObject;
 };
 
-let LocalFuncConfigColumns = ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK, InDataToInsert }) => {
+let LocalFuncConfigColumns = ({ inFolderName, inFileNameWithExtension, inItemName, inScreenName, inDataPK, inDataToInsert }) => {
     let LocalinFolderName = inFolderName;
     let LocalinItemName = inItemName;
     let LocalinScreenname = inScreenName;
     let LocalinDataPK = inDataPK;
-    let LocalReturnObject = {};
 
     let LocalFromCommonFromConfigFolder = CommonFromConfigFolder.StartFunc({
         inFolderName: LocalinFolderName,
@@ -154,76 +163,25 @@ let LocalFuncConfigColumns = ({ inFolderName, inFileNameWithExtension, inItemNam
 
     let LocalFromCommongetDirectoriesWithDataAsTree = CommongetDirectoriesWithDataAsTree.StartFunc({ inDataPK });
 
-    let LocalTableColumns = LocalFromCommonFromConfigFolder.JsonData.TableColumns;
-    let LocalInsertFilter = LocalTableColumns.filter(element => element.ServerSide.SaveCheck.Validate);
-
-    let LocalReturnArray = LocalInsertFilter.map(element => {
-        let LoopFolderName = element.ServerSide.DefaultShowData.FolderName;
-        let LoopFileName = element.ServerSide.DefaultShowData.FileName;
-        let LoopItemName = element.ServerSide.DefaultShowData.ItemName;
-        let LoopInsideValueTocheck = InDataToInsert[element.DataAttribute];
-
-        let LoopInsideFilter = LocalFromCommongetDirectoriesWithDataAsTree[LoopFolderName][LoopFileName][LoopItemName][LoopInsideValueTocheck];
-        if (typeof LoopInsideFilter === "undefined") {
-            return {
-                DisplayName: element.DisplayName,
-                DataAttribute: element.DataAttribute,
-                ServerSideCheck: false
-            };
-        };
-        return {
-            DisplayName: element.DisplayName,
-            DataAttribute: element.DataAttribute,
-            ServerSideCheck: true
-        };
-    });
-
-    return LocalReturnArray;
-};
-
-let LocalFuncForSubTableColumns = ({ inConfigData, inDataPK, inDataToInsert }) => {
-    let LocalConfigData = inConfigData;
-    let LocalinDataPK = inDataPK;
-    let LocalReturnObject = {};
-
-    let LocalFromCommongetDirectoriesWithDataAsTree = CommongetDirectoriesWithDataAsTree.StartFunc({ inDataPK });
-
-    let LocalSubTableColumns = LocalConfigData.SubTableColumns;
-    let LocalInsertFilter = LocalTableColumns.filter(element => element.ServerSide.SaveCheck.Validate);
-
-    let LocalReturnArray = LocalInsertFilter.map(element => {
-        let LoopFolderName = element.ServerSide.DefaultShowData.FolderName;
-        let LoopFileName = element.ServerSide.DefaultShowData.FileName;
-        let LoopItemName = element.ServerSide.DefaultShowData.ItemName;
-        let LoopInsideValueTocheck = inDataToInsert[element.DataAttribute];
-
-        let LoopInsideFilter = LocalFromCommongetDirectoriesWithDataAsTree[LoopFolderName][LoopFileName][LoopItemName][LoopInsideValueTocheck];
-        if (typeof LoopInsideFilter === "undefined") {
-            return {
-                DisplayName: element.DisplayName,
-                DataAttribute: element.DataAttribute,
-                ServerSideCheck: false
-            };
-        };
-        return {
-            DisplayName: element.DisplayName,
-            DataAttribute: element.DataAttribute,
-            ServerSideCheck: true
-        };
+    let LocalReturnArray = CommonForSubTable.StartFunc({
+        inConfigData: LocalFromCommonFromConfigFolder.JsonData,
+        inDataPK: LocalinDataPK,
+        inDataToInsert,
+        inDirectoriesWithDataAsTree: LocalFromCommongetDirectoriesWithDataAsTree
     });
 
     return LocalReturnArray;
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'K10') {
+    if (CommonMock.MockKey === 'K12') {
         let LocalMockData = require('./SubTableCheck.json');
 
         let LocalData = StartFunc({
             inDataPK: CommonMock.DataPK,
             ...LocalMockData
         });
-        console.log('LocalData : ', LocalData);
+        console.log('LocalData : ', LocalData.ServerSideCheck[0].SubTableColumns);
 
     };
 };
