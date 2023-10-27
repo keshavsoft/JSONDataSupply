@@ -38,6 +38,13 @@
             "Format": "",
             "Type": "",
             "Transform": false
+        },
+        "DefaultShowData": {
+            "FolderName": "",
+            "FileName": "",
+            "ItemName": "",
+            "CheckColumnName": "",
+            "FilterString": ""
         }
     },
     "Footer": {
