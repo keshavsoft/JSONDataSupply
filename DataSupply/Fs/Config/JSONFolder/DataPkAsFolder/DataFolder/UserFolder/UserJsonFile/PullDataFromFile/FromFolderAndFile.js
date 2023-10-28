@@ -14,8 +14,10 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
         inDataPK: LocalinDataPK
     });
 
+    LocalReturnData = { ...LocalFromCommonFromCheck };
+    LocalReturnData.KTF = false;
+
     if (LocalFromCommonFromCheck.KTF === false) {
-        LocalReturnData.KReason = LocalFromCommonFromCheck.KReason;
         return LocalReturnData;
     };
 
