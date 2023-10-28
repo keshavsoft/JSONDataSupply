@@ -4,7 +4,7 @@ let CommonPullDataFromConfig = require("../../../../../../PullData/AsJson");
 let CommonFromPushData = require("../../../../../../PushData/FromFoldFile");
 
 let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, subtablecolumnkey, DataAttribute, BodyAsJson }) => {
-    const LocalDataToUpdate = (({ FolderName, FileName, ItemName, CheckColumnName, FilterString }) => ({ FolderName, FileName, ItemName, CheckColumnName, FilterString }))(BodyAsJson);
+    const LocalDataToUpdate = (({ FolderName, FileName, ItemName, CheckColumnName, FilterString, MinFloat, MaxFloat }) => ({ FolderName, FileName, ItemName, CheckColumnName, FilterString, MinFloat, MaxFloat }))(BodyAsJson);
     let LocalinDataPK = DataPK;
 
     let inJsonConfig = { inFolderName: FolderName, inJsonFileName: FileName }
@@ -34,6 +34,8 @@ let Update = async ({ DataPK, FolderName, FileName, ItemName, ScreenName, subtab
                         LocalFindColumnObject.ServerSide.DefaultShowData.FileName = LocalDataToUpdate.FileName;
                         LocalFindColumnObject.ServerSide.DefaultShowData.ItemName = LocalDataToUpdate.ItemName;
                         LocalFindColumnObject.ServerSide.DefaultShowData.CheckColumnName = LocalDataToUpdate.CheckColumnName;
+                        LocalFindColumnObject.ServerSide.DefaultShowData.MinFloat = LocalDataToUpdate.MinFloat;
+                        LocalFindColumnObject.ServerSide.DefaultShowData.MaxFloat = LocalDataToUpdate.MaxFloat;
                         LocalFindColumnObject.ServerSide.DefaultShowData.FilterString = LocalDataToUpdate.FilterString;
 
                         LocalFromUpdate = await CommonFromPushData.StartFunc({
