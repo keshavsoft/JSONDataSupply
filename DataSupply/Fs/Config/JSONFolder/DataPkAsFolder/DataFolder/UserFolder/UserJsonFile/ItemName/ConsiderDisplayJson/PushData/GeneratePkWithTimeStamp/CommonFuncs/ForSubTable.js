@@ -1,10 +1,6 @@
 function getDifferenceInDays(date1, date2) {
-    const LocalHoursDiff = date1-date2;
-    return LocalHoursDiff / (1000 * 60 * 60);
-
-    console.log("-----------",LocalHoursDiff);
-    const diffInMs = Math.abs(date2 - date1);
-    return diffInMs / (1000 * 60 * 60);
+    const LocalHoursDiff = date1 - date2;
+    return LocalHoursDiff / 1000;
 }
 
 let LocalFuncForConfigColumns = ({ inTableColumns, inMainKey, inDataToInsert, inDirectoriesWithDataAsTree }) => {
@@ -19,21 +15,27 @@ let LocalFuncForConfigColumns = ({ inTableColumns, inMainKey, inDataToInsert, in
         let LoopCheckColumnName = element.ServerSide.DefaultShowData.CheckColumnName;
         let LocalFilterString = element.ServerSide.DefaultShowData.FilterString;
 
+        let LocalMinFloat = element.ServerSide.DefaultShowData.MinFloat;
+        let LocalMaxFloat = element.ServerSide.DefaultShowData.MaxFloat;
+
         let LoopItemData = inDirectoriesWithDataAsTree[LoopFolderName][LoopFileName][LoopItemName];
         const arr = Object.values(LoopItemData).map(LoopValues => new Date(LoopValues[inMainKey][LoopCheckColumnName]));
 
-        const maxDate = new Date(Math.max.apply(null, arr));
-        const dateDiffHours = getDifferenceInDays(new Date(inDataToInsert[element.DataAttribute]), maxDate);
+        if (arr.length > 0) {
+            const maxDate = new Date(Math.max.apply(null, arr));
+            const dateDiffHours = getDifferenceInDays(new Date(inDataToInsert[element.DataAttribute]), maxDate);
 
-        console.log("arr : ", maxDate, dateDiffHours);
+            // console.log("arr : ", arr, dateDiffHours, LocalMinFloat, LocalMaxFloat);
 
-        if (dateDiffHours < LocalFilterString) {
-            return {
-                KInfo: `Maximum Date : ${maxDate}, HoursDiff : ${dateDiffHours}`,
-                DisplayName: element.DisplayName,
-                DataAttribute: element.DataAttribute,
-                ServerSideCheck: true
+            if ((dateDiffHours > LocalMinFloat && dateDiffHours < LocalMaxFloat) === false) {
+                return {
+                    KInfo: `Maximum Date : ${maxDate}, HoursDiff : ${dateDiffHours}`,
+                    DisplayName: element.DisplayName,
+                    DataAttribute: element.DataAttribute,
+                    ServerSideCheck: true
+                };
             };
+
         };
         // let LoopInsideFilter = arr.find(LoopValues => getDifferenceInDays(new Date(inDataToInsert[element.DataAttribute]), new Date(LoopValues[inMainKey][LoopCheckColumnName])) > LocalFilterString);
 
@@ -96,7 +98,7 @@ let LocalFuncForConfigColumns1 = ({ inTableColumns, inMainKey, inDataToInsert, i
 
 let StartFunc = ({ inConfigData, inDataToInsert, inDirectoriesWithDataAsTree }) => {
     let LocalConfigData = inConfigData;
-    let k2=[];
+    let k2 = [];
     if ("SubTableColumns" in LocalConfigData) {
         let LocalSubTableColumns = LocalConfigData.SubTableColumns;
 

@@ -18,7 +18,7 @@
                 "Rate": 60,
                 "DisPer": 0,
                 "AddOn": "0-0",
-                "DeliveryDateTime": "2023-11-01T09:00:14",
+                "DeliveryDateTime": "2023-11-01T09:03:14",
                 "Total": 60
             }
         },
@@ -28,7 +28,7 @@
         },
         "OrderData": {
             "BranchName": "Kakinada",
-            "Currentdateandtime": "2023-10-27T09:02:14"
+            "Currentdateandtime": "2023-10-25T09:10:14"
         },
         "AddOnData": {},
         "CheckOutData": {}
