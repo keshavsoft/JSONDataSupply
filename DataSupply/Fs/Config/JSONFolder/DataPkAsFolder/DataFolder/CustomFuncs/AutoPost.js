@@ -2,7 +2,6 @@
 let CommonMaguva = require("./Clients/Maguva/EntryFile");
 let CommonWashtex = require("./Clients/Washtex/EntryFile");
 let CommonCleaning = require("./Clients/CleaningFromFile/EntryFile");
-// let CommonCleaning = require("../UserFolder/UserJsonFile/ItemName/PushData/OnlyTimeStamp/OnlyTimeStamp")
 
 let StartFunc = async ({ inClientName, inPurchasePK, inFileNameOnly, inDataPk }) => {
     switch (inClientName) {

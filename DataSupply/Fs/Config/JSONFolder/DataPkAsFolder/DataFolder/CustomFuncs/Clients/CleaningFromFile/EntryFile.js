@@ -7,6 +7,7 @@ let CommonDataFolderPushData = require("../../../../DataFolder/UserFolder/UserJs
 let CommonFromQrCodes = require("./FromQrCodes");
 
 let CommonMock = require("../../../../../../../../MockAllow.json");
+let CommonCleaning = require("../../../UserFolder/UserJsonFile/ItemName/PushData/GeneratePkWithTimeStamp/EntryFile")
 
 let StartFunc = async ({ inPurchasePK, inFileNameOnly, inDataPk }) => {
     let localDatapk = inDataPk;
@@ -43,7 +44,28 @@ let StartFunc = async ({ inPurchasePK, inFileNameOnly, inDataPk }) => {
                     }
                 );
 
-                CommonDataFolderPushData.StartFuncNoAsync({
+                // CommonDataFolderPushData.StartFuncNoAsync({
+                //     inFolderName: "QrCodes",
+                //     inFileNameOnly: "Generate",
+                //     inItemName: "Barcodes",
+                //     inDataPK: localDatapk,
+                //     inDataToInsert: {
+                //         GenerateReference: {
+                //             ReferncePk: LocalinPurchasePk,
+                //             FileNameOnly: LocalFileNameOnly
+                //         },
+                //         ...InvGridvalue,
+                //         BookingData: {
+                //             CustomerData: LocalPurchasePK.CustomerData,
+                //             OrderData: LocalPurchasePK.OrderData,
+                //             AddOnData: LoopInsideAddOn.filter(element => {
+                //                 return element.AddOnItemSerial === InvGridvalue.ItemSerial;
+                //             }),
+                //             CheckOutData: LocalPurchasePK.CheckOutData
+                //         }
+                //     }
+                // });
+                 CommonCleaning.StartFunc({
                     inFolderName: "QrCodes",
                     inFileNameOnly: "Generate",
                     inItemName: "Barcodes",
@@ -100,20 +122,7 @@ let LocalAfterPost = ({ inDataPk }) => {
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'hello1') {
-        let LocalMockData = require('./EntryFile.json');
-
-        let Output = StartFunc({
-            inDataPk: CommonMock.DataPK,
-            ...LocalMockData
-        });
-        console.log('Output : ', Output);
-
-    };
-};
-
-if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'hell') {
+    if (CommonMock.MockKey === 'K12') {
         let LocalMockData = require('./EntryFile.json');
 
         StartFunc({
