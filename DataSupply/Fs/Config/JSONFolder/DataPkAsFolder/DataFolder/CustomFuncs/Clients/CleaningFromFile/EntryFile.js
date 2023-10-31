@@ -19,17 +19,11 @@ let StartFunc = async ({ inPurchasePK, inFileNameOnly, inDataPk }) => {
         inDataPk: localDatapk
     });
 
-    let LocalReturnObject = {
-        ...LocalCheckFunc
-    };
+    let LocalReturnObject = { ...LocalCheckFunc };
 
     LocalReturnObject.KTF = false;
 
-    if (LocalCheckFunc.KTF === false) {
-        return LocalReturnObject;
-    };
-
-    // Object.seal(LocalReturnObject);
+    if (LocalCheckFunc.KTF === false) return LocalReturnObject;
 
     let LocalPurchasePK = LocalReturnObject.PurchasePk;
 
@@ -84,7 +78,6 @@ let StartFunc = async ({ inPurchasePK, inFileNameOnly, inDataPk }) => {
     let QrCodesAfter = LocalAfterPost({ inDataPk: localDatapk });
 
     LocalReturnObject.KTF = true;
-    // LocalReturnObject.QrCodesRaised = parseInt(parseInt(QrCodesAfter) - parseInt(QrCodesBefore));
 
     LocalReturnObject.QrCodesRaised = QrCodesAfter - QrCodesBefore;
     delete LocalReturnObject.PurchasePk;
