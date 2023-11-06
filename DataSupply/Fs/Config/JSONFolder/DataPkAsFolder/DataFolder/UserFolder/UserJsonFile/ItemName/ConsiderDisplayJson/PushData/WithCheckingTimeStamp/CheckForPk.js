@@ -150,8 +150,11 @@ let LocalFuncConfigColumns = ({ inFolderName, inFileNameWithExtension, inItemNam
         let LoopFileName = element.ServerSide.DefaultShowData.FileName;
         let LoopItemName = element.ServerSide.DefaultShowData.ItemName;
         let LoopInsideValueTocheck = InDataToInsert[element.DataAttribute];
-
-        let LoopInsideFilter = LocalFromCommongetDirectoriesWithDataAsTree[LoopFolderName][LoopFileName][LoopItemName][LoopInsideValueTocheck];
+        let LoopFilterString = element.ServerSide.DefaultShowData.FilterString;
+        let LoopInsideDataNeeded =  LocalFromCommongetDirectoriesWithDataAsTree[LoopFolderName][LoopFileName][LoopItemName];
+        let LoopInsideFilter = Object.entries(LoopInsideDataNeeded).find(element => eval(LoopFilterString));
+        
+        // let LoopInsideFilter = LocalFromCommongetDirectoriesWithDataAsTree[LoopFolderName][LoopFileName][LoopItemName][LoopInsideValueTocheck];
         if (typeof LoopInsideFilter === "undefined") {
             return {
                 DisplayName: element.DisplayName,
