@@ -6,7 +6,7 @@ let CommonMock = require("../../../../../../../../../../../MockAllow.json");
 let CommongetDirectoriesWithDataAsTree = require("../../../../../../getDirectoriesWithDataAsTree");
 
 
-let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inDataToInsert }) => {
+let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDataPK, inDataToInsert, inDatakUserName }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
@@ -17,6 +17,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
 
 
     let LocalinDataPK = inDataPK;
+    let LocalinDatakUserName = inDatakUserName;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
     let LocalFromCommonFromCheck = CommonFromPullDataFromFile.StartFunc({
@@ -73,7 +74,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inScreenName, inDat
     };
 
     let localDataInsert = ComonTimestamp.StartFunc({ inDataToInsert: LocalNewObject });
-
+    localDataInsert.kUserName = LocalinDatakUserName;
     LocalFromCommonFromCheck.JsonData[LocalinItemName][localpk] = localDataInsert;
 
     let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
