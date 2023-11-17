@@ -54,10 +54,10 @@ let ForExistence = ({ inFolderName, inDataPK }) => {
         if (fs.statSync(LocalReturnData.FolderPath).isDirectory()) {
             LocalReturnData.KTF = true;
         } else {
-            LocalReturnData.KReason = "File not found!";
+            LocalReturnData.KReason = `Folder ${inFolderName} not found!`;
         }
     } catch (error) {
-        LocalReturnData.KReason = "File not found!";
+        LocalReturnData.KReason = `Folder ${inFolderName} not found!`;
         LocalReturnData.KReason = error;
     };
 
