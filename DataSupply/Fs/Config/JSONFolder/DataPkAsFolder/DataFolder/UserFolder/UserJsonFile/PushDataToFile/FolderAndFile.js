@@ -47,7 +47,7 @@ let InsertToJsonNoAsync = ({ inFolderName, inFileNameOnly, inOriginalData, inDat
 
     LocalReturnData.FolderPath = LocalFromCheck.FolderPath;
     LocalReturnData.UserJsonFilePath = LocalFromCheck.UserJsonFilePath;
-    console.log("nnnnnnnnnnnnnnn : ", inDataToUpdate);
+    
     if (LocalFromCheck.KTF) {
         try {
             fs.writeFileSync(LocalFromCheck.UserJsonFilePath, JSON.stringify(inDataToUpdate));
