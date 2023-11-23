@@ -1,6 +1,7 @@
 let CommonFromPushData = require("../ToPk/EntryFile");
 let CommonFromPullData = require("../../PullData/FromFolderFileItemName");
 let CommonMock = require("../../../../../../../../../../MockAllow.json");
+let ComonTimestamp = require("./TimeStamp");
 
 let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inDataPK }) => {
 
@@ -9,7 +10,6 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inD
     let LocalinItemName = inItemName;
     let LocalinDataPK = inDataPK;
     let LocalinDataToInsert = inDataToInsert;
-    LocalinDataToInsert.UserPK = inDataPK;
 
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
@@ -40,6 +40,9 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inD
 
         return LocalReturnData;
     };
+    let localDataInsert = ComonTimestamp.StartFunc({ inDataToInsert: LocalinDataToInsert });
+    localDataInsert.UserPK = inDataPK;
+    localDataInsert.pk = LocalMax;
 
     if ((LocalMax in LocalNewData) === false) {
         let LocalFromCommonFromPushDataToFile = CommonFromPushData.StartFunc({
@@ -47,7 +50,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inD
             inFileNameOnly: LocalinFileNameOnly,
             inItemName: LocalinItemName,
             inpk: LocalMax,
-            inDataToInsert: LocalinDataToInsert,
+            inDataToInsert: localDataInsert,
             inDataPK: LocalinDataPK
         });
 
