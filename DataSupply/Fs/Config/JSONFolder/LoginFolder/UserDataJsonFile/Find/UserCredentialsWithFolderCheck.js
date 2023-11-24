@@ -1,5 +1,6 @@
 let CommonFromFromJson = require("../PullDataFromFile/FromJson")
 let CommonCheck = require("../../../DataPkAsFolder/Check");
+let CommonMock = require("../../../../../../MockAllow.json");
 
 let StartFunc = ({ inUserName, inPassWord }) => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
@@ -44,6 +45,19 @@ let StartFunc = ({ inUserName, inPassWord }) => {
     LocalReturnData.KTF = true;
 
     return LocalReturnData;
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K24') {
+        let LocalMockData = require('./UserCredentialsWithFolderCheck.json');
+
+        let LocalData = StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        });
+        console.log('LocalData : ', LocalData);
+
+    };
 };
 
 module.exports = { StartFunc };
