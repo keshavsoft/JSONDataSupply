@@ -1,6 +1,8 @@
 let CommonFromFromJson = require("../PullDataFromFile/FromJson")
 let CommonCheck = require("../../../DataPkAsFolder/Check");
 let CommonMock = require("../../../../../../MockAllow.json");
+//let CommonItemNameAsArray = require("../../../DataPkAsFolder/DataFolder/UserFolder/UserJsonFile/ItemName/PushData/ItemNameInsert/ItemNameAsArray");
+let CommonCreateFileOnly = require("../../../DataPkAsFolder/DataFolder/UserFolder/UserJsonFile/PushDataToFile/CreateFileOnly");
 
 let StartFunc = ({ inUserName, inPassWord }) => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
@@ -44,7 +46,39 @@ let StartFunc = ({ inUserName, inPassWord }) => {
     LocalReturnData.DataPkFolderFound = true;
     LocalReturnData.KTF = true;
 
+    LocalFuncToWebSocketAsFile({ inDataPK: LocalDataPkNeeded });
+
     return LocalReturnData;
+};
+
+let LocalFuncToWebSocket = ({ inDataPK }) => {
+    let LocalFolderName = "ForChat";
+    //let LocalFileNameOnly = "ConnectedClients";
+
+    let LocalFileNameOnly = "ConnectedClients";
+
+    let LocalItemName = process.env.UUID;
+
+    CommonItemNameAsArray.StartFuncNoAsync({
+        inFolderName: LocalFolderName,
+        inFileNameOnly: LocalFileNameOnly,
+        inItemName: LocalItemName, inDataPK
+    });
+};
+
+let LocalFuncToWebSocketAsFile = ({ inDataPK }) => {
+    let LocalFolderName = "ForChat";
+    //let LocalFileNameOnly = "ConnectedClients";
+
+    let LocalFileNameOnly = process.env.UUID;
+
+    // let LocalItemName = process.env.UUID;
+
+    CommonCreateFileOnly.StartFunc({
+        inFolderName: LocalFolderName,
+        inFileNameOnly: LocalFileNameOnly,
+        inDataPK
+    });
 };
 
 if (CommonMock.AllowMock) {
