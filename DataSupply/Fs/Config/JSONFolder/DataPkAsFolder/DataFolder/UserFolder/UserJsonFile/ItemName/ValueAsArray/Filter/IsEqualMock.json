@@ -1,0 +1,8 @@
+{
+    "inFileNameOnly": "3941185a-be69-4b1e-8941-589af1175b65",
+    "inFolderName": "ForChat",
+    "inItemName": "84f62197-4285-4183-8033-d13ca687bbf2",
+    "inColumnName": "Chat",
+    "inValueToCheck": "LoopItem.Type === 'OneToOneMessage'"
+    
+}
