@@ -3,11 +3,12 @@ let CommonFromCheckImagePath = require("./CheckImagePath");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        
         let inDataToInsert = {};
+
         inDataToInsert.CustomerName = req.body.CustomerName;
         inDataToInsert.Mobile = req.body.Mobile;
         inDataToInsert.City = req.body.City;
+
         let LocalFromCommonFromCheck = CommonFromCheckImagePath.StartFunc({
             inFolderName: req.body.inFolderName,
             inFileNameOnly: req.body.inFileNameOnly,
@@ -17,11 +18,15 @@ var storage = multer.diskStorage({
         });
 
         if (LocalFromCommonFromCheck.KTF) {
+            req.MulterSuccess = true;
+            req.FromDataSupply = { ...LocalFromCommonFromCheck };
+
             cb(null, LocalFromCommonFromCheck.RowPkAsFolderPath);
         };
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname);
+        console.log("file.originalname : ", file.originalname);
+        cb(null, `${file.originalname}.jpg`);
     }
 });
 

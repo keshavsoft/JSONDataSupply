@@ -21,6 +21,8 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inD
         inDataPK: LocalinDataPK
     });
 
+    LocalReturnData = { ...LocalFromCommonCommonCreate };
+    LocalReturnData.KTF = false;
 
     if (LocalFromCommonCommonCreate.KTF === false) {
         return LocalReturnData;
@@ -39,6 +41,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inD
             recursive: true
         });
 
+        delete LocalReturnData.JsonDataFromItem;
         LocalReturnData.KTF = true;
     } catch (error) {
         LocalReturnData.KReason = "Images Folder not found!";

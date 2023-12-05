@@ -20,12 +20,14 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inD
         inDataPK: LocalinDataPK
     });
 
+    LocalReturnData = { ...LocalFromCommonCommonCreate };
+    LocalReturnData.KTF = false;
 
     if (LocalFromCommonCommonCreate.KTF === false) {
         return LocalReturnData;
     };
 
-    LocalReturnData.RowPkAsFolderPath = LocalFromCommonCommonCreate.RowPkAsFolderPath;
+    // LocalReturnData.RowPkAsFolderPath = LocalFromCommonCommonCreate.RowPkAsFolderPath;
 
     try {
         if (fs.statSync(LocalReturnData.RowPkAsFolderPath).isDirectory()) {
