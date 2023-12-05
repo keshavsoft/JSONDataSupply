@@ -11,6 +11,8 @@ let StartFunc = ({ inUserName, inPassword }) => {
 
     if (LocalPullData.KTF === false) {
         let LocalFromFind = CommonFind.StartFunc({ inUserName, inPassWord: inPassword });
+        LocalReturnObject = { ...LocalFromFind };
+        LocalReturnObject.KTF = false;
 
         if (LocalFromFind.KTF && LocalFromFind.DataPkFolderFound) {
             delete LocalReturnObject.JsonData;
@@ -34,16 +36,17 @@ let StartFunc = ({ inUserName, inPassword }) => {
 
     LocalReturnObject.KTF = true;
     LocalReturnObject.NewDataPk = LocalNewPk;
+    LocalReturnObject.RedirectPage = LocalFromCreation.JsonData.Firm.Config.Ui.Login.RedirectPage;
+    delete LocalReturnObject.JsonData
 
     return LocalReturnObject;
 };
 
 if (CommonMock.AllowMock) {
-    if (CommonMock.MockKey === 'K2') {
+    if (CommonMock.MockKey === 'K66') {
         let LocalMockData = require('./Cleaning.json');
 
         let LocalData = StartFunc({
-            inDataPK: CommonMock.DataPK,
             ...LocalMockData
         });
         console.log('LocalData : ', LocalData);

@@ -1,6 +1,7 @@
 let CommonFromFromJson = require("../PullDataFromFile/FromJson")
 let CommonCheck = require("../../../DataPkAsFolder/Check");
 let CommonMock = require("../../../../../../MockAllow.json");
+let CommonFirmDetailsJsonFile = require("../../../DataPkAsFolder/FirmDetailsJsonFile/PullDataFromFile/FromJson");
 
 let StartFunc = ({ inUserName, inPassWord }) => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
@@ -31,7 +32,9 @@ let StartFunc = ({ inUserName, inPassWord }) => {
 
     let LocalDataPkNeeded = Object.keys(localCommonFromJson.JsonData.data)[LocalFindIndex];
 
-    let LocalFromCheck = CommonCheck.ForExistence({ inDataPK: LocalDataPkNeeded });
+    // let LocalFromCheck = CommonCheck.ForExistence({ inDataPK: LocalDataPkNeeded });
+
+    let LocalFromCheck = CommonFirmDetailsJsonFile.StartFunc({ inDataPK: LocalDataPkNeeded });
 
     LocalReturnData = { ...LocalFromCheck };
     LocalReturnData.KTF = false;
@@ -41,6 +44,9 @@ let StartFunc = ({ inUserName, inPassWord }) => {
     };
 
     LocalReturnData.kPK = parseInt(LocalDataPkNeeded);
+    LocalReturnData.RedirectPage = LocalFromCheck.JsonData.Firm.Config.Ui.Login.RedirectPage;
+    delete LocalReturnData.JsonData;
+    // LocalReturnData.JsonData.Firm.Config.Ui.Login.RedirectPage = LocalFromCheck.RedirectPage;
     LocalReturnData.DataPkFolderFound = true;
     LocalReturnData.KTF = true;
 

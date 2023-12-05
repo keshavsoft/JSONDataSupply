@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 
 let CommonMock = require("../../../../../../../../MockAllow.json");
 let CommonFind = require("../../../Find/Find");
+let CommonFirmDetailsJsonFile = require("../../../../../DataPkAsFolder/FirmDetailsJsonFile/PullDataFromFile/FromJson");
 
 let StartFunc = ({ inDataPK }) => {
     let LocalDataPK = inDataPK;
@@ -26,8 +27,18 @@ let StartFunc = ({ inDataPK }) => {
         } else {
             fs.copySync(LocalFromPath, LocalFolderPath);
 
+            let LocalFromFirmDetails = CommonFirmDetailsJsonFile.StartFunc({ inDataPK: LocalDataPK });
+            
+            LocalReturnObject = { ...LocalFromFirmDetails };
+            LocalReturnObject.KTF = false;
+        
+            if (LocalFromFirmDetails.KTF === false) {
+                delete LocalReturnObject.JsonData;
+                return LocalReturnObject;
+            };
+
             LocalReturnObject.KTF = true;
-            delete LocalReturnObject.JsonData;
+           // delete LocalReturnObject.JsonData;
         };
     } catch (error) {
         console.log("error : ", error);
@@ -35,27 +46,6 @@ let StartFunc = ({ inDataPK }) => {
 
     return LocalReturnObject;
 };
-
-// let StartFunc1 = async ({ inUserPK }) => {
-//     let LocalReturnData = { KTF: false, KReason: "" };
-//     try {
-//         let GlobalDataPath = CommonAbsolutePath.ReturnAbsolutePathOfPresentApp({});
-//         let LocalFolderPath = `${GlobalDataPath}/${inUserPK}`
-//         let LocalFromPath = `${GlobalDataPath}/TemplateDatas/ForLaundry/3016`;
-
-//         if (fs.existsSync(LocalFolderPath)) {
-//             LocalReturnData.KReason = "Data is already present on the server";
-//         } else {
-//             fs.copySync(LocalFromPath, LocalFolderPath);
-
-//             LocalReturnData.KTF = true;
-//         };
-//     } catch (error) {
-//         console.log("error : ", error);
-//     };
-
-//     return await LocalReturnData;
-// };
 
 if (CommonMock.AllowMock) {
     if (CommonMock.MockKey === 'K24') {

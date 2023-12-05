@@ -1,5 +1,6 @@
 let fs = require("fs");
 let CommonFromCheck = require("../Check");
+let CommonMock = require("../../../../../../MockAllow.json");
 
 let StartFunc = ({ inDataPK }) => {
     let LocalinDataPK = inDataPK;
@@ -27,9 +28,14 @@ let StartFunc = ({ inDataPK }) => {
     return LocalReturnData;
 };
 
-let LocalMockFroStartFunc = async () => {
-    let result = await StartFunc({ inDataPK: 16 });
-    console.log("result : ", result);
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K04') {
+        let LocalData = StartFunc({
+            inDataPK: CommonMock.DataPK
+        });
+        console.log('LocalData : ', LocalData);
+
+    };
 };
 
 // LocalMockFroStartFunc().then();

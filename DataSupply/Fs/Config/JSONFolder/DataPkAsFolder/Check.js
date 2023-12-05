@@ -1,5 +1,7 @@
 let fs = require("fs");
 let CommonCheck = require("../Check");
+// let CommonFirmDetailsJsonFile = require("./FirmDetailsJsonFile/PullDataFromFile/FromJson");
+let CommonMock = require("../../../../MockAllow.json");
 
 let ForExistence = ({ inDataPK }) => {
     let LocalReturnData = { KTF: false, JSONFolderPath: "", CreatedLog: {} };
@@ -14,9 +16,19 @@ let ForExistence = ({ inDataPK }) => {
     if (LocalFromForFolderExistence.KTF === false) {
         return LocalReturnData;
     };
-
+    console.log("JsonData :----------- ");
     try {
         if (fs.statSync(LocalReturnData.DataPKPath).isDirectory()) {
+
+            // console.log("JsonData :-----------11111111111 ");
+
+            // let LocalFirmDetailsJsonFile = CommonFirmDetailsJsonFile.StartFunc({ inDataPK });
+            // console.log("LocalFirmDetailsJsonFile : ", LocalFirmDetailsJsonFile);
+
+            // if (LocalFirmDetailsJsonFile.KTF) {
+            //     console.log("JsonData : ", LocalFirmDetailsJsonFile.JsonData.Firm);
+            // };
+
             LocalReturnData.KTF = true;
         } else {
             LocalReturnData.KReason = `DataPK : ${inDataPK}: Folder not found!`;
@@ -28,7 +40,14 @@ let ForExistence = ({ inDataPK }) => {
     return LocalReturnData;
 };
 
-// let LocalMockForExistence = ForExistence({ inDataPK: 16 });
-// console.log("LocalMockForExistence : ", LocalMockForExistence);
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K05') {
+        let LocalData = ForExistence({
+            inDataPK: CommonMock.DataPK
+        });
+        console.log('LocalData : ', LocalData);
+
+    };
+};
 
 module.exports = { ForExistence };
