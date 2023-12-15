@@ -3,29 +3,33 @@ let CommonFromCheckImagePath = require("./CheckImagePath");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
+        let LocalFolderName = req.body.inFolderName;
+        let LocalFileNameOnly = req.body.inFileNameOnly;
+        let LocalItemName = req.body.inItemName;
+        let LocalDataPK = req.KeshavSoft.DataPk;
+
         let inDataToInsert = {};
 
-        inDataToInsert.CustomerName = req.body.CustomerName;
-        inDataToInsert.Mobile = req.body.Mobile;
-        inDataToInsert.City = req.body.City;
+        inDataToInsert = JSON.parse(req.body.UserData);
 
         let LocalFromCommonFromCheck = CommonFromCheckImagePath.StartFunc({
-            inFolderName: req.body.inFolderName,
-            inFileNameOnly: req.body.inFileNameOnly,
-            inItemName: req.body.inItemName,
+            inFolderName: LocalFolderName,
+            inFileNameOnly: LocalFileNameOnly,
+            inItemName: LocalItemName,
             inDataToInsert: inDataToInsert,
-            inDataPK: req.KeshavSoft.DataPk
+            inDataPK: LocalDataPK
         });
 
         if (LocalFromCommonFromCheck.KTF) {
             req.MulterSuccess = true;
-            req.FromDataSupply = { ...LocalFromCommonFromCheck };
+            req.FromDataSupply = {};
+            req.FromDataSupply.KTF = LocalFromCommonFromCheck.KTF;
+            req.FromDataSupply.NewRowPK = LocalFromCommonFromCheck.NewRowPK;
 
             cb(null, LocalFromCommonFromCheck.RowPkAsFolderPath);
         };
     },
     filename: function (req, file, cb) {
-        console.log("file.originalname : ", file.originalname);
         cb(null, `${file.originalname}.jpg`);
     }
 });
