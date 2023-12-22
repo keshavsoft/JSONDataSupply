@@ -1,5 +1,6 @@
 let CommonFromPullDataFromFile = require("../../../PullDataFromFile/FromFolderAndFile");
 let CommonFromPushDataToFile = require("../../../PushDataToFile/FolderAndFile");
+let CommonMock = require("../../../../../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inItemNameContent }) => {
     let LocalinFolderName = inFolderName;
@@ -43,6 +44,19 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inItemNam
     LocalReturnData.KTF = true;
 
     return LocalReturnData;
+};
+
+if (CommonMock.AllowMock) {
+    if (CommonMock.MockKey === 'K22') {
+        let LocalMockData = require('./WithContent.json');
+
+        let LocalData = StartFunc({
+            inDataPK: CommonMock.DataPK,
+            ...LocalMockData
+        });
+        console.log('LocalData : ', LocalData);
+
+    };
 };
 
 module.exports = { StartFunc };
