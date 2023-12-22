@@ -2,10 +2,11 @@ let CommonFromPullDataFromFile = require("../../../PullDataFromFile/FromFolderAn
 let CommonFromPushDataToFile = require("../../../PushDataToFile/FolderAndFile");
 let CommonMock = require("../../../../../../../../../../MockAllow.json");
 
-let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert, inpk }) => {
+let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToInsert }) => {
     let LocalinFolderName = inFolderName;
     let LocalinFileNameOnly = inFileNameOnly;
     let LocalinItemName = inItemName;
+    let LocalDataToInsert = inDataToInsert;
 
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
@@ -26,7 +27,12 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToI
         return LocalReturnData;
     };
 
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][inpk] = inDataToInsert;
+    let LocalItemNameValue = LocalFromCommonFromCheck.JsonData[LocalinItemName];
+
+    LocalFromCommonFromCheck.JsonData[LocalinItemName] = {
+        ...LocalItemNameValue,
+        ...LocalDataToInsert
+    };
 
     let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
         inFolderName: LocalinFolderName,
@@ -43,7 +49,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToI
 
 if (CommonMock.AllowMock) {
     if (CommonMock.MockKey === 'K22') {
-        let LocalMockData = require('./EntryFile.json');
+        let LocalMockData = require('./SpreadObject.json');
 
         let LocalData = StartFunc({
             inDataPK: CommonMock.DataPK,

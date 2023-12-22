@@ -26,7 +26,13 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToI
         return LocalReturnData;
     };
 
-    LocalFromCommonFromCheck.JsonData[LocalinItemName][inpk] = inDataToInsert;
+    if ((inpk in LocalFromCommonFromCheck.JsonData[LocalinItemName]) === false) {
+        LocalFromCommonFromCheck.JsonData[LocalinItemName][inpk] = [];
+    };
+
+    if (Array.isArray(LocalFromCommonFromCheck.JsonData[LocalinItemName][inpk])) {
+        LocalFromCommonFromCheck.JsonData[LocalinItemName][inpk].push(inDataToInsert);
+    };
 
     let LocalFromPush = CommonFromPushDataToFile.InsertToJsonNoAsync({
         inFolderName: LocalinFolderName,
@@ -43,7 +49,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inDataToI
 
 if (CommonMock.AllowMock) {
     if (CommonMock.MockKey === 'K22') {
-        let LocalMockData = require('./EntryFile.json');
+        let LocalMockData = require('./ToArray.json');
 
         let LocalData = StartFunc({
             inDataPK: CommonMock.DataPK,

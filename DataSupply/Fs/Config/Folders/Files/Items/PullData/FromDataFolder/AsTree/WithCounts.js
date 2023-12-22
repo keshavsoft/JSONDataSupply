@@ -33,17 +33,6 @@ let StartFunc = async ({ inDataPK, inFolderName, inFileNameWithExtension }) => {
     return await LocalReturnObject;
 };
 
-let LocalMockFunc = async () => {
-    let LocalData = await StartFunc({
-        inDataPK: 1022,
-        inFolderName: "Masters",
-        inFileNameWithExtension: "Products.json"
-    });
-};
-
-// LocalMockFunc().then(P => {
-// });
-
 module.exports = {
     StartFunc
 };

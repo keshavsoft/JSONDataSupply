@@ -1,5 +1,4 @@
-let fs = require("fs");
-let CommonFromCheck = require("../Check");
+let CommonFromFolderAndFile = require("./FromFolderAndFile");
 let CommonMock = require("../../../../../../../../MockAllow.json");
 
 let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
@@ -9,7 +8,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
     let LocalinDataPK = inDataPK;
     let LocalReturnData = { KTF: false, DirPath: "", CreatedLog: {} };
 
-    let LocalFromCommonFromCheck = CommonFromCheck.ForExistence({
+    let LocalFromCommonFromCheck = CommonFromFolderAndFile.StartFunc({
         inFolderName: LocalinFolderName,
         inFileNameOnly: LocalinFileNameOnly,
         inDataPK: LocalinDataPK
@@ -22,22 +21,16 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inDataPK }) => {
         return LocalReturnData;
     };
 
-    LocalReturnData.UserJsonFilePath = LocalFromCommonFromCheck.UserJsonFilePath;
-
-    try {
-        let rawdata = fs.readFileSync(LocalReturnData.UserJsonFilePath);
-        LocalReturnData.JsonData = JSON.parse(rawdata);
-        LocalReturnData.KTF = true;
-    } catch (error) {
-        LocalReturnData.KReason = error;
-    };
+    LocalReturnData.KeysAsArray = Object.keys(LocalReturnData.JsonData);
+    delete LocalReturnData.JsonData;
+    LocalReturnData.KTF = true;
 
     return LocalReturnData;
 };
 
 if (CommonMock.AllowMock) {
     if (CommonMock.MockKey === 'K22') {
-        let LocalMockData = require('./FromFolderAndFile.json');
+        let LocalMockData = require('./KeysAsArray.json');
 
         let LocalData = StartFunc({
             inDataPK: CommonMock.DataPK,
