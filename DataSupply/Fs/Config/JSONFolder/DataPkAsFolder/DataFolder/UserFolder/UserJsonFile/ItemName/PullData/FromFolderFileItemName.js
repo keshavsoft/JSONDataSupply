@@ -24,7 +24,8 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
         return LocalReturnData;
     };
 
-    LocalReturnData.JsonData = LocalFromCommonFromCheck.JsonData[LocalinItemName];
+    // LocalReturnData.JsonData = LocalFromCommonFromCheck.JsonData[LocalinItemName];
+    delete LocalReturnData.JsonData;
     LocalReturnData.KTF = true;
 
     return LocalReturnData;
@@ -71,7 +72,7 @@ if (CommonMock.AllowMock) {
             inDataPK: CommonMock.DataPK,
             ...LocalMockData
         });
-        console.log("LocalData:",LocalData);
+        console.log("LocalData:", LocalData);
     };
 };
 

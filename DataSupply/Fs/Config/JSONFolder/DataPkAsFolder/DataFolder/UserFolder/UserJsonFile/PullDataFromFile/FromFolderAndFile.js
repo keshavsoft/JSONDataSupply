@@ -43,7 +43,7 @@ if (CommonMock.AllowMock) {
             inDataPK: CommonMock.DataPK,
             ...LocalMockData
         });
-        console.log('LocalData : ', LocalData);
+        console.log('LocalData : ', LocalData.JsonData);
 
     };
 };
