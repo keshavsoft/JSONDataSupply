@@ -31,7 +31,7 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataToInsert, inD
         return LocalReturnData;
     };
 
-    let LocalNewData = JSON.parse(JSON.stringify(LocalFromCommonFromPullData.JsonData));
+    let LocalNewData = JSON.parse(JSON.stringify(LocalFromCommonFromPullData.JsonDataFromItem));
 
     if (localpk in LocalNewData) {
         LocalReturnData.KReason = `${localpk} Already Found !`;

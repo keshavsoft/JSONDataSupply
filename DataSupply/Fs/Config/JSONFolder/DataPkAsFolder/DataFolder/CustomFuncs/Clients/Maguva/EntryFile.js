@@ -151,13 +151,13 @@ let LocalFuncForLoop_CanBeDeleted = async ({ inPurchasePK, inDataPk }) => {
 let LocalBeforePost = ({ inDataPk }) => {
     let localDatapk = inDataPk;
     let LocalQrCodeData = CommonFromQrCodes.StartFunc({ inDataPk: localDatapk });
-    return Object.keys(LocalQrCodeData.JsonData).length;
+    return Object.keys(LocalQrCodeData.JsonDataFromItem).length;
 };
 
 let LocalAfterPost = ({ inDataPk }) => {
     let localDatapk = inDataPk;
     let LocalQrCodeData = CommonFromQrCodes.StartFunc({ inDataPk: localDatapk });
-    return Object.keys(LocalQrCodeData.JsonData).length;
+    return Object.keys(LocalQrCodeData.JsonDataFromItem).length;
 
 };
 
