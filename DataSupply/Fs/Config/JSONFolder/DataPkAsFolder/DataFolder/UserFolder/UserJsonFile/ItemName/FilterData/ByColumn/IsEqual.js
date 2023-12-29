@@ -32,10 +32,10 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inColumnName, inVal
         return LocalReturnData;
     };
 
-    let LocalTotalArray = Object.keys(LocalFromCommonFromFromFolderFileItemName.JsonData).map(LoopItem => {
+    let LocalTotalArray = Object.keys(LocalFromCommonFromFromFolderFileItemName.JsonDataFromItem).map(LoopItem => {
         return {
             pk: LoopItem,
-            ...LocalFromCommonFromFromFolderFileItemName.JsonData[LoopItem]
+            ...LocalFromCommonFromFromFolderFileItemName.JsonDataFromItem[LoopItem]
         };
     });
     LocalReturnData.JsonData = _.filter(LocalTotalArray,inValueToCheck);

@@ -21,12 +21,12 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK, inJsonPk 
         return LocalReturnData;
     };
 
-    if ((inJsonPk in LocalFromCommonFromCheck.JsonData) === false) {
+    if ((inJsonPk in LocalFromCommonFromCheck.JsonDataFromItem) === false) {
         LocalReturnData.KReason = `RowPK : ${inJsonPk} is not found in data!`;
         return LocalReturnData;
     };
 
-    LocalReturnData.JsonData = LocalFromCommonFromCheck.JsonData[inJsonPk];
+    LocalReturnData.JsonData = LocalFromCommonFromCheck.JsonDataFromItem[inJsonPk];
     LocalReturnData.JsonData.pk = inJsonPk;
 
     LocalReturnData.KTF = true;
