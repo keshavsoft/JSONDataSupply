@@ -24,8 +24,8 @@ let StartFunc = ({ inFolderName, inFileNameOnly, inItemName, inDataPK }) => {
         return LocalReturnData;
     };
 
-    // LocalReturnData.JsonData = LocalFromCommonFromCheck.JsonData[LocalinItemName];
-    delete LocalReturnData.JsonData;
+    LocalReturnData.JsonData = LocalFromCommonFromCheck.JsonData[LocalinItemName];
+    // delete LocalReturnData.JsonData;
     LocalReturnData.KTF = true;
 
     return LocalReturnData;
